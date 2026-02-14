@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In | HoopDuels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="signin">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">HoopDuels</div>
+        <nav class="nav">
+          <a class="nav-link" data-nav="play" href="/">Play</a>
+          <a class="nav-link" data-nav="leaderboard" href="leaderboard.html">Leaderboard</a>
+          <a class="nav-link" data-nav="history" href="game-history.html">Game History</a>
+          <a class="nav-link" data-nav="rules" href="how-to-play.html">How to Play</a>
+          <a class="nav-link" id="auth-nav-link" data-nav="signin" href="signin.html">Sign In</a>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <h1 class="page-title">Sign In</h1>
+        <section class="card page-panel">
+          <label for="signin-username">Username</label>
+          <input id="signin-username" maxlength="24" placeholder="Enter username" style="margin: 8px 0 12px;" />
+          <p id="signin-username-error" class="field-error"></p>
+          <label for="signin-password">Password</label>
+          <input id="signin-password" type="password" maxlength="72" placeholder="Enter password" style="margin: 8px 0 12px;" />
+          <p id="signin-password-error" class="field-error"></p>
+          <div class="auth-actions">
+            <button class="btn" id="signin-btn" type="button">Sign In</button>
+          </div>
+          <p id="signin-message" class="list-empty" style="margin-top: 10px;"></p>
+        </section>
+      </main>
+    </div>
+    <script src="state.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

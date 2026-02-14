@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Play Duel | HoopDuels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="play">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">HoopDuels</div>
+        <nav class="nav">
+          <a class="nav-link" data-nav="play" href="/">Play</a>
+          <a class="nav-link" data-nav="leaderboard" href="leaderboard.html">Leaderboard</a>
+          <a class="nav-link" data-nav="history" href="game-history.html">Game History</a>
+          <a class="nav-link" data-nav="rules" href="how-to-play.html">How to Play</a>
+          <a class="nav-link" id="auth-nav-link" data-nav="signin" href="signin.html">Sign In</a>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <h1 class="page-title">Live Duel</h1>
+        <div class="duel-top-row page-panel">
+          <strong id="status-label">Waiting for match...</strong>
+          <div class="duel-top-actions">
+            <button class="btn btn-compact btn-status" id="live-badge" type="button" disabled>Offline</button>
+            <button class="btn btn-compact btn-status" id="leave-game-btn" type="button">Leave Game</button>
+          </div>
+        </div>
+
+        <section class="card page-panel" style="margin-bottom: 16px;">
+          <div class="duel-board">
+            <div class="duel-player" id="player-left">
+              <div class="duel-player-name" id="player-left-name">Player 1</div>
+              <div class="duel-player-meta">Strikes: <span id="player-left-strikes">0</span>/3</div>
+            </div>
+            <div class="duel-center">
+              <div class="duel-timer"><span id="timer">60</span>s</div>
+              <div class="duel-current">Current: <span id="current-player">-</span></div>
+            </div>
+            <div class="duel-player" id="player-right">
+              <div class="duel-player-name" id="player-right-name">Player 2</div>
+              <div class="duel-player-meta">Strikes: <span id="player-right-strikes">0</span>/3</div>
+            </div>
+          </div>
+          <div id="turn-label" style="margin-top: 12px;">Waiting for game...</div>
+          <div class="turn-row" id="guess-row" style="margin-top: 12px;">
+            <input id="guess-input" placeholder="Name a teammate..." autocomplete="off" />
+            <button class="btn" id="submit-btn" type="button">Submit Guess</button>
+          </div>
+          <div id="message" class="message"></div>
+          <button class="btn is-hidden" id="find-another-btn" type="button">Find Another Game</button>
+        </section>
+
+        <section class="card page-panel">
+          <h3>Chain</h3>
+          <ul id="history-list" class="history-list chain-list"></ul>
+        </section>
+      </main>
+    </div>
+
+    <div class="matchmaking-overlay" id="leave-game-overlay" hidden>
+      <div class="matchmaking-card">
+        <h3>Leave Game?</h3>
+        <p>If you confirm, you will return to the home page.</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn" id="leave-game-confirm-btn" type="button">Confirm</button>
+          <button class="btn" id="leave-game-cancel-btn" type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="state.js"></script>
+    <script src="app.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>

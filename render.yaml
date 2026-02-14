@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: hoopduels
+    runtime: node
+    plan: starter
+    autoDeploy: true
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /

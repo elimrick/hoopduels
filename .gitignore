@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+npm-debug.log*
+
+data/*.db
+data/*.db-shm
+data/*.db-wal
+!data/players-2000-present.json
+!data/season-sync-state.json

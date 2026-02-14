@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HoopDuels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="play">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">HoopDuels</div>
+        <nav class="nav">
+          <a class="nav-link" data-nav="play" href="/">Play</a>
+          <a class="nav-link" data-nav="leaderboard" href="leaderboard.html">Leaderboard</a>
+          <a class="nav-link" data-nav="history" href="game-history.html">Game History</a>
+          <a class="nav-link" data-nav="rules" href="how-to-play.html">How to Play</a>
+          <a class="nav-link" id="auth-nav-link" data-nav="signin" href="signin.html">Sign In</a>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <h1 class="page-title" id="home-title">Welcome!</h1>
+
+        <div class="left-grid">
+          <section class="card duel-card">
+            <div class="duel-header">
+              <h2>Duel</h2>
+              <button class="btn" id="find-game-home-btn" type="button">Find Game</button>
+            </div>
+            <div class="stats">
+              <div>
+                <div class="stat-value" id="stat-rating">-</div>
+                <div class="stat-label">Rank</div>
+              </div>
+              <div>
+                <div class="stat-value" id="stat-wl">0-0</div>
+                <div class="stat-label">W-L</div>
+              </div>
+              <div>
+                <div class="stat-value" id="stat-streak">0</div>
+                <div class="stat-label">Streak</div>
+              </div>
+              <div>
+                <div class="stat-value" id="stat-peak">-</div>
+                <div class="stat-label">Peak Rank</div>
+              </div>
+              <div>
+                <div class="stat-value" id="stat-best-win">-</div>
+                <div class="stat-label">Best Win</div>
+              </div>
+              <div>
+                <div class="stat-value" id="stat-longest-chain">0</div>
+                <div class="stat-label">Longest Chain</div>
+              </div>
+            </div>
+          </section>
+
+          <div class="two-col">
+            <section class="card">
+              <h3>Last 10 Games</h3>
+              <div id="history-preview" class="list-empty">No games played yet.</div>
+            </section>
+            <section class="card">
+              <h3>Leaderboard</h3>
+              <div id="leaderboard-preview" class="list-empty">No players yet.</div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="matchmaking-overlay" id="matchmaking-overlay" hidden>
+      <div class="matchmaking-card">
+        <h3>Finding Game</h3>
+        <p id="matchmaking-status">Connecting to matchmaking...</p>
+        <div class="loading-dots" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <button class="btn" id="cancel-matchmaking-btn" type="button">Cancel</button>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="state.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

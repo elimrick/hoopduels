@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How To Play | HoopDuels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="rules">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">HoopDuels</div>
+        <nav class="nav">
+          <a class="nav-link" data-nav="play" href="/">Play</a>
+          <a class="nav-link" data-nav="leaderboard" href="leaderboard.html">Leaderboard</a>
+          <a class="nav-link" data-nav="history" href="game-history.html">Game History</a>
+          <a class="nav-link" data-nav="rules" href="how-to-play.html">How to Play</a>
+          <a class="nav-link" id="auth-nav-link" data-nav="signin" href="signin.html">Sign In</a>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <h1 class="page-title">How To Play</h1>
+        <section class="card page-panel">
+          <div class="rules-simple-grid">
+            <article class="rules-simple-box">
+              <h3>Background</h3>
+              <p>HoopDuels is a live 1v1 NBA teammate-chain game.</p>
+              <p>Player pool is 2000 to present, and each game starts from a random All-Star.</p>
+            </article>
+
+            <article class="rules-simple-box">
+              <h3>How to Play</h3>
+              <ol>
+                <li>Name a teammate of the current player.</li>
+                <li>If correct, your guess becomes the new current player.</li>
+                <li>Turns alternate back and forth.</li>
+              </ol>
+            </article>
+
+            <article class="rules-simple-box">
+              <h3>Strikes</h3>
+              <ul>
+                <li>Unknown player = strike</li>
+                <li>Not a teammate = strike</li>
+                <li>Repeated player = strike</li>
+              </ul>
+            </article>
+
+            <article class="rules-simple-box">
+              <h3>How to Win</h3>
+              <ul>
+                <li>Opponent reaches 3 strikes.</li>
+                <li>Opponent runs out of the 60-second turn timer.</li>
+              </ul>
+            </article>
+
+            <article class="rules-simple-box rules-simple-wide">
+              <h3>Example</h3>
+              <p>LeBron James → Kyrie Irving → Kevin Durant → James Harden</p>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="state.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

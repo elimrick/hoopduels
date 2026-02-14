@@ -1,0 +1,22 @@
+{
+  "name": "hoopduels",
+  "version": "0.1.0",
+  "description": "Online 1v1 NBA teammate chain game",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "tunnel": "ssh -o StrictHostKeyChecking=no -R 80:localhost:3000 nokey@localhost.run",
+    "data:build": "node scripts/build-players-2000-present.js",
+    "data:refresh-full": "npm run data:build && npm run db:seed",
+    "db:seed": "node scripts/seed-players-db.js",
+    "season:sync": "node scripts/season-sync-now.js",
+    "season:sync:force": "node scripts/season-sync-now.js --force"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}

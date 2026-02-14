@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile | HoopDuels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="profile">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">HoopDuels</div>
+        <nav class="nav">
+          <a class="nav-link" data-nav="play" href="/">Play</a>
+          <a class="nav-link" data-nav="leaderboard" href="leaderboard.html">Leaderboard</a>
+          <a class="nav-link" data-nav="history" href="game-history.html">Game History</a>
+          <a class="nav-link" data-nav="rules" href="how-to-play.html">How to Play</a>
+          <a class="nav-link" id="auth-nav-link" data-nav="signin" href="signin.html">Sign In</a>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <div class="profile-page-header">
+          <h1 class="page-title profile-page-title" id="profile-page-title">Guest</h1>
+          <p class="profile-joined-text">Joined: <strong id="profile-joined">-</strong></p>
+        </div>
+
+        <section class="card page-panel duel-card profile-stats-box">
+          <div class="duel-header">
+            <h2>Stats</h2>
+          </div>
+          <div class="stats">
+            <div>
+              <div class="stat-value" id="profile-rank">-</div>
+              <div class="stat-label">Rank</div>
+            </div>
+            <div>
+              <div class="stat-value" id="profile-wl">0-0</div>
+              <div class="stat-label">W-L</div>
+            </div>
+            <div>
+              <div class="stat-value" id="profile-streak">0</div>
+              <div class="stat-label">Streak</div>
+            </div>
+            <div>
+              <div class="stat-value" id="profile-peak-rank">-</div>
+              <div class="stat-label">Peak Rank</div>
+            </div>
+            <div>
+              <div class="stat-value" id="profile-best-win">-</div>
+              <div class="stat-label">Best Win</div>
+            </div>
+            <div>
+              <div class="stat-value" id="profile-longest-chain">0</div>
+              <div class="stat-label">Longest Chain</div>
+            </div>
+          </div>
+        </section>
+        <button class="btn profile-signout-btn" id="signout-btn" type="button">Sign Out</button>
+      </main>
+    </div>
+    <script src="state.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
