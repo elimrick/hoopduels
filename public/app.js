@@ -483,10 +483,12 @@
 
     let matchmakingSocket = null;
     let isSearching = false;
+    let ignoreNextDisconnect = false;
 
     const closeOverlay = () => {
       overlay.hidden = true;
       isSearching = false;
+      ignoreNextDisconnect = true;
       if (matchmakingSocket) {
         matchmakingSocket.emit('matchmaking:leave');
         matchmakingSocket.disconnect();
@@ -527,6 +529,7 @@
         status.textContent = 'Opponent found. Entering duel...';
         setTimeout(() => {
           if (matchmakingSocket) {
+            ignoreNextDisconnect = true;
             matchmakingSocket.disconnect();
             matchmakingSocket = null;
           }
@@ -539,6 +542,10 @@
       });
 
       matchmakingSocket.on('disconnect', () => {
+        if (ignoreNextDisconnect) {
+          ignoreNextDisconnect = false;
+          return;
+        }
         if (isSearching) {
           status.textContent = 'Disconnected. Try again.';
           isSearching = false;
