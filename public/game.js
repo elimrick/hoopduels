@@ -126,8 +126,8 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
   playerLeftStrikesEl.textContent = String(left.strikes);
   playerRightStrikesEl.textContent = String(right.strikes);
 
-  const leftActive = left.playerId === activePlayerId;
-  const rightActive = right.playerId === activePlayerId;
+  const leftActive = !outcome && left.playerId === activePlayerId;
+  const rightActive = !outcome && right.playerId === activePlayerId;
   const winnerId = outcome && outcome.winnerPlayerId ? outcome.winnerPlayerId : null;
   const loserId = outcome && outcome.loserPlayerId ? outcome.loserPlayerId : null;
   playerLeftEl.classList.toggle('active', leftActive);
@@ -301,6 +301,7 @@ socket.on('game:state', (state) => {
 socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason, gameState }) => {
   stopTimer();
   timerEl.textContent = 'Game Over';
+  currentPlayerEl.textContent = reason || 'finished';
   finalWinnerPlayerId = winnerPlayerId;
   finalLoserPlayerId = loserPlayerId;
   const youWon = playerId === winnerPlayerId;
