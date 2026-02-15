@@ -2,6 +2,10 @@ const playerId = window.HoopState ? window.HoopState.getClientId() : '';
 const socket = io({ auth: { playerId } });
 
 const statusLabel = document.getElementById('status-label');
+const staleLiveBadge = document.getElementById('live-badge');
+if (staleLiveBadge) {
+  staleLiveBadge.remove();
+}
 const currentPlayerEl = document.getElementById('current-player');
 const timerEl = document.getElementById('timer');
 const turnLabel = document.getElementById('turn-label');

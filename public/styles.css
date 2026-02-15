@@ -244,6 +244,10 @@ body[data-page='play'] .two-col .card h3 {
   color: #a7f3bd;
 }
 
+#live-badge {
+  display: none !important;
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
