@@ -1,7 +1,6 @@
 (function initHoopState() {
   const TOKEN_KEY = 'hoopduels_auth_token_v1';
   const CLIENT_ID_KEY = 'hoopduels_client_id_v1';
-  const GUEST_PROFILE_KEY = 'hoopduels_guest_profile_v1';
   const LEADERBOARD_CACHE_KEY = 'hoopduels_leaderboard_cache_v1';
   const GUEST_USERNAME = 'Guest';
 
@@ -49,20 +48,7 @@
 
   const runtime = {
     token: localStorage.getItem(TOKEN_KEY) || null,
-    profile: (() => {
-      const guest = readJson(GUEST_PROFILE_KEY, null);
-      if (guest) {
-        return {
-          ...defaultProfile(GUEST_USERNAME, false),
-          ...guest,
-          signedIn: false,
-          username: GUEST_USERNAME,
-          joinedAt: null,
-          games: Array.isArray(guest.games) ? guest.games : []
-        };
-      }
-      return defaultProfile(GUEST_USERNAME, false);
-    })(),
+    profile: defaultProfile(GUEST_USERNAME, false),
     leaderboard: (() => {
       const cached = readJson(LEADERBOARD_CACHE_KEY, []);
       return Array.isArray(cached) ? cached : [];
@@ -118,9 +104,6 @@
       games: Array.isArray(profile && profile.games) ? profile.games : []
     };
 
-    if (!signedIn) {
-      writeJson(GUEST_PROFILE_KEY, runtime.profile);
-    }
   }
 
   function getProfile() {
@@ -164,7 +147,7 @@
       } catch (_) {
         runtime.token = null;
         localStorage.removeItem(TOKEN_KEY);
-        applyProfile(readJson(GUEST_PROFILE_KEY, defaultProfile(GUEST_USERNAME, false)), false);
+        applyProfile(defaultProfile(GUEST_USERNAME, false), false);
       }
     }
 
@@ -212,7 +195,7 @@
 
     runtime.token = null;
     localStorage.removeItem(TOKEN_KEY);
-    applyProfile(readJson(GUEST_PROFILE_KEY, defaultProfile(GUEST_USERNAME, false)), false);
+    applyProfile(defaultProfile(GUEST_USERNAME, false), false);
     await refreshLeaderboard();
     emitUpdated();
     return getProfile();
@@ -294,10 +277,6 @@
       profile.peakRank = profile.peakRank == null ? rankNow : Math.min(profile.peakRank, rankNow);
     }
 
-    if (!profile.signedIn) {
-      writeJson(GUEST_PROFILE_KEY, profile);
-    }
-
     emitUpdated();
     syncSignedInProfile();
     return getProfile();
@@ -305,9 +284,7 @@
 
   function saveProfile(profilePatch) {
     Object.assign(runtime.profile, profilePatch || {});
-    if (!runtime.profile.signedIn) {
-      writeJson(GUEST_PROFILE_KEY, runtime.profile);
-    } else {
+    if (runtime.profile.signedIn) {
       syncSignedInProfile();
     }
     emitUpdated();
