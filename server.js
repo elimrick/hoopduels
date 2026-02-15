@@ -16,7 +16,7 @@ const ADMIN_HEALTH_KEY = process.env.ADMIN_HEALTH_KEY || '';
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-const ONLINE_TTL_MS = 45_000;
+const ONLINE_TTL_MS = 15_000;
 const onlineVisitors = new Map();
 
 app.use(express.json({ limit: '1mb' }));
@@ -140,6 +140,16 @@ app.post('/api/online/ping', (req, res) => {
   const clientId = typeof raw === 'string' ? raw.trim().slice(0, 96) : '';
   if (clientId) {
     onlineVisitors.set(clientId, Date.now());
+  }
+  pruneOnlineVisitors();
+  res.status(204).end();
+});
+
+app.post('/api/online/bye', (req, res) => {
+  const raw = req.body && req.body.clientId;
+  const clientId = typeof raw === 'string' ? raw.trim().slice(0, 96) : '';
+  if (clientId) {
+    onlineVisitors.delete(clientId);
   }
   pruneOnlineVisitors();
   res.status(204).end();

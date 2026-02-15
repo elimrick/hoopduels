@@ -262,6 +262,8 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
       leftMetaEl.textContent = (outcome && bothRanked)
         ? `ELO: ${Math.round(leftAfter)} ${formatEloChange(leftDelta)}`
         : `ELO: ${Math.round(leftInitialElo)}`;
+    } else if (isGuestLikeName(left.username)) {
+      leftMetaEl.textContent = 'ELO: -';
     } else {
       leftMetaEl.textContent = '';
     }
@@ -271,6 +273,8 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
       rightMetaEl.textContent = (outcome && bothRanked)
         ? `ELO: ${Math.round(rightAfter)} ${formatEloChange(rightDelta)}`
         : `ELO: ${Math.round(rightInitialElo)}`;
+    } else if (isGuestLikeName(right.username)) {
+      rightMetaEl.textContent = 'ELO: -';
     } else {
       rightMetaEl.textContent = '';
     }

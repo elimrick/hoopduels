@@ -49,6 +49,12 @@
     localStorage.setItem(storageKey, JSON.stringify(value));
   }
 
+  function cacheProfileIfSignedIn() {
+    if (runtime.profile && runtime.profile.signedIn) {
+      writeJson(PROFILE_CACHE_KEY, runtime.profile);
+    }
+  }
+
   const runtime = {
     token: localStorage.getItem(TOKEN_KEY) || null,
     profile: defaultProfile(GUEST_USERNAME, false),
@@ -326,6 +332,7 @@
       profile.rank = Number(myRow.rank);
     }
 
+    cacheProfileIfSignedIn();
     emitUpdated();
     syncSignedInProfile();
     return getProfile();
@@ -333,6 +340,7 @@
 
   function saveProfile(profilePatch) {
     Object.assign(runtime.profile, profilePatch || {});
+    cacheProfileIfSignedIn();
     if (runtime.profile.signedIn) {
       syncSignedInProfile();
     }

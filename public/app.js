@@ -367,7 +367,7 @@
     const latest = values[values.length - 1];
     chartEl.innerHTML = `
       <div class="profile-elo-chart-meta">
-        <strong>ELO Trend</strong>
+        <strong>Rating Progression</strong>
         <span>${Math.round(min)} - ${Math.round(max)} (Current ${Math.round(latest)})</span>
       </div>
       <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" preserveAspectRatio="none" role="img" aria-label="ELO progression chart">
@@ -550,15 +550,34 @@
       }).catch(() => {});
     };
 
+    const bye = () => {
+      try {
+        if (navigator && typeof navigator.sendBeacon === 'function') {
+          const blob = new Blob([JSON.stringify({ clientId })], { type: 'application/json' });
+          navigator.sendBeacon('/api/online/bye', blob);
+          return;
+        }
+      } catch (_) {
+      }
+      fetch('/api/online/bye', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ clientId }),
+        keepalive: true
+      }).catch(() => {});
+    };
+
     if (presenceTimer) {
       clearInterval(presenceTimer);
       presenceTimer = null;
     }
     ping();
-    presenceTimer = setInterval(ping, 15000);
+    presenceTimer = setInterval(ping, 5000);
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) ping();
     });
+    window.addEventListener('pagehide', bye);
+    window.addEventListener('beforeunload', bye);
   }
 
   function wireSignIn() {

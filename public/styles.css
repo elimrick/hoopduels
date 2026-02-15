@@ -520,6 +520,9 @@ body[data-page='profile'] .page-panel {
 .duel-player-name {
   font-size: 24px;
   font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .duel-player-meta {
@@ -660,19 +663,24 @@ body[data-page='profile'] .page-panel {
   font-weight: 700;
 }
 
-.history-table th:nth-child(1),
-.history-table td:nth-child(1) {
-  width: 12%;
+body[data-page='history'] .history-table th:nth-child(1),
+body[data-page='history'] .history-table td:nth-child(1) {
+  width: 70px;
 }
 
-.history-table th:nth-child(3),
-.history-table td:nth-child(3) {
-  width: 12%;
+body[data-page='history'] .history-table th:nth-child(3),
+body[data-page='history'] .history-table td:nth-child(3) {
+  width: 84px;
 }
 
-.history-table th:nth-child(4),
-.history-table td:nth-child(4) {
-  width: 26%;
+body[data-page='history'] .history-table th:nth-child(4),
+body[data-page='history'] .history-table td:nth-child(4) {
+  width: 72px;
+}
+
+body[data-page='history'] .history-table th:nth-child(5),
+body[data-page='history'] .history-table td:nth-child(5) {
+  width: 122px;
   white-space: nowrap;
 }
 
@@ -728,19 +736,24 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     padding: 7px 8px;
   }
 
-  .history-table th:nth-child(1),
-  .history-table td:nth-child(1) {
-    width: 16%;
+  body[data-page='history'] .history-table th:nth-child(1),
+  body[data-page='history'] .history-table td:nth-child(1) {
+    width: 62px;
   }
 
-  .history-table th:nth-child(3),
-  .history-table td:nth-child(3) {
-    width: 16%;
+  body[data-page='history'] .history-table th:nth-child(3),
+  body[data-page='history'] .history-table td:nth-child(3) {
+    width: 76px;
   }
 
-  .history-table th:nth-child(4),
-  .history-table td:nth-child(4) {
-    width: 30%;
+  body[data-page='history'] .history-table th:nth-child(4),
+  body[data-page='history'] .history-table td:nth-child(4) {
+    width: 66px;
+  }
+
+  body[data-page='history'] .history-table th:nth-child(5),
+  body[data-page='history'] .history-table td:nth-child(5) {
+    width: 116px;
   }
 
   body[data-page='play'] .home-history-table th:nth-child(1),
@@ -1025,7 +1038,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -1px;
+    bottom: 0;
     height: 12px;
     background: linear-gradient(
       to bottom,
@@ -1083,10 +1096,10 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .main {
     padding: 16px;
-    height: calc(100vh - var(--mobile-topbar-total));
+    height: calc(100dvh - var(--mobile-topbar-total));
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 24px;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
   }
 
   .page-title {
@@ -1146,7 +1159,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .layout {
     grid-template-columns: 1fr;
-    height: 100vh;
+    height: 100dvh;
     margin-top: var(--mobile-topbar-total);
   }
 
@@ -1165,7 +1178,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     pointer-events: none;
     transition: transform 0.18s ease, opacity 0.18s ease;
     overflow-y: auto;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    border-bottom: 0;
+    box-shadow: none;
   }
 
   body.mobile-nav-open .sidebar {
@@ -1272,7 +1286,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
 .profile-elo-chart-meta strong {
   color: var(--text);
-  font-size: 18px;
+  font-size: 24px;
+  font-weight: 700;
 }
 
 .profile-elo-svg {
