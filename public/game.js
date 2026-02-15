@@ -59,6 +59,11 @@ function parseStrikeMessage(message) {
   };
 }
 
+function capitalizeFirstChar(value) {
+  if (typeof value !== 'string' || !value.length) return value || '';
+  return value[0].toUpperCase() + value.slice(1);
+}
+
 function formatEndReason(reason) {
   if (typeof reason !== 'string' || !reason.trim()) return 'Finished';
   const value = reason.trim().toLowerCase();
@@ -79,7 +84,10 @@ function renderHistory(chainPlayers, historyEntries, players) {
 
       if (entry.type === 'start') {
         li.className = 'history-item start-player';
-        li.textContent = `Start: ${entry.player || 'Unknown'}`;
+        const startLabel = document.createElement('strong');
+        startLabel.textContent = 'Start:';
+        li.appendChild(startLabel);
+        li.append(` ${entry.player || 'Unknown'}`);
       } else if (entry.type === 'guess') {
         li.className = 'history-item';
         li.textContent = entry.player || 'Unknown';
@@ -108,7 +116,10 @@ function renderHistory(chainPlayers, historyEntries, players) {
     const li = document.createElement('li');
     if (i === 0) {
       li.className = 'history-item start-player';
-      li.textContent = `Start: ${slice[i]}`;
+      const startLabel = document.createElement('strong');
+      startLabel.textContent = 'Start:';
+      li.appendChild(startLabel);
+      li.append(` ${slice[i]}`);
     } else {
       li.className = 'history-item';
       li.textContent = slice[i];
@@ -205,13 +216,10 @@ function renderGameState(state) {
 
   const isMyTurn = state.activePlayerId === playerId;
 
-  const opponent = Array.isArray(state.players)
-    ? state.players.find((p) => p.playerId !== playerId)
-    : null;
   if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 
-  if (currentLabelEl) currentLabelEl.textContent = 'Current:';
-  if (currentLabelEl) currentLabelEl.style.display = '';
+  if (currentLabelEl) currentLabelEl.textContent = '';
+  if (currentLabelEl) currentLabelEl.style.display = 'none';
   currentPlayerEl.textContent = state.currentPlayer;
 
   guessInput.disabled = !isMyTurn || state.status !== 'active';
@@ -230,10 +238,10 @@ function renderGameState(state) {
     const me = state.players.find((p) => p.playerId === playerId);
     const myName = me ? me.username : '';
     if (myName && strikeInfo.guesser === myName) {
-      setMessage(`Incorrect guess: ${strikeInfo.reason}`, 'error');
+      setMessage(`Incorrect guess: ${capitalizeFirstChar(strikeInfo.reason)}`, 'error');
     } else {
       const guessedName = strikeInfo.guess || extractGuessedName(state.message) || 'blank guess';
-      setMessage(`Opponent guessed: ${guessedName}`, 'error');
+      setMessage(`Opponent guessed "${guessedName}"`, 'error');
     }
   } else {
     setMessage('');
@@ -271,8 +279,8 @@ function queueForAnotherGame() {
   }
   socket.emit('matchmaking:join');
   setMessage('');
-  if (currentLabelEl) currentLabelEl.textContent = 'Current:';
-  if (currentLabelEl) currentLabelEl.style.display = '';
+  if (currentLabelEl) currentLabelEl.textContent = '';
+  if (currentLabelEl) currentLabelEl.style.display = 'none';
   currentPlayerEl.textContent = '-';
   guessInput.disabled = true;
   submitBtn.disabled = true;
@@ -321,8 +329,8 @@ socket.on('matchmaking:queued', () => {
     guessRowEl.classList.add('turn-inactive');
   }
   guessInput.placeholder = "Opponent's turn";
-  if (currentLabelEl) currentLabelEl.textContent = 'Current:';
-  if (currentLabelEl) currentLabelEl.style.display = '';
+  if (currentLabelEl) currentLabelEl.textContent = '';
+  if (currentLabelEl) currentLabelEl.style.display = 'none';
   currentPlayerEl.textContent = '-';
 });
 

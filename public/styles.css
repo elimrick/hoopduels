@@ -228,9 +228,11 @@ body[data-page='play'] .duel-page-header .page-title {
 }
 
 .btn.btn-status {
-  min-width: 240px;
-  padding: 10px 20px;
-  font-size: 22px;
+  min-width: 0;
+  padding: 9px 16px;
+  font-size: 24px;
+  border-radius: 14px;
+  margin-bottom: 6px;
   text-align: center;
 }
 
@@ -555,18 +557,16 @@ body[data-page='profile'] .page-panel {
   gap: 22px;
 }
 
-.duel-chain-title {
-  margin-top: 16px !important;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.26);
-}
-
 .chain-list .history-item {
   color: var(--text);
   position: relative;
 }
 
 .chain-list .history-item.start-player {
+  font-weight: 400;
+}
+
+.chain-list .history-item.start-player strong {
   font-weight: 700;
 }
 
@@ -664,6 +664,11 @@ body[data-page='play'] .home-history-table td:nth-child(2) {
   width: auto;
 }
 
+body[data-page='play'] .home-history-table th:nth-child(3),
+body[data-page='play'] .home-history-table td:nth-child(3) {
+  width: 86px;
+}
+
 body[data-page='play'] .home-history-table .history-opponent {
   white-space: nowrap;
   overflow: hidden;
@@ -713,6 +718,11 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   body[data-page='play'] .home-history-table th:nth-child(1),
   body[data-page='play'] .home-history-table td:nth-child(1) {
     width: 86px;
+  }
+
+  body[data-page='play'] .home-history-table th:nth-child(3),
+  body[data-page='play'] .home-history-table td:nth-child(3) {
+    width: 74px;
   }
 
   body[data-page='play'] .home-leaderboard-table th:nth-child(1),
@@ -1051,7 +1061,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   .btn.btn-status {
     min-width: 0;
     width: 100%;
-    font-size: 22px;
-    padding: 12px 18px;
+    font-size: 20px;
+    padding: 9px 16px;
   }
 }

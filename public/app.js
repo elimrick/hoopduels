@@ -125,7 +125,7 @@
 
         const thead = document.createElement('thead');
         const headRow = document.createElement('tr');
-        ['Result', 'Opponent'].forEach((label) => {
+        ['Result', 'Opponent', 'Chain'].forEach((label) => {
           const th = document.createElement('th');
           th.textContent = label;
           headRow.appendChild(th);
@@ -146,8 +146,12 @@
           opp.textContent = `${oppPrefix}${g.opponent}`;
           opp.className = 'history-opponent';
 
+          const chain = document.createElement('td');
+          chain.textContent = String(g.chainLength || 0);
+
           tr.appendChild(wl);
           tr.appendChild(opp);
+          tr.appendChild(chain);
           tbody.appendChild(tr);
         });
         table.appendChild(tbody);

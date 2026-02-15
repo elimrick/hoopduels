@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260215l" />
+    <link rel="stylesheet" href="styles.css?v=20260215m" />
   </head>
   <body data-page="play">
     <div class="layout">
@@ -29,7 +29,7 @@
       <main class="main">
         <div class="duel-page-header page-panel">
           <h1 class="page-title">Live Duel</h1>
-          <button class="btn btn-compact btn-status" id="leave-game-btn" type="button">Leave Game</button>
+          <button class="btn btn-status" id="leave-game-btn" type="button">Leave Game</button>
         </div>
 
         <section class="card page-panel">
@@ -40,7 +40,7 @@
             </div>
             <div class="duel-center">
               <div class="duel-timer"><span id="timer">60</span></div>
-              <div class="duel-current"><span id="current-label">Current:</span> <span id="current-player">-</span></div>
+              <div class="duel-current"><span id="current-label"></span><span id="current-player">-</span></div>
             </div>
             <div class="duel-player" id="player-right">
               <div class="duel-player-name" id="player-right-name">Player 2</div>
@@ -52,7 +52,6 @@
             <button class="btn" id="submit-btn" type="button">Submit Guess</button>
           </div>
           <div id="message" class="message"></div>
-          <h3 class="duel-chain-title">Chain</h3>
           <ul id="history-list" class="history-list chain-list"></ul>
         </section>
       </main>
@@ -70,8 +69,8 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="state.js?v=20260215l"></script>
-    <script src="app.js?v=20260215l"></script>
-    <script src="game.js?v=20260215l"></script>
+    <script src="state.js?v=20260215m"></script>
+    <script src="app.js?v=20260215m"></script>
+    <script src="game.js?v=20260215m"></script>
   </body>
 </html>
