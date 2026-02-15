@@ -426,8 +426,8 @@ body[data-page='profile'] .page-panel {
 }
 
 .duel-player.active {
-  border-color: #f0c060;
-  background: rgba(240, 192, 96, 0.12);
+  border-color: var(--accent-blue);
+  background: rgba(58, 123, 255, 0.14);
 }
 
 .duel-player-name {
