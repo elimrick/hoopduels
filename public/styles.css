@@ -428,30 +428,10 @@ body[data-page='profile'] .page-panel {
   box-shadow: 0 0 0 1px var(--line);
 }
 
-#guess-row.turn-active input::placeholder {
-  color: rgba(255, 255, 255, 0.95) !important;
-  opacity: 1;
-}
-
-#guess-row.turn-active input::-webkit-input-placeholder {
-  color: rgba(255, 255, 255, 0.95) !important;
-  opacity: 1;
-}
-
 #guess-row.turn-inactive input {
   border-color: rgba(255, 255, 255, 0.22);
   background: rgba(255, 255, 255, 0.07);
   color: rgba(255, 255, 255, 0.62);
-}
-
-#guess-row.turn-inactive input::placeholder {
-  color: rgba(255, 255, 255, 0.62) !important;
-  opacity: 1;
-}
-
-#guess-row.turn-inactive input::-webkit-input-placeholder {
-  color: rgba(255, 255, 255, 0.62) !important;
-  opacity: 1;
 }
 
 #guess-row.turn-inactive #submit-btn {
