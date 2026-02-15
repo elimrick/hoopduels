@@ -66,6 +66,11 @@ function formatEloChange(delta) {
 
 function getAccountEloByName(username) {
   if (!window.HoopState || !username || isGuestLikeName(username)) return null;
+  const me = window.HoopState.getProfile ? window.HoopState.getProfile() : null;
+  if (me && me.signedIn && me.username && String(me.username).trim().toLowerCase() === String(username).trim().toLowerCase()) {
+    const myElo = Number(me.elo);
+    return Number.isFinite(myElo) ? Math.round(myElo) : null;
+  }
   const key = String(username).trim().toLowerCase();
   const row = window.HoopState.getLeaderboardRows().find((item) => {
     return String(item.username || '').trim().toLowerCase() === key;

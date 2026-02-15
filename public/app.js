@@ -324,7 +324,7 @@
         onlinePollTimer = null;
       }
       updateOnline();
-      onlinePollTimer = setInterval(updateOnline, 8000);
+      onlinePollTimer = setInterval(updateOnline, 5000);
       document.addEventListener('visibilitychange', () => {
         if (!document.hidden) updateOnline();
       });
@@ -472,7 +472,7 @@
 
     const thead = document.createElement('thead');
     const headRow = document.createElement('tr');
-    ['Result', 'Opponent', 'Chain', 'Date'].forEach((label) => {
+    ['Result', 'Opponent', 'ELO', 'Chain', 'Date'].forEach((label) => {
       const th = document.createElement('th');
       th.textContent = label;
       headRow.appendChild(th);
@@ -489,9 +489,11 @@
       wl.className = g.won ? 'history-wl win' : 'history-wl loss';
 
       const opp = document.createElement('td');
-      const oppPrefix = g.opponentRank == null ? '' : `#${g.opponentRank} `;
-      opp.textContent = `${oppPrefix}${g.opponent}`;
+      opp.textContent = g.opponent;
       opp.className = 'history-opponent';
+
+      const elo = document.createElement('td');
+      elo.textContent = g.opponentRank == null ? '-' : String(Math.round(g.opponentRank));
 
       const chain = document.createElement('td');
       chain.textContent = String(g.chainLength || 0);
@@ -501,6 +503,7 @@
 
       tr.appendChild(wl);
       tr.appendChild(opp);
+      tr.appendChild(elo);
       tr.appendChild(chain);
       tr.appendChild(date);
       tbody.appendChild(tr);

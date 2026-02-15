@@ -251,7 +251,7 @@ body[data-page='play'] .duel-page-header .page-title {
 .guest-note {
   margin: -2px 0 12px;
   color: var(--muted);
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .btn.btn-status[disabled] {
@@ -525,6 +525,10 @@ body[data-page='profile'] .page-panel {
 .duel-player-meta {
   color: var(--muted);
   font-size: 18px;
+}
+
+.duel-player-elo {
+  min-height: 22px;
 }
 
 .duel-center {
@@ -996,7 +1000,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
 @media (max-width: 1100px) {
   body {
-    overflow: auto;
+    overflow: hidden;
   }
 
   .mobile-topbar {
@@ -1021,7 +1025,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: -1px;
     height: 12px;
     background: linear-gradient(
       to bottom,
@@ -1079,9 +1083,10 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .main {
     padding: 16px;
-    min-height: calc(100vh - var(--mobile-topbar-total));
-    height: auto;
-    overflow-y: visible;
+    height: calc(100vh - var(--mobile-topbar-total));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 24px;
   }
 
   .page-title {
@@ -1141,14 +1146,13 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .layout {
     grid-template-columns: 1fr;
-    height: auto;
-    min-height: calc(100vh - var(--mobile-topbar-total));
+    height: 100vh;
     margin-top: var(--mobile-topbar-total);
   }
 
   .sidebar {
     position: fixed;
-    top: calc(var(--mobile-topbar-total) - 1px);
+    top: var(--mobile-topbar-total);
     left: 0;
     right: 0;
     height: auto;

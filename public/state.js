@@ -3,6 +3,7 @@
   const CLIENT_ID_KEY = 'hoopduels_client_id_v1';
   const LEGACY_GUEST_PROFILE_KEY = 'hoopduels_guest_profile_v1';
   const LEADERBOARD_CACHE_KEY = 'hoopduels_leaderboard_cache_v1';
+  const PROFILE_CACHE_KEY = 'hoopduels_profile_cache_v1';
   const GUEST_USERNAME = 'Guest';
 
   function normalizeName(name) {
@@ -106,6 +107,12 @@
       games: Array.isArray(profile && profile.games) ? profile.games : []
     };
 
+    if (signedIn) {
+      // Cache last-known profile so transient network issues don't "log out" the user.
+      writeJson(PROFILE_CACHE_KEY, runtime.profile);
+    } else {
+      localStorage.removeItem(PROFILE_CACHE_KEY);
+    }
   }
 
   function getProfile() {
@@ -150,10 +157,20 @@
       try {
         const payload = await api('/api/account/profile');
         applyProfile(payload.profile, true);
-      } catch (_) {
-        runtime.token = null;
-        localStorage.removeItem(TOKEN_KEY);
-        applyProfile(defaultProfile(GUEST_USERNAME, false), false);
+      } catch (error) {
+        // Only clear token on explicit auth failure.
+        const status = error && error.status ? Number(error.status) : 0;
+        if (status === 401) {
+          runtime.token = null;
+          localStorage.removeItem(TOKEN_KEY);
+          applyProfile(defaultProfile(GUEST_USERNAME, false), false);
+        } else {
+          const cached = readJson(PROFILE_CACHE_KEY, null);
+          if (cached && typeof cached === 'object' && cached.username) {
+            applyProfile(cached, true);
+          }
+          // Keep token; user stays signed in.
+        }
       }
     } else {
       applyProfile(defaultProfile(GUEST_USERNAME, false), false);
