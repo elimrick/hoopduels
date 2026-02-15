@@ -1,6 +1,7 @@
 (function initHoopState() {
   const TOKEN_KEY = 'hoopduels_auth_token_v1';
   const CLIENT_ID_KEY = 'hoopduels_client_id_v1';
+  const LEGACY_GUEST_PROFILE_KEY = 'hoopduels_guest_profile_v1';
   const LEADERBOARD_CACHE_KEY = 'hoopduels_leaderboard_cache_v1';
   const GUEST_USERNAME = 'Guest';
 
@@ -140,6 +141,9 @@
   }
 
   async function init() {
+    // Ensure guest sessions always start from a blank/default profile.
+    localStorage.removeItem(LEGACY_GUEST_PROFILE_KEY);
+
     if (runtime.token) {
       try {
         const payload = await api('/api/account/profile');
@@ -149,6 +153,8 @@
         localStorage.removeItem(TOKEN_KEY);
         applyProfile(defaultProfile(GUEST_USERNAME, false), false);
       }
+    } else {
+      applyProfile(defaultProfile(GUEST_USERNAME, false), false);
     }
 
     await refreshLeaderboard();
