@@ -230,7 +230,9 @@ body[data-page='play'] .two-col .card h3 {
 }
 
 .btn.btn-status {
-  min-width: 140px;
+  min-width: 220px;
+  padding: 10px 18px;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -526,6 +528,11 @@ body[data-page='profile'] .page-panel {
 
 .message.success {
   color: #a7f3bd;
+}
+
+body[data-page='play'] #message {
+  display: none;
+  min-height: 0;
 }
 
 #find-another-btn {
@@ -1049,5 +1056,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   .btn.btn-status {
     min-width: 0;
     width: 100%;
+    font-size: 22px;
+    padding: 12px 18px;
   }
 }

@@ -43,6 +43,12 @@ function setMessage(text, kind = '') {
   messageEl.textContent = text || '';
 }
 
+function extractGuessedName(message) {
+  if (typeof message !== 'string') return '';
+  const match = message.match(/guessed "([^"]+)"/i);
+  return match && match[1] ? match[1].trim() : '';
+}
+
 function renderHistory(chainPlayers, historyEntries, players) {
   historyListEl.innerHTML = '';
 
@@ -200,14 +206,16 @@ function renderGameState(state) {
     guessRowEl.classList.toggle('turn-active', isMyTurn && state.status === 'active');
     guessRowEl.classList.toggle('turn-inactive', !isMyTurn || state.status !== 'active');
   }
-  guessInput.placeholder = isMyTurn && state.status === 'active' ? 'Name a teammate...' : "Opponent's turn";
+  const opponentMissGuess = !isMyTurn && typeof state.message === 'string' && state.message.includes('got')
+    ? extractGuessedName(state.message)
+    : '';
+  guessInput.placeholder = isMyTurn && state.status === 'active'
+    ? 'Name a teammate...'
+    : (opponentMissGuess ? `Opponent guessed ${opponentMissGuess}` : "Opponent's turn");
 
   renderScoreboard(state.players, state.activePlayerId);
   renderHistory(state.usedPlayers, state.history, state.players);
-  if (state.message) {
-    const kind = state.message.includes('got a strike') ? 'error' : 'success';
-    setMessage(state.message, kind);
-  }
+  setMessage('');
 
   startTimer();
 }
@@ -245,7 +253,6 @@ function queueForAnotherGame() {
   if (currentLabelEl) currentLabelEl.textContent = 'Current:';
   if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = '-';
-  if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 }
 
 if (leaveGameBtn && leaveGameOverlay && leaveGameConfirmBtn && leaveGameCancelBtn) {
@@ -292,7 +299,6 @@ socket.on('matchmaking:queued', () => {
   if (currentLabelEl) currentLabelEl.textContent = 'Current:';
   if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = '-';
-  if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 });
 
 socket.on('matchmaking:left', () => {
