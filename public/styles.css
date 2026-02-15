@@ -423,9 +423,19 @@ body[data-page='profile'] .page-panel {
   padding: 12px 14px;
 }
 
+#guess-row input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+#guess-row input::-webkit-input-placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
 #guess-row.turn-active input {
   border-color: var(--line);
-  box-shadow: 0 0 0 1px var(--line);
+  box-shadow: none;
 }
 
 #guess-row.turn-inactive input {
