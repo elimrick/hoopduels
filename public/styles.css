@@ -686,15 +686,13 @@ body[data-page='history'] .history-table td:nth-child(5) {
   white-space: nowrap;
 }
 
-/* Add breathing room between the right-side columns. */
-body[data-page='history'] .history-table th:nth-child(3),
-body[data-page='history'] .history-table td:nth-child(3),
-body[data-page='history'] .history-table th:nth-child(4),
-body[data-page='history'] .history-table td:nth-child(4),
-body[data-page='history'] .history-table th:nth-child(5),
-body[data-page='history'] .history-table td:nth-child(5) {
-  padding-left: 14px;
-}
+  /* Identical spacing between ELO -> Chain -> Date. */
+  body[data-page='history'] .history-table th:nth-child(4),
+  body[data-page='history'] .history-table td:nth-child(4),
+  body[data-page='history'] .history-table th:nth-child(5),
+  body[data-page='history'] .history-table td:nth-child(5) {
+    padding-left: 16px;
+  }
 
 .history-opponent {
   white-space: nowrap;
@@ -1182,7 +1180,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     right: 0;
     height: auto;
     max-height: calc(100vh - var(--mobile-topbar-offset));
-    padding: 12px 14px 16px;
+    padding: 16px 14px 16px;
     z-index: 35;
     transform: scaleY(0);
     transform-origin: top;

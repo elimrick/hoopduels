@@ -9,7 +9,10 @@ if (sessionStorage.getItem(GAME_END_REDIRECT_KEY) === '1') {
 }
 
 const playerId = window.HoopState ? window.HoopState.getClientId() : '';
-const socket = io({ auth: { playerId } });
+const token = window.HoopState && typeof window.HoopState.getToken === 'function'
+  ? (window.HoopState.getToken() || '')
+  : '';
+const socket = io({ auth: { playerId, token } });
 
 const staleLiveBadge = document.getElementById('live-badge');
 if (staleLiveBadge) {
@@ -236,8 +239,12 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
   const leftMetaEl = document.getElementById('player-left-elo');
   const rightMetaEl = document.getElementById('player-right-elo');
 
-  const leftInitialElo = pregamePlayerElos[left.playerId] ?? getAccountEloByName(left.username);
-  const rightInitialElo = pregamePlayerElos[right.playerId] ?? getAccountEloByName(right.username);
+  const leftInitialElo = pregamePlayerElos[left.playerId]
+    ?? (Number.isFinite(Number(left.elo)) ? Number(left.elo) : null)
+    ?? getAccountEloByName(left.username);
+  const rightInitialElo = pregamePlayerElos[right.playerId]
+    ?? (Number.isFinite(Number(right.elo)) ? Number(right.elo) : null)
+    ?? getAccountEloByName(right.username);
   if (left.playerId && Number.isFinite(leftInitialElo)) {
     pregamePlayerElos[left.playerId] = leftInitialElo;
   }
@@ -518,7 +525,7 @@ socket.on('game:state', (state) => {
   renderGameState(state);
 });
 
-socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason, gameState }) => {
+socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason, eloUpdate, gameState }) => {
   gameFinished = true;
   stopTimer();
   closeMatchmakingOverlay();
@@ -562,13 +569,22 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
       ? gameState.history.filter((item) => item.type === 'guess').length
       : 0;
 
+    const myElo = eloUpdate && eloUpdate[playerId] ? eloUpdate[playerId] : null;
+    const oppElo = oppRow && eloUpdate && eloUpdate[oppRow.playerId] ? eloUpdate[oppRow.playerId] : null;
+    const ranked = Boolean(eloUpdate && eloUpdate.ranked && myElo && oppElo);
+
     window.HoopState.recordGame({
       won: youWon,
       reason,
       opponent: oppRow ? oppRow.username : winnerUsername || 'Opponent',
+      opponentElo: oppElo && Number.isFinite(Number(oppElo.before)) ? Number(oppElo.before) : null,
       chainLength,
       myStrikes: myRow ? myRow.strikes : 0,
-      oppStrikes: oppRow ? oppRow.strikes : 0
+      oppStrikes: oppRow ? oppRow.strikes : 0,
+      ranked,
+      eloBefore: myElo && Number.isFinite(Number(myElo.before)) ? Number(myElo.before) : null,
+      eloAfter: myElo && Number.isFinite(Number(myElo.after)) ? Number(myElo.after) : null,
+      eloDelta: myElo && Number.isFinite(Number(myElo.delta)) ? Number(myElo.delta) : null
     });
     if (typeof window.HoopState.refreshLeaderboard === 'function') {
       window.HoopState.refreshLeaderboard().catch(() => {});

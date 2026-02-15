@@ -764,8 +764,9 @@
       const profile = window.HoopState.getProfile();
       const playerId = window.HoopState.getClientId();
       const displayName = profile && profile.username ? profile.username : '';
+      const token = window.HoopState.getToken ? (window.HoopState.getToken() || '') : '';
 
-      matchmakingSocket = io({ auth: { playerId } });
+      matchmakingSocket = io({ auth: { playerId, token } });
 
       matchmakingSocket.on('connect', () => {
         clearDisconnectNotice();

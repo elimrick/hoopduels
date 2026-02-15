@@ -143,6 +143,10 @@
     return id;
   }
 
+  function getToken() {
+    return runtime.token;
+  }
+
   async function refreshLeaderboard() {
     try {
       const payload = await api('/api/leaderboard');
@@ -300,13 +304,16 @@
     const won = Boolean(result && result.won);
     const chainLength = Number(result && result.chainLength) || 0;
     const opponent = normalizeName(result && result.opponent ? String(result.opponent) : 'Unknown') || 'Unknown';
-    const opponentElo = getOpponentEloFromLeaderboard(opponent);
-    const rankedGame = Boolean(
-      profile.signedIn
-      && !isGuestLikeName(opponent)
-      && opponentElo != null
-      && Number.isFinite(opponentElo)
-    );
+    const providedOpp = result && Number.isFinite(Number(result.opponentElo)) ? Number(result.opponentElo) : null;
+    const opponentElo = providedOpp != null ? providedOpp : getOpponentEloFromLeaderboard(opponent);
+    const rankedGame = result && typeof result.ranked === 'boolean'
+      ? Boolean(result.ranked)
+      : Boolean(
+        profile.signedIn
+        && !isGuestLikeName(opponent)
+        && opponentElo != null
+        && Number.isFinite(opponentElo)
+      );
 
     applyStreak(profile, won);
 
@@ -319,7 +326,9 @@
     profile.longestChain = Math.max(profile.longestChain, chainLength);
     const myEloBefore = Number(profile.elo) || 1200;
     let myEloAfter = myEloBefore;
-    if (rankedGame) {
+    if (rankedGame && result && Number.isFinite(Number(result.eloAfter))) {
+      myEloAfter = Math.round(Number(result.eloAfter));
+    } else if (rankedGame) {
       const oppElo = opponentElo;
       const expected = 1 / (1 + Math.pow(10, (oppElo - myEloBefore) / 400));
       const actual = won ? 1 : 0;
@@ -372,6 +381,7 @@
   window.HoopState = {
     init,
     getProfile,
+    getToken,
     saveProfile,
     getClientId,
     signUp,

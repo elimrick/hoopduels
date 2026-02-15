@@ -208,6 +208,16 @@ function makeDefaultName(playerId) {
   return `Player-${String(playerId).slice(0, 4)}`;
 }
 
+async function getSignedInProfileFromToken(token) {
+  if (!token) return null;
+  try {
+    const profile = await accountStore.getProfileByToken(token);
+    return profile && profile.signedIn ? profile : null;
+  } catch (_) {
+    return null;
+  }
+}
+
 function getSocketByPlayerId(playerId) {
   const socketId = playerToSocketId.get(playerId);
   if (!socketId) return null;
@@ -249,6 +259,9 @@ function buildGameState(game, message) {
       playerId,
       username: game.playerNames[playerId],
       strikes: game.strikes[playerId],
+      elo: Number.isFinite(Number(game.playerElos && game.playerElos[playerId]))
+        ? Number(game.playerElos[playerId])
+        : null,
       connected: Boolean(getSocketByPlayerId(playerId))
     })),
     currentPlayer: playerStore.getName(game.currentPlayerKey),
@@ -300,6 +313,40 @@ function endGame(game, loserPlayerId, reason) {
   }
 
   const winnerPlayerId = getOpponentPlayerId(game, loserPlayerId);
+  const winnerEloBefore = Number(game.playerElos && game.playerElos[winnerPlayerId]);
+  const loserEloBefore = Number(game.playerElos && game.playerElos[loserPlayerId]);
+  const ranked = Number.isFinite(winnerEloBefore) && Number.isFinite(loserEloBefore);
+
+  const calcElo = (myElo, oppElo, won) => {
+    const expected = 1 / (1 + Math.pow(10, (oppElo - myElo) / 400));
+    const actual = won ? 1 : 0;
+    const after = Math.round(myElo + 32 * (actual - expected));
+    return { before: myElo, after, delta: after - myElo };
+  };
+
+  let eloUpdate = null;
+  if (ranked) {
+    const winnerCalc = calcElo(winnerEloBefore, loserEloBefore, true);
+    const loserCalc = calcElo(loserEloBefore, winnerEloBefore, false);
+    eloUpdate = {
+      ranked: true,
+      [winnerPlayerId]: winnerCalc,
+      [loserPlayerId]: loserCalc
+    };
+
+    game.playerElos[winnerPlayerId] = winnerCalc.after;
+    game.playerElos[loserPlayerId] = loserCalc.after;
+
+    const winnerSocket = getSocketByPlayerId(winnerPlayerId);
+    const loserSocket = getSocketByPlayerId(loserPlayerId);
+    if (winnerSocket && winnerSocket.data && winnerSocket.data.signedIn) {
+      winnerSocket.data.elo = winnerCalc.after;
+    }
+    if (loserSocket && loserSocket.data && loserSocket.data.signedIn) {
+      loserSocket.data.elo = loserCalc.after;
+    }
+  }
+
   game.history.push({
     type: 'end',
     at: Date.now(),
@@ -314,6 +361,7 @@ function endGame(game, loserPlayerId, reason) {
     loserPlayerId,
     loserUsername: game.playerNames[loserPlayerId],
     reason,
+    eloUpdate,
     gameState: buildGameState(game)
   });
 
@@ -371,6 +419,10 @@ function createGame(playerAId, playerBId) {
     playerNames: {
       [playerAId]: socketA.data.username || makeDefaultName(playerAId),
       [playerBId]: socketB.data.username || makeDefaultName(playerBId)
+    },
+    playerElos: {
+      [playerAId]: socketA.data.signedIn ? (Number(socketA.data.elo) || 1200) : null,
+      [playerBId]: socketB.data.signedIn ? (Number(socketB.data.elo) || 1200) : null
     },
     currentPlayerKey: startingKey,
     usedPlayerKeys: new Set([startingKey]),
@@ -430,8 +482,11 @@ function attemptMatchmaking() {
   }
 }
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
   const rawPlayerId = socket.handshake.auth && socket.handshake.auth.playerId;
+  const token = socket.handshake.auth && typeof socket.handshake.auth.token === 'string'
+    ? socket.handshake.auth.token.trim()
+    : '';
   const playerId = typeof rawPlayerId === 'string' && rawPlayerId.trim().length
     ? rawPlayerId.trim().slice(0, 64)
     : socket.id;
@@ -446,7 +501,16 @@ io.on('connection', (socket) => {
 
   socket.data.playerId = playerId;
   socket.data.username = makeDefaultName(playerId);
+  socket.data.signedIn = false;
+  socket.data.elo = null;
   socket.data.gameId = null;
+
+  const signedProfile = await getSignedInProfileFromToken(token);
+  if (signedProfile) {
+    socket.data.signedIn = true;
+    socket.data.username = signedProfile.username;
+    socket.data.elo = Number(signedProfile.elo) || 1200;
+  }
 
   const existingGame = getGameByPlayerId(playerId);
   if (existingGame && existingGame.status === 'active') {
@@ -462,6 +526,12 @@ io.on('connection', (socket) => {
   }
 
   socket.on('user:set-name', (rawName, ack) => {
+    if (socket.data.signedIn) {
+      if (typeof ack === 'function') {
+        ack({ username: socket.data.username, playerId });
+      }
+      return;
+    }
     const name = typeof rawName === 'string' ? rawName.trim().slice(0, 24) : '';
     if (name.length >= 2) {
       socket.data.username = name;
