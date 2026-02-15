@@ -116,11 +116,9 @@ function renderScoreboard(players, activePlayerId) {
 
   const left = players[0];
   const right = players[1] || { username: 'Waiting...', strikes: 0, playerId: null };
-  const leftYou = left.playerId === playerId ? ' (You)' : '';
-  const rightYou = right.playerId === playerId ? ' (You)' : '';
 
-  playerLeftNameEl.textContent = `${left.username}${leftYou}`;
-  playerRightNameEl.textContent = `${right.username}${rightYou}`;
+  playerLeftNameEl.textContent = `${left.username}`;
+  playerRightNameEl.textContent = `${right.username}`;
   playerLeftStrikesEl.textContent = String(left.strikes);
   playerRightStrikesEl.textContent = String(right.strikes);
 
@@ -148,6 +146,10 @@ function startTimer() {
     }
 
     const ms = Math.max(0, currentState.turnDeadline - Date.now());
+    if (ms <= 0) {
+      timerEl.textContent = 'Game Over';
+      return;
+    }
     timerEl.textContent = String(Math.max(0, Math.floor(ms / 1000)));
   };
 
@@ -286,6 +288,7 @@ socket.on('game:state', (state) => {
 
 socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason, gameState }) => {
   stopTimer();
+  timerEl.textContent = 'Game Over';
   const youWon = playerId === winnerPlayerId;
   const endedBy = reason === '3 strikes' ? 'opponent reached 3 strikes' : reason;
 
