@@ -2,7 +2,6 @@ const playerId = window.HoopState ? window.HoopState.getClientId() : '';
 const socket = io({ auth: { playerId } });
 
 const statusLabel = document.getElementById('status-label');
-const liveBadge = document.getElementById('live-badge');
 const currentPlayerEl = document.getElementById('current-player');
 const timerEl = document.getElementById('timer');
 const turnLabel = document.getElementById('turn-label');
@@ -163,8 +162,9 @@ function renderGameState(state) {
     ? state.players.find((p) => p.playerId !== playerId)
     : null;
   const opponentConnected = Boolean(opponent && opponent.connected);
-  liveBadge.textContent = opponentConnected ? 'Connected' : 'Disconnected';
-  liveBadge.classList.toggle('live', opponentConnected);
+  if (!opponentConnected) {
+    statusLabel.textContent = 'Opponent disconnected';
+  }
   if (findAnotherBtn) {
     findAnotherBtn.classList.add('is-hidden');
   }
@@ -243,8 +243,6 @@ socket.on('connect', () => {
   if (fallbackName) {
     socket.emit('user:set-name', fallbackName);
   }
-  liveBadge.textContent = 'Connected';
-  liveBadge.classList.add('live');
 });
 
 socket.on('matchmaking:queued', () => {
@@ -325,8 +323,6 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
 
 socket.on('disconnect', () => {
   stopTimer();
-  liveBadge.textContent = 'Disconnected';
-  liveBadge.classList.remove('live');
   statusLabel.textContent = 'Disconnected';
   setMessage('Connection lost.', 'error');
 });
