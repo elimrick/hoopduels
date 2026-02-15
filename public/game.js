@@ -28,6 +28,8 @@ const playerRightStrikesEl = document.getElementById('player-right-strikes');
 let currentState = null;
 let timerInterval = null;
 let hasRecordedCurrentGame = false;
+let finalWinnerPlayerId = null;
+let finalLoserPlayerId = null;
 
 function getLocalProfileName() {
   if (!window.HoopState) return '';
@@ -88,7 +90,7 @@ function renderHistory(chainPlayers, historyEntries, players) {
   }
 }
 
-function renderScoreboard(players, activePlayerId) {
+function renderScoreboard(players, activePlayerId, outcome = null) {
   const applyActiveStyles = (el, isActive) => {
     if (!el) return;
     if (isActive) {
@@ -109,6 +111,8 @@ function renderScoreboard(players, activePlayerId) {
     playerRightStrikesEl.textContent = '0';
     playerLeftEl.classList.remove('active');
     playerRightEl.classList.remove('active');
+    playerLeftEl.classList.remove('winner', 'loser');
+    playerRightEl.classList.remove('winner', 'loser');
     applyActiveStyles(playerLeftEl, false);
     applyActiveStyles(playerRightEl, false);
     return;
@@ -124,8 +128,14 @@ function renderScoreboard(players, activePlayerId) {
 
   const leftActive = left.playerId === activePlayerId;
   const rightActive = right.playerId === activePlayerId;
+  const winnerId = outcome && outcome.winnerPlayerId ? outcome.winnerPlayerId : null;
+  const loserId = outcome && outcome.loserPlayerId ? outcome.loserPlayerId : null;
   playerLeftEl.classList.toggle('active', leftActive);
   playerRightEl.classList.toggle('active', rightActive);
+  playerLeftEl.classList.toggle('winner', left.playerId === winnerId);
+  playerRightEl.classList.toggle('winner', right.playerId === winnerId);
+  playerLeftEl.classList.toggle('loser', left.playerId === loserId);
+  playerRightEl.classList.toggle('loser', right.playerId === loserId);
   applyActiveStyles(playerLeftEl, leftActive);
   applyActiveStyles(playerRightEl, rightActive);
 }
@@ -259,6 +269,8 @@ socket.on('connect', () => {
 
 socket.on('matchmaking:queued', () => {
   hasRecordedCurrentGame = false;
+  finalWinnerPlayerId = null;
+  finalLoserPlayerId = null;
   statusLabel.textContent = 'Searching for opponent...';
   setMessage('Queued for matchmaking. Waiting for an opponent...');
   if (guessRowEl) {
@@ -289,12 +301,17 @@ socket.on('game:state', (state) => {
 socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason, gameState }) => {
   stopTimer();
   timerEl.textContent = 'Game Over';
+  finalWinnerPlayerId = winnerPlayerId;
+  finalLoserPlayerId = loserPlayerId;
   const youWon = playerId === winnerPlayerId;
   const endedBy = reason === '3 strikes' ? 'opponent reached 3 strikes' : reason;
 
   if (gameState) {
     if (Array.isArray(gameState.players)) {
-      renderScoreboard(gameState.players, gameState.activePlayerId);
+      renderScoreboard(gameState.players, gameState.activePlayerId, {
+        winnerPlayerId,
+        loserPlayerId
+      });
     }
     renderHistory(gameState.usedPlayers, gameState.history, gameState.players);
   }
@@ -344,3 +361,5 @@ socket.on('disconnect', () => {
   statusLabel.textContent = 'Disconnected';
   setMessage('Connection lost.', 'error');
 });
+  finalWinnerPlayerId = null;
+  finalLoserPlayerId = null;

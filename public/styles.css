@@ -479,6 +479,18 @@ body[data-page='profile'] .page-panel {
   box-shadow: 0 0 0 1px rgba(58, 123, 255, 0.5) inset;
 }
 
+.duel-player.winner {
+  border-color: var(--success) !important;
+  background: rgba(67, 194, 107, 0.16) !important;
+  box-shadow: 0 0 0 1px rgba(67, 194, 107, 0.55) inset !important;
+}
+
+.duel-player.loser {
+  border-color: var(--danger) !important;
+  background: rgba(234, 86, 86, 0.16) !important;
+  box-shadow: 0 0 0 1px rgba(234, 86, 86, 0.55) inset !important;
+}
+
 .duel-player-name {
   font-size: 24px;
   font-weight: 700;
