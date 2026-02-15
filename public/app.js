@@ -558,25 +558,11 @@
         status.textContent = msg || 'Matchmaking error.';
       });
 
-      matchmakingSocket.on('disconnect', (reason) => {
+      matchmakingSocket.on('disconnect', () => {
         if (ignoreNextDisconnect) {
           ignoreNextDisconnect = false;
-          return;
         }
-        if (!isSearching || matched || overlay.hidden) return;
-        if (reason === 'io client disconnect') return;
-
         clearDisconnectNotice();
-        disconnectNoticeTimer = setTimeout(() => {
-          if (!isSearching || matched || overlay.hidden) return;
-          status.textContent = 'Disconnected. Try again.';
-          isSearching = false;
-          if (matchmakingSocket) {
-            ignoreNextDisconnect = true;
-            matchmakingSocket.disconnect();
-            matchmakingSocket = null;
-          }
-        }, 800);
       });
 
       matchmakingSocket.on('connect_error', () => {
