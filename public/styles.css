@@ -223,6 +223,10 @@ body[data-page='play'] .two-col .card h3 {
   margin-bottom: 18px;
 }
 
+body[data-page='play'] .duel-page-header .page-title {
+  margin: 0;
+}
+
 .btn.btn-status {
   min-width: 240px;
   padding: 10px 20px;
@@ -549,6 +553,12 @@ body[data-page='profile'] .page-panel {
 .chain-list {
   max-height: 420px;
   gap: 22px;
+}
+
+.duel-chain-title {
+  margin-top: 16px !important;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.26);
 }
 
 .chain-list .history-item {

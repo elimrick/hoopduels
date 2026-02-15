@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260215k" />
+    <link rel="stylesheet" href="styles.css?v=20260215l" />
   </head>
   <body data-page="play">
     <div class="layout">
@@ -32,7 +32,7 @@
           <button class="btn btn-compact btn-status" id="leave-game-btn" type="button">Leave Game</button>
         </div>
 
-        <section class="card page-panel" style="margin-bottom: 16px;">
+        <section class="card page-panel">
           <div class="duel-board">
             <div class="duel-player" id="player-left">
               <div class="duel-player-name" id="player-left-name">Player 1</div>
@@ -52,10 +52,7 @@
             <button class="btn" id="submit-btn" type="button">Submit Guess</button>
           </div>
           <div id="message" class="message"></div>
-        </section>
-
-        <section class="card page-panel">
-          <h3>Chain</h3>
+          <h3 class="duel-chain-title">Chain</h3>
           <ul id="history-list" class="history-list chain-list"></ul>
         </section>
       </main>
@@ -73,8 +70,8 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="state.js?v=20260215k"></script>
-    <script src="app.js?v=20260215k"></script>
-    <script src="game.js?v=20260215k"></script>
+    <script src="state.js?v=20260215l"></script>
+    <script src="app.js?v=20260215l"></script>
+    <script src="game.js?v=20260215l"></script>
   </body>
 </html>

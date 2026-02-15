@@ -233,7 +233,7 @@ function renderGameState(state) {
       setMessage(`Incorrect guess: ${strikeInfo.reason}`, 'error');
     } else {
       const guessedName = strikeInfo.guess || extractGuessedName(state.message) || 'blank guess';
-      setMessage(`Opponent incorrectly guessed: ${guessedName}`, 'error');
+      setMessage(`Opponent guessed: ${guessedName}`, 'error');
     }
   } else {
     setMessage('');
@@ -354,7 +354,6 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   finalWinnerPlayerId = winnerPlayerId;
   finalLoserPlayerId = loserPlayerId;
   const youWon = playerId === winnerPlayerId;
-  const endedBy = reason === '3 strikes' ? 'opponent reached 3 strikes' : reason;
 
   if (gameState) {
     if (Array.isArray(gameState.players)) {
@@ -366,13 +365,7 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     renderHistory(gameState.usedPlayers, gameState.history, gameState.players);
   }
 
-  if (youWon) {
-    setMessage(`You won. ${winnerUsername} defeats opponent (${endedBy}).`, 'success');
-  } else if (playerId === loserPlayerId) {
-    setMessage(`You lost. Reason: ${endedBy}.`, 'error');
-  } else {
-    setMessage(`Game ended (${endedBy}).`, 'success');
-  }
+  setMessage('');
 
   guessInput.disabled = true;
   submitBtn.disabled = true;
