@@ -82,7 +82,8 @@
       headers: getAuthHeaders(options.headers || {}),
       body: options.body
         ? JSON.stringify(options.body)
-        : undefined
+        : undefined,
+      keepalive: Boolean(options.keepalive)
     });
 
     if (!response.ok) {
@@ -162,7 +163,26 @@
     if (runtime.token) {
       try {
         const payload = await api('/api/account/profile');
-        applyProfile(payload.profile, true);
+        const cached = readJson(PROFILE_CACHE_KEY, null);
+        const serverProfile = payload.profile;
+
+        const latestAt = (p) => {
+          const g = p && Array.isArray(p.games) ? p.games[0] : null;
+          return g && Number.isFinite(Number(g.at)) ? Number(g.at) : 0;
+        };
+
+        // If server is behind (common right after a game ends), keep the newer local cached profile.
+        if (cached && typeof cached === 'object' && cached.username) {
+          const cachedAt = latestAt(cached);
+          const serverAt = latestAt(serverProfile);
+          if (cachedAt > serverAt) {
+            applyProfile(cached, true);
+          } else {
+            applyProfile(serverProfile, true);
+          }
+        } else {
+          applyProfile(serverProfile, true);
+        }
       } catch (error) {
         // Only clear token on explicit auth failure.
         const status = error && error.status ? Number(error.status) : 0;
@@ -259,7 +279,8 @@
       const payload = await api('/api/account/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: { profile: runtime.profile }
+        body: { profile: runtime.profile },
+        keepalive: true
       });
       if (payload && payload.profile) {
         applyProfile(payload.profile, true);

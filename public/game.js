@@ -1,7 +1,11 @@
 const GAME_END_REDIRECT_KEY = 'hoopduels_game_end_redirect_v1';
 if (sessionStorage.getItem(GAME_END_REDIRECT_KEY) === '1') {
   sessionStorage.removeItem(GAME_END_REDIRECT_KEY);
-  window.location.replace('/');
+  const nav = performance.getEntriesByType('navigation');
+  const type = nav && nav[0] ? nav[0].type : '';
+  if (type === 'reload') {
+    window.location.replace('/');
+  }
 }
 
 const playerId = window.HoopState ? window.HoopState.getClientId() : '';
@@ -425,6 +429,26 @@ if (leaveGameBtn && leaveGameOverlay && leaveGameConfirmBtn && leaveGameCancelBt
   });
 
   leaveGameConfirmBtn.addEventListener('click', () => {
+    // Record a local loss immediately so it shows in history even if we navigate away fast.
+    try {
+      if (window.HoopState && currentState && currentState.status === 'active') {
+        const players = Array.isArray(currentState.players) ? currentState.players : [];
+        const myRow = players.find((p) => p.playerId === playerId);
+        const oppRow = players.find((p) => p.playerId !== playerId);
+        const chainLength = Array.isArray(currentState.history)
+          ? currentState.history.filter((item) => item.type === 'guess').length
+          : 0;
+        window.HoopState.recordGame({
+          won: false,
+          reason: 'left game',
+          opponent: oppRow ? oppRow.username : 'Opponent',
+          chainLength,
+          myStrikes: myRow ? myRow.strikes : 0,
+          oppStrikes: oppRow ? oppRow.strikes : 0
+        });
+      }
+    } catch (_) {
+    }
     socket.emit('matchmaking:leave');
     closeLeaveGameOverlay();
     window.location.href = '/';
@@ -546,6 +570,9 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
       myStrikes: myRow ? myRow.strikes : 0,
       oppStrikes: oppRow ? oppRow.strikes : 0
     });
+    if (typeof window.HoopState.refreshLeaderboard === 'function') {
+      window.HoopState.refreshLeaderboard().catch(() => {});
+    }
     if (Array.isArray(gameState.players)) {
       renderScoreboard(gameState.players, gameState.activePlayerId, {
         winnerPlayerId,

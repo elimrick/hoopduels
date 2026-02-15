@@ -11,7 +11,9 @@
   --danger: #ea5656;
   --mobile-topbar-height: 68px;
   --mobile-stripe-height: 12px;
-  --mobile-topbar-total: calc(var(--mobile-topbar-height) + var(--mobile-stripe-height) + env(safe-area-inset-top));
+  --mobile-topbar-total: calc(var(--mobile-topbar-height) + env(safe-area-inset-top));
+  /* Allow content + dropdown to sit under the stripe so the stripe is the cut-off line. */
+  --mobile-topbar-offset: calc(var(--mobile-topbar-total) - var(--mobile-stripe-height));
 }
 
 * {
@@ -684,6 +686,16 @@ body[data-page='history'] .history-table td:nth-child(5) {
   white-space: nowrap;
 }
 
+/* Add breathing room between the right-side columns. */
+body[data-page='history'] .history-table th:nth-child(3),
+body[data-page='history'] .history-table td:nth-child(3),
+body[data-page='history'] .history-table th:nth-child(4),
+body[data-page='history'] .history-table td:nth-child(4),
+body[data-page='history'] .history-table th:nth-child(5),
+body[data-page='history'] .history-table td:nth-child(5) {
+  padding-left: 14px;
+}
+
 .history-opponent {
   white-space: nowrap;
   overflow: hidden;
@@ -1096,7 +1108,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .main {
     padding: 16px;
-    height: calc(100dvh - var(--mobile-topbar-total));
+    height: calc(100dvh - var(--mobile-topbar-offset));
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding-bottom: calc(24px + env(safe-area-inset-bottom));
@@ -1160,16 +1172,16 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   .layout {
     grid-template-columns: 1fr;
     height: 100dvh;
-    margin-top: var(--mobile-topbar-total);
+    margin-top: var(--mobile-topbar-offset);
   }
 
   .sidebar {
     position: fixed;
-    top: var(--mobile-topbar-total);
+    top: var(--mobile-topbar-offset);
     left: 0;
     right: 0;
     height: auto;
-    max-height: calc(100vh - var(--mobile-topbar-total));
+    max-height: calc(100vh - var(--mobile-topbar-offset));
     padding: 12px 14px 16px;
     z-index: 35;
     transform: scaleY(0);
