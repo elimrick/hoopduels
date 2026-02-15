@@ -429,7 +429,13 @@ body[data-page='profile'] .page-panel {
 }
 
 #guess-row.turn-active input::placeholder {
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(255, 255, 255, 0.95) !important;
+  opacity: 1;
+}
+
+#guess-row.turn-active input::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.95) !important;
+  opacity: 1;
 }
 
 #guess-row.turn-inactive input {
@@ -439,7 +445,13 @@ body[data-page='profile'] .page-panel {
 }
 
 #guess-row.turn-inactive input::placeholder {
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(255, 255, 255, 0.62) !important;
+  opacity: 1;
+}
+
+#guess-row.turn-inactive input::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.62) !important;
+  opacity: 1;
 }
 
 #guess-row.turn-inactive #submit-btn {
