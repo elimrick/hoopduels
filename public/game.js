@@ -7,6 +7,7 @@ if (staleLiveBadge) {
   staleLiveBadge.remove();
 }
 const currentPlayerEl = document.getElementById('current-player');
+const currentLabelEl = document.getElementById('current-label');
 const timerEl = document.getElementById('timer');
 const guessInput = document.getElementById('guess-input');
 const submitBtn = document.getElementById('submit-btn');
@@ -189,6 +190,7 @@ function renderGameState(state) {
     findAnotherBtn.classList.add('is-hidden');
   }
 
+  if (currentLabelEl) currentLabelEl.textContent = 'Current:';
   currentPlayerEl.textContent = state.currentPlayer;
 
   guessInput.disabled = !isMyTurn || state.status !== 'active';
@@ -255,7 +257,8 @@ if (findAnotherBtn) {
     findAnotherBtn.classList.add('is-hidden');
     statusLabel.textContent = 'Searching for opponent...';
     setMessage('Finding another game...');
-    turnLabel.textContent = 'Waiting for matchup...';
+    if (currentLabelEl) currentLabelEl.textContent = 'Current:';
+    currentPlayerEl.textContent = '-';
   });
 }
 
@@ -279,6 +282,8 @@ socket.on('matchmaking:queued', () => {
     guessRowEl.classList.add('turn-inactive');
   }
   guessInput.placeholder = "Opponent's turn";
+  if (currentLabelEl) currentLabelEl.textContent = 'Current:';
+  currentPlayerEl.textContent = '-';
 });
 
 socket.on('matchmaking:left', () => {
@@ -301,6 +306,7 @@ socket.on('game:state', (state) => {
 socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason, gameState }) => {
   stopTimer();
   timerEl.textContent = 'Game Over';
+  if (currentLabelEl) currentLabelEl.textContent = 'Cause:';
   currentPlayerEl.textContent = reason || 'finished';
   finalWinnerPlayerId = winnerPlayerId;
   finalLoserPlayerId = loserPlayerId;
