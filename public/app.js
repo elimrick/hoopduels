@@ -1,12 +1,39 @@
 (async function markActiveNav() {
   const page = document.body.dataset.page;
-  if (page) {
+
+  function applyActiveNav() {
+    if (!page) return;
+    document.querySelectorAll('[data-nav]').forEach((el) => {
+      el.classList.remove('active');
+    });
     document.querySelectorAll('[data-nav]').forEach((el) => {
       if (el.dataset.nav === page) {
         el.classList.add('active');
       }
     });
   }
+
+  function renderAuthNav(isSignedIn) {
+    const authNavLink = document.getElementById('auth-nav-link');
+    if (!authNavLink) return;
+    const existingCreate = document.getElementById('auth-nav-create');
+
+    if (isSignedIn) {
+      authNavLink.textContent = 'Profile';
+      authNavLink.href = 'profile.html';
+      authNavLink.dataset.nav = 'profile';
+      if (existingCreate) existingCreate.classList.add('is-hidden');
+    } else {
+      authNavLink.textContent = 'Sign In';
+      authNavLink.href = 'signin.html';
+      authNavLink.dataset.nav = 'signin';
+      if (existingCreate) existingCreate.classList.remove('is-hidden');
+    }
+  }
+
+  // Render auth nav immediately to avoid signed-in/signed-out flicker during async init.
+  renderAuthNav(Boolean(localStorage.getItem('hoopduels_auth_token_v1')));
+  applyActiveNav();
 
   if (window.HoopState && typeof window.HoopState.init === 'function') {
     try {
@@ -17,23 +44,8 @@
 
   const profile = window.HoopState ? window.HoopState.getProfile() : null;
   const signedIn = profile ? profile.signedIn : false;
-  const authNavLink = document.getElementById('auth-nav-link');
-
-  if (authNavLink) {
-    const existingCreate = document.getElementById('auth-nav-create');
-    if (signedIn) {
-      authNavLink.textContent = 'Profile';
-      authNavLink.href = 'profile.html';
-      authNavLink.dataset.nav = 'profile';
-      if (existingCreate) {
-        existingCreate.remove();
-      }
-    } else {
-      authNavLink.textContent = 'Sign In';
-      authNavLink.href = 'signin.html';
-      authNavLink.dataset.nav = 'signin';
-    }
-  }
+  renderAuthNav(signedIn);
+  applyActiveNav();
 
   if (!page) return;
 
