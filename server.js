@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 3000;
 const TURN_DURATION_MS = 60_000;
 const MAX_STRIKES = 3;
 const DISCONNECT_GRACE_MS = 15_000;
+const ADMIN_HEALTH_KEY = process.env.ADMIN_HEALTH_KEY || '';
 
 const app = express();
 const server = http.createServer(app);
@@ -122,6 +123,32 @@ app.get('/api/leaderboard', async (req, res) => {
     currentUserId = user ? user.id : null;
   }
   res.json({ leaderboard: await accountStore.getLeaderboardRows(currentUserId) });
+});
+
+app.get('/api/admin/health', async (req, res) => {
+  if (!ADMIN_HEALTH_KEY) {
+    res.status(503).json({ error: 'Admin health key not configured.' });
+    return;
+  }
+
+  const provided = req.headers['x-admin-key'];
+  if (provided !== ADMIN_HEALTH_KEY) {
+    res.status(401).json({ error: 'Unauthorized.' });
+    return;
+  }
+
+  const [userCount, leaderboardRows] = await Promise.all([
+    accountStore.getUserCount(),
+    accountStore.getLeaderboardRows()
+  ]);
+
+  res.json({
+    ok: true,
+    accountStore: usePostgres ? 'postgres' : 'sqlite',
+    users: Number(userCount) || 0,
+    leaderboardRows: Array.isArray(leaderboardRows) ? leaderboardRows.length : 0,
+    now: new Date().toISOString()
+  });
 });
 
 const seasonSyncStatePath = path.join(__dirname, 'data', 'season-sync-state.json');
