@@ -87,6 +87,19 @@ function renderHistory(chainPlayers, historyEntries, players) {
 }
 
 function renderScoreboard(players, activePlayerId) {
+  const applyActiveStyles = (el, isActive) => {
+    if (!el) return;
+    if (isActive) {
+      el.style.borderColor = '#3a7bff';
+      el.style.background = 'rgba(58, 123, 255, 0.14)';
+      el.style.boxShadow = 'inset 0 0 0 1px rgba(58, 123, 255, 0.5)';
+    } else {
+      el.style.borderColor = '';
+      el.style.background = '';
+      el.style.boxShadow = '';
+    }
+  };
+
   if (!players || !players.length) {
     playerLeftNameEl.textContent = 'Player 1';
     playerRightNameEl.textContent = 'Player 2';
@@ -94,6 +107,8 @@ function renderScoreboard(players, activePlayerId) {
     playerRightStrikesEl.textContent = '0';
     playerLeftEl.classList.remove('active');
     playerRightEl.classList.remove('active');
+    applyActiveStyles(playerLeftEl, false);
+    applyActiveStyles(playerRightEl, false);
     return;
   }
 
@@ -107,8 +122,12 @@ function renderScoreboard(players, activePlayerId) {
   playerLeftStrikesEl.textContent = String(left.strikes);
   playerRightStrikesEl.textContent = String(right.strikes);
 
-  playerLeftEl.classList.toggle('active', left.playerId === activePlayerId);
-  playerRightEl.classList.toggle('active', right.playerId === activePlayerId);
+  const leftActive = left.playerId === activePlayerId;
+  const rightActive = right.playerId === activePlayerId;
+  playerLeftEl.classList.toggle('active', leftActive);
+  playerRightEl.classList.toggle('active', rightActive);
+  applyActiveStyles(playerLeftEl, leftActive);
+  applyActiveStyles(playerRightEl, rightActive);
 }
 
 function stopTimer() {
