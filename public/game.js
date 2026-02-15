@@ -190,6 +190,7 @@ function renderGameState(state) {
   if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 
   if (currentLabelEl) currentLabelEl.textContent = 'Current:';
+  if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = state.currentPlayer;
 
   guessInput.disabled = !isMyTurn || state.status !== 'active';
@@ -242,6 +243,7 @@ function queueForAnotherGame() {
   statusLabel.textContent = 'Searching for opponent...';
   setMessage('Finding another game...');
   if (currentLabelEl) currentLabelEl.textContent = 'Current:';
+  if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = '-';
   if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 }
@@ -288,6 +290,7 @@ socket.on('matchmaking:queued', () => {
   }
   guessInput.placeholder = "Opponent's turn";
   if (currentLabelEl) currentLabelEl.textContent = 'Current:';
+  if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = '-';
   if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 });
@@ -306,6 +309,7 @@ socket.on('game:error', (msg) => {
 });
 
 socket.on('game:state', (state) => {
+  if (gameFinished) return;
   renderGameState(state);
 });
 
@@ -314,6 +318,7 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   stopTimer();
   timerEl.textContent = 'Game Over';
   if (currentLabelEl) currentLabelEl.textContent = '';
+  if (currentLabelEl) currentLabelEl.style.display = 'none';
   currentPlayerEl.textContent = reason || 'finished';
   if (leaveGameBtn) leaveGameBtn.textContent = 'Find Another Game';
   finalWinnerPlayerId = winnerPlayerId;
