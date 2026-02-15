@@ -455,6 +455,12 @@ io.on('connection', (socket) => {
   });
 
   socket.on('matchmaking:leave', () => {
+    const game = getGameByPlayerId(playerId);
+    if (game && game.status === 'active') {
+      endGame(game, playerId, 'left game');
+      return;
+    }
+
     const idx = waitingQueue.indexOf(playerId);
     if (idx !== -1) {
       waitingQueue.splice(idx, 1);

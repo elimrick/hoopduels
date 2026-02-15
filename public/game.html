@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260215j" />
+    <link rel="stylesheet" href="styles.css?v=20260215k" />
   </head>
   <body data-page="play">
     <div class="layout">
@@ -27,12 +27,9 @@
       </aside>
 
       <main class="main">
-        <h1 class="page-title">Live Duel</h1>
-        <div class="duel-top-row page-panel">
-          <strong id="status-label">Waiting for match...</strong>
-          <div class="duel-top-actions">
-            <button class="btn btn-compact btn-status" id="leave-game-btn" type="button">Leave Game</button>
-          </div>
+        <div class="duel-page-header page-panel">
+          <h1 class="page-title">Live Duel</h1>
+          <button class="btn btn-compact btn-status" id="leave-game-btn" type="button">Leave Game</button>
         </div>
 
         <section class="card page-panel" style="margin-bottom: 16px;">
@@ -67,7 +64,7 @@
     <div class="matchmaking-overlay" id="leave-game-overlay" hidden>
       <div class="matchmaking-card">
         <h3>Leave Game?</h3>
-        <p>If you confirm, you will return to the home page.</p>
+        <p>If you confirm, it will count as a loss.</p>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
           <button class="btn" id="leave-game-confirm-btn" type="button">Confirm</button>
           <button class="btn" id="leave-game-cancel-btn" type="button">Cancel</button>
@@ -76,8 +73,8 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="state.js?v=20260215j"></script>
-    <script src="app.js?v=20260215j"></script>
-    <script src="game.js?v=20260215j"></script>
+    <script src="state.js?v=20260215k"></script>
+    <script src="app.js?v=20260215k"></script>
+    <script src="game.js?v=20260215k"></script>
   </body>
 </html>

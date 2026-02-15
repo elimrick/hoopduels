@@ -1,7 +1,6 @@
 const playerId = window.HoopState ? window.HoopState.getClientId() : '';
 const socket = io({ auth: { playerId } });
 
-const statusLabel = document.getElementById('status-label');
 const staleLiveBadge = document.getElementById('live-badge');
 if (staleLiveBadge) {
   staleLiveBadge.remove();
@@ -47,6 +46,27 @@ function extractGuessedName(message) {
   if (typeof message !== 'string') return '';
   const match = message.match(/guessed "([^"]+)"/i);
   return match && match[1] ? match[1].trim() : '';
+}
+
+function parseStrikeMessage(message) {
+  if (typeof message !== 'string') return null;
+  const match = message.match(/^(.+?) guessed "([^"]+)" and got(?: a)? strike(?: 3\/3)? \((.+)\)\.$/i);
+  if (!match) return null;
+  return {
+    guesser: match[1].trim(),
+    guess: match[2].trim(),
+    reason: match[3].trim()
+  };
+}
+
+function formatEndReason(reason) {
+  if (typeof reason !== 'string' || !reason.trim()) return 'Finished';
+  const value = reason.trim().toLowerCase();
+  if (value === 'time expired') return 'Time Expired';
+  if (value === '3 strikes') return '3 Strikes';
+  if (value === 'disconnect') return 'Disconnected';
+  if (value === 'left game') return 'Left Game';
+  return value.split(' ').map((part) => part ? part[0].toUpperCase() + part.slice(1) : '').join(' ');
 }
 
 function renderHistory(chainPlayers, historyEntries, players) {
@@ -185,14 +205,9 @@ function renderGameState(state) {
 
   const isMyTurn = state.activePlayerId === playerId;
 
-  statusLabel.textContent = 'In Match';
   const opponent = Array.isArray(state.players)
     ? state.players.find((p) => p.playerId !== playerId)
     : null;
-  const opponentConnected = Boolean(opponent && opponent.connected);
-  if (!opponentConnected) {
-    statusLabel.textContent = 'Opponent disconnected';
-  }
   if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 
   if (currentLabelEl) currentLabelEl.textContent = 'Current:';
@@ -206,16 +221,23 @@ function renderGameState(state) {
     guessRowEl.classList.toggle('turn-active', isMyTurn && state.status === 'active');
     guessRowEl.classList.toggle('turn-inactive', !isMyTurn || state.status !== 'active');
   }
-  const opponentMissGuess = !isMyTurn && typeof state.message === 'string' && state.message.includes('got')
-    ? extractGuessedName(state.message)
-    : '';
-  guessInput.placeholder = isMyTurn && state.status === 'active'
-    ? 'Name a teammate...'
-    : (opponentMissGuess ? `Opponent guessed ${opponentMissGuess}` : "Opponent's turn");
+  guessInput.placeholder = isMyTurn && state.status === 'active' ? 'Name a teammate...' : "Opponent's turn";
 
   renderScoreboard(state.players, state.activePlayerId);
   renderHistory(state.usedPlayers, state.history, state.players);
-  setMessage('');
+  const strikeInfo = parseStrikeMessage(state.message);
+  if (strikeInfo) {
+    const me = state.players.find((p) => p.playerId === playerId);
+    const myName = me ? me.username : '';
+    if (myName && strikeInfo.guesser === myName) {
+      setMessage(`Incorrect guess: ${strikeInfo.reason}`, 'error');
+    } else {
+      const guessedName = strikeInfo.guess || extractGuessedName(state.message) || 'blank guess';
+      setMessage(`Opponent incorrectly guessed: ${guessedName}`, 'error');
+    }
+  } else {
+    setMessage('');
+  }
 
   startTimer();
 }
@@ -248,11 +270,15 @@ function queueForAnotherGame() {
     socket.emit('user:set-name', displayName);
   }
   socket.emit('matchmaking:join');
-  statusLabel.textContent = 'Searching for opponent...';
-  setMessage('Finding another game...');
+  setMessage('');
   if (currentLabelEl) currentLabelEl.textContent = 'Current:';
   if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = '-';
+  guessInput.disabled = true;
+  submitBtn.disabled = true;
+  if (guessRowEl) {
+    guessRowEl.hidden = true;
+  }
 }
 
 if (leaveGameBtn && leaveGameOverlay && leaveGameConfirmBtn && leaveGameCancelBtn) {
@@ -288,10 +314,9 @@ socket.on('matchmaking:queued', () => {
   hasRecordedCurrentGame = false;
   finalWinnerPlayerId = null;
   finalLoserPlayerId = null;
-  statusLabel.textContent = 'Searching for opponent...';
-  setMessage('Queued for matchmaking. Waiting for an opponent...');
+  setMessage('');
   if (guessRowEl) {
-    guessRowEl.hidden = false;
+    guessRowEl.hidden = true;
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');
   }
@@ -302,8 +327,7 @@ socket.on('matchmaking:queued', () => {
 });
 
 socket.on('matchmaking:left', () => {
-  statusLabel.textContent = 'Waiting for match...';
-  setMessage('Left queue.');
+  setMessage('');
 });
 
 socket.on('matchmaking:error', (msg) => {
@@ -325,7 +349,7 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   timerEl.textContent = 'Game Over';
   if (currentLabelEl) currentLabelEl.textContent = '';
   if (currentLabelEl) currentLabelEl.style.display = 'none';
-  currentPlayerEl.textContent = reason || 'finished';
+  currentPlayerEl.textContent = formatEndReason(reason);
   if (leaveGameBtn) leaveGameBtn.textContent = 'Find Another Game';
   finalWinnerPlayerId = winnerPlayerId;
   finalLoserPlayerId = loserPlayerId;
@@ -350,11 +374,10 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     setMessage(`Game ended (${endedBy}).`, 'success');
   }
 
-  statusLabel.textContent = 'Game finished';
   guessInput.disabled = true;
   submitBtn.disabled = true;
   if (guessRowEl) {
-    guessRowEl.hidden = false;
+    guessRowEl.hidden = true;
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');
   }
@@ -381,6 +404,5 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
 
 socket.on('disconnect', () => {
   stopTimer();
-  statusLabel.textContent = 'Disconnected';
   setMessage('Connection lost.', 'error');
 });
