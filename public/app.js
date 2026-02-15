@@ -73,23 +73,37 @@
   function renderHome() {
     const activeProfile = window.HoopState ? window.HoopState.getProfile() : null;
     if (!activeProfile) return;
+    const isGuest = !activeProfile.signedIn;
 
     const homeTitle = document.getElementById('home-title');
     if (homeTitle) {
       homeTitle.textContent = activeProfile.signedIn ? `Welcome back, ${activeProfile.username}!` : 'Welcome!';
     }
 
-    setText('stat-rating', formatRank(activeProfile.rank));
-    setText('stat-wl', `${activeProfile.wins}-${activeProfile.losses}`);
-    setText('stat-streak', formatStreak(activeProfile.streak));
-    setText('stat-peak', formatRank(activeProfile.peakRank));
-    setText('stat-best-win', formatBestWin(activeProfile.bestWin));
-    setText('stat-longest-chain', activeProfile.longestChain);
+    const shown = isGuest
+      ? {
+        rank: null,
+        wins: 0,
+        losses: 0,
+        streak: 0,
+        peakRank: null,
+        bestWin: null,
+        longestChain: 0,
+        games: []
+      }
+      : activeProfile;
+
+    setText('stat-rating', formatRank(shown.rank));
+    setText('stat-wl', `${shown.wins}-${shown.losses}`);
+    setText('stat-streak', formatStreak(shown.streak));
+    setText('stat-peak', formatRank(shown.peakRank));
+    setText('stat-best-win', formatBestWin(shown.bestWin));
+    setText('stat-longest-chain', shown.longestChain);
 
     const historyPreview = document.getElementById('history-preview');
     if (historyPreview) {
       historyPreview.innerHTML = '';
-      const recent = activeProfile.games.slice(0, 10);
+      const recent = shown.games.slice(0, 10);
       if (!recent.length) {
         historyPreview.textContent = 'No games played yet.';
         historyPreview.className = 'list-empty';
