@@ -415,6 +415,29 @@ body[data-page='profile'] .page-panel {
   align-items: center;
 }
 
+#guess-row input {
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: #1f1e1d;
+  color: var(--text);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+#guess-row.turn-active input {
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45);
+}
+
+#guess-row.turn-inactive input {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.62);
+}
+
+#guess-row.turn-inactive #submit-btn {
+  opacity: 0.55;
+}
+
 .duel-board {
   display: grid;
   grid-template-columns: 1fr auto 1fr;

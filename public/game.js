@@ -8,7 +8,6 @@ if (staleLiveBadge) {
 }
 const currentPlayerEl = document.getElementById('current-player');
 const timerEl = document.getElementById('timer');
-const turnLabel = document.getElementById('turn-label');
 const guessInput = document.getElementById('guess-input');
 const submitBtn = document.getElementById('submit-btn');
 const guessRowEl = document.getElementById('guess-row');
@@ -174,13 +173,15 @@ function renderGameState(state) {
   }
 
   currentPlayerEl.textContent = state.currentPlayer;
-  turnLabel.textContent = isMyTurn ? 'Your turn. Name a teammate.' : `${state.activeUsername}'s turn.`;
 
   guessInput.disabled = !isMyTurn || state.status !== 'active';
   submitBtn.disabled = !isMyTurn || state.status !== 'active';
   if (guessRowEl) {
-    guessRowEl.hidden = !isMyTurn || state.status !== 'active';
+    guessRowEl.hidden = false;
+    guessRowEl.classList.toggle('turn-active', isMyTurn && state.status === 'active');
+    guessRowEl.classList.toggle('turn-inactive', !isMyTurn || state.status !== 'active');
   }
+  guessInput.placeholder = isMyTurn && state.status === 'active' ? 'Name a teammate...' : "Opponent's turn";
 
   renderScoreboard(state.players, state.activePlayerId);
   renderHistory(state.usedPlayers, state.history, state.players);
@@ -254,8 +255,11 @@ socket.on('matchmaking:queued', () => {
   statusLabel.textContent = 'Searching for opponent...';
   setMessage('Queued for matchmaking. Waiting for an opponent...');
   if (guessRowEl) {
-    guessRowEl.hidden = true;
+    guessRowEl.hidden = false;
+    guessRowEl.classList.remove('turn-active');
+    guessRowEl.classList.add('turn-inactive');
   }
+  guessInput.placeholder = "Opponent's turn";
 });
 
 socket.on('matchmaking:left', () => {
@@ -296,12 +300,14 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   }
 
   statusLabel.textContent = 'Game finished';
-  turnLabel.textContent = 'Find another game to play again.';
   guessInput.disabled = true;
   submitBtn.disabled = true;
   if (guessRowEl) {
-    guessRowEl.hidden = true;
+    guessRowEl.hidden = false;
+    guessRowEl.classList.remove('turn-active');
+    guessRowEl.classList.add('turn-inactive');
   }
+  guessInput.placeholder = "Opponent's turn";
   if (findAnotherBtn) {
     findAnotherBtn.classList.remove('is-hidden');
   }
