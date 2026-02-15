@@ -484,10 +484,21 @@
     let matchmakingSocket = null;
     let isSearching = false;
     let ignoreNextDisconnect = false;
+    let matched = false;
+    let disconnectNoticeTimer = null;
+
+    const clearDisconnectNotice = () => {
+      if (disconnectNoticeTimer) {
+        clearTimeout(disconnectNoticeTimer);
+        disconnectNoticeTimer = null;
+      }
+    };
 
     const closeOverlay = () => {
       overlay.hidden = true;
       isSearching = false;
+      matched = false;
+      clearDisconnectNotice();
       ignoreNextDisconnect = true;
       if (matchmakingSocket) {
         matchmakingSocket.emit('matchmaking:leave');
@@ -505,6 +516,8 @@
       }
 
       isSearching = true;
+      matched = false;
+      clearDisconnectNotice();
       overlay.hidden = false;
       status.textContent = 'Connecting to matchmaking...';
 
@@ -515,6 +528,7 @@
       matchmakingSocket = io({ auth: { playerId } });
 
       matchmakingSocket.on('connect', () => {
+        clearDisconnectNotice();
         if (displayName) {
           matchmakingSocket.emit('user:set-name', displayName);
         }
@@ -526,6 +540,8 @@
       });
 
       matchmakingSocket.on('game:state', () => {
+        matched = true;
+        clearDisconnectNotice();
         status.textContent = 'Opponent found. Entering duel...';
         setTimeout(() => {
           if (matchmakingSocket) {
@@ -538,15 +554,34 @@
       });
 
       matchmakingSocket.on('matchmaking:error', (msg) => {
+        clearDisconnectNotice();
         status.textContent = msg || 'Matchmaking error.';
       });
 
-      matchmakingSocket.on('disconnect', () => {
+      matchmakingSocket.on('disconnect', (reason) => {
         if (ignoreNextDisconnect) {
           ignoreNextDisconnect = false;
           return;
         }
-        if (isSearching) {
+        if (!isSearching || matched || overlay.hidden) return;
+        if (reason === 'io client disconnect') return;
+
+        clearDisconnectNotice();
+        disconnectNoticeTimer = setTimeout(() => {
+          if (!isSearching || matched || overlay.hidden) return;
+          status.textContent = 'Disconnected. Try again.';
+          isSearching = false;
+          if (matchmakingSocket) {
+            ignoreNextDisconnect = true;
+            matchmakingSocket.disconnect();
+            matchmakingSocket = null;
+          }
+        }, 800);
+      });
+
+      matchmakingSocket.on('connect_error', () => {
+        clearDisconnectNotice();
+        if (isSearching && !matched) {
           status.textContent = 'Disconnected. Try again.';
           isSearching = false;
         }
