@@ -4,6 +4,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const { PlayerStore } = require('./lib/player-store');
 const { AccountStore, normalizeUsername } = require('./lib/account-store');
+const { AccountStorePg } = require('./lib/account-store-pg');
 const { runSeasonSyncIfDue } = require('./lib/season-sync');
 
 const PORT = process.env.PORT || 3000;
@@ -24,10 +25,14 @@ const playerStore = new PlayerStore({
 });
 playerStore.init();
 
-const accountStore = new AccountStore({
-  dbPath: path.join(__dirname, 'data', 'accounts.db')
-});
-accountStore.init();
+const usePostgres = Boolean(process.env.DATABASE_URL);
+const accountStore = usePostgres
+  ? new AccountStorePg({
+    connectionString: process.env.DATABASE_URL
+  })
+  : new AccountStore({
+    dbPath: path.join(__dirname, 'data', 'accounts.db')
+  });
 
 function getBearerToken(req) {
   const header = req.headers.authorization || '';
@@ -36,22 +41,22 @@ function getBearerToken(req) {
   return token || null;
 }
 
-function readAuthUser(req) {
+async function readAuthUser(req) {
   const token = getBearerToken(req);
   if (!token) return null;
-  const profile = accountStore.getProfileByToken(token);
+  const profile = await accountStore.getProfileByToken(token);
   if (!profile) return null;
   return { token, profile };
 }
 
-app.post('/api/auth/signup', (req, res) => {
+app.post('/api/auth/signup', async (req, res) => {
   const username = normalizeUsername(req.body && req.body.username);
   const password = req.body && req.body.password;
   try {
-    const userId = accountStore.createUser(username, password);
+    const userId = await accountStore.createUser(username, password);
     const token = accountStore.createSession(userId);
-    const profile = accountStore.getProfileByToken(token);
-    const leaderboard = accountStore.getLeaderboardRows(userId);
+    const profile = await accountStore.getProfileByToken(token);
+    const leaderboard = await accountStore.getLeaderboardRows(userId);
     res.status(201).json({ token, profile, leaderboard });
   } catch (error) {
     const code = error && error.code;
@@ -67,30 +72,30 @@ app.post('/api/auth/signup', (req, res) => {
   }
 });
 
-app.post('/api/auth/signin', (req, res) => {
+app.post('/api/auth/signin', async (req, res) => {
   const username = normalizeUsername(req.body && req.body.username);
   const password = req.body && req.body.password;
-  const userId = accountStore.verifyUser(username, password);
+  const userId = await accountStore.verifyUser(username, password);
   if (!userId) {
     res.status(401).json({ error: 'Invalid username or password.' });
     return;
   }
   const token = accountStore.createSession(userId);
-  const profile = accountStore.getProfileByToken(token);
-  const leaderboard = accountStore.getLeaderboardRows(userId);
+  const profile = await accountStore.getProfileByToken(token);
+  const leaderboard = await accountStore.getLeaderboardRows(userId);
   res.json({ token, profile, leaderboard });
 });
 
-app.post('/api/auth/signout', (req, res) => {
+app.post('/api/auth/signout', async (req, res) => {
   const token = getBearerToken(req);
   if (token) {
-    accountStore.clearSession(token);
+    await accountStore.clearSession(token);
   }
   res.status(204).end();
 });
 
-app.get('/api/account/profile', (req, res) => {
-  const auth = readAuthUser(req);
+app.get('/api/account/profile', async (req, res) => {
+  const auth = await readAuthUser(req);
   if (!auth) {
     res.status(401).json({ error: 'Unauthorized.' });
     return;
@@ -98,25 +103,25 @@ app.get('/api/account/profile', (req, res) => {
   res.json({ profile: auth.profile });
 });
 
-app.put('/api/account/profile', (req, res) => {
-  const auth = readAuthUser(req);
+app.put('/api/account/profile', async (req, res) => {
+  const auth = await readAuthUser(req);
   if (!auth) {
     res.status(401).json({ error: 'Unauthorized.' });
     return;
   }
-  const next = accountStore.saveProfileByToken(auth.token, req.body && req.body.profile);
-  const leaderboard = accountStore.getLeaderboardRows();
+  const next = await accountStore.saveProfileByToken(auth.token, req.body && req.body.profile);
+  const leaderboard = await accountStore.getLeaderboardRows();
   res.json({ profile: next, leaderboard });
 });
 
-app.get('/api/leaderboard', (req, res) => {
+app.get('/api/leaderboard', async (req, res) => {
   const token = getBearerToken(req);
   let currentUserId = null;
   if (token) {
-    const user = accountStore.getUserByToken(token);
+    const user = await accountStore.getUserByToken(token);
     currentUserId = user ? user.id : null;
   }
-  res.json({ leaderboard: accountStore.getLeaderboardRows(currentUserId) });
+  res.json({ leaderboard: await accountStore.getLeaderboardRows(currentUserId) });
 });
 
 const seasonSyncStatePath = path.join(__dirname, 'data', 'season-sync-state.json');
@@ -508,8 +513,17 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(PORT, () => {
-  const counts = playerStore.getCounts();
-  console.log(`Players loaded from DB: ${counts.players} total, ${counts.allStars} all-stars`);
-  console.log(`HoopDuels server running on http://localhost:${PORT}`);
+async function boot() {
+  await accountStore.init();
+  server.listen(PORT, () => {
+    const counts = playerStore.getCounts();
+    console.log(`Players loaded from DB: ${counts.players} total, ${counts.allStars} all-stars`);
+    console.log(`Account store: ${usePostgres ? 'postgres' : 'sqlite'}`);
+    console.log(`HoopDuels server running on http://localhost:${PORT}`);
+  });
+}
+
+boot().catch((error) => {
+  console.error('Failed to boot server:', error);
+  process.exit(1);
 });
