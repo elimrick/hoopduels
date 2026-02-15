@@ -139,6 +139,7 @@
       const cached = readJson(LEADERBOARD_CACHE_KEY, runtime.leaderboard);
       runtime.leaderboard = Array.isArray(cached) ? cached : runtime.leaderboard;
     }
+    emitUpdated();
   }
 
   async function init() {
@@ -224,6 +225,11 @@
     return row ? (Number(row.elo) || null) : null;
   }
 
+  function isGuestLikeName(name) {
+    const normalized = toNameKey(name);
+    return normalized === 'guest' || normalized.startsWith('player-');
+  }
+
   async function syncSignedInProfile() {
     if (!runtime.profile.signedIn || !runtime.token) return;
     try {
@@ -251,10 +257,16 @@
     const chainLength = Number(result && result.chainLength) || 0;
     const opponent = normalizeName(result && result.opponent ? String(result.opponent) : 'Unknown') || 'Unknown';
     const opponentElo = getOpponentEloFromLeaderboard(opponent);
+    const rankedGame = Boolean(
+      profile.signedIn
+      && !isGuestLikeName(opponent)
+      && opponentElo != null
+      && Number.isFinite(opponentElo)
+    );
 
     applyStreak(profile, won);
 
-    if (won && opponentElo != null) {
+    if (won && rankedGame) {
       profile.bestWin = profile.bestWin == null
         ? opponentElo
         : Math.max(profile.bestWin, opponentElo);
@@ -262,12 +274,16 @@
 
     profile.longestChain = Math.max(profile.longestChain, chainLength);
     const myEloBefore = Number(profile.elo) || 1200;
-    const oppElo = opponentElo == null ? 1200 : opponentElo;
-    const expected = 1 / (1 + Math.pow(10, (oppElo - myEloBefore) / 400));
-    const actual = won ? 1 : 0;
-    const myEloAfter = Math.round(myEloBefore + 32 * (actual - expected));
+    let myEloAfter = myEloBefore;
+    if (rankedGame) {
+      const oppElo = opponentElo;
+      const expected = 1 / (1 + Math.pow(10, (oppElo - myEloBefore) / 400));
+      const actual = won ? 1 : 0;
+      myEloAfter = Math.round(myEloBefore + 32 * (actual - expected));
+    }
     profile.elo = myEloAfter;
     profile.peakElo = Math.max(Number(profile.peakElo) || myEloAfter, myEloAfter);
+    const eloDelta = myEloAfter - myEloBefore;
 
     profile.games.unshift({
       at: Date.now(),
@@ -277,7 +293,11 @@
       opponentRank: opponentElo,
       chainLength,
       myStrikes: Number(result && result.myStrikes) || 0,
-      oppStrikes: Number(result && result.oppStrikes) || 0
+      oppStrikes: Number(result && result.oppStrikes) || 0,
+      ranked: rankedGame,
+      eloBefore: myEloBefore,
+      eloAfter: myEloAfter,
+      eloDelta
     });
 
     if (profile.games.length > 100) {
@@ -312,6 +332,7 @@
     signIn,
     signOut,
     recordGame,
-    getLeaderboardRows
+    getLeaderboardRows,
+    refreshLeaderboard
   };
 })();

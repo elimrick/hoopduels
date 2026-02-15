@@ -40,6 +40,7 @@ let finalWinnerPlayerId = null;
 let finalLoserPlayerId = null;
 let gameFinished = false;
 let isRequeueing = false;
+let pregamePlayerElos = {};
 
 function getLocalProfileName() {
   if (!window.HoopState) return '';
@@ -50,6 +51,36 @@ function getLocalProfileName() {
 function setMessage(text, kind = '') {
   messageEl.className = kind ? `message ${kind}` : 'message';
   messageEl.textContent = text || '';
+}
+
+function isGuestLikeName(name) {
+  const normalized = String(name || '').trim().toLowerCase();
+  return normalized === 'guest' || normalized.startsWith('player-');
+}
+
+function formatEloChange(delta) {
+  const num = Number(delta);
+  if (!Number.isFinite(num) || num === 0) return '(0)';
+  return num > 0 ? `(+${Math.round(num)})` : `(${Math.round(num)})`;
+}
+
+function getAccountEloByName(username) {
+  if (!window.HoopState || !username || isGuestLikeName(username)) return null;
+  const key = String(username).trim().toLowerCase();
+  const row = window.HoopState.getLeaderboardRows().find((item) => {
+    return String(item.username || '').trim().toLowerCase() === key;
+  });
+  if (!row) return null;
+  const elo = Number(row.elo);
+  return Number.isFinite(elo) ? Math.round(elo) : null;
+}
+
+function calculateRankedEloOutcome(myElo, oppElo, won) {
+  if (!Number.isFinite(myElo) || !Number.isFinite(oppElo)) return { after: myElo, delta: 0 };
+  const expected = 1 / (1 + Math.pow(10, (oppElo - myElo) / 400));
+  const actual = won ? 1 : 0;
+  const after = Math.round(myElo + 32 * (actual - expected));
+  return { after, delta: after - myElo };
 }
 
 function extractGuessedName(message) {
@@ -178,6 +209,10 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
     playerRightEl.classList.remove('winner', 'loser');
     applyActiveStyles(playerLeftEl, false);
     applyActiveStyles(playerRightEl, false);
+    const leftMetaEl = document.getElementById('player-left-elo');
+    const rightMetaEl = document.getElementById('player-right-elo');
+    if (leftMetaEl) leftMetaEl.textContent = '';
+    if (rightMetaEl) rightMetaEl.textContent = '';
     return;
   }
 
@@ -188,6 +223,53 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
   playerRightNameEl.textContent = `${right.username}`;
   playerLeftStrikesEl.textContent = String(left.strikes);
   playerRightStrikesEl.textContent = String(right.strikes);
+
+  const leftMetaEl = document.getElementById('player-left-elo');
+  const rightMetaEl = document.getElementById('player-right-elo');
+
+  const leftInitialElo = pregamePlayerElos[left.playerId] ?? getAccountEloByName(left.username);
+  const rightInitialElo = pregamePlayerElos[right.playerId] ?? getAccountEloByName(right.username);
+  if (left.playerId && Number.isFinite(leftInitialElo)) {
+    pregamePlayerElos[left.playerId] = leftInitialElo;
+  }
+  if (right.playerId && Number.isFinite(rightInitialElo)) {
+    pregamePlayerElos[right.playerId] = rightInitialElo;
+  }
+
+  const bothRanked = Number.isFinite(leftInitialElo) && Number.isFinite(rightInitialElo);
+  let leftAfter = leftInitialElo;
+  let rightAfter = rightInitialElo;
+  let leftDelta = 0;
+  let rightDelta = 0;
+  if (bothRanked && outcome && outcome.winnerPlayerId && outcome.loserPlayerId) {
+    const leftWon = left.playerId === outcome.winnerPlayerId;
+    const rightWon = right.playerId === outcome.winnerPlayerId;
+    const leftCalc = calculateRankedEloOutcome(leftInitialElo, rightInitialElo, leftWon);
+    const rightCalc = calculateRankedEloOutcome(rightInitialElo, leftInitialElo, rightWon);
+    leftAfter = leftCalc.after;
+    rightAfter = rightCalc.after;
+    leftDelta = leftCalc.delta;
+    rightDelta = rightCalc.delta;
+  }
+
+  if (leftMetaEl) {
+    if (Number.isFinite(leftInitialElo)) {
+      leftMetaEl.textContent = (outcome && bothRanked)
+        ? `ELO: ${Math.round(leftAfter)} ${formatEloChange(leftDelta)}`
+        : `ELO: ${Math.round(leftInitialElo)}`;
+    } else {
+      leftMetaEl.textContent = '';
+    }
+  }
+  if (rightMetaEl) {
+    if (Number.isFinite(rightInitialElo)) {
+      rightMetaEl.textContent = (outcome && bothRanked)
+        ? `ELO: ${Math.round(rightAfter)} ${formatEloChange(rightDelta)}`
+        : `ELO: ${Math.round(rightInitialElo)}`;
+    } else {
+      rightMetaEl.textContent = '';
+    }
+  }
 
   const leftActive = !outcome && left.playerId === activePlayerId;
   const rightActive = !outcome && right.playerId === activePlayerId;
@@ -239,6 +321,7 @@ function renderGameState(state) {
   };
   gameFinished = false;
   isRequeueing = false;
+  pregamePlayerElos = {};
   sessionStorage.removeItem(GAME_END_REDIRECT_KEY);
 
   const isMyTurn = state.activePlayerId === playerId;
@@ -257,6 +340,11 @@ function renderGameState(state) {
     guessRowEl.classList.toggle('turn-inactive', !isMyTurn || state.status !== 'active');
   }
   guessInput.placeholder = isMyTurn && state.status === 'active' ? 'Name a teammate...' : "Opponent's turn";
+  if (isMyTurn && state.status === 'active') {
+    setTimeout(() => {
+      guessInput.focus();
+    }, 0);
+  }
 
   renderScoreboard(state.players, state.activePlayerId);
   renderHistory(state.usedPlayers, state.history, state.players);
@@ -345,6 +433,9 @@ if (cancelMatchmakingBtn) {
 
 socket.on('connect', () => {
   hasRecordedCurrentGame = false;
+  if (window.HoopState && typeof window.HoopState.refreshLeaderboard === 'function') {
+    window.HoopState.refreshLeaderboard().catch(() => {});
+  }
   const fallbackName = getLocalProfileName();
   if (fallbackName) {
     socket.emit('user:set-name', fallbackName);
@@ -446,6 +537,12 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
       myStrikes: myRow ? myRow.strikes : 0,
       oppStrikes: oppRow ? oppRow.strikes : 0
     });
+    if (Array.isArray(gameState.players)) {
+      renderScoreboard(gameState.players, gameState.activePlayerId, {
+        winnerPlayerId,
+        loserPlayerId
+      });
+    }
     hasRecordedCurrentGame = true;
   }
 });

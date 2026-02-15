@@ -9,6 +9,9 @@
   --accent-blue: #3a7bff;
   --success: #43c26b;
   --danger: #ea5656;
+  --mobile-topbar-height: calc(80px + env(safe-area-inset-top));
+  --mobile-stripe-height: 12px;
+  --mobile-topbar-total: calc(var(--mobile-topbar-height) + var(--mobile-stripe-height));
 }
 
 * {
@@ -78,6 +81,7 @@ a {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
 }
 
 .nav {
@@ -986,60 +990,24 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
 @media (max-width: 1100px) {
   body {
-    overflow: auto;
+    overflow: hidden;
   }
 
-  .layout {
-    grid-template-columns: 1fr;
-    height: auto;
-  }
-
-  .sidebar {
-    padding-right: 18px;
-    position: relative;
-    top: auto;
-    height: auto;
-  }
-
-  .sidebar::after {
-    top: auto;
-    bottom: 0;
-    width: 100%;
-    height: 12px;
-    background: linear-gradient(
-      to bottom,
-      var(--accent-red) 0 4px,
-      #f3f3f3 4px 8px,
-      var(--accent-blue) 8px 12px
-    );
-  }
-
-  .brand {
-    font-size: 36px;
-  }
-
-  .grid-home {
-    grid-template-columns: 1fr;
-  }
-
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 700px) {
   .mobile-topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 14px;
+    padding: 0 14px;
     background: linear-gradient(180deg, #252422 0%, #232220 100%);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    height: var(--mobile-topbar-height);
     z-index: 40;
     border-bottom: 0;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
 
   .mobile-topbar::after {
@@ -1062,6 +1030,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     font-weight: 800;
     font-style: italic;
     line-height: 1;
+    cursor: pointer;
   }
 
   .mobile-menu-btn {
@@ -1077,13 +1046,13 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 5px;
   }
 
   .mobile-menu-btn span {
     display: block;
-    width: 34px;
-    height: 3px;
+    width: 28px;
+    height: 2px;
     border-radius: 2px;
     background: #f3f3f3;
   }
@@ -1104,8 +1073,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .main {
     padding: 16px;
-    height: auto;
-    overflow-y: visible;
+    height: calc(100vh - var(--mobile-topbar-total));
+    overflow-y: auto;
   }
 
   .page-title {
@@ -1165,17 +1134,17 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .layout {
     grid-template-columns: 1fr;
-    height: auto;
-    margin-top: 64px;
+    height: 100vh;
+    margin-top: var(--mobile-topbar-total);
   }
 
   .sidebar {
     position: fixed;
-    top: 64px;
+    top: var(--mobile-topbar-total);
     left: 0;
     right: 0;
     height: auto;
-    max-height: calc(100vh - 64px);
+    max-height: calc(100vh - var(--mobile-topbar-total));
     padding: 12px 14px 16px;
     z-index: 35;
     transform: scaleY(0);
@@ -1204,4 +1173,85 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   .nav-link {
     width: 100%;
   }
+
+  .grid-home {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .btn {
+    width: 100%;
+    font-size: 20px;
+  }
+
+  body[data-page='play'] .duel-header .btn {
+    width: auto;
+    flex: 0 0 auto;
+  }
+
+  .duel-board {
+    grid-template-columns: 1fr;
+  }
+
+  .turn-row {
+    grid-template-columns: 1fr;
+  }
+
+  .duel-page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn.btn-status {
+    min-width: 0;
+    width: auto;
+    font-size: 20px;
+    padding: 9px 16px;
+  }
+
+  .page-table-wrap {
+    max-height: 56vh;
+  }
+
+  .page-table-wrap .history-table,
+  .page-table-wrap .leaderboard-table {
+    min-width: 620px;
+  }
+}
+
+.profile-elo-card {
+  margin-bottom: 18px;
+}
+
+#profile-elo-chart {
+  min-height: 220px;
+}
+
+.profile-elo-chart-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.profile-elo-chart-meta strong {
+  color: var(--text);
+  font-size: 18px;
+}
+
+.profile-elo-svg {
+  width: 100%;
+  height: 180px;
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
 }

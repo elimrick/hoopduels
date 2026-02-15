@@ -1,5 +1,7 @@
 (async function markActiveNav() {
   const page = document.body.dataset.page;
+  const MOBILE_MENU_BREAKPOINT = 1100;
+  let onlinePollTimer = null;
 
   function applyActiveNav() {
     if (!page) return;
@@ -58,10 +60,11 @@
 
     const topbar = document.createElement('div');
     topbar.className = 'mobile-topbar';
-    topbar.innerHTML = '<div class="mobile-brand">HoopDuels</div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
+    topbar.innerHTML = '<div class="mobile-brand" role="link" tabindex="0" aria-label="Go to home">HoopDuels</div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
     document.body.insertBefore(topbar, layout);
 
     const toggleBtn = topbar.querySelector('.mobile-menu-btn');
+    const mobileBrand = topbar.querySelector('.mobile-brand');
     if (!toggleBtn) return;
 
     const closeMenu = () => {
@@ -75,6 +78,18 @@
       toggleBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
     });
 
+    if (mobileBrand) {
+      mobileBrand.addEventListener('click', () => {
+        window.location.href = '/';
+      });
+      mobileBrand.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          window.location.href = '/';
+        }
+      });
+    }
+
     sidebar.querySelectorAll('.nav-link').forEach((link) => {
       link.addEventListener('click', () => {
         closeMenu();
@@ -82,20 +97,38 @@
     });
 
     document.addEventListener('click', (event) => {
-      if (window.innerWidth > 700) return;
+      if (window.innerWidth > MOBILE_MENU_BREAKPOINT) return;
       if (!document.body.classList.contains('mobile-nav-open')) return;
       if (sidebar.contains(event.target) || topbar.contains(event.target)) return;
       closeMenu();
     });
 
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 700) {
+      if (window.innerWidth > MOBILE_MENU_BREAKPOINT) {
         closeMenu();
       }
     });
   }
 
+  function wireBrandHome() {
+    const brand = document.querySelector('.sidebar .brand');
+    if (!brand) return;
+    brand.setAttribute('role', 'link');
+    brand.setAttribute('tabindex', '0');
+    brand.setAttribute('aria-label', 'Go to home');
+    brand.addEventListener('click', () => {
+      window.location.href = '/';
+    });
+    brand.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        window.location.href = '/';
+      }
+    });
+  }
+
   wireMobileTopbar();
+  wireBrandHome();
 
   if (!page) return;
 
@@ -226,7 +259,7 @@
 
         const thead = document.createElement('thead');
         const headRow = document.createElement('tr');
-        ['Rank', 'Name', 'Record'].forEach((label) => {
+        ['Rank', 'Name', 'ELO'].forEach((label) => {
           const th = document.createElement('th');
           th.textContent = label;
           headRow.appendChild(th);
@@ -249,7 +282,7 @@
           name.className = `leaderboard-name ${row.isYou ? 'leaderboard-name-you' : ''}`.trim();
 
           const record = document.createElement('td');
-          record.textContent = `${row.wins}-${row.losses}`;
+          record.textContent = formatElo(row.elo);
 
           tr.appendChild(rank);
           tr.appendChild(name);
@@ -264,16 +297,73 @@
 
     const onlineEl = document.getElementById('online-count');
     if (onlineEl) {
-      fetch('/api/online')
-        .then((res) => (res.ok ? res.json() : null))
-        .then((payload) => {
-          const online = payload ? Number(payload.online) : NaN;
-          onlineEl.textContent = Number.isFinite(online) && online >= 0 ? `${online} Online` : '0 Online';
-        })
-        .catch(() => {
-          onlineEl.textContent = '0 Online';
-        });
+      const updateOnline = () => {
+        fetch('/api/online')
+          .then((res) => (res.ok ? res.json() : null))
+          .then((payload) => {
+            const online = payload ? Number(payload.online) : NaN;
+            onlineEl.textContent = Number.isFinite(online) && online >= 0 ? `${online} Online` : '0 Online';
+          })
+          .catch(() => {
+            onlineEl.textContent = '0 Online';
+          });
+      };
+
+      if (onlinePollTimer) {
+        clearInterval(onlinePollTimer);
+        onlinePollTimer = null;
+      }
+      updateOnline();
+      onlinePollTimer = setInterval(updateOnline, 8000);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) updateOnline();
+      });
     }
+  }
+
+  function renderProfileChart(activeProfile) {
+    const chartEl = document.getElementById('profile-elo-chart');
+    if (!chartEl) return;
+
+    const games = Array.isArray(activeProfile.games) ? activeProfile.games : [];
+    const rankedGames = games
+      .filter((g) => Number.isFinite(Number(g.eloAfter)) && Number.isFinite(Number(g.eloBefore)))
+      .slice(0, 60)
+      .reverse();
+
+    chartEl.innerHTML = '';
+    if (!rankedGames.length) {
+      chartEl.innerHTML = '<p class="list-empty">Play ranked account-vs-account games to see ELO progression.</p>';
+      return;
+    }
+
+    const values = [Number(rankedGames[0].eloBefore), ...rankedGames.map((g) => Number(g.eloAfter))];
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const span = Math.max(1, max - min);
+    const width = 960;
+    const height = 200;
+    const padX = 16;
+    const padY = 16;
+    const innerW = width - (padX * 2);
+    const innerH = height - (padY * 2);
+
+    const points = values.map((v, i) => {
+      const x = padX + ((innerW * i) / Math.max(1, values.length - 1));
+      const y = padY + innerH - (((v - min) / span) * innerH);
+      return `${x},${y}`;
+    }).join(' ');
+
+    const latest = values[values.length - 1];
+    chartEl.innerHTML = `
+      <div class="profile-elo-chart-meta">
+        <strong>ELO Trend</strong>
+        <span>${Math.round(min)} - ${Math.round(max)} (Current ${Math.round(latest)})</span>
+      </div>
+      <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" preserveAspectRatio="none" role="img" aria-label="ELO progression chart">
+        <polyline points="${points}" fill="none" stroke="rgba(58, 123, 255, 0.95)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+      </svg>
+    `;
   }
 
   function renderLeaderboard() {
@@ -410,6 +500,7 @@
     setText('profile-streak', formatStreak(activeProfile.streak));
     setText('profile-best-win', formatBestWin(activeProfile.bestWin));
     setText('profile-longest-chain', activeProfile.longestChain);
+    renderProfileChart(activeProfile);
   }
 
   function wireSignIn() {
