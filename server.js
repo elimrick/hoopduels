@@ -16,6 +16,8 @@ const ADMIN_HEALTH_KEY = process.env.ADMIN_HEALTH_KEY || '';
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
+const ONLINE_TTL_MS = 45_000;
+const onlineVisitors = new Map();
 
 app.use(express.json({ limit: '1mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -125,8 +127,27 @@ app.get('/api/leaderboard', async (req, res) => {
   res.json({ leaderboard: await accountStore.getLeaderboardRows(currentUserId) });
 });
 
+function pruneOnlineVisitors(now = Date.now()) {
+  for (const [id, lastSeenAt] of onlineVisitors.entries()) {
+    if (!lastSeenAt || now - lastSeenAt > ONLINE_TTL_MS) {
+      onlineVisitors.delete(id);
+    }
+  }
+}
+
+app.post('/api/online/ping', (req, res) => {
+  const raw = req.body && req.body.clientId;
+  const clientId = typeof raw === 'string' ? raw.trim().slice(0, 96) : '';
+  if (clientId) {
+    onlineVisitors.set(clientId, Date.now());
+  }
+  pruneOnlineVisitors();
+  res.status(204).end();
+});
+
 app.get('/api/online', (_req, res) => {
-  res.json({ online: Number(io.engine.clientsCount) || 0 });
+  pruneOnlineVisitors();
+  res.json({ online: onlineVisitors.size });
 });
 
 app.get('/api/admin/health', async (req, res) => {

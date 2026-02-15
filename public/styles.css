@@ -9,9 +9,9 @@
   --accent-blue: #3a7bff;
   --success: #43c26b;
   --danger: #ea5656;
-  --mobile-topbar-height: calc(80px + env(safe-area-inset-top));
+  --mobile-topbar-height: 68px;
   --mobile-stripe-height: 12px;
-  --mobile-topbar-total: calc(var(--mobile-topbar-height) + var(--mobile-stripe-height));
+  --mobile-topbar-total: calc(var(--mobile-topbar-height) + var(--mobile-stripe-height) + env(safe-area-inset-top));
 }
 
 * {
@@ -246,6 +246,12 @@ body[data-page='play'] .duel-page-header .page-title {
   font-size: 18px;
   font-weight: 700;
   margin-left: 8px;
+}
+
+.guest-note {
+  margin: -2px 0 12px;
+  color: var(--muted);
+  font-size: 18px;
 }
 
 .btn.btn-status[disabled] {
@@ -990,20 +996,20 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
 @media (max-width: 1100px) {
   body {
-    overflow: hidden;
+    overflow: auto;
   }
 
   .mobile-topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 14px;
+    padding: env(safe-area-inset-top) 14px 0;
     background: linear-gradient(180deg, #252422 0%, #232220 100%);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: var(--mobile-topbar-height);
+    height: calc(var(--mobile-topbar-height) + env(safe-area-inset-top));
     z-index: 40;
     border-bottom: 0;
     transform: translateZ(0);
@@ -1073,8 +1079,9 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .main {
     padding: 16px;
-    height: calc(100vh - var(--mobile-topbar-total));
-    overflow-y: auto;
+    min-height: calc(100vh - var(--mobile-topbar-total));
+    height: auto;
+    overflow-y: visible;
   }
 
   .page-title {
@@ -1134,13 +1141,14 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .layout {
     grid-template-columns: 1fr;
-    height: 100vh;
+    height: auto;
+    min-height: calc(100vh - var(--mobile-topbar-total));
     margin-top: var(--mobile-topbar-total);
   }
 
   .sidebar {
     position: fixed;
-    top: var(--mobile-topbar-total);
+    top: calc(var(--mobile-topbar-total) - 1px);
     left: 0;
     right: 0;
     height: auto;
@@ -1181,6 +1189,26 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   .stats {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  body[data-page='play'] .duel-board {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'left right'
+      'center center';
+    align-items: start;
+  }
+
+  body[data-page='play'] #player-left {
+    grid-area: left;
+  }
+
+  body[data-page='play'] #player-right {
+    grid-area: right;
+  }
+
+  body[data-page='play'] .duel-center {
+    grid-area: center;
+  }
 }
 
 @media (max-width: 700px) {
@@ -1192,10 +1220,6 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   body[data-page='play'] .duel-header .btn {
     width: auto;
     flex: 0 0 auto;
-  }
-
-  .duel-board {
-    grid-template-columns: 1fr;
   }
 
   .turn-row {

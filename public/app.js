@@ -2,6 +2,7 @@
   const page = document.body.dataset.page;
   const MOBILE_MENU_BREAKPOINT = 1100;
   let onlinePollTimer = null;
+  let presenceTimer = null;
 
   function applyActiveNav() {
     if (!page) return;
@@ -129,6 +130,7 @@
 
   wireMobileTopbar();
   wireBrandHome();
+  wirePresencePing();
 
   if (!page) return;
 
@@ -169,76 +171,84 @@
       homeTitle.textContent = activeProfile.signedIn ? `Welcome back, ${activeProfile.username}!` : 'Welcome!';
     }
 
-    const shown = isGuest
-      ? {
-        rank: null,
-        wins: 0,
-        losses: 0,
-        streak: 0,
-        elo: 1200,
-        peakElo: 1200,
-        bestWin: null,
-        longestChain: 0,
-        games: []
-      }
-      : activeProfile;
+    const guestNote = document.getElementById('home-guest-stats-note');
+    if (guestNote) {
+      guestNote.hidden = !isGuest;
+    }
 
-    setText('stat-rating', formatElo(shown.elo));
-    setText('stat-wl', `${shown.wins}-${shown.losses}`);
-    setText('stat-streak', formatStreak(shown.streak));
-    setText('stat-peak', formatElo(shown.peakElo));
-    setText('stat-best-win', formatBestWin(shown.bestWin));
-    setText('stat-longest-chain', shown.longestChain);
+    if (isGuest) {
+      setText('stat-rating', '-');
+      setText('stat-wl', '-');
+      setText('stat-streak', '-');
+      setText('stat-peak', '-');
+      setText('stat-best-win', '-');
+      setText('stat-longest-chain', '-');
+    } else {
+      setText('stat-rating', formatElo(activeProfile.elo));
+      setText('stat-wl', `${activeProfile.wins}-${activeProfile.losses}`);
+      setText('stat-streak', formatStreak(activeProfile.streak));
+      setText('stat-peak', formatElo(activeProfile.peakElo));
+      setText('stat-best-win', formatBestWin(activeProfile.bestWin));
+      setText('stat-longest-chain', activeProfile.longestChain);
+    }
 
     const historyPreview = document.getElementById('history-preview');
     if (historyPreview) {
       historyPreview.innerHTML = '';
-      const recent = shown.games.slice(0, 10);
-      if (!recent.length) {
-        historyPreview.textContent = 'No games played yet.';
+      if (isGuest) {
+        historyPreview.textContent = 'Create an account to track games played.';
         historyPreview.className = 'list-empty';
       } else {
-        historyPreview.className = '';
-        const wrap = document.createElement('div');
-        wrap.className = 'home-table-wrap';
+        const recent = activeProfile.games.slice(0, 10);
+        if (!recent.length) {
+          historyPreview.textContent = 'No games played yet.';
+          historyPreview.className = 'list-empty';
+        } else {
+          historyPreview.className = '';
+          const wrap = document.createElement('div');
+          wrap.className = 'home-table-wrap';
 
-        const table = document.createElement('table');
-        table.className = 'history-table home-history-table';
+          const table = document.createElement('table');
+          table.className = 'history-table home-history-table';
 
-        const thead = document.createElement('thead');
-        const headRow = document.createElement('tr');
-        ['Result', 'Opponent', 'Chain'].forEach((label) => {
-          const th = document.createElement('th');
-          th.textContent = label;
-          headRow.appendChild(th);
-        });
-        thead.appendChild(headRow);
-        table.appendChild(thead);
+          const thead = document.createElement('thead');
+          const headRow = document.createElement('tr');
+          ['Result', 'Opponent', 'ELO', 'Chain'].forEach((label) => {
+            const th = document.createElement('th');
+            th.textContent = label;
+            headRow.appendChild(th);
+          });
+          thead.appendChild(headRow);
+          table.appendChild(thead);
 
-        const tbody = document.createElement('tbody');
-        recent.forEach((g) => {
-          const tr = document.createElement('tr');
+          const tbody = document.createElement('tbody');
+          recent.forEach((g) => {
+            const tr = document.createElement('tr');
 
-          const wl = document.createElement('td');
-          wl.textContent = g.won ? 'W' : 'L';
-          wl.className = g.won ? 'history-wl win' : 'history-wl loss';
+            const wl = document.createElement('td');
+            wl.textContent = g.won ? 'W' : 'L';
+            wl.className = g.won ? 'history-wl win' : 'history-wl loss';
 
-          const opp = document.createElement('td');
-          const oppPrefix = g.opponentRank == null ? '' : `#${g.opponentRank} `;
-          opp.textContent = `${oppPrefix}${g.opponent}`;
-          opp.className = 'history-opponent';
+            const opp = document.createElement('td');
+            opp.textContent = g.opponent;
+            opp.className = 'history-opponent';
 
-          const chain = document.createElement('td');
-          chain.textContent = String(g.chainLength || 0);
+            const elo = document.createElement('td');
+            elo.textContent = g.opponentRank == null ? '-' : String(Math.round(g.opponentRank));
 
-          tr.appendChild(wl);
-          tr.appendChild(opp);
-          tr.appendChild(chain);
-          tbody.appendChild(tr);
-        });
-        table.appendChild(tbody);
-        wrap.appendChild(table);
-        historyPreview.appendChild(wrap);
+            const chain = document.createElement('td');
+            chain.textContent = String(g.chainLength || 0);
+
+            tr.appendChild(wl);
+            tr.appendChild(opp);
+            tr.appendChild(elo);
+            tr.appendChild(chain);
+            tbody.appendChild(tr);
+          });
+          table.appendChild(tbody);
+          wrap.appendChild(table);
+          historyPreview.appendChild(wrap);
+        }
       }
     }
 
@@ -388,7 +398,7 @@
 
     const thead = document.createElement('thead');
     const headRow = document.createElement('tr');
-    ['Rank', 'Name', 'Record', 'Longest Chain'].forEach((label) => {
+    ['Rank', 'Name', 'ELO', 'Record', 'Longest Chain'].forEach((label) => {
       const th = document.createElement('th');
       th.textContent = label;
       headRow.appendChild(th);
@@ -410,6 +420,9 @@
       nameCell.textContent = row.username;
       nameCell.className = `leaderboard-name ${row.isYou ? 'leaderboard-name-you' : ''}`.trim();
 
+      const eloCell = document.createElement('td');
+      eloCell.textContent = formatElo(row.elo);
+
       const recordCell = document.createElement('td');
       recordCell.textContent = `${row.wins}-${row.losses}`;
 
@@ -418,6 +431,7 @@
 
       tr.appendChild(rankCell);
       tr.appendChild(nameCell);
+      tr.appendChild(eloCell);
       tr.appendChild(recordCell);
       tr.appendChild(chainCell);
       tbody.appendChild(tr);
@@ -435,6 +449,14 @@
     if (!container) return;
 
     container.innerHTML = '';
+    if (!activeProfile.signedIn) {
+      const empty = document.createElement('p');
+      empty.className = 'list-empty';
+      empty.textContent = 'Create an account to track games played.';
+      container.appendChild(empty);
+      return;
+    }
+
     if (!activeProfile.games.length) {
       const empty = document.createElement('p');
       empty.className = 'list-empty';
@@ -494,13 +516,46 @@
     if (!activeProfile) return;
     setText('profile-page-title', activeProfile.signedIn ? activeProfile.username : 'Guest');
     setText('profile-joined', formatJoinedDate(activeProfile.joinedAt));
-    setText('profile-rank', formatElo(activeProfile.elo));
-    setText('profile-peak-rank', formatElo(activeProfile.peakElo));
-    setText('profile-wl', `${activeProfile.wins}-${activeProfile.losses}`);
-    setText('profile-streak', formatStreak(activeProfile.streak));
-    setText('profile-best-win', formatBestWin(activeProfile.bestWin));
-    setText('profile-longest-chain', activeProfile.longestChain);
+    if (!activeProfile.signedIn) {
+      setText('profile-rank', '-');
+      setText('profile-peak-rank', '-');
+      setText('profile-wl', '-');
+      setText('profile-streak', '-');
+      setText('profile-best-win', '-');
+      setText('profile-longest-chain', '-');
+    } else {
+      setText('profile-rank', formatElo(activeProfile.elo));
+      setText('profile-peak-rank', formatElo(activeProfile.peakElo));
+      setText('profile-wl', `${activeProfile.wins}-${activeProfile.losses}`);
+      setText('profile-streak', formatStreak(activeProfile.streak));
+      setText('profile-best-win', formatBestWin(activeProfile.bestWin));
+      setText('profile-longest-chain', activeProfile.longestChain);
+    }
     renderProfileChart(activeProfile);
+  }
+
+  function wirePresencePing() {
+    if (!window.HoopState || typeof window.HoopState.getClientId !== 'function') return;
+    const clientId = window.HoopState.getClientId();
+    if (!clientId) return;
+
+    const ping = () => {
+      fetch('/api/online/ping', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ clientId })
+      }).catch(() => {});
+    };
+
+    if (presenceTimer) {
+      clearInterval(presenceTimer);
+      presenceTimer = null;
+    }
+    ping();
+    presenceTimer = setInterval(ping, 15000);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) ping();
+    });
   }
 
   function wireSignIn() {
