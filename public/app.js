@@ -1,4 +1,13 @@
 (async function markActiveNav() {
+  const page = document.body.dataset.page;
+  if (page) {
+    document.querySelectorAll('[data-nav]').forEach((el) => {
+      if (el.dataset.nav === page) {
+        el.classList.add('active');
+      }
+    });
+  }
+
   if (window.HoopState && typeof window.HoopState.init === 'function') {
     try {
       await window.HoopState.init();
@@ -11,7 +20,6 @@
   const authNavLink = document.getElementById('auth-nav-link');
 
   if (authNavLink) {
-    const navRoot = authNavLink.parentElement;
     const existingCreate = document.getElementById('auth-nav-create');
     if (signedIn) {
       authNavLink.textContent = 'Profile';
@@ -24,25 +32,10 @@
       authNavLink.textContent = 'Sign In';
       authNavLink.href = 'signin.html';
       authNavLink.dataset.nav = 'signin';
-      if (navRoot && !existingCreate) {
-        const createLink = document.createElement('a');
-        createLink.className = 'nav-link';
-        createLink.id = 'auth-nav-create';
-        createLink.dataset.nav = 'createaccount';
-        createLink.href = 'create-account.html';
-        createLink.textContent = 'Create Account';
-        navRoot.appendChild(createLink);
-      }
     }
   }
 
-  const page = document.body.dataset.page;
   if (!page) return;
-  document.querySelectorAll('[data-nav]').forEach((el) => {
-    if (el.dataset.nav === page) {
-      el.classList.add('active');
-    }
-  });
 
   function setText(id, value) {
     const el = document.getElementById(id);
