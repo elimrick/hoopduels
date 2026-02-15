@@ -58,7 +58,7 @@
 
     const topbar = document.createElement('div');
     topbar.className = 'mobile-topbar';
-    topbar.innerHTML = '<div class="mobile-brand">HoopDuels</div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false">&#9776;</button>';
+    topbar.innerHTML = '<div class="mobile-brand">HoopDuels</div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
     document.body.insertBefore(topbar, layout);
 
     const toggleBtn = topbar.querySelector('.mobile-menu-btn');
@@ -104,8 +104,9 @@
     if (el) el.textContent = String(value);
   }
 
-  function formatRank(rank) {
-    return rank == null ? '-' : `#${rank}`;
+  function formatElo(elo) {
+    const value = Number(elo);
+    return Number.isFinite(value) ? String(Math.round(value)) : '-';
   }
 
   function formatStreak(streak) {
@@ -115,7 +116,7 @@
   }
 
   function formatBestWin(bestWinRank) {
-    return bestWinRank == null ? '-' : `#${bestWinRank}`;
+    return bestWinRank == null ? '-' : String(Math.round(bestWinRank));
   }
 
   function formatJoinedDate(ts) {
@@ -141,17 +142,18 @@
         wins: 0,
         losses: 0,
         streak: 0,
-        peakRank: null,
+        elo: 1200,
+        peakElo: 1200,
         bestWin: null,
         longestChain: 0,
         games: []
       }
       : activeProfile;
 
-    setText('stat-rating', formatRank(shown.rank));
+    setText('stat-rating', formatElo(shown.elo));
     setText('stat-wl', `${shown.wins}-${shown.losses}`);
     setText('stat-streak', formatStreak(shown.streak));
-    setText('stat-peak', formatRank(shown.peakRank));
+    setText('stat-peak', formatElo(shown.peakElo));
     setText('stat-best-win', formatBestWin(shown.bestWin));
     setText('stat-longest-chain', shown.longestChain);
 
@@ -258,6 +260,19 @@
         wrap.appendChild(table);
         leaderboardPreview.appendChild(wrap);
       }
+    }
+
+    const onlineEl = document.getElementById('online-count');
+    if (onlineEl) {
+      fetch('/api/online')
+        .then((res) => (res.ok ? res.json() : null))
+        .then((payload) => {
+          const online = payload ? Number(payload.online) : NaN;
+          onlineEl.textContent = Number.isFinite(online) && online >= 0 ? `${online} Online` : '0 Online';
+        })
+        .catch(() => {
+          onlineEl.textContent = '0 Online';
+        });
     }
   }
 
@@ -389,8 +404,8 @@
     if (!activeProfile) return;
     setText('profile-page-title', activeProfile.signedIn ? activeProfile.username : 'Guest');
     setText('profile-joined', formatJoinedDate(activeProfile.joinedAt));
-    setText('profile-rank', formatRank(activeProfile.rank));
-    setText('profile-peak-rank', formatRank(activeProfile.peakRank));
+    setText('profile-rank', formatElo(activeProfile.elo));
+    setText('profile-peak-rank', formatElo(activeProfile.peakElo));
     setText('profile-wl', `${activeProfile.wins}-${activeProfile.losses}`);
     setText('profile-streak', formatStreak(activeProfile.streak));
     setText('profile-best-win', formatBestWin(activeProfile.bestWin));

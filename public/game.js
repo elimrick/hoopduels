@@ -1,3 +1,9 @@
+const GAME_END_REDIRECT_KEY = 'hoopduels_game_end_redirect_v1';
+if (sessionStorage.getItem(GAME_END_REDIRECT_KEY) === '1') {
+  sessionStorage.removeItem(GAME_END_REDIRECT_KEY);
+  window.location.replace('/');
+}
+
 const playerId = window.HoopState ? window.HoopState.getClientId() : '';
 const socket = io({ auth: { playerId } });
 
@@ -33,6 +39,7 @@ let hasRecordedCurrentGame = false;
 let finalWinnerPlayerId = null;
 let finalLoserPlayerId = null;
 let gameFinished = false;
+let isRequeueing = false;
 
 function getLocalProfileName() {
   if (!window.HoopState) return '';
@@ -70,17 +77,17 @@ function capitalizeFirstChar(value) {
 function getEndDisplay(reason, winnerPlayerId, loserPlayerId) {
   const lost = playerId === loserPlayerId;
   const won = playerId === winnerPlayerId;
-  const title = lost ? 'You Lost' : (won ? 'You Won!' : 'Game Over');
+  const title = lost ? 'You Lost' : (won ? 'You Won' : 'Game Over');
   const normalized = typeof reason === 'string' ? reason.trim().toLowerCase() : '';
 
   if (normalized === 'left game') {
     return { title, detail: lost ? 'Left Game' : 'Opponent Left Game' };
   }
   if (normalized === 'time expired') {
-    return { title, detail: lost ? 'Your Time Expired' : "Opponent's Time Expired" };
+    return { title, detail: lost ? 'Poor Clock Management' : "Opponent's Time Expired" };
   }
   if (normalized === '3 strikes') {
-    return { title, detail: lost ? '3 Strikes' : 'Opponent Reached 3 Strikes' };
+    return { title, detail: lost ? 'You Fouled Out' : 'Opponent Fouled Out' };
   }
   if (normalized === 'disconnect') {
     return { title, detail: lost ? 'Disconnected' : 'Opponent Disconnected' };
@@ -231,6 +238,8 @@ function renderGameState(state) {
     turnDeadline: Date.now() + state.timeRemainingMs
   };
   gameFinished = false;
+  isRequeueing = false;
+  sessionStorage.removeItem(GAME_END_REDIRECT_KEY);
 
   const isMyTurn = state.activePlayerId === playerId;
 
@@ -294,9 +303,7 @@ function closeMatchmakingOverlay() {
 }
 
 function queueForAnotherGame() {
-  gameFinished = false;
-  finalWinnerPlayerId = null;
-  finalLoserPlayerId = null;
+  isRequeueing = true;
   const displayName = getLocalProfileName();
   if (displayName) {
     socket.emit('user:set-name', displayName);
@@ -305,14 +312,6 @@ function queueForAnotherGame() {
   if (matchmakingStatusEl) matchmakingStatusEl.textContent = 'Connecting to matchmaking...';
   socket.emit('matchmaking:join');
   setMessage('');
-  if (currentLabelEl) currentLabelEl.textContent = '';
-  if (currentLabelEl) currentLabelEl.style.display = 'none';
-  currentPlayerEl.textContent = '-';
-  guessInput.disabled = true;
-  submitBtn.disabled = true;
-  if (guessRowEl) {
-    guessRowEl.hidden = true;
-  }
 }
 
 if (leaveGameBtn && leaveGameOverlay && leaveGameConfirmBtn && leaveGameCancelBtn) {
@@ -338,6 +337,7 @@ if (leaveGameBtn && leaveGameOverlay && leaveGameConfirmBtn && leaveGameCancelBt
 if (cancelMatchmakingBtn) {
   cancelMatchmakingBtn.addEventListener('click', () => {
     socket.emit('matchmaking:leave');
+    isRequeueing = false;
     closeMatchmakingOverlay();
     if (leaveGameBtn && gameFinished) leaveGameBtn.textContent = 'Find Another Game';
   });
@@ -352,29 +352,34 @@ socket.on('connect', () => {
 });
 
 socket.on('matchmaking:queued', () => {
-  gameFinished = false;
-  hasRecordedCurrentGame = false;
-  finalWinnerPlayerId = null;
-  finalLoserPlayerId = null;
+  if (!gameFinished) {
+    hasRecordedCurrentGame = false;
+    finalWinnerPlayerId = null;
+    finalLoserPlayerId = null;
+  }
   setMessage('');
-  if (guessRowEl) {
+  if (guessRowEl && !gameFinished) {
     guessRowEl.hidden = true;
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');
   }
-  guessInput.placeholder = "Opponent's turn";
-  if (currentLabelEl) currentLabelEl.textContent = '';
-  if (currentLabelEl) currentLabelEl.style.display = 'none';
-  currentPlayerEl.textContent = '-';
+  if (!gameFinished) {
+    guessInput.placeholder = "Opponent's turn";
+    if (currentLabelEl) currentLabelEl.textContent = '';
+    if (currentLabelEl) currentLabelEl.style.display = 'none';
+    currentPlayerEl.textContent = '-';
+  }
   if (matchmakingStatusEl) matchmakingStatusEl.textContent = 'Searching for opponent...';
 });
 
 socket.on('matchmaking:left', () => {
+  isRequeueing = false;
   closeMatchmakingOverlay();
   setMessage('');
 });
 
 socket.on('matchmaking:error', (msg) => {
+  isRequeueing = false;
   if (matchmakingStatusEl) matchmakingStatusEl.textContent = msg || 'Matchmaking error.';
   setMessage(msg, 'error');
 });
@@ -384,7 +389,7 @@ socket.on('game:error', (msg) => {
 });
 
 socket.on('game:state', (state) => {
-  if (gameFinished) return;
+  if (gameFinished && !isRequeueing) return;
   closeMatchmakingOverlay();
   renderGameState(state);
 });
@@ -401,6 +406,8 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   if (leaveGameBtn) leaveGameBtn.textContent = 'Find Another Game';
   finalWinnerPlayerId = winnerPlayerId;
   finalLoserPlayerId = loserPlayerId;
+  isRequeueing = false;
+  sessionStorage.setItem(GAME_END_REDIRECT_KEY, '1');
   const youWon = playerId === winnerPlayerId;
 
   if (gameState) {

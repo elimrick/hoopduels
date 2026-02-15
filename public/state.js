@@ -25,8 +25,9 @@
       wins: 0,
       losses: 0,
       streak: 0,
+      elo: 1200,
       bestWin: null,
-      peakRank: null,
+      peakElo: 1200,
       longestChain: 0,
       games: []
     };
@@ -217,10 +218,10 @@
     }
   }
 
-  function getOpponentRankFromLeaderboard(opponentName) {
+  function getOpponentEloFromLeaderboard(opponentName) {
     const key = toNameKey(opponentName);
     const row = (runtime.leaderboard || []).find((r) => toNameKey(r.username) === key);
-    return row ? row.rank : null;
+    return row ? (Number(row.elo) || null) : null;
   }
 
   async function syncSignedInProfile() {
@@ -249,24 +250,31 @@
     const won = Boolean(result && result.won);
     const chainLength = Number(result && result.chainLength) || 0;
     const opponent = normalizeName(result && result.opponent ? String(result.opponent) : 'Unknown') || 'Unknown';
-    const opponentRank = getOpponentRankFromLeaderboard(opponent);
+    const opponentElo = getOpponentEloFromLeaderboard(opponent);
 
     applyStreak(profile, won);
 
-    if (won && opponentRank != null) {
+    if (won && opponentElo != null) {
       profile.bestWin = profile.bestWin == null
-        ? opponentRank
-        : Math.max(profile.bestWin, opponentRank);
+        ? opponentElo
+        : Math.max(profile.bestWin, opponentElo);
     }
 
     profile.longestChain = Math.max(profile.longestChain, chainLength);
+    const myEloBefore = Number(profile.elo) || 1200;
+    const oppElo = opponentElo == null ? 1200 : opponentElo;
+    const expected = 1 / (1 + Math.pow(10, (oppElo - myEloBefore) / 400));
+    const actual = won ? 1 : 0;
+    const myEloAfter = Math.round(myEloBefore + 32 * (actual - expected));
+    profile.elo = myEloAfter;
+    profile.peakElo = Math.max(Number(profile.peakElo) || myEloAfter, myEloAfter);
 
     profile.games.unshift({
       at: Date.now(),
       won,
       reason: result && result.reason ? String(result.reason) : 'finished',
       opponent,
-      opponentRank,
+      opponentRank: opponentElo,
       chainLength,
       myStrikes: Number(result && result.myStrikes) || 0,
       oppStrikes: Number(result && result.oppStrikes) || 0
@@ -278,9 +286,7 @@
 
     const myRow = (runtime.leaderboard || []).find((r) => toNameKey(r.username) === toNameKey(profile.username));
     if (myRow && Number(myRow.rank)) {
-      const rankNow = Number(myRow.rank);
-      profile.rank = rankNow;
-      profile.peakRank = profile.peakRank == null ? rankNow : Math.min(profile.peakRank, rankNow);
+      profile.rank = Number(myRow.rank);
     }
 
     emitUpdated();

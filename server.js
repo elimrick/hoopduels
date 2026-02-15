@@ -125,6 +125,10 @@ app.get('/api/leaderboard', async (req, res) => {
   res.json({ leaderboard: await accountStore.getLeaderboardRows(currentUserId) });
 });
 
+app.get('/api/online', (_req, res) => {
+  res.json({ online: Number(io.engine.clientsCount) || 0 });
+});
+
 app.get('/api/admin/health', async (req, res) => {
   if (!ADMIN_HEALTH_KEY) {
     res.status(503).json({ error: 'Admin health key not configured.' });

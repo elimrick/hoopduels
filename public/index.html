@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260215n" />
+    <link rel="stylesheet" href="styles.css?v=20260215o" />
   </head>
   <body data-page="play">
     <div class="layout">
@@ -32,13 +32,13 @@
         <div class="left-grid">
           <section class="card duel-card">
             <div class="duel-header">
-              <h2>Duel</h2>
+              <h2>Duel <span id="online-count" class="online-count">0 Online</span></h2>
               <button class="btn" id="find-game-home-btn" type="button">Find Game</button>
             </div>
             <div class="stats">
               <div>
                 <div class="stat-value" id="stat-rating">-</div>
-                <div class="stat-label">Rank</div>
+                <div class="stat-label">ELO</div>
               </div>
               <div>
                 <div class="stat-value" id="stat-wl">0-0</div>
@@ -50,7 +50,7 @@
               </div>
               <div>
                 <div class="stat-value" id="stat-peak">-</div>
-                <div class="stat-label">Peak Rank</div>
+                <div class="stat-label">Peak ELO</div>
               </div>
               <div>
                 <div class="stat-value" id="stat-best-win">-</div>
@@ -89,7 +89,7 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="state.js?v=20260215n"></script>
-    <script src="app.js?v=20260215n"></script>
+    <script src="state.js?v=20260215o"></script>
+    <script src="app.js?v=20260215o"></script>
   </body>
 </html>
