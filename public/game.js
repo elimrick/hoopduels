@@ -141,14 +141,19 @@ function stopTimer() {
 
 function startTimer() {
   stopTimer();
-  timerInterval = setInterval(() => {
+  const updateTimer = () => {
     if (!currentState || currentState.status !== 'active') {
       timerEl.textContent = '0';
       return;
     }
 
     const ms = Math.max(0, currentState.turnDeadline - Date.now());
-    timerEl.textContent = String(Math.ceil(ms / 1000));
+    timerEl.textContent = String(Math.max(0, Math.floor(ms / 1000)));
+  };
+
+  updateTimer();
+  timerInterval = setInterval(() => {
+    updateTimer();
   }, 250);
 }
 
