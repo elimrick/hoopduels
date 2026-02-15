@@ -159,8 +159,12 @@ function renderGameState(state) {
   const isMyTurn = state.activePlayerId === playerId;
 
   statusLabel.textContent = 'In Match';
-  liveBadge.textContent = 'Connected';
-  liveBadge.classList.add('live');
+  const opponent = Array.isArray(state.players)
+    ? state.players.find((p) => p.playerId !== playerId)
+    : null;
+  const opponentConnected = Boolean(opponent && opponent.connected);
+  liveBadge.textContent = opponentConnected ? 'Connected' : 'Disconnected';
+  liveBadge.classList.toggle('live', opponentConnected);
   if (findAnotherBtn) {
     findAnotherBtn.classList.add('is-hidden');
   }

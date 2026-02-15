@@ -213,7 +213,8 @@ function buildGameState(game, message) {
     players: game.players.map((playerId) => ({
       playerId,
       username: game.playerNames[playerId],
-      strikes: game.strikes[playerId]
+      strikes: game.strikes[playerId],
+      connected: Boolean(getSocketByPlayerId(playerId))
     })),
     currentPlayer: playerStore.getName(game.currentPlayerKey),
     activePlayerId,
@@ -536,6 +537,10 @@ io.on('connection', (socket) => {
         }
       }, DISCONNECT_GRACE_MS);
       disconnectTimers.set(playerId, timer);
+      emitGameState(game, {
+        includeMessage: true,
+        message: `${game.playerNames[playerId]} disconnected.`
+      });
     }
   });
 });
