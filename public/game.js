@@ -159,7 +159,7 @@ function renderGameState(state) {
   const isMyTurn = state.activePlayerId === playerId;
 
   statusLabel.textContent = 'In Match';
-  liveBadge.textContent = 'Live';
+  liveBadge.textContent = 'Connected';
   liveBadge.classList.add('live');
   if (findAnotherBtn) {
     findAnotherBtn.classList.add('is-hidden');
@@ -321,7 +321,7 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
 
 socket.on('disconnect', () => {
   stopTimer();
-  liveBadge.textContent = 'Offline';
+  liveBadge.textContent = 'Disconnected';
   liveBadge.classList.remove('live');
   statusLabel.textContent = 'Disconnected';
   setMessage('Connection lost.', 'error');
