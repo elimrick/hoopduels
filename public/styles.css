@@ -103,6 +103,19 @@ a {
   background: rgba(255, 255, 255, 0.08);
 }
 
+#auth-nav-profile {
+  display: none;
+}
+
+html.auth-signed-in #auth-nav-link,
+html.auth-signed-in #auth-nav-create {
+  display: none;
+}
+
+html.auth-signed-in #auth-nav-profile {
+  display: flex;
+}
+
 .nav.bottom {
   margin-top: auto;
 }

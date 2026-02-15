@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign In | HoopDuels</title>
+    <script>document.documentElement.classList.add(localStorage.getItem("hoopduels_auth_token_v1") ? "auth-signed-in" : "auth-signed-out");</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
@@ -20,6 +21,7 @@
           <a class="nav-link" data-nav="rules" href="how-to-play.html">How to Play</a>
           <a class="nav-link" id="auth-nav-link" data-nav="signin" href="signin.html">Sign In</a>
           <a class="nav-link" id="auth-nav-create" data-nav="createaccount" href="create-account.html">Create Account</a>
+          <a class="nav-link" id="auth-nav-profile" data-nav="profile" href="profile.html">Profile</a>
         </nav>
       </aside>
 

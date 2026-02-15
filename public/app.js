@@ -14,20 +14,23 @@
   }
 
   function renderAuthNav(isSignedIn) {
+    const root = document.documentElement;
+    root.classList.remove('auth-signed-in', 'auth-signed-out');
+    root.classList.add(isSignedIn ? 'auth-signed-in' : 'auth-signed-out');
+
     const authNavLink = document.getElementById('auth-nav-link');
-    if (!authNavLink) return;
     const existingCreate = document.getElementById('auth-nav-create');
+    const profileNavLink = document.getElementById('auth-nav-profile');
+    if (!authNavLink || !existingCreate || !profileNavLink) return;
 
     if (isSignedIn) {
-      authNavLink.textContent = 'Profile';
-      authNavLink.href = 'profile.html';
-      authNavLink.dataset.nav = 'profile';
-      if (existingCreate) existingCreate.classList.add('is-hidden');
+      authNavLink.classList.add('is-hidden');
+      existingCreate.classList.add('is-hidden');
+      profileNavLink.classList.remove('is-hidden');
     } else {
-      authNavLink.textContent = 'Sign In';
-      authNavLink.href = 'signin.html';
-      authNavLink.dataset.nav = 'signin';
-      if (existingCreate) existingCreate.classList.remove('is-hidden');
+      authNavLink.classList.remove('is-hidden');
+      existingCreate.classList.remove('is-hidden');
+      profileNavLink.classList.add('is-hidden');
     }
   }
 
