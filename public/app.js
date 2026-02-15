@@ -50,6 +50,53 @@
   renderAuthNav(signedIn);
   applyActiveNav();
 
+  function wireMobileTopbar() {
+    const layout = document.querySelector('.layout');
+    const sidebar = document.querySelector('.sidebar');
+    if (!layout || !sidebar) return;
+    if (document.querySelector('.mobile-topbar')) return;
+
+    const topbar = document.createElement('div');
+    topbar.className = 'mobile-topbar';
+    topbar.innerHTML = '<div class="mobile-brand">HoopDuels</div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false">&#9776;</button>';
+    document.body.insertBefore(topbar, layout);
+
+    const toggleBtn = topbar.querySelector('.mobile-menu-btn');
+    if (!toggleBtn) return;
+
+    const closeMenu = () => {
+      document.body.classList.remove('mobile-nav-open');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+    };
+
+    toggleBtn.addEventListener('click', () => {
+      const willOpen = !document.body.classList.contains('mobile-nav-open');
+      document.body.classList.toggle('mobile-nav-open', willOpen);
+      toggleBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    });
+
+    sidebar.querySelectorAll('.nav-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (window.innerWidth > 700) return;
+      if (!document.body.classList.contains('mobile-nav-open')) return;
+      if (sidebar.contains(event.target) || topbar.contains(event.target)) return;
+      closeMenu();
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 700) {
+        closeMenu();
+      }
+    });
+  }
+
+  wireMobileTopbar();
+
   if (!page) return;
 
   function setText(id, value) {
@@ -229,6 +276,8 @@
       return;
     }
 
+    const wrap = document.createElement('div');
+    wrap.className = 'page-table-wrap';
     const table = document.createElement('table');
     table.className = 'leaderboard-table';
 
@@ -270,7 +319,8 @@
     });
 
     table.appendChild(tbody);
-    container.appendChild(table);
+    wrap.appendChild(table);
+    container.appendChild(wrap);
   }
 
   function renderHistory() {
@@ -288,6 +338,8 @@
       return;
     }
 
+    const wrap = document.createElement('div');
+    wrap.className = 'page-table-wrap';
     const table = document.createElement('table');
     table.className = 'history-table';
 
@@ -328,7 +380,8 @@
     });
 
     table.appendChild(tbody);
-    container.appendChild(table);
+    wrap.appendChild(table);
+    container.appendChild(wrap);
   }
 
   function renderProfile() {

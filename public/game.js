@@ -17,6 +17,9 @@ const leaveGameBtn = document.getElementById('leave-game-btn');
 const leaveGameOverlay = document.getElementById('leave-game-overlay');
 const leaveGameConfirmBtn = document.getElementById('leave-game-confirm-btn');
 const leaveGameCancelBtn = document.getElementById('leave-game-cancel-btn');
+const matchmakingOverlay = document.getElementById('matchmaking-overlay');
+const matchmakingStatusEl = document.getElementById('matchmaking-status');
+const cancelMatchmakingBtn = document.getElementById('cancel-matchmaking-btn');
 const playerLeftEl = document.getElementById('player-left');
 const playerRightEl = document.getElementById('player-right');
 const playerLeftNameEl = document.getElementById('player-left-name');
@@ -64,14 +67,29 @@ function capitalizeFirstChar(value) {
   return value[0].toUpperCase() + value.slice(1);
 }
 
-function formatEndReason(reason) {
-  if (typeof reason !== 'string' || !reason.trim()) return 'Finished';
-  const value = reason.trim().toLowerCase();
-  if (value === 'time expired') return 'Time Expired';
-  if (value === '3 strikes') return '3 Strikes';
-  if (value === 'disconnect') return 'Disconnected';
-  if (value === 'left game') return 'Left Game';
-  return value.split(' ').map((part) => part ? part[0].toUpperCase() + part.slice(1) : '').join(' ');
+function getEndDisplay(reason, winnerPlayerId, loserPlayerId) {
+  const lost = playerId === loserPlayerId;
+  const won = playerId === winnerPlayerId;
+  const title = lost ? 'You Lost' : (won ? 'You Won!' : 'Game Over');
+  const normalized = typeof reason === 'string' ? reason.trim().toLowerCase() : '';
+
+  if (normalized === 'left game') {
+    return { title, detail: lost ? 'Left Game' : 'Opponent Left Game' };
+  }
+  if (normalized === 'time expired') {
+    return { title, detail: lost ? 'Your Time Expired' : "Opponent's Time Expired" };
+  }
+  if (normalized === '3 strikes') {
+    return { title, detail: lost ? '3 Strikes' : 'Opponent Reached 3 Strikes' };
+  }
+  if (normalized === 'disconnect') {
+    return { title, detail: lost ? 'Disconnected' : 'Opponent Disconnected' };
+  }
+  if (!normalized) {
+    return { title, detail: 'Finished' };
+  }
+  const detail = normalized.split(' ').map((part) => part ? part[0].toUpperCase() + part.slice(1) : '').join(' ');
+  return { title, detail };
 }
 
 function renderHistory(chainPlayers, historyEntries, players) {
@@ -269,6 +287,12 @@ function closeLeaveGameOverlay() {
   }
 }
 
+function closeMatchmakingOverlay() {
+  if (matchmakingOverlay) {
+    matchmakingOverlay.hidden = true;
+  }
+}
+
 function queueForAnotherGame() {
   gameFinished = false;
   finalWinnerPlayerId = null;
@@ -277,6 +301,8 @@ function queueForAnotherGame() {
   if (displayName) {
     socket.emit('user:set-name', displayName);
   }
+  if (matchmakingOverlay) matchmakingOverlay.hidden = false;
+  if (matchmakingStatusEl) matchmakingStatusEl.textContent = 'Connecting to matchmaking...';
   socket.emit('matchmaking:join');
   setMessage('');
   if (currentLabelEl) currentLabelEl.textContent = '';
@@ -309,6 +335,14 @@ if (leaveGameBtn && leaveGameOverlay && leaveGameConfirmBtn && leaveGameCancelBt
   });
 }
 
+if (cancelMatchmakingBtn) {
+  cancelMatchmakingBtn.addEventListener('click', () => {
+    socket.emit('matchmaking:leave');
+    closeMatchmakingOverlay();
+    if (leaveGameBtn && gameFinished) leaveGameBtn.textContent = 'Find Another Game';
+  });
+}
+
 socket.on('connect', () => {
   hasRecordedCurrentGame = false;
   const fallbackName = getLocalProfileName();
@@ -332,13 +366,16 @@ socket.on('matchmaking:queued', () => {
   if (currentLabelEl) currentLabelEl.textContent = '';
   if (currentLabelEl) currentLabelEl.style.display = 'none';
   currentPlayerEl.textContent = '-';
+  if (matchmakingStatusEl) matchmakingStatusEl.textContent = 'Searching for opponent...';
 });
 
 socket.on('matchmaking:left', () => {
+  closeMatchmakingOverlay();
   setMessage('');
 });
 
 socket.on('matchmaking:error', (msg) => {
+  if (matchmakingStatusEl) matchmakingStatusEl.textContent = msg || 'Matchmaking error.';
   setMessage(msg, 'error');
 });
 
@@ -348,16 +385,19 @@ socket.on('game:error', (msg) => {
 
 socket.on('game:state', (state) => {
   if (gameFinished) return;
+  closeMatchmakingOverlay();
   renderGameState(state);
 });
 
 socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason, gameState }) => {
   gameFinished = true;
   stopTimer();
-  timerEl.textContent = 'Game Over';
+  closeMatchmakingOverlay();
+  const endDisplay = getEndDisplay(reason, winnerPlayerId, loserPlayerId);
+  timerEl.textContent = endDisplay.title;
   if (currentLabelEl) currentLabelEl.textContent = '';
   if (currentLabelEl) currentLabelEl.style.display = 'none';
-  currentPlayerEl.textContent = formatEndReason(reason);
+  currentPlayerEl.textContent = endDisplay.detail;
   if (leaveGameBtn) leaveGameBtn.textContent = 'Find Another Game';
   finalWinnerPlayerId = winnerPlayerId;
   finalLoserPlayerId = loserPlayerId;
@@ -405,5 +445,6 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
 
 socket.on('disconnect', () => {
   stopTimer();
+  closeMatchmakingOverlay();
   setMessage('Connection lost.', 'error');
 });
