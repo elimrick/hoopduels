@@ -416,13 +416,13 @@ body[data-page='profile'] .page-panel {
 }
 
 #guess-row input {
-  border: 2px solid rgba(255, 255, 255, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.35) !important;
   background: #1f1e1d;
   color: var(--text);
   border-radius: 12px;
   padding: 12px 14px;
-  outline: none;
-  box-shadow: none;
+  outline: none !important;
+  box-shadow: none !important;
   -webkit-appearance: none;
 }
 
@@ -437,18 +437,20 @@ body[data-page='profile'] .page-panel {
 }
 
 #guess-row.turn-active input {
-  border-color: var(--line);
-  box-shadow: none;
+  border: 2px solid var(--line) !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 #guess-row input:focus,
 #guess-row input:focus-visible {
-  outline: none;
-  box-shadow: none;
+  border-width: 2px !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 #guess-row.turn-inactive input {
-  border-color: rgba(255, 255, 255, 0.22);
+  border: 2px solid rgba(255, 255, 255, 0.22) !important;
   background: rgba(255, 255, 255, 0.07);
   color: rgba(255, 255, 255, 0.62);
 }
