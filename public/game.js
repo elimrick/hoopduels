@@ -13,7 +13,6 @@ const guessInput = document.getElementById('guess-input');
 const submitBtn = document.getElementById('submit-btn');
 const guessRowEl = document.getElementById('guess-row');
 const messageEl = document.getElementById('message');
-const findAnotherBtn = document.getElementById('find-another-btn');
 const historyListEl = document.getElementById('history-list');
 const leaveGameBtn = document.getElementById('leave-game-btn');
 const leaveGameOverlay = document.getElementById('leave-game-overlay');
@@ -31,6 +30,7 @@ let timerInterval = null;
 let hasRecordedCurrentGame = false;
 let finalWinnerPlayerId = null;
 let finalLoserPlayerId = null;
+let gameFinished = false;
 
 function getLocalProfileName() {
   if (!window.HoopState) return '';
@@ -175,6 +175,7 @@ function renderGameState(state) {
     ...state,
     turnDeadline: Date.now() + state.timeRemainingMs
   };
+  gameFinished = false;
 
   const isMyTurn = state.activePlayerId === playerId;
 
@@ -186,9 +187,7 @@ function renderGameState(state) {
   if (!opponentConnected) {
     statusLabel.textContent = 'Opponent disconnected';
   }
-  if (findAnotherBtn) {
-    findAnotherBtn.classList.add('is-hidden');
-  }
+  if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 
   if (currentLabelEl) currentLabelEl.textContent = 'Current:';
   currentPlayerEl.textContent = state.currentPlayer;
@@ -231,8 +230,28 @@ function closeLeaveGameOverlay() {
   }
 }
 
+function queueForAnotherGame() {
+  gameFinished = false;
+  finalWinnerPlayerId = null;
+  finalLoserPlayerId = null;
+  const displayName = getLocalProfileName();
+  if (displayName) {
+    socket.emit('user:set-name', displayName);
+  }
+  socket.emit('matchmaking:join');
+  statusLabel.textContent = 'Searching for opponent...';
+  setMessage('Finding another game...');
+  if (currentLabelEl) currentLabelEl.textContent = 'Current:';
+  currentPlayerEl.textContent = '-';
+  if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
+}
+
 if (leaveGameBtn && leaveGameOverlay && leaveGameConfirmBtn && leaveGameCancelBtn) {
   leaveGameBtn.addEventListener('click', () => {
+    if (gameFinished) {
+      queueForAnotherGame();
+      return;
+    }
     leaveGameOverlay.hidden = false;
   });
 
@@ -247,21 +266,6 @@ if (leaveGameBtn && leaveGameOverlay && leaveGameConfirmBtn && leaveGameCancelBt
   });
 }
 
-if (findAnotherBtn) {
-  findAnotherBtn.addEventListener('click', () => {
-    const displayName = getLocalProfileName();
-    if (displayName) {
-      socket.emit('user:set-name', displayName);
-    }
-    socket.emit('matchmaking:join');
-    findAnotherBtn.classList.add('is-hidden');
-    statusLabel.textContent = 'Searching for opponent...';
-    setMessage('Finding another game...');
-    if (currentLabelEl) currentLabelEl.textContent = 'Current:';
-    currentPlayerEl.textContent = '-';
-  });
-}
-
 socket.on('connect', () => {
   hasRecordedCurrentGame = false;
   const fallbackName = getLocalProfileName();
@@ -271,6 +275,7 @@ socket.on('connect', () => {
 });
 
 socket.on('matchmaking:queued', () => {
+  gameFinished = false;
   hasRecordedCurrentGame = false;
   finalWinnerPlayerId = null;
   finalLoserPlayerId = null;
@@ -284,6 +289,7 @@ socket.on('matchmaking:queued', () => {
   guessInput.placeholder = "Opponent's turn";
   if (currentLabelEl) currentLabelEl.textContent = 'Current:';
   currentPlayerEl.textContent = '-';
+  if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 });
 
 socket.on('matchmaking:left', () => {
@@ -304,10 +310,12 @@ socket.on('game:state', (state) => {
 });
 
 socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason, gameState }) => {
+  gameFinished = true;
   stopTimer();
   timerEl.textContent = 'Game Over';
-  if (currentLabelEl) currentLabelEl.textContent = 'Cause:';
+  if (currentLabelEl) currentLabelEl.textContent = '';
   currentPlayerEl.textContent = reason || 'finished';
+  if (leaveGameBtn) leaveGameBtn.textContent = 'Find Another Game';
   finalWinnerPlayerId = winnerPlayerId;
   finalLoserPlayerId = loserPlayerId;
   const youWon = playerId === winnerPlayerId;
@@ -340,9 +348,6 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     guessRowEl.classList.add('turn-inactive');
   }
   guessInput.placeholder = "Opponent's turn";
-  if (findAnotherBtn) {
-    findAnotherBtn.classList.remove('is-hidden');
-  }
 
   if (window.HoopState && !hasRecordedCurrentGame && gameState && Array.isArray(gameState.players)) {
     const myRow = gameState.players.find((p) => p.playerId === playerId);
@@ -368,5 +373,3 @@ socket.on('disconnect', () => {
   statusLabel.textContent = 'Disconnected';
   setMessage('Connection lost.', 'error');
 });
-  finalWinnerPlayerId = null;
-  finalLoserPlayerId = null;
