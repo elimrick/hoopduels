@@ -421,6 +421,9 @@ body[data-page='profile'] .page-panel {
   color: var(--text);
   border-radius: 12px;
   padding: 12px 14px;
+  outline: none;
+  box-shadow: none;
+  -webkit-appearance: none;
 }
 
 #guess-row input::placeholder {
@@ -435,6 +438,12 @@ body[data-page='profile'] .page-panel {
 
 #guess-row.turn-active input {
   border-color: var(--line);
+  box-shadow: none;
+}
+
+#guess-row input:focus,
+#guess-row input:focus-visible {
+  outline: none;
   box-shadow: none;
 }
 
