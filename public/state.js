@@ -2,6 +2,7 @@
   const TOKEN_KEY = 'hoopduels_auth_token_v1';
   const CLIENT_ID_KEY = 'hoopduels_client_id_v1';
   const GUEST_PROFILE_KEY = 'hoopduels_guest_profile_v1';
+  const LEADERBOARD_CACHE_KEY = 'hoopduels_leaderboard_cache_v1';
   const GUEST_USERNAME = 'Guest';
 
   function normalizeName(name) {
@@ -62,7 +63,10 @@
       }
       return defaultProfile(GUEST_USERNAME, false);
     })(),
-    leaderboard: []
+    leaderboard: (() => {
+      const cached = readJson(LEADERBOARD_CACHE_KEY, []);
+      return Array.isArray(cached) ? cached : [];
+    })()
   };
 
   function emitUpdated() {
@@ -144,8 +148,11 @@
     try {
       const payload = await api('/api/leaderboard');
       runtime.leaderboard = Array.isArray(payload && payload.leaderboard) ? payload.leaderboard : [];
+      writeJson(LEADERBOARD_CACHE_KEY, runtime.leaderboard);
     } catch (_) {
-      runtime.leaderboard = [];
+      // Keep last known leaderboard if fetch fails (e.g. cold start/network hiccup).
+      const cached = readJson(LEADERBOARD_CACHE_KEY, runtime.leaderboard);
+      runtime.leaderboard = Array.isArray(cached) ? cached : runtime.leaderboard;
     }
   }
 
