@@ -1,5 +1,5 @@
 const TURN_MS = 60_000;
-const CPU_DELAY_MS = 3000;
+const CPU_DELAY_MS = 2000;
 
 const timerEl = document.getElementById('practice-timer');
 const currentEl = document.getElementById('practice-current-player');
@@ -134,7 +134,9 @@ function applyFoul(reason) {
     return;
   }
   setMessage(`Incorrect guess: ${capitalizeFirstChar(reason)}`, 'error');
-  startPlayerTurnTimer();
+  state.phase = 'player';
+  setTurnUi();
+  inputEl.focus();
 }
 
 function startPlayerTurnTimer() {
@@ -159,6 +161,20 @@ function startPlayerTurnTimer() {
 
   tick();
   state.timer = setInterval(tick, 250);
+}
+
+function hydrateSignedInName() {
+  if (!window.HoopState || typeof window.HoopState.getToken !== 'function') return;
+  if (!window.HoopState.getToken()) return;
+  let attempts = 0;
+  const maxAttempts = 12;
+  const tick = () => {
+    attempts += 1;
+    refreshPlayerName();
+    if (getDisplayName() !== 'Guest' || attempts >= maxAttempts) return;
+    setTimeout(tick, 250);
+  };
+  tick();
 }
 
 function queueComputerTurn(nextCurrentPlayer) {
@@ -276,3 +292,5 @@ startPractice().catch((error) => {
   setMessage(error.message || 'Practice unavailable.', 'error');
   endPractice('Unavailable');
 });
+
+hydrateSignedInName();

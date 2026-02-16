@@ -406,6 +406,11 @@ body[data-page='profile'] .page-panel {
   width: 100%;
 }
 
+body[data-page='practice'] .page-panel {
+  max-width: none;
+  width: 100%;
+}
+
 .page-panel p,
 .page-panel li,
 .page-panel label,
@@ -1077,6 +1082,10 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     height: calc(var(--mobile-topbar-height) + env(safe-area-inset-top));
     z-index: 40;
     border-bottom: 0;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
   .mobile-topbar::after {
@@ -1217,7 +1226,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     right: 0;
     height: auto;
     max-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
-    padding: 24px 14px 24px;
+    padding: calc(24px + var(--mobile-stripe-height)) 14px 24px;
     z-index: 35;
     transform: scaleY(0);
     transform-origin: top;

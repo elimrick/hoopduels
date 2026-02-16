@@ -371,7 +371,6 @@
       return `${x},${y}`;
     }).join(' ');
 
-    const latest = values[values.length - 1];
     const mid = Math.round((min + max) / 2);
     const ticks = [Math.round(max), mid, Math.round(min)];
     const gridLines = ticks.map((value) => {
@@ -390,7 +389,6 @@
     chartEl.innerHTML = `
       <div class="profile-elo-chart-meta">
         <strong>Rating Progression</strong>
-        <span>Current: ${Math.round(latest)} ELO</span>
       </div>
       <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" preserveAspectRatio="none" role="img" aria-label="ELO progression chart">
         ${gridLines}
