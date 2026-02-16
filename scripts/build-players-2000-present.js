@@ -134,9 +134,33 @@ function toRowObjects(headers, rows) {
 async function fetchJson(url) {
   const maxRetries = 12;
   let attempt = 0;
+  const requestTimeoutMs = 20_000;
 
   while (attempt <= maxRetries) {
-    const response = await fetch(url, { headers: NBA_HEADERS });
+    let response;
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), requestTimeoutMs);
+      try {
+        response = await fetch(url, {
+          headers: NBA_HEADERS,
+          signal: controller.signal
+        });
+      } finally {
+        clearTimeout(timeout);
+      }
+    } catch (error) {
+      if (attempt === maxRetries) {
+        throw new Error(`Failed to fetch ${url}: ${error && error.message ? error.message : 'network error'}`);
+      }
+      const backoffMs = Math.min(60_000, 2000 * Math.pow(2, attempt));
+      const jitterMs = Math.floor(Math.random() * 700);
+      const waitMs = backoffMs + jitterMs;
+      console.log(`  retry ${attempt + 1}/${maxRetries} for ${url} in ${waitMs}ms (network error)`);
+      await sleep(waitMs);
+      attempt += 1;
+      continue;
+    }
 
     if (response.ok) {
       return response.json();
@@ -198,11 +222,102 @@ function linkTeammatesForSeasonRows(playerRows, store) {
 
 function markAllStars(allStarRows, store) {
   for (const row of allStarRows) {
+    const gp = Number(row.GP);
+    if (!Number.isFinite(gp) || gp <= 0) continue;
     const name = normalizeName(row.PLAYER_NAME || row.PLAYER || row.PLAYER_FULL_NAME);
     if (!name) continue;
     const key = ensurePlayer(store, name);
     if (!key) continue;
     store.get(key).allStar = true;
+  }
+}
+
+function buildTeamDashUrl({ season }) {
+  const params = new URLSearchParams({
+    Conference: '',
+    DateFrom: '',
+    DateTo: '',
+    Division: '',
+    GameScope: '',
+    GameSegment: '',
+    LastNGames: '0',
+    LeagueID: '00',
+    Location: '',
+    MeasureType: 'Base',
+    Month: '0',
+    OpponentTeamID: '0',
+    Outcome: '',
+    PORound: '0',
+    PaceAdjust: 'N',
+    PerMode: 'Totals',
+    Period: '0',
+    PlusMinus: 'N',
+    Rank: 'N',
+    Season: season,
+    SeasonSegment: '',
+    SeasonType: 'Regular Season',
+    ShotClockRange: '',
+    StarterBench: '',
+    TeamID: '0',
+    TwoWay: '0',
+    VsConference: '',
+    VsDivision: ''
+  });
+
+  return `https://stats.nba.com/stats/leaguedashteamstats?${params.toString()}`;
+}
+
+function buildTeamRosterUrl({ season, teamId }) {
+  const params = new URLSearchParams({
+    LeagueID: '00',
+    Season: season,
+    TeamID: String(teamId)
+  });
+  return `https://stats.nba.com/stats/commonteamroster?${params.toString()}`;
+}
+
+function parseTeamIdsFromDash(payload) {
+  const parsed = parseStatsPayload(payload);
+  const rows = toRowObjects(parsed.headers, parsed.rows);
+  const ids = [];
+  for (const row of rows) {
+    const raw = row.TEAM_ID;
+    const id = Number(raw);
+    if (Number.isFinite(id) && id > 0) {
+      ids.push(id);
+    }
+  }
+  return [...new Set(ids)];
+}
+
+function parseRosterPlayers(payload) {
+  if (!payload || typeof payload !== 'object') return [];
+  const sets = Array.isArray(payload.resultSets) ? payload.resultSets : [];
+  if (!sets.length) return [];
+
+  const rosterSet = sets.find((s) => {
+    const name = String((s && s.name) || '').toLowerCase();
+    return name.includes('commonteamroster') || name.includes('roster');
+  }) || sets[0];
+
+  const headers = Array.isArray(rosterSet.headers) ? rosterSet.headers : [];
+  const rows = Array.isArray(rosterSet.rowSet) ? rosterSet.rowSet : [];
+  return toRowObjects(headers, rows)
+    .map((row) => normalizeName(row.PLAYER || row.PLAYER_NAME || row.PLAYER_FULL_NAME))
+    .filter(Boolean);
+}
+
+function linkRosterTeammates(rosterNames, store) {
+  const keys = rosterNames
+    .map((name) => ensurePlayer(store, name))
+    .filter(Boolean);
+  for (let i = 0; i < keys.length; i += 1) {
+    for (let j = i + 1; j < keys.length; j += 1) {
+      const a = keys[i];
+      const b = keys[j];
+      store.get(a).teammates.add(b);
+      store.get(b).teammates.add(a);
+    }
   }
 }
 
@@ -270,6 +385,7 @@ async function build() {
   const checkpoint = readCheckpoint();
   const startYear = checkpoint ? Math.max(START_SEASON_END_YEAR, checkpoint + 1) : START_SEASON_END_YEAR;
   const players = loadExistingPlayers();
+  const rosterStartSeasonEnd = Number(process.env.ROSTER_START_SEASON_END || Math.max(START_SEASON_END_YEAR, endYear - 2));
 
   console.log(`Building player graph from ${startYear} to ${endYear} via stats.nba.com...`);
   if (players.size) {
@@ -279,6 +395,7 @@ async function build() {
   for (let seasonEnd = startYear; seasonEnd <= endYear; seasonEnd += 1) {
     const season = seasonLabel(seasonEnd);
     const totalsUrl = buildLeagueDashUrl({ season, seasonType: 'Regular Season' });
+    const teamDashUrl = buildTeamDashUrl({ season });
     const allStarUrl = buildLeagueDashUrl({ season, seasonType: 'All Star' });
 
     process.stdout.write(`- Season ${seasonEnd} (${season}): regular season... `);
@@ -286,7 +403,50 @@ async function build() {
     const regular = parseStatsPayload(regularPayload);
     const regularRows = toRowObjects(regular.headers, regular.rows);
     linkTeammatesForSeasonRows(regularRows, players);
-    process.stdout.write('ok, all-star... ');
+    if (seasonEnd < rosterStartSeasonEnd) {
+      process.stdout.write(`skipped (before ${rosterStartSeasonEnd}), all-star... `);
+    } else {
+      process.stdout.write('ok, rosters... ');
+
+      let rosterFailures = 0;
+      let rosterAttempts = 0;
+      try {
+        const teamPayload = await fetchJson(teamDashUrl);
+        const teamIds = parseTeamIdsFromDash(teamPayload);
+        rosterAttempts = teamIds.length;
+
+        for (const teamId of teamIds) {
+          try {
+            const rosterPayload = await fetchJson(buildTeamRosterUrl({ season, teamId }));
+            const rosterPlayers = parseRosterPlayers(rosterPayload);
+            linkRosterTeammates(rosterPlayers, players);
+          } catch (error) {
+            rosterFailures += 1;
+            console.log(
+              `\n  roster fetch failed for season ${season} team ${teamId}: ${
+                error && error.message ? error.message : 'unknown error'
+              }`
+            );
+          }
+          await sleep(120);
+        }
+      } catch (error) {
+        rosterFailures = 1;
+        console.log(
+          `\n  roster step skipped for season ${season}: ${
+            error && error.message ? error.message : 'unknown error'
+          }`
+        );
+      }
+
+      if (rosterAttempts > 0 && rosterFailures > 0) {
+        process.stdout.write(`partial (${rosterAttempts - rosterFailures}/${rosterAttempts}), all-star... `);
+      } else if (rosterFailures > 0) {
+        process.stdout.write('skipped, all-star... ');
+      } else {
+        process.stdout.write('ok, all-star... ');
+      }
+    }
 
     try {
       const allStarPayload = await fetchJson(allStarUrl);
