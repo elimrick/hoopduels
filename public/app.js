@@ -377,7 +377,6 @@
       const y = yFor(value);
       return `
         <line x1="${padX}" y1="${y}" x2="${width - padX}" y2="${y}" stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
-        <text x="${padX + 4}" y="${Math.max(16, y - 4)}" fill="rgba(255,255,255,0.8)" font-size="14" font-weight="600">${value}</text>
       `;
     }).join('');
 
@@ -385,10 +384,17 @@
       <div class="profile-elo-chart-meta">
         <strong>Rating Progression</strong>
       </div>
-      <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" preserveAspectRatio="none" role="img" aria-label="ELO progression chart">
-        ${gridLines}
-        <polyline points="${points}" fill="none" stroke="rgba(58, 123, 255, 0.95)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
-      </svg>
+      <div class="profile-elo-chart-shell">
+        <div class="profile-elo-axis" aria-hidden="true">
+          <span>${Math.round(max)}</span>
+          <span>${Math.round(mid)}</span>
+          <span>${Math.round(min)}</span>
+        </div>
+        <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" preserveAspectRatio="none" role="img" aria-label="ELO progression chart">
+          ${gridLines}
+          <polyline points="${points}" fill="none" stroke="rgba(58, 123, 255, 0.95)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+        </svg>
+      </div>
     `;
   }
 

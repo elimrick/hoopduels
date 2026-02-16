@@ -127,6 +127,10 @@ function endPractice(reason) {
   timerEl.textContent = 'Game Over';
   currentEl.textContent = reason || 'Finished';
   setMessage('');
+  if (guessRowEl) {
+    guessRowEl.classList.remove('turn-active');
+    guessRowEl.classList.add('turn-inactive');
+  }
   setTurnUi();
   if (leaveBtn) {
     leaveBtn.textContent = 'Play Again';
