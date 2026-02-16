@@ -1,5 +1,5 @@
 const TURN_MS = 60_000;
-const CPU_DELAY_MS = 5000;
+const CPU_DELAY_MS = 3000;
 
 const timerEl = document.getElementById('practice-timer');
 const currentEl = document.getElementById('practice-current-player');
@@ -24,6 +24,10 @@ const state = {
   phase: 'player',
   timeoutHandled: false
 };
+
+function refreshPlayerName() {
+  playerNameEl.textContent = getDisplayName();
+}
 
 function getDisplayName() {
   if (!window.HoopState || typeof window.HoopState.getProfile !== 'function') return 'Guest';
@@ -116,6 +120,9 @@ function endPractice(reason) {
   currentEl.textContent = reason || 'Finished';
   setMessage('');
   setTurnUi();
+  if (leaveBtn) {
+    leaveBtn.textContent = 'Play Again';
+  }
   savePracticeProgress();
 }
 
@@ -173,10 +180,13 @@ async function startPractice() {
   state.active = true;
   state.phase = 'player';
   state.yourFouls = 0;
-  playerNameEl.textContent = getDisplayName();
+  refreshPlayerName();
   yourFoulsEl.textContent = '0';
   currentEl.textContent = state.currentPlayer;
   setMessage('');
+  if (leaveBtn) {
+    leaveBtn.textContent = 'Leave Game';
+  }
   renderHistory();
   startPlayerTurnTimer();
   inputEl.focus();
@@ -249,9 +259,18 @@ inputEl.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') submitGuess();
 });
 leaveBtn.addEventListener('click', () => {
+  if (!state.active) {
+    startPractice().catch((error) => {
+      setMessage(error.message || 'Practice unavailable.', 'error');
+      endPractice('Unavailable');
+    });
+    return;
+  }
   savePracticeProgress();
   window.location.href = '/';
 });
+
+window.addEventListener('hoopstate:updated', refreshPlayerName);
 
 startPractice().catch((error) => {
   setMessage(error.message || 'Practice unavailable.', 'error');

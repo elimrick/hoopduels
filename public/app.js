@@ -340,7 +340,7 @@
 
     const games = Array.isArray(activeProfile.games) ? activeProfile.games : [];
     const rankedGames = games
-      .filter((g) => Number.isFinite(Number(g.eloAfter)) && Number.isFinite(Number(g.eloBefore)))
+      .filter((g) => Number.isFinite(Number(g.eloAfter)) && Number(g.eloAfter) > 0)
       .slice(0, 60)
       .reverse();
 
@@ -350,7 +350,10 @@
       return;
     }
 
-    const values = [Number(rankedGames[0].eloBefore), ...rankedGames.map((g) => Number(g.eloAfter))];
+    const startValue = Number.isFinite(Number(rankedGames[0].eloBefore)) && Number(rankedGames[0].eloBefore) > 0
+      ? Number(rankedGames[0].eloBefore)
+      : Number(rankedGames[0].eloAfter);
+    const values = [startValue, ...rankedGames.map((g) => Number(g.eloAfter))];
     const min = Math.min(...values);
     const max = Math.max(...values);
     const span = Math.max(1, max - min);
@@ -387,14 +390,12 @@
     chartEl.innerHTML = `
       <div class="profile-elo-chart-meta">
         <strong>Rating Progression</strong>
-        <span>Each point is one ranked game. Current: ${Math.round(latest)} ELO</span>
+        <span>Current: ${Math.round(latest)} ELO</span>
       </div>
       <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" preserveAspectRatio="none" role="img" aria-label="ELO progression chart">
         ${gridLines}
         <polyline points="${points}" fill="none" stroke="rgba(58, 123, 255, 0.95)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
         ${dots}
-        <text x="${padX}" y="${height - 4}" fill="rgba(255,255,255,0.7)" font-size="11">Oldest</text>
-        <text x="${width - padX - 34}" y="${height - 4}" fill="rgba(255,255,255,0.7)" font-size="11">Latest</text>
       </svg>
     `;
   }
