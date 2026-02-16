@@ -153,7 +153,7 @@ html.auth-signed-in #auth-nav-profile {
 
 .home-top-row {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: minmax(0, 2.35fr) minmax(220px, 0.85fr);
   gap: 18px;
 }
 
@@ -164,6 +164,23 @@ html.auth-signed-in #auth-nav-profile {
 
 .practice-stat {
   margin-top: 10px;
+}
+
+.practice-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.practice-card h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.practice-card .btn {
+  margin-top: auto;
 }
 
 .card {
@@ -547,6 +564,10 @@ body[data-page='profile'] .page-panel {
   font-size: 18px;
 }
 
+.duel-player-meta-placeholder {
+  visibility: hidden;
+}
+
 .duel-player-elo {
   min-height: 22px;
 }
@@ -682,26 +703,26 @@ body[data-page='profile'] .page-panel {
 
 body[data-page='history'] .history-table th:nth-child(1),
 body[data-page='history'] .history-table td:nth-child(1) {
-  width: 70px;
+  width: 12%;
 }
 
 body[data-page='history'] .history-table th:nth-child(3),
 body[data-page='history'] .history-table td:nth-child(3) {
-  width: 96px;
+  width: 18%;
 }
 
 body[data-page='history'] .history-table th:nth-child(4),
 body[data-page='history'] .history-table td:nth-child(4) {
-  width: 96px;
+  width: 18%;
 }
 
 body[data-page='history'] .history-table th:nth-child(5),
 body[data-page='history'] .history-table td:nth-child(5) {
-  width: 96px;
+  width: 20%;
   white-space: nowrap;
 }
 
-/* Keep ELO, Chain, and Date evenly spaced. */
+/* Keep game-history table spacing consistent with leaderboard chart style. */
 body[data-page='history'] .history-table th:nth-child(3),
 body[data-page='history'] .history-table td:nth-child(3),
 body[data-page='history'] .history-table th:nth-child(4),
@@ -765,22 +786,22 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   body[data-page='history'] .history-table th:nth-child(1),
   body[data-page='history'] .history-table td:nth-child(1) {
-    width: 62px;
+    width: 12%;
   }
 
   body[data-page='history'] .history-table th:nth-child(3),
   body[data-page='history'] .history-table td:nth-child(3) {
-    width: 84px;
+    width: 18%;
   }
 
   body[data-page='history'] .history-table th:nth-child(4),
   body[data-page='history'] .history-table td:nth-child(4) {
-    width: 84px;
+    width: 18%;
   }
 
   body[data-page='history'] .history-table th:nth-child(5),
   body[data-page='history'] .history-table td:nth-child(5) {
-    width: 84px;
+    width: 20%;
   }
 
   body[data-page='play'] .home-history-table th:nth-child(1),
@@ -1040,7 +1061,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
 @media (max-width: 1100px) {
   body {
-    overflow: hidden;
+    overflow-y: auto;
   }
 
   .mobile-topbar {
@@ -1225,8 +1246,14 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     display: none;
   }
 
+  .nav {
+    align-items: center;
+  }
+
   .nav-link {
-    width: 100%;
+    width: calc(100% - 24px);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .grid-home {

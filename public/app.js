@@ -361,20 +361,40 @@
     const innerW = width - (padX * 2);
     const innerH = height - (padY * 2);
 
+    const yFor = (v) => padY + innerH - (((v - min) / span) * innerH);
     const points = values.map((v, i) => {
       const x = padX + ((innerW * i) / Math.max(1, values.length - 1));
-      const y = padY + innerH - (((v - min) / span) * innerH);
+      const y = yFor(v);
       return `${x},${y}`;
     }).join(' ');
 
     const latest = values[values.length - 1];
+    const mid = Math.round((min + max) / 2);
+    const ticks = [Math.round(max), mid, Math.round(min)];
+    const gridLines = ticks.map((value) => {
+      const y = yFor(value);
+      return `
+        <line x1="${padX}" y1="${y}" x2="${width - padX}" y2="${y}" stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
+        <text x="${padX + 4}" y="${Math.max(12, y - 4)}" fill="rgba(255,255,255,0.68)" font-size="11">${value}</text>
+      `;
+    }).join('');
+    const dots = values.map((v, i) => {
+      const x = padX + ((innerW * i) / Math.max(1, values.length - 1));
+      const y = yFor(v);
+      return `<circle cx="${x}" cy="${y}" r="2.5" fill="#9cc4ff"></circle>`;
+    }).join('');
+
     chartEl.innerHTML = `
       <div class="profile-elo-chart-meta">
         <strong>Rating Progression</strong>
-        <span>${Math.round(min)} - ${Math.round(max)} (Current ${Math.round(latest)})</span>
+        <span>Each point is one ranked game. Current: ${Math.round(latest)} ELO</span>
       </div>
       <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" preserveAspectRatio="none" role="img" aria-label="ELO progression chart">
+        ${gridLines}
         <polyline points="${points}" fill="none" stroke="rgba(58, 123, 255, 0.95)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+        ${dots}
+        <text x="${padX}" y="${height - 4}" fill="rgba(255,255,255,0.7)" font-size="11">Oldest</text>
+        <text x="${width - padX - 34}" y="${height - 4}" fill="rgba(255,255,255,0.7)" font-size="11">Latest</text>
       </svg>
     `;
   }
@@ -471,7 +491,7 @@
     const wrap = document.createElement('div');
     wrap.className = 'page-table-wrap';
     const table = document.createElement('table');
-    table.className = 'history-table';
+    table.className = 'leaderboard-table history-table';
 
     const thead = document.createElement('thead');
     const headRow = document.createElement('tr');

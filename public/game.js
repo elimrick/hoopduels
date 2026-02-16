@@ -48,6 +48,7 @@ let finalLoserPlayerId = null;
 let gameFinished = false;
 let isRequeueing = false;
 let pregamePlayerElos = {};
+let currentGameId = null;
 
 function getLocalProfileName() {
   if (!window.HoopState) return '';
@@ -335,6 +336,12 @@ function startTimer() {
 }
 
 function renderGameState(state) {
+  if (state && state.gameId && state.gameId !== currentGameId) {
+    currentGameId = state.gameId;
+    hasRecordedCurrentGame = false;
+    finalWinnerPlayerId = null;
+    finalLoserPlayerId = null;
+  }
   currentState = {
     ...state,
     turnDeadline: Date.now() + state.timeRemainingMs

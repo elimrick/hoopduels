@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260216a" />
-    <link rel="shortcut icon" href="/favicon.svg?v=20260216a" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260216b" />
+    <link rel="shortcut icon" href="/favicon.svg?v=20260216b" />
     <title>Practice | HoopDuels</title>
     <script>document.documentElement.classList.add(localStorage.getItem("hoopduels_auth_token_v1") ? "auth-signed-in" : "auth-signed-out");</script>
     <style>#auth-nav-link,#auth-nav-create,#auth-nav-profile{display:none}html.auth-signed-out #auth-nav-link,html.auth-signed-out #auth-nav-create{display:flex}html.auth-signed-in #auth-nav-profile{display:flex}</style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260216a" />
+    <link rel="stylesheet" href="styles.css?v=20260216b" />
   </head>
   <body data-page="practice">
     <div class="layout">
@@ -31,13 +31,13 @@
       <main class="main">
         <div class="duel-page-header page-panel">
           <h1 class="page-title">Practice</h1>
-          <button class="btn btn-status" id="leave-practice-btn" type="button">Leave Practice</button>
+          <button class="btn btn-status" id="leave-practice-btn" type="button">Leave Game</button>
         </div>
 
         <section class="card page-panel">
           <div class="duel-board practice-board">
             <div class="duel-player" id="practice-player-left">
-              <div class="duel-player-name">You</div>
+              <div class="duel-player-name" id="practice-player-name">Player</div>
               <div class="duel-player-meta">Fouls: <span id="practice-you-fouls">0</span>/3</div>
             </div>
             <div class="duel-center">
@@ -46,7 +46,7 @@
             </div>
             <div class="duel-player" id="practice-player-right">
               <div class="duel-player-name">Computer</div>
-              <div class="duel-player-meta">Fouls: <span id="practice-cpu-fouls">0</span>/3</div>
+              <div class="duel-player-meta duel-player-meta-placeholder" aria-hidden="true">&nbsp;</div>
             </div>
           </div>
           <div class="turn-row" id="practice-guess-row" style="margin-top: 12px;">
@@ -58,8 +58,8 @@
         </section>
       </main>
     </div>
-    <script src="state.js?v=20260216a"></script>
-    <script src="app.js?v=20260216a"></script>
-    <script src="practice.js?v=20260216a"></script>
+    <script src="state.js?v=20260216b"></script>
+    <script src="app.js?v=20260216b"></script>
+    <script src="practice.js?v=20260216b"></script>
   </body>
 </html>

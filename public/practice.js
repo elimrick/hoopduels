@@ -3,27 +3,44 @@ const CPU_DELAY_MS = 5000;
 
 const timerEl = document.getElementById('practice-timer');
 const currentEl = document.getElementById('practice-current-player');
+const playerNameEl = document.getElementById('practice-player-name');
 const yourFoulsEl = document.getElementById('practice-you-fouls');
-const cpuFoulsEl = document.getElementById('practice-cpu-fouls');
 const inputEl = document.getElementById('practice-guess-input');
 const submitEl = document.getElementById('practice-submit-btn');
 const messageEl = document.getElementById('practice-message');
 const historyEl = document.getElementById('practice-history-list');
 const leaveBtn = document.getElementById('leave-practice-btn');
+const guessRowEl = document.getElementById('practice-guess-row');
+const playerLeftEl = document.getElementById('practice-player-left');
+const playerRightEl = document.getElementById('practice-player-right');
 
 const state = {
   currentPlayer: '',
   usedPlayers: [],
   yourFouls: 0,
-  cpuFouls: 0,
   turnDeadline: 0,
   timer: null,
-  active: true
+  active: true,
+  phase: 'player',
+  timeoutHandled: false
 };
+
+function getDisplayName() {
+  if (!window.HoopState || typeof window.HoopState.getProfile !== 'function') return 'Guest';
+  const profile = window.HoopState.getProfile();
+  const name = profile && profile.username ? String(profile.username).trim() : '';
+  return name || 'Guest';
+}
 
 function setMessage(text, kind = '') {
   messageEl.className = kind ? `message ${kind}` : 'message';
   messageEl.textContent = text || '';
+}
+
+function capitalizeFirstChar(value) {
+  const txt = String(value || '').trim();
+  if (!txt) return '';
+  return txt.charAt(0).toUpperCase() + txt.slice(1);
 }
 
 function renderHistory() {
@@ -51,38 +68,98 @@ function stopTimer() {
   }
 }
 
-function startTurnTimer() {
-  stopTimer();
-  state.turnDeadline = Date.now() + TURN_MS;
-  const tick = () => {
-    const left = Math.max(0, Math.floor((state.turnDeadline - Date.now()) / 1000));
-    timerEl.textContent = String(left);
-    if (left <= 0) {
-      state.yourFouls += 1;
-      yourFoulsEl.textContent = String(state.yourFouls);
-      if (state.yourFouls >= 3) {
-        endPractice('Poor Clock Management');
-      } else {
-        setMessage('Incorrect guess: Time expired.', 'error');
-        startTurnTimer();
-      }
-    }
-  };
-  tick();
-  state.timer = setInterval(tick, 250);
+function setTurnUi() {
+  const playerTurn = state.active && state.phase === 'player';
+  const cpuTurn = state.active && state.phase === 'cpu';
+  playerLeftEl.classList.toggle('active', playerTurn);
+  playerRightEl.classList.toggle('active', cpuTurn);
+  if (playerTurn) {
+    playerLeftEl.style.borderColor = '#3a7bff';
+    playerLeftEl.style.background = 'rgba(58, 123, 255, 0.14)';
+    playerLeftEl.style.boxShadow = 'inset 0 0 0 1px rgba(58, 123, 255, 0.5)';
+  } else {
+    playerLeftEl.style.borderColor = '';
+    playerLeftEl.style.background = '';
+    playerLeftEl.style.boxShadow = '';
+  }
+  if (cpuTurn) {
+    playerRightEl.style.borderColor = '#3a7bff';
+    playerRightEl.style.background = 'rgba(58, 123, 255, 0.14)';
+    playerRightEl.style.boxShadow = 'inset 0 0 0 1px rgba(58, 123, 255, 0.5)';
+  } else {
+    playerRightEl.style.borderColor = '';
+    playerRightEl.style.background = '';
+    playerRightEl.style.boxShadow = '';
+  }
+
+  inputEl.disabled = !playerTurn;
+  submitEl.disabled = !playerTurn;
+  if (guessRowEl) {
+    guessRowEl.classList.toggle('turn-active', playerTurn);
+    guessRowEl.classList.toggle('turn-inactive', !playerTurn);
+  }
+  inputEl.placeholder = playerTurn ? 'Name a teammate...' : "Opponent's turn";
 }
 
-function endPractice(reason) {
-  state.active = false;
-  stopTimer();
-  timerEl.textContent = 'Practice Over';
-  currentEl.textContent = reason;
-  inputEl.disabled = true;
-  submitEl.disabled = true;
+function savePracticeProgress() {
   const chainLength = Math.max(0, state.usedPlayers.length - 1);
   if (window.HoopState && typeof window.HoopState.savePracticeChain === 'function') {
     window.HoopState.savePracticeChain(chainLength);
   }
+}
+
+function endPractice(reason) {
+  state.active = false;
+  state.phase = 'ended';
+  stopTimer();
+  timerEl.textContent = 'Game Over';
+  currentEl.textContent = reason || 'Finished';
+  setMessage('');
+  setTurnUi();
+  savePracticeProgress();
+}
+
+function applyFoul(reason) {
+  state.yourFouls += 1;
+  yourFoulsEl.textContent = String(state.yourFouls);
+  if (state.yourFouls >= 3) {
+    endPractice('You Fouled Out');
+    return;
+  }
+  setMessage(`Incorrect guess: ${capitalizeFirstChar(reason)}`, 'error');
+  startPlayerTurnTimer();
+}
+
+function startPlayerTurnTimer() {
+  state.phase = 'player';
+  state.timeoutHandled = false;
+  setTurnUi();
+  stopTimer();
+  state.turnDeadline = Date.now() + TURN_MS;
+  timerEl.textContent = '60';
+
+  const tick = () => {
+    if (!state.active || state.phase !== 'player') return;
+    const ms = Math.max(0, state.turnDeadline - Date.now());
+    const left = Math.max(0, Math.floor(ms / 1000));
+    timerEl.textContent = String(left);
+    if (left <= 0 && !state.timeoutHandled) {
+      state.timeoutHandled = true;
+      stopTimer();
+      endPractice('Poor Clock Management');
+    }
+  };
+
+  tick();
+  state.timer = setInterval(tick, 250);
+}
+
+function queueComputerTurn(nextCurrentPlayer) {
+  state.phase = 'cpu';
+  setTurnUi();
+  stopTimer();
+  timerEl.textContent = '60';
+  currentEl.textContent = nextCurrentPlayer || state.currentPlayer;
 }
 
 async function startPractice() {
@@ -93,14 +170,20 @@ async function startPractice() {
   }
   state.currentPlayer = payload.startPlayer;
   state.usedPlayers = [payload.startPlayer];
-  currentEl.textContent = payload.startPlayer;
+  state.active = true;
+  state.phase = 'player';
+  state.yourFouls = 0;
+  playerNameEl.textContent = getDisplayName();
+  yourFoulsEl.textContent = '0';
+  currentEl.textContent = state.currentPlayer;
+  setMessage('');
   renderHistory();
-  startTurnTimer();
+  startPlayerTurnTimer();
   inputEl.focus();
 }
 
 async function submitGuess() {
-  if (!state.active) return;
+  if (!state.active || state.phase !== 'player') return;
   const guess = inputEl.value.trim();
   if (!guess) return;
   inputEl.value = '';
@@ -123,17 +206,7 @@ async function submitGuess() {
     }
 
     if (!payload.ok) {
-      state.yourFouls += 1;
-      yourFoulsEl.textContent = String(state.yourFouls);
-      setMessage(`Incorrect guess: ${payload.reason}`, 'error');
-      if (state.yourFouls >= 3) {
-        endPractice('You Fouled Out');
-        return;
-      }
-      inputEl.disabled = false;
-      submitEl.disabled = false;
-      inputEl.focus();
-      startTurnTimer();
+      applyFoul(payload.reason || 'Unknown player');
       return;
     }
 
@@ -146,15 +219,12 @@ async function submitGuess() {
     if (!payload.computerGuess) {
       state.currentPlayer = payload.nextCurrentPlayer || payload.userGuess || state.currentPlayer;
       currentEl.textContent = state.currentPlayer;
-      inputEl.disabled = false;
-      submitEl.disabled = false;
+      startPlayerTurnTimer();
       inputEl.focus();
-      startTurnTimer();
       return;
     }
 
-    currentEl.textContent = 'Computer thinking...';
-    timerEl.textContent = '...';
+    queueComputerTurn(payload.userGuess || state.currentPlayer);
     await new Promise((resolve) => setTimeout(resolve, CPU_DELAY_MS));
     if (!state.active) return;
 
@@ -162,14 +232,15 @@ async function submitGuess() {
     state.currentPlayer = payload.nextCurrentPlayer || payload.computerGuess;
     currentEl.textContent = state.currentPlayer;
     renderHistory();
-    inputEl.disabled = false;
-    submitEl.disabled = false;
+    startPlayerTurnTimer();
     inputEl.focus();
-    startTurnTimer();
   } catch (error) {
     setMessage(error.message || 'Practice error.', 'error');
-    inputEl.disabled = false;
-    submitEl.disabled = false;
+    if (state.active) {
+      state.phase = 'player';
+      setTurnUi();
+      inputEl.focus();
+    }
   }
 }
 
@@ -178,6 +249,7 @@ inputEl.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') submitGuess();
 });
 leaveBtn.addEventListener('click', () => {
+  savePracticeProgress();
   window.location.href = '/';
 });
 
