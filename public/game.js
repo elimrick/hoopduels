@@ -567,7 +567,8 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');
   }
-  guessInput.placeholder = "Opponent's turn";
+  guessInput.value = '';
+  guessInput.placeholder = '';
 
   if (window.HoopState && !hasRecordedCurrentGame && gameState && Array.isArray(gameState.players)) {
     const myRow = gameState.players.find((p) => p.playerId === playerId);

@@ -22,7 +22,8 @@ const state = {
   timer: null,
   active: true,
   phase: 'player',
-  timeoutHandled: false
+  timeoutHandled: false,
+  pending: false
 };
 
 function refreshPlayerName() {
@@ -96,13 +97,20 @@ function setTurnUi() {
     playerRightEl.style.boxShadow = '';
   }
 
-  inputEl.disabled = !playerTurn;
-  submitEl.disabled = !playerTurn;
+  inputEl.disabled = !state.active;
+  inputEl.readOnly = !playerTurn || state.pending;
+  submitEl.disabled = !playerTurn || state.pending;
   if (guessRowEl) {
     guessRowEl.classList.toggle('turn-active', playerTurn);
     guessRowEl.classList.toggle('turn-inactive', !playerTurn);
   }
-  inputEl.placeholder = playerTurn ? 'Name a teammate...' : "Opponent's turn";
+  if (!state.active) {
+    inputEl.placeholder = '';
+  } else if (playerTurn) {
+    inputEl.placeholder = 'Name a teammate...';
+  } else {
+    inputEl.placeholder = "Computer's turn";
+  }
 }
 
 function savePracticeProgress() {
@@ -212,9 +220,9 @@ async function submitGuess() {
   if (!state.active || state.phase !== 'player') return;
   const guess = inputEl.value.trim();
   if (!guess) return;
+  state.pending = true;
   inputEl.value = '';
-  inputEl.disabled = true;
-  submitEl.disabled = true;
+  setTurnUi();
 
   try {
     const res = await fetch('/api/practice/turn', {
@@ -262,10 +270,11 @@ async function submitGuess() {
     inputEl.focus();
   } catch (error) {
     setMessage(error.message || 'Practice error.', 'error');
+  } finally {
+    state.pending = false;
     if (state.active) {
-      state.phase = 'player';
       setTurnUi();
-      inputEl.focus();
+      if (state.phase === 'player') inputEl.focus();
     }
   }
 }

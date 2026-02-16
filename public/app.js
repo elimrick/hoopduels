@@ -377,13 +377,8 @@
       const y = yFor(value);
       return `
         <line x1="${padX}" y1="${y}" x2="${width - padX}" y2="${y}" stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
-        <text x="${padX + 4}" y="${Math.max(12, y - 4)}" fill="rgba(255,255,255,0.68)" font-size="11">${value}</text>
+        <text x="${padX + 4}" y="${Math.max(16, y - 4)}" fill="rgba(255,255,255,0.8)" font-size="14" font-weight="600">${value}</text>
       `;
-    }).join('');
-    const dots = values.map((v, i) => {
-      const x = padX + ((innerW * i) / Math.max(1, values.length - 1));
-      const y = yFor(v);
-      return `<circle cx="${x}" cy="${y}" r="2.5" fill="#9cc4ff"></circle>`;
     }).join('');
 
     chartEl.innerHTML = `
@@ -393,7 +388,6 @@
       <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" preserveAspectRatio="none" role="img" aria-label="ELO progression chart">
         ${gridLines}
         <polyline points="${points}" fill="none" stroke="rgba(58, 123, 255, 0.95)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
-        ${dots}
       </svg>
     `;
   }
