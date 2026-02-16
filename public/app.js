@@ -6,11 +6,12 @@
 
   function applyActiveNav() {
     if (!page) return;
+    const navPage = page === 'practice' ? 'play' : page;
     document.querySelectorAll('[data-nav]').forEach((el) => {
       el.classList.remove('active');
     });
     document.querySelectorAll('[data-nav]').forEach((el) => {
-      if (el.dataset.nav === page) {
+      if (el.dataset.nav === navPage) {
         el.classList.add('active');
       }
     });
@@ -130,6 +131,7 @@
 
   wireMobileTopbar();
   wireBrandHome();
+  wireViewportHeight();
   wirePresencePing();
 
   if (!page) return;
@@ -170,6 +172,7 @@
     if (homeTitle) {
       homeTitle.textContent = activeProfile.signedIn ? `Welcome back, ${activeProfile.username}!` : 'Welcome!';
     }
+    setText('practice-longest-chain', String(Number(activeProfile.practiceLongestChain) || 0));
 
     const guestNote = document.getElementById('home-guest-stats-note');
     if (guestNote) {
@@ -580,6 +583,20 @@
     window.addEventListener('beforeunload', bye);
   }
 
+  function wireViewportHeight() {
+    const setVh = () => {
+      const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      document.documentElement.style.setProperty('--app-vh', `${Math.round(h)}px`);
+    };
+    setVh();
+    window.addEventListener('resize', setVh);
+    window.addEventListener('orientationchange', () => setTimeout(setVh, 150));
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', setVh);
+      window.visualViewport.addEventListener('scroll', setVh);
+    }
+  }
+
   function wireSignIn() {
     if (!window.HoopState) return;
     const signInButton = document.getElementById('signin-btn');
@@ -818,12 +835,21 @@
     cancelBtn.addEventListener('click', closeOverlay);
   }
 
+  function wirePracticeEntry() {
+    const btn = document.getElementById('enter-practice-btn');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      window.location.href = 'practice.html';
+    });
+  }
+
   if (page === 'play') renderHome();
   if (page === 'leaderboard') renderLeaderboard();
   if (page === 'history') renderHistory();
   if (page === 'profile') renderProfile();
   if (page === 'signin' || page === 'createaccount') wireSignIn();
   if (page === 'play') wireHomeFindGame();
+  if (page === 'play') wirePracticeEntry();
   if (page === 'play' && !document.getElementById('find-game-home-btn')) {
   }
   wireSignOut();

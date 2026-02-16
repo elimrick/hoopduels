@@ -30,6 +30,7 @@
       bestWin: null,
       peakElo: 1200,
       longestChain: 0,
+      practiceLongestChain: 0,
       games: []
     };
   }
@@ -378,6 +379,20 @@
     return getProfile();
   }
 
+  function savePracticeChain(length) {
+    const value = Number(length) || 0;
+    runtime.profile.practiceLongestChain = Math.max(
+      Number(runtime.profile.practiceLongestChain) || 0,
+      value
+    );
+    cacheProfileIfSignedIn();
+    if (runtime.profile.signedIn) {
+      syncSignedInProfile();
+    }
+    emitUpdated();
+    return getProfile();
+  }
+
   window.HoopState = {
     init,
     getProfile,
@@ -388,6 +403,7 @@
     signIn,
     signOut,
     recordGame,
+    savePracticeChain,
     getLeaderboardRows,
     refreshLeaderboard
   };

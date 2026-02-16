@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <title>Game History | HoopDuels</title>
+    <title>Practice | HoopDuels</title>
     <script>document.documentElement.classList.add(localStorage.getItem("hoopduels_auth_token_v1") ? "auth-signed-in" : "auth-signed-out");</script>
     <style>#auth-nav-link,#auth-nav-create,#auth-nav-profile{display:none}html.auth-signed-out #auth-nav-link,html.auth-signed-out #auth-nav-create{display:flex}html.auth-signed-in #auth-nav-profile{display:flex}</style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=20260215v" />
   </head>
-  <body data-page="history">
+  <body data-page="practice">
     <div class="layout">
       <aside class="sidebar">
         <div class="brand">HoopDuels</div>
@@ -28,13 +28,37 @@
       </aside>
 
       <main class="main">
-        <h1 class="page-title">Game History</h1>
+        <div class="duel-page-header page-panel">
+          <h1 class="page-title">Practice</h1>
+          <button class="btn btn-status" id="leave-practice-btn" type="button">Leave Practice</button>
+        </div>
+
         <section class="card page-panel">
-          <div id="history-list-page"></div>
+          <div class="duel-board practice-board">
+            <div class="duel-player" id="practice-player-left">
+              <div class="duel-player-name">You</div>
+              <div class="duel-player-meta">Fouls: <span id="practice-you-fouls">0</span>/3</div>
+            </div>
+            <div class="duel-center">
+              <div class="duel-timer"><span id="practice-timer">60</span></div>
+              <div class="duel-current"><span id="practice-current-player">-</span></div>
+            </div>
+            <div class="duel-player" id="practice-player-right">
+              <div class="duel-player-name">Computer</div>
+              <div class="duel-player-meta">Fouls: <span id="practice-cpu-fouls">0</span>/3</div>
+            </div>
+          </div>
+          <div class="turn-row" id="practice-guess-row" style="margin-top: 12px;">
+            <input id="practice-guess-input" placeholder="Name a teammate..." autocomplete="off" />
+            <button class="btn" id="practice-submit-btn" type="button">Submit Guess</button>
+          </div>
+          <div id="practice-message" class="message"></div>
+          <ul id="practice-history-list" class="history-list chain-list"></ul>
         </section>
       </main>
     </div>
     <script src="state.js?v=20260215v"></script>
     <script src="app.js?v=20260215v"></script>
+    <script src="practice.js?v=20260215v"></script>
   </body>
 </html>

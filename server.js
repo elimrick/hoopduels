@@ -160,6 +160,63 @@ app.get('/api/online', (_req, res) => {
   res.json({ online: onlineVisitors.size });
 });
 
+app.get('/api/practice/start', (_req, res) => {
+  try {
+    const startKey = playerStore.getRandomAllStarKey();
+    const startPlayer = playerStore.getName(startKey);
+    res.json({ startPlayer });
+  } catch (_) {
+    res.status(503).json({ error: 'Practice unavailable right now.' });
+  }
+});
+
+app.post('/api/practice/turn', (req, res) => {
+  const currentPlayer = playerStore.toKey(req.body && req.body.currentPlayer);
+  const usedRaw = Array.isArray(req.body && req.body.usedPlayers) ? req.body.usedPlayers : [];
+  const used = new Set(usedRaw.map((n) => playerStore.toKey(n)));
+  const guessInput = typeof (req.body && req.body.guess) === 'string' ? req.body.guess : '';
+  const guessText = formatGuessText(guessInput);
+  const guessKey = playerStore.toKey(guessInput);
+
+  if (!currentPlayer || !playerStore.hasPlayer(currentPlayer)) {
+    res.status(400).json({ ok: false, reason: 'Invalid current player.' });
+    return;
+  }
+  if (!guessKey || !playerStore.hasPlayer(guessKey)) {
+    res.json({ ok: false, reason: 'Unknown player.' });
+    return;
+  }
+  if (used.has(guessKey)) {
+    res.json({ ok: false, reason: 'Repeat player.' });
+    return;
+  }
+  if (!playerStore.areTeammates(currentPlayer, guessKey)) {
+    res.json({ ok: false, reason: `Not a teammate of ${playerStore.getName(currentPlayer)}.` });
+    return;
+  }
+
+  used.add(guessKey);
+  const computerCandidates = playerStore.getTeammateKeys(guessKey)
+    .filter((k) => !used.has(k));
+  if (!computerCandidates.length) {
+    res.json({
+      ok: true,
+      userGuess: playerStore.getName(guessKey),
+      computerGuess: null,
+      nextCurrentPlayer: playerStore.getName(guessKey)
+    });
+    return;
+  }
+
+  const cpuKey = computerCandidates[Math.floor(Math.random() * computerCandidates.length)];
+  res.json({
+    ok: true,
+    userGuess: playerStore.getName(guessKey),
+    computerGuess: playerStore.getName(cpuKey),
+    nextCurrentPlayer: playerStore.getName(cpuKey)
+  });
+});
+
 app.get('/api/admin/health', async (req, res) => {
   if (!ADMIN_HEALTH_KEY) {
     res.status(503).json({ error: 'Admin health key not configured.' });
@@ -430,7 +487,7 @@ function createGame(playerAId, playerBId) {
       [playerAId]: 0,
       [playerBId]: 0
     },
-    turnIndex: 0,
+    turnIndex: Math.random() < 0.5 ? 0 : 1,
     turnDeadline: Date.now() + TURN_DURATION_MS,
     timer: null,
     status: 'active',
