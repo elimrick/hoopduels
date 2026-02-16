@@ -584,9 +584,22 @@
   }
 
   function wireViewportHeight() {
+    let stableHeight = window.innerHeight;
     const setVh = () => {
-      const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-      document.documentElement.style.setProperty('--app-vh', `${Math.round(h)}px`);
+      const inner = Math.max(0, Math.round(window.innerHeight || 0));
+      const vv = window.visualViewport ? Math.max(0, Math.round(window.visualViewport.height || 0)) : inner;
+      const active = document.activeElement;
+      const isTyping = Boolean(
+        active
+        && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')
+      );
+      const keyboardLikelyOpen = isTyping && inner - vv > 120;
+
+      if (!keyboardLikelyOpen && inner > 0) {
+        stableHeight = inner;
+      }
+      const h = keyboardLikelyOpen ? stableHeight : Math.max(inner, vv);
+      document.documentElement.style.setProperty('--app-vh', `${h}px`);
     };
     setVh();
     window.addEventListener('resize', setVh);

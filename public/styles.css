@@ -687,27 +687,29 @@ body[data-page='history'] .history-table td:nth-child(1) {
 
 body[data-page='history'] .history-table th:nth-child(3),
 body[data-page='history'] .history-table td:nth-child(3) {
-  width: 84px;
+  width: 96px;
 }
 
 body[data-page='history'] .history-table th:nth-child(4),
 body[data-page='history'] .history-table td:nth-child(4) {
-  width: 72px;
+  width: 96px;
 }
 
 body[data-page='history'] .history-table th:nth-child(5),
 body[data-page='history'] .history-table td:nth-child(5) {
-  width: 122px;
+  width: 96px;
   white-space: nowrap;
 }
 
-  /* Identical spacing between ELO -> Chain -> Date. */
-  body[data-page='history'] .history-table th:nth-child(4),
-  body[data-page='history'] .history-table td:nth-child(4),
-  body[data-page='history'] .history-table th:nth-child(5),
-  body[data-page='history'] .history-table td:nth-child(5) {
-    padding-left: 16px;
-  }
+/* Keep ELO, Chain, and Date evenly spaced. */
+body[data-page='history'] .history-table th:nth-child(3),
+body[data-page='history'] .history-table td:nth-child(3),
+body[data-page='history'] .history-table th:nth-child(4),
+body[data-page='history'] .history-table td:nth-child(4),
+body[data-page='history'] .history-table th:nth-child(5),
+body[data-page='history'] .history-table td:nth-child(5) {
+  text-align: left;
+}
 
 .history-opponent {
   white-space: nowrap;
@@ -768,17 +770,17 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   body[data-page='history'] .history-table th:nth-child(3),
   body[data-page='history'] .history-table td:nth-child(3) {
-    width: 76px;
+    width: 84px;
   }
 
   body[data-page='history'] .history-table th:nth-child(4),
   body[data-page='history'] .history-table td:nth-child(4) {
-    width: 66px;
+    width: 84px;
   }
 
   body[data-page='history'] .history-table th:nth-child(5),
   body[data-page='history'] .history-table td:nth-child(5) {
-    width: 116px;
+    width: 84px;
   }
 
   body[data-page='play'] .home-history-table th:nth-child(1),
@@ -1121,7 +1123,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .main {
     padding: 16px;
-    height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
+    min-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
+    height: auto;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding-bottom: calc(24px + env(safe-area-inset-bottom));
@@ -1184,7 +1187,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .layout {
     grid-template-columns: 1fr;
-    height: var(--app-vh, 100dvh);
+    min-height: var(--app-vh, 100dvh);
+    height: auto;
     margin-top: var(--mobile-topbar-offset);
   }
 
@@ -1195,7 +1199,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     right: 0;
     height: auto;
     max-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
-    padding: 16px 14px 16px;
+    padding: 24px 14px 24px;
     z-index: 35;
     transform: scaleY(0);
     transform-origin: top;

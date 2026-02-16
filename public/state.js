@@ -22,6 +22,7 @@
       signedIn,
       username,
       joinedAt: signedIn ? Date.now() : null,
+      profileUpdatedAt: Date.now(),
       rank: null,
       wins: 0,
       losses: 0,
@@ -112,6 +113,7 @@
       ...(profile || {}),
       signedIn,
       username: signedIn ? normalizeName(profile.username) : GUEST_USERNAME,
+      profileUpdatedAt: Number(profile && profile.profileUpdatedAt) || Date.now(),
       games: Array.isArray(profile && profile.games) ? profile.games : []
     };
 
@@ -172,6 +174,8 @@
         const serverProfile = payload.profile;
 
         const latestAt = (p) => {
+          const updatedAt = Number(p && p.profileUpdatedAt) || 0;
+          if (updatedAt > 0) return updatedAt;
           const g = p && Array.isArray(p.games) ? p.games[0] : null;
           return g && Number.isFinite(Number(g.at)) ? Number(g.at) : 0;
         };
@@ -280,11 +284,15 @@
 
   async function syncSignedInProfile() {
     if (!runtime.profile.signedIn || !runtime.token) return;
+    const snapshot = {
+      ...runtime.profile,
+      games: Array.isArray(runtime.profile.games) ? [...runtime.profile.games] : []
+    };
     try {
       const payload = await api('/api/account/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: { profile: runtime.profile },
+        body: { profile: snapshot },
         keepalive: true
       });
       if (payload && payload.profile) {
@@ -357,6 +365,7 @@
     if (profile.games.length > 100) {
       profile.games = profile.games.slice(0, 100);
     }
+    profile.profileUpdatedAt = Date.now();
 
     const myRow = (runtime.leaderboard || []).find((r) => toNameKey(r.username) === toNameKey(profile.username));
     if (myRow && Number(myRow.rank)) {
@@ -371,6 +380,7 @@
 
   function saveProfile(profilePatch) {
     Object.assign(runtime.profile, profilePatch || {});
+    runtime.profile.profileUpdatedAt = Date.now();
     cacheProfileIfSignedIn();
     if (runtime.profile.signedIn) {
       syncSignedInProfile();
@@ -385,6 +395,7 @@
       Number(runtime.profile.practiceLongestChain) || 0,
       value
     );
+    runtime.profile.profileUpdatedAt = Date.now();
     cacheProfileIfSignedIn();
     if (runtime.profile.signedIn) {
       syncSignedInProfile();
