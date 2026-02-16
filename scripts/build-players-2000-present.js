@@ -131,10 +131,11 @@ function toRowObjects(headers, rows) {
   });
 }
 
-async function fetchJson(url) {
-  const maxRetries = 12;
+async function fetchJson(url, options = {}) {
+  const maxRetries = Number.isFinite(Number(options.maxRetries)) ? Number(options.maxRetries) : 12;
+  const maxBackoffMs = Number.isFinite(Number(options.maxBackoffMs)) ? Number(options.maxBackoffMs) : 60_000;
   let attempt = 0;
-  const requestTimeoutMs = 20_000;
+  const requestTimeoutMs = Number.isFinite(Number(options.requestTimeoutMs)) ? Number(options.requestTimeoutMs) : 20_000;
 
   while (attempt <= maxRetries) {
     let response;
@@ -153,7 +154,7 @@ async function fetchJson(url) {
       if (attempt === maxRetries) {
         throw new Error(`Failed to fetch ${url}: ${error && error.message ? error.message : 'network error'}`);
       }
-      const backoffMs = Math.min(60_000, 2000 * Math.pow(2, attempt));
+      const backoffMs = Math.min(maxBackoffMs, 2000 * Math.pow(2, attempt));
       const jitterMs = Math.floor(Math.random() * 700);
       const waitMs = backoffMs + jitterMs;
       console.log(`  retry ${attempt + 1}/${maxRetries} for ${url} in ${waitMs}ms (network error)`);
@@ -177,7 +178,7 @@ async function fetchJson(url) {
 
     const backoffMs = Number.isFinite(retryAfterSeconds)
       ? Math.max(1000, Math.min(10 * 60 * 1000, retryAfterSeconds * 1000))
-      : Math.min(60_000, 2000 * Math.pow(2, attempt));
+      : Math.min(maxBackoffMs, 2000 * Math.pow(2, attempt));
 
     const jitterMs = Math.floor(Math.random() * 700);
     const waitMs = backoffMs + jitterMs;
@@ -381,11 +382,20 @@ function writeOutput(players) {
 }
 
 async function build() {
-  const endYear = currentSeasonEndYear();
+  const autoEndYear = currentSeasonEndYear();
+  const endYear = Number(process.env.BUILD_END_SEASON_END_YEAR || autoEndYear);
   const checkpoint = readCheckpoint();
   const startYear = checkpoint ? Math.max(START_SEASON_END_YEAR, checkpoint + 1) : START_SEASON_END_YEAR;
   const players = loadExistingPlayers();
-  const rosterStartSeasonEnd = Number(process.env.ROSTER_START_SEASON_END || Math.max(START_SEASON_END_YEAR, endYear - 2));
+  const rosterStartSeasonEnd = Number(process.env.ROSTER_START_SEASON_END || START_SEASON_END_YEAR);
+  const rosterEndSeasonEnd = Number(process.env.ROSTER_END_SEASON_END || endYear);
+  const rosterMaxRetries = Number(process.env.ROSTER_MAX_RETRIES || 3);
+  const rosterTimeoutMs = Number(process.env.ROSTER_TIMEOUT_MS || 12_000);
+  const rosterMaxBackoffMs = Number(process.env.ROSTER_MAX_BACKOFF_MS || 8_000);
+  const rosterTeamPauseMs = Number(process.env.ROSTER_TEAM_PAUSE_MS || 120);
+  const globalMaxRetries = Number(process.env.GLOBAL_MAX_RETRIES || 12);
+  const globalTimeoutMs = Number(process.env.GLOBAL_TIMEOUT_MS || 20_000);
+  const globalMaxBackoffMs = Number(process.env.GLOBAL_MAX_BACKOFF_MS || 60_000);
 
   console.log(`Building player graph from ${startYear} to ${endYear} via stats.nba.com...`);
   if (players.size) {
@@ -399,27 +409,48 @@ async function build() {
     const allStarUrl = buildLeagueDashUrl({ season, seasonType: 'All Star' });
 
     process.stdout.write(`- Season ${seasonEnd} (${season}): regular season... `);
-    const regularPayload = await fetchJson(totalsUrl);
-    const regular = parseStatsPayload(regularPayload);
-    const regularRows = toRowObjects(regular.headers, regular.rows);
-    linkTeammatesForSeasonRows(regularRows, players);
-    if (seasonEnd < rosterStartSeasonEnd) {
-      process.stdout.write(`skipped (before ${rosterStartSeasonEnd}), all-star... `);
+    let regularRows = null;
+    let regularFailed = false;
+    try {
+      const regularPayload = await fetchJson(totalsUrl, {
+        maxRetries: globalMaxRetries,
+        maxBackoffMs: globalMaxBackoffMs,
+        requestTimeoutMs: globalTimeoutMs
+      });
+      const regular = parseStatsPayload(regularPayload);
+      regularRows = toRowObjects(regular.headers, regular.rows);
+      linkTeammatesForSeasonRows(regularRows, players);
+    } catch (error) {
+      regularFailed = true;
+      process.stdout.write(`failed (${error && error.message ? error.message : 'unknown error'})`);
+    }
+    if (seasonEnd < rosterStartSeasonEnd || seasonEnd > rosterEndSeasonEnd) {
+      process.stdout.write(
+        `${regularFailed ? ', ' : ''}skipped rosters (outside ${rosterStartSeasonEnd}-${rosterEndSeasonEnd}), all-star... `
+      );
     } else {
-      process.stdout.write('ok, rosters... ');
+      process.stdout.write(`${regularFailed ? ', rosters fallback... ' : 'ok, rosters... '}`);
 
       let rosterFailures = 0;
       let rosterAttempts = 0;
       try {
-        const teamPayload = await fetchJson(teamDashUrl);
-        const teamIds = parseTeamIdsFromDash(teamPayload);
-        rosterAttempts = teamIds.length;
+        const teamPayload = await fetchJson(teamDashUrl, {
+          maxRetries: 4,
+          maxBackoffMs: 10_000,
+          requestTimeoutMs: 15_000
+      });
+      const teamIds = parseTeamIdsFromDash(teamPayload);
+      rosterAttempts = teamIds.length;
 
-        for (const teamId of teamIds) {
-          try {
-            const rosterPayload = await fetchJson(buildTeamRosterUrl({ season, teamId }));
-            const rosterPlayers = parseRosterPlayers(rosterPayload);
-            linkRosterTeammates(rosterPlayers, players);
+      for (const teamId of teamIds) {
+        try {
+          const rosterPayload = await fetchJson(buildTeamRosterUrl({ season, teamId }), {
+            maxRetries: rosterMaxRetries,
+            maxBackoffMs: rosterMaxBackoffMs,
+            requestTimeoutMs: rosterTimeoutMs
+          });
+          const rosterPlayers = parseRosterPlayers(rosterPayload);
+          linkRosterTeammates(rosterPlayers, players);
           } catch (error) {
             rosterFailures += 1;
             console.log(
@@ -428,8 +459,8 @@ async function build() {
               }`
             );
           }
-          await sleep(120);
-        }
+        await sleep(rosterTeamPauseMs);
+      }
       } catch (error) {
         rosterFailures = 1;
         console.log(
@@ -449,7 +480,11 @@ async function build() {
     }
 
     try {
-      const allStarPayload = await fetchJson(allStarUrl);
+      const allStarPayload = await fetchJson(allStarUrl, {
+        maxRetries: globalMaxRetries,
+        maxBackoffMs: globalMaxBackoffMs,
+        requestTimeoutMs: globalTimeoutMs
+      });
       const allStar = parseStatsPayload(allStarPayload);
       const allStarRows = toRowObjects(allStar.headers, allStar.rows);
       markAllStars(allStarRows, players);
