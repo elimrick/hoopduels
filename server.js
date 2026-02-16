@@ -8,6 +8,7 @@ const { AccountStorePg } = require('./lib/account-store-pg');
 const { runSeasonSyncIfDue } = require('./lib/season-sync');
 
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
 const TURN_DURATION_MS = 60_000;
 const MAX_STRIKES = 3;
 const DISCONNECT_GRACE_MS = 15_000;
@@ -21,6 +22,9 @@ const onlineVisitors = new Map();
 
 app.use(express.json({ limit: '1mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.get('/healthz', (_req, res) => {
+  res.status(200).send('ok');
+});
 
 const playerStore = new PlayerStore({
   dbPath: path.join(__dirname, 'data', 'players.db'),
@@ -715,11 +719,11 @@ io.on('connection', async (socket) => {
 
 async function boot() {
   await accountStore.init();
-  server.listen(PORT, () => {
+  server.listen(PORT, HOST, () => {
     const counts = playerStore.getCounts();
     console.log(`Players loaded from DB: ${counts.players} total, ${counts.allStars} all-stars`);
     console.log(`Account store: ${usePostgres ? 'postgres' : 'sqlite'}`);
-    console.log(`HoopDuels server running on http://localhost:${PORT}`);
+    console.log(`HoopDuels server running on http://${HOST}:${PORT}`);
   });
 }
 
