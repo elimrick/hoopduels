@@ -322,7 +322,7 @@ function linkRosterTeammates(rosterNames, store) {
   }
 }
 
-function buildLeagueDashUrl({ season, seasonType }) {
+function buildLeagueDashUrl({ season, seasonType, teamId = '0' }) {
   const params = new URLSearchParams({
     College: '',
     Conference: '',
@@ -355,7 +355,7 @@ function buildLeagueDashUrl({ season, seasonType }) {
     SeasonType: seasonType,
     ShotClockRange: '',
     StarterBench: '',
-    TeamID: '0',
+    TeamID: String(teamId),
     TwoWay: '0',
     VsConference: '',
     VsDivision: '',
@@ -384,8 +384,16 @@ function writeOutput(players) {
 async function build() {
   const autoEndYear = currentSeasonEndYear();
   const endYear = Number(process.env.BUILD_END_SEASON_END_YEAR || autoEndYear);
+  const forcedStartYearRaw = process.env.BUILD_START_SEASON_END_YEAR;
+  const forcedStartYear = Number.isFinite(Number(forcedStartYearRaw))
+    ? Number(forcedStartYearRaw)
+    : null;
   const checkpoint = readCheckpoint();
-  const startYear = checkpoint ? Math.max(START_SEASON_END_YEAR, checkpoint + 1) : START_SEASON_END_YEAR;
+  const startYear = forcedStartYear != null
+    ? Math.max(START_SEASON_END_YEAR, forcedStartYear)
+    : checkpoint
+      ? Math.max(START_SEASON_END_YEAR, checkpoint + 1)
+      : START_SEASON_END_YEAR;
   const players = loadExistingPlayers();
   const rosterStartSeasonEnd = Number(process.env.ROSTER_START_SEASON_END || START_SEASON_END_YEAR);
   const rosterEndSeasonEnd = Number(process.env.ROSTER_END_SEASON_END || endYear);
@@ -429,7 +437,7 @@ async function build() {
         `${regularFailed ? ', ' : ''}skipped rosters (outside ${rosterStartSeasonEnd}-${rosterEndSeasonEnd}), all-star... `
       );
     } else {
-      process.stdout.write(`${regularFailed ? ', rosters fallback... ' : 'ok, rosters... '}`);
+      process.stdout.write(`${regularFailed ? ', team links fallback... ' : 'ok, team links... '}`);
 
       let rosterFailures = 0;
       let rosterAttempts = 0;
@@ -443,6 +451,36 @@ async function build() {
       rosterAttempts = teamIds.length;
 
       for (const teamId of teamIds) {
+        let linkedByAnySource = false;
+
+        // Source 1: season team player stats (captures traded/partial-season teammates).
+        try {
+          const teamPlayerPayload = await fetchJson(
+            buildLeagueDashUrl({ season, seasonType: 'Regular Season', teamId }),
+            {
+              maxRetries: rosterMaxRetries,
+              maxBackoffMs: rosterMaxBackoffMs,
+              requestTimeoutMs: rosterTimeoutMs
+            }
+          );
+          const teamPlayerParsed = parseStatsPayload(teamPlayerPayload);
+          const teamPlayerRows = toRowObjects(teamPlayerParsed.headers, teamPlayerParsed.rows);
+          const teamPlayerNames = teamPlayerRows
+            .map((row) => normalizeName(row.PLAYER_NAME || row.PLAYER || row.PLAYER_FULL_NAME))
+            .filter(Boolean);
+          if (teamPlayerNames.length) {
+            linkRosterTeammates(teamPlayerNames, players);
+            linkedByAnySource = true;
+          }
+        } catch (error) {
+          console.log(
+            `\n  team-player fetch failed for season ${season} team ${teamId}: ${
+              error && error.message ? error.message : 'unknown error'
+            }`
+          );
+        }
+
+        // Source 2: historical roster endpoint (helps capture zero-minute/inactive teammates).
         try {
           const rosterPayload = await fetchJson(buildTeamRosterUrl({ season, teamId }), {
             maxRetries: rosterMaxRetries,
@@ -450,15 +488,21 @@ async function build() {
             requestTimeoutMs: rosterTimeoutMs
           });
           const rosterPlayers = parseRosterPlayers(rosterPayload);
-          linkRosterTeammates(rosterPlayers, players);
-          } catch (error) {
-            rosterFailures += 1;
-            console.log(
-              `\n  roster fetch failed for season ${season} team ${teamId}: ${
-                error && error.message ? error.message : 'unknown error'
-              }`
-            );
+          if (rosterPlayers.length) {
+            linkRosterTeammates(rosterPlayers, players);
+            linkedByAnySource = true;
           }
+        } catch (error) {
+          console.log(
+            `\n  roster fetch failed for season ${season} team ${teamId}: ${
+              error && error.message ? error.message : 'unknown error'
+            }`
+          );
+        }
+
+        if (!linkedByAnySource) {
+          rosterFailures += 1;
+        }
         await sleep(rosterTeamPauseMs);
       }
       } catch (error) {
