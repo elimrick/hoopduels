@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const START_SEASON_END_YEAR = 2000;
+const START_SEASON_END_YEAR = 1977;
 const OUTPUT_PATH = path.join(__dirname, '..', 'data', 'players-2000-present.json');
 const CHECKPOINT_PATH = path.join(__dirname, '..', 'data', 'players-build-checkpoint.json');
 
@@ -86,9 +86,29 @@ function loadExistingPlayers() {
         map.get(key).teammates.add(teammateKey);
       }
     }
+    enforceGraphIntegrity(map);
     return map;
   } catch (_) {
     return new Map();
+  }
+}
+
+function enforceGraphIntegrity(store) {
+  for (const [name, data] of store.entries()) {
+    if (!data || !data.teammates) continue;
+    if (data.teammates.has(name)) {
+      data.teammates.delete(name);
+    }
+    for (const teammate of [...data.teammates]) {
+      if (!store.has(teammate)) {
+        data.teammates.delete(teammate);
+        continue;
+      }
+      const teammateSet = store.get(teammate).teammates;
+      if (!teammateSet.has(name)) {
+        teammateSet.add(name);
+      }
+    }
   }
 }
 
@@ -366,6 +386,7 @@ function buildLeagueDashUrl({ season, seasonType, teamId = '0' }) {
 }
 
 function writeOutput(players) {
+  enforceGraphIntegrity(players);
   const output = {};
   const names = [...players.keys()].sort((a, b) => a.localeCompare(b));
 

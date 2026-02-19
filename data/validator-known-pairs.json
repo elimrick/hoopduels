@@ -1,0 +1,36 @@
+{
+  "playersMustExist": [
+    "Jimmy Butler",
+    "Jeff Teague",
+    "Jayson Tatum",
+    "Tyrese Haliburton",
+    "Tristen Newton",
+    "Anthony Davis",
+    "Cooper Flagg"
+  ],
+  "playersMustExistAny": [
+    [
+      "Reggie Bullock",
+      "Reggie Bullock Jr.",
+      "Reggie Bullock Jr'"
+    ]
+  ],
+  "mustBeTeammates": [
+    {
+      "a": "Jimmy Butler",
+      "b": "Jeff Teague"
+    },
+    {
+      "a": "Jayson Tatum",
+      "b": "Jeff Teague"
+    },
+    {
+      "a": "Tyrese Haliburton",
+      "b": "Tristen Newton"
+    },
+    {
+      "a": "Anthony Davis",
+      "b": "Cooper Flagg"
+    }
+  ]
+}

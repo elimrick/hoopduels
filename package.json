@@ -9,10 +9,14 @@
     "dev": "node server.js",
     "tunnel": "ssh -o StrictHostKeyChecking=no -R 80:localhost:3000 nokey@localhost.run",
     "data:build": "node scripts/build-players-2000-present.js",
+    "data:build:strict": "node scripts/data-build-strict.js",
+    "data:validate": "node scripts/validate-player-data.js",
+    "data:overnight": "bash scripts/run-data-build-overnight.sh",
     "data:refresh-full": "npm run data:build && npm run db:seed",
     "db:seed": "node scripts/seed-players-db.js",
     "season:sync": "node scripts/season-sync-now.js",
-    "season:sync:force": "node scripts/season-sync-now.js --force"
+    "season:sync:force": "node scripts/season-sync-now.js --force",
+    "data:overnight": "bash scripts/run-data-build-overnight.sh"
   },
   "dependencies": {
     "cheerio": "^1.1.2",
