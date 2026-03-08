@@ -397,6 +397,18 @@ submitBtn.addEventListener('click', () => {
   if (!guess) return;
   socket.emit('game:guess', guess);
   guessInput.value = '';
+  if (window.innerWidth <= 1100) {
+    guessInput.blur();
+    if (typeof window.HoopSetViewportHeight === 'function') {
+      window.HoopSetViewportHeight();
+      setTimeout(() => {
+        window.HoopSetViewportHeight();
+      }, 120);
+      setTimeout(() => {
+        window.HoopSetViewportHeight();
+      }, 260);
+    }
+  }
 });
 
 guessInput.addEventListener('keydown', (e) => {

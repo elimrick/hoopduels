@@ -606,7 +606,9 @@
     let stableHeight = window.innerHeight;
     const setVh = () => {
       const inner = Math.max(0, Math.round(window.innerHeight || 0));
-      const vv = window.visualViewport ? Math.max(0, Math.round(window.visualViewport.height || 0)) : inner;
+      const vv = window.visualViewport
+        ? Math.max(0, Math.round((window.visualViewport.height || 0) + (window.visualViewport.offsetTop || 0)))
+        : inner;
       const active = document.activeElement;
       const isTyping = Boolean(
         active
@@ -620,13 +622,22 @@
       const h = keyboardLikelyOpen ? stableHeight : Math.max(inner, vv);
       document.documentElement.style.setProperty('--app-vh', `${h}px`);
     };
+    window.HoopSetViewportHeight = setVh;
     setVh();
     window.addEventListener('resize', setVh);
+    window.addEventListener('pageshow', setVh);
     window.addEventListener('orientationchange', () => setTimeout(setVh, 150));
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', setVh);
       window.visualViewport.addEventListener('scroll', setVh);
     }
+    document.addEventListener('focusin', () => {
+      setTimeout(setVh, 60);
+    });
+    document.addEventListener('focusout', () => {
+      setTimeout(setVh, 80);
+      setTimeout(setVh, 260);
+    });
   }
 
   function wireSignIn() {
