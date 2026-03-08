@@ -1076,7 +1076,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
 @media (max-width: 1100px) {
   body {
-    overflow: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: auto;
   }
 
   .mobile-topbar {
@@ -1163,7 +1164,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     padding: 16px;
     min-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
     height: auto;
-    overflow-y: auto;
+    overflow-y: visible;
     -webkit-overflow-scrolling: touch;
     padding-bottom: calc(110px + env(safe-area-inset-bottom));
   }
@@ -1225,8 +1226,14 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .layout {
     grid-template-columns: 1fr;
-    height: var(--app-vh, 100dvh);
+    min-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
+    height: auto;
     margin-top: var(--mobile-topbar-offset);
+  }
+
+  body[data-page='play'] .main,
+  body[data-page='practice'] .main {
+    min-height: 0;
   }
 
   .sidebar {
