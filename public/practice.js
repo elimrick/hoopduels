@@ -63,6 +63,15 @@ function showInputError(text) {
   setMessage(text, 'error');
 }
 
+function flashPracticeFoul() {
+  playerLeftEl.classList.remove('foul-flash');
+  void playerLeftEl.offsetWidth;
+  playerLeftEl.classList.add('foul-flash');
+  setTimeout(() => {
+    playerLeftEl.classList.remove('foul-flash');
+  }, 650);
+}
+
 function capitalizeFirstChar(value) {
   const txt = String(value || '').trim();
   if (!txt) return '';
@@ -163,13 +172,12 @@ function endPractice(reason, detailMessage = '') {
 function applyFoul(reason) {
   state.yourFouls += 1;
   yourFoulsEl.textContent = String(state.yourFouls);
-  const detailMessage = `${capitalizeFirstChar(reason)}`;
+  flashPracticeFoul();
   if (state.yourFouls >= 3) {
-    showInputError(detailMessage);
     endPractice('You Fouled Out', '');
     return;
   }
-  showInputError(detailMessage);
+  clearInputError();
   state.phase = 'player';
   setTurnUi();
   inputEl.focus();

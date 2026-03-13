@@ -51,6 +51,8 @@ let isRequeueing = false;
 let pregamePlayerElos = {};
 let currentGameId = null;
 let guessAutocomplete = null;
+let transientGuessPlaceholder = '';
+let lastStrikeSignature = '';
 
 function getLocalProfileName() {
   if (!window.HoopState) return '';
@@ -68,14 +70,38 @@ function clearInputError() {
 }
 
 function syncGuessPlaceholder(isMyTurn) {
+  if (transientGuessPlaceholder) {
+    guessInput.placeholder = transientGuessPlaceholder;
+    return;
+  }
   guessInput.placeholder = isMyTurn && currentState && currentState.status === 'active'
     ? DEFAULT_GUESS_PLACEHOLDER
     : "Opponent's turn";
 }
 
-function showInputError(text) {
-  guessInput.value = '';
-  setMessage(text, 'error');
+function clearTransientGuessPlaceholder() {
+  transientGuessPlaceholder = '';
+}
+
+function setOpponentGuessPlaceholder(name) {
+  transientGuessPlaceholder = name ? `Opponent guessed ${name}` : "Opponent guessed a player";
+}
+
+function flashFoulCard(targetPlayerId) {
+  if (!targetPlayerId) return;
+  const targetEl = currentState && Array.isArray(currentState.players) && currentState.players[0] && currentState.players[0].playerId === targetPlayerId
+    ? playerLeftEl
+    : currentState && Array.isArray(currentState.players) && currentState.players[1] && currentState.players[1].playerId === targetPlayerId
+      ? playerRightEl
+      : null;
+  if (!targetEl) return;
+
+  targetEl.classList.remove('foul-flash');
+  void targetEl.offsetWidth;
+  targetEl.classList.add('foul-flash');
+  setTimeout(() => {
+    targetEl.classList.remove('foul-flash');
+  }, 650);
 }
 
 function isGuestLikeName(name) {
@@ -394,20 +420,26 @@ function renderGameState(state) {
   renderHistory(state.usedPlayers, state.history, state.players);
   const strikeInfo = parseStrikeMessage(state.message);
   if (strikeInfo) {
+    const strikeSignature = `${currentGameId || ''}:${state.message}`;
+    const striker = state.players.find((p) => String(p.username || '').trim().toLowerCase() === String(strikeInfo.guesser || '').trim().toLowerCase());
     const me = state.players.find((p) => p.playerId === playerId);
     const myName = me ? me.username : '';
+    if (strikeSignature !== lastStrikeSignature) {
+      flashFoulCard(striker ? striker.playerId : null);
+      lastStrikeSignature = strikeSignature;
+    }
+    clearInputError();
     if (myName && strikeInfo.guesser === myName) {
-      showInputError(`${capitalizeFirstChar(strikeInfo.reason)}`);
+      clearTransientGuessPlaceholder();
     } else {
-      clearInputError();
-      syncGuessPlaceholder(isMyTurn);
-      const guessedName = strikeInfo.guess || extractGuessedName(state.message) || 'blank guess';
-      setMessage(`Opponent guessed "${guessedName}"`, 'error');
+      const guessedName = strikeInfo.guess || extractGuessedName(state.message) || 'player';
+      setOpponentGuessPlaceholder(guessedName);
     }
   } else {
+    lastStrikeSignature = '';
     clearInputError();
+    clearTransientGuessPlaceholder();
     syncGuessPlaceholder(isMyTurn);
-    setMessage('');
   }
 
   if (guessAutocomplete && typeof guessAutocomplete.refresh === 'function') {
@@ -434,6 +466,7 @@ function submitGuess() {
   const guess = guessInput.value.trim();
   if (!guess) return;
   clearInputError();
+  clearTransientGuessPlaceholder();
   syncGuessPlaceholder(Boolean(currentState && currentState.activePlayerId === playerId));
   socket.emit('game:guess', guess);
   guessInput.value = '';
@@ -458,6 +491,7 @@ if (submitBtn) {
 guessInput.addEventListener('keydown', (e) => {
   if (e.key !== 'Enter' && e.key !== 'ArrowUp' && e.key !== 'ArrowDown' && e.key !== 'Escape' && e.key !== 'Tab') {
     clearInputError();
+    clearTransientGuessPlaceholder();
     syncGuessPlaceholder(Boolean(currentState && currentState.activePlayerId === playerId));
   }
   if (e.key === 'Enter') {
@@ -554,15 +588,17 @@ socket.on('matchmaking:queued', () => {
     hasRecordedCurrentGame = false;
     finalWinnerPlayerId = null;
     finalLoserPlayerId = null;
+    lastStrikeSignature = '';
   }
   setMessage('');
+  clearTransientGuessPlaceholder();
   if (guessRowEl && !gameFinished) {
     guessRowEl.hidden = true;
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');
   }
   if (!gameFinished) {
-    guessInput.placeholder = "Opponent's turn";
+    syncGuessPlaceholder(false);
     if (currentLabelEl) currentLabelEl.textContent = '';
     if (currentLabelEl) currentLabelEl.style.display = 'none';
     currentPlayerEl.textContent = '-';
@@ -574,6 +610,7 @@ socket.on('matchmaking:left', () => {
   isRequeueing = false;
   closeMatchmakingOverlay();
   setMessage('');
+  clearTransientGuessPlaceholder();
 });
 
 socket.on('matchmaking:error', (msg) => {
@@ -620,20 +657,23 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
 
   const finalStrikeInfo = gameState ? parseStrikeMessage(gameState.message) : null;
   if (finalStrikeInfo) {
+    const striker = gameState && Array.isArray(gameState.players)
+      ? gameState.players.find((p) => String(p.username || '').trim().toLowerCase() === String(finalStrikeInfo.guesser || '').trim().toLowerCase())
+      : null;
     const me = gameState && Array.isArray(gameState.players)
       ? gameState.players.find((p) => p.playerId === playerId)
       : null;
     const myName = me ? me.username : '';
+    flashFoulCard(striker ? striker.playerId : null);
     if (myName && finalStrikeInfo.guesser === myName) {
-      showInputError(`${capitalizeFirstChar(finalStrikeInfo.reason)}`);
+      clearTransientGuessPlaceholder();
     } else {
-      clearInputError();
-      const guessedName = finalStrikeInfo.guess || extractGuessedName(gameState.message) || 'blank guess';
-      setMessage(`Opponent guessed "${guessedName}"`, 'error');
+      const guessedName = finalStrikeInfo.guess || extractGuessedName(gameState.message) || 'player';
+      setOpponentGuessPlaceholder(guessedName);
     }
   } else {
-    clearInputError();
     setMessage('');
+    clearTransientGuessPlaceholder();
   }
 
   guessInput.disabled = true;
@@ -644,6 +684,7 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     guessRowEl.classList.add('turn-inactive');
   }
   guessInput.value = '';
+  syncGuessPlaceholder(false);
 
   if (window.HoopState && !hasRecordedCurrentGame && gameState && Array.isArray(gameState.players)) {
     const myRow = gameState.players.find((p) => p.playerId === playerId);
