@@ -106,24 +106,14 @@ function pulseCardRed(targetEl) {
   if (targetEl._foulFlashTimer) {
     clearTimeout(targetEl._foulFlashTimer);
   }
-
-  const prevTransition = targetEl.style.transition;
-  const prevBorder = targetEl.style.borderColor;
-  const prevBackground = targetEl.style.background;
-  const prevBoxShadow = targetEl.style.boxShadow;
-
-  targetEl.style.transition = 'border-color 140ms ease, background 140ms ease, box-shadow 140ms ease';
-  targetEl.style.borderColor = '#ea5656';
-  targetEl.style.background = 'rgba(234, 86, 86, 0.28)';
-  targetEl.style.boxShadow = 'inset 0 0 0 2px rgba(234, 86, 86, 0.75), 0 0 0 2px rgba(234, 86, 86, 0.2)';
+  targetEl.classList.remove('foul-flash');
+  void targetEl.offsetWidth;
+  targetEl.classList.add('foul-flash');
 
   targetEl._foulFlashTimer = setTimeout(() => {
-    targetEl.style.transition = prevTransition;
-    targetEl.style.borderColor = prevBorder;
-    targetEl.style.background = prevBackground;
-    targetEl.style.boxShadow = prevBoxShadow;
+    targetEl.classList.remove('foul-flash');
     targetEl._foulFlashTimer = null;
-  }, 1100);
+  }, 1300);
 }
 
 function flashFoulCard(targetPlayerId) {
@@ -703,18 +693,14 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     flashFoulCard(striker ? striker.playerId : null);
     if (myName && finalStrikeInfo.guesser === myName) {
       clearTransientGuessPlaceholder();
-      syncGuessPlaceholder(false);
       finalInputText = '';
     } else {
       const guessedName = finalStrikeInfo.guess || extractGuessedName(gameState.message) || 'player';
-      setOpponentGuessPlaceholder(guessedName);
-      syncGuessPlaceholder(false);
-      finalInputText = transientGuessDisplay;
+      finalInputText = `Opponent guessed ${guessedName}`;
     }
   } else {
     setMessage('');
     clearTransientGuessPlaceholder();
-    syncGuessPlaceholder(false);
     finalInputText = '';
   }
 
@@ -725,15 +711,9 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');
   }
-  if (normalizedReason === 'time expired') {
-    clearTransientGuessPlaceholder();
-    guessInput.value = '';
-  } else if (finalStrikeInfo) {
-    guessInput.value = finalInputText || '';
-  } else {
-    guessInput.value = '';
-  }
-  syncGuessPlaceholder(false);
+  clearTransientGuessPlaceholder();
+  guessInput.placeholder = '';
+  guessInput.value = normalizedReason === 'time expired' ? '' : (finalInputText || '');
 
   if (window.HoopState && !hasRecordedCurrentGame && gameState && Array.isArray(gameState.players)) {
     const myRow = gameState.players.find((p) => p.playerId === playerId);

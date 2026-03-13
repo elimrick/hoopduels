@@ -67,24 +67,14 @@ function flashPracticeFoul() {
   if (playerLeftEl._foulFlashTimer) {
     clearTimeout(playerLeftEl._foulFlashTimer);
   }
-
-  const prevTransition = playerLeftEl.style.transition;
-  const prevBorder = playerLeftEl.style.borderColor;
-  const prevBackground = playerLeftEl.style.background;
-  const prevBoxShadow = playerLeftEl.style.boxShadow;
-
-  playerLeftEl.style.transition = 'border-color 140ms ease, background 140ms ease, box-shadow 140ms ease';
-  playerLeftEl.style.borderColor = '#ea5656';
-  playerLeftEl.style.background = 'rgba(234, 86, 86, 0.28)';
-  playerLeftEl.style.boxShadow = 'inset 0 0 0 2px rgba(234, 86, 86, 0.75), 0 0 0 2px rgba(234, 86, 86, 0.2)';
+  playerLeftEl.classList.remove('foul-flash');
+  void playerLeftEl.offsetWidth;
+  playerLeftEl.classList.add('foul-flash');
 
   playerLeftEl._foulFlashTimer = setTimeout(() => {
-    playerLeftEl.style.transition = prevTransition;
-    playerLeftEl.style.borderColor = prevBorder;
-    playerLeftEl.style.background = prevBackground;
-    playerLeftEl.style.boxShadow = prevBoxShadow;
+    playerLeftEl.classList.remove('foul-flash');
     playerLeftEl._foulFlashTimer = null;
-  }, 1100);
+  }, 1300);
 }
 
 function capitalizeFirstChar(value) {
