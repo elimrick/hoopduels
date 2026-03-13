@@ -449,18 +449,23 @@ function renderGameState(state) {
     }, 0);
   }
 
-  renderScoreboard(state.players, state.activePlayerId);
-  renderHistory(state.usedPlayers, state.history, state.players);
   const strikeInfo = parseStrikeMessage(state.message);
   if (strikeInfo) {
     const strikeSignature = `${currentGameId || ''}:${state.message}`;
     const striker = state.players.find((p) => String(p.username || '').trim().toLowerCase() === String(strikeInfo.guesser || '').trim().toLowerCase());
-    const me = state.players.find((p) => p.playerId === playerId);
-    const myName = me ? me.username : '';
     if (strikeSignature !== lastStrikeSignature) {
       flashFoulCard(striker ? striker.playerId : null);
       lastStrikeSignature = strikeSignature;
     }
+  } else {
+    lastStrikeSignature = '';
+  }
+
+  renderScoreboard(state.players, state.activePlayerId);
+  renderHistory(state.usedPlayers, state.history, state.players);
+  if (strikeInfo) {
+    const me = state.players.find((p) => p.playerId === playerId);
+    const myName = me ? me.username : '';
     clearInputError();
     if (myName && strikeInfo.guesser === myName) {
       clearTransientGuessPlaceholder();
@@ -718,6 +723,8 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   }
 
   guessInput.disabled = true;
+  guessInput.readOnly = true;
+  guessInput.blur();
   if (submitBtn) submitBtn.disabled = true;
   if (guessRowEl) {
     guessRowEl.hidden = false;
