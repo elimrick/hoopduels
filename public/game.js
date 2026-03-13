@@ -76,11 +76,15 @@ function showGuessInput() {
   const guessFieldRoot = getGuessFieldRoot();
   if (guessFieldRoot) {
     guessFieldRoot.hidden = false;
+    guessFieldRoot.style.display = '';
   }
+  guessInput.type = 'text';
   guessInput.hidden = false;
+  guessInput.style.display = '';
   if (guessDisplayEl) {
     guessDisplayEl.hidden = true;
     guessDisplayEl.textContent = '';
+    guessDisplayEl.style.display = 'none';
   }
 }
 
@@ -88,11 +92,15 @@ function showGuessDisplay(text = '') {
   const guessFieldRoot = getGuessFieldRoot();
   if (guessFieldRoot) {
     guessFieldRoot.hidden = true;
+    guessFieldRoot.style.display = 'none';
   }
+  guessInput.type = 'hidden';
   guessInput.hidden = true;
+  guessInput.style.display = 'none';
   if (guessDisplayEl) {
     guessDisplayEl.hidden = false;
     guessDisplayEl.textContent = text || '';
+    guessDisplayEl.style.display = 'flex';
   }
 }
 
