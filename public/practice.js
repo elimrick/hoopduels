@@ -120,13 +120,13 @@ function savePracticeProgress() {
   }
 }
 
-function endPractice(reason) {
+function endPractice(reason, detailMessage = '') {
   state.active = false;
   state.phase = 'ended';
   stopTimer();
   timerEl.textContent = 'Game Over';
   currentEl.textContent = reason || 'Finished';
-  setMessage('');
+  setMessage(detailMessage, detailMessage ? 'error' : '');
   if (guessRowEl) {
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');
@@ -141,11 +141,12 @@ function endPractice(reason) {
 function applyFoul(reason) {
   state.yourFouls += 1;
   yourFoulsEl.textContent = String(state.yourFouls);
+  const detailMessage = `Incorrect guess: ${capitalizeFirstChar(reason)}`;
   if (state.yourFouls >= 3) {
-    endPractice('You Fouled Out');
+    endPractice('You Fouled Out', detailMessage);
     return;
   }
-  setMessage(`Incorrect guess: ${capitalizeFirstChar(reason)}`, 'error');
+  setMessage(detailMessage, 'error');
   state.phase = 'player';
   setTurnUi();
   inputEl.focus();

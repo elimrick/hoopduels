@@ -570,7 +570,21 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     renderHistory(gameState.usedPlayers, gameState.history, gameState.players);
   }
 
-  setMessage('');
+  const finalStrikeInfo = gameState ? parseStrikeMessage(gameState.message) : null;
+  if (finalStrikeInfo) {
+    const me = gameState && Array.isArray(gameState.players)
+      ? gameState.players.find((p) => p.playerId === playerId)
+      : null;
+    const myName = me ? me.username : '';
+    if (myName && finalStrikeInfo.guesser === myName) {
+      setMessage(`Incorrect guess: ${capitalizeFirstChar(finalStrikeInfo.reason)}`, 'error');
+    } else {
+      const guessedName = finalStrikeInfo.guess || extractGuessedName(gameState.message) || 'blank guess';
+      setMessage(`Opponent guessed "${guessedName}"`, 'error');
+    }
+  } else {
+    setMessage('');
+  }
 
   guessInput.disabled = true;
   submitBtn.disabled = true;
