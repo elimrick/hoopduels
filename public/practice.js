@@ -74,7 +74,7 @@ function flashPracticeFoul() {
   playerLeftEl._foulFlashTimer = setTimeout(() => {
     playerLeftEl.classList.remove('foul-flash');
     playerLeftEl._foulFlashTimer = null;
-  }, 1300);
+  }, 1000);
 }
 
 function capitalizeFirstChar(value) {

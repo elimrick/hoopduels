@@ -113,7 +113,7 @@ function pulseCardRed(targetEl) {
   targetEl._foulFlashTimer = setTimeout(() => {
     targetEl.classList.remove('foul-flash');
     targetEl._foulFlashTimer = null;
-  }, 1300);
+  }, 1000);
 }
 
 function flashFoulCard(targetPlayerId) {
@@ -176,6 +176,17 @@ function parseStrikeMessage(message) {
     guess: match[2].trim(),
     reason: match[3].trim()
   };
+}
+
+function getLastStrikeGuess(history) {
+  if (!Array.isArray(history)) return '';
+  for (let i = history.length - 1; i >= 0; i -= 1) {
+    const entry = history[i];
+    if (entry && entry.type === 'strike' && entry.guess) {
+      return String(entry.guess).trim();
+    }
+  }
+  return '';
 }
 
 function capitalizeFirstChar(value) {
@@ -695,9 +706,11 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
       clearTransientGuessPlaceholder();
       finalInputText = '';
     } else {
-      const guessedName = finalStrikeInfo.guess || extractGuessedName(gameState.message) || 'player';
+      const guessedName = finalStrikeInfo.guess || finalHistoryGuess || extractGuessedName(gameState.message) || 'player';
       finalInputText = `Opponent guessed ${guessedName}`;
     }
+  } else if (normalizedReason === '3 strikes' && finalHistoryGuess) {
+    finalInputText = `Opponent guessed ${finalHistoryGuess}`;
   } else {
     setMessage('');
     clearTransientGuessPlaceholder();
