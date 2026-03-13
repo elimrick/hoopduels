@@ -64,11 +64,26 @@ function showInputError(text) {
 }
 
 function flashPracticeFoul() {
-  playerLeftEl.classList.remove('foul-flash');
-  void playerLeftEl.offsetWidth;
-  playerLeftEl.classList.add('foul-flash');
-  setTimeout(() => {
-    playerLeftEl.classList.remove('foul-flash');
+  if (playerLeftEl._foulFlashTimer) {
+    clearTimeout(playerLeftEl._foulFlashTimer);
+  }
+
+  const prevTransition = playerLeftEl.style.transition;
+  const prevBorder = playerLeftEl.style.borderColor;
+  const prevBackground = playerLeftEl.style.background;
+  const prevBoxShadow = playerLeftEl.style.boxShadow;
+
+  playerLeftEl.style.transition = 'border-color 120ms ease, background 120ms ease, box-shadow 120ms ease';
+  playerLeftEl.style.borderColor = '#ea5656';
+  playerLeftEl.style.background = 'rgba(234, 86, 86, 0.16)';
+  playerLeftEl.style.boxShadow = 'inset 0 0 0 1px rgba(234, 86, 86, 0.55)';
+
+  playerLeftEl._foulFlashTimer = setTimeout(() => {
+    playerLeftEl.style.transition = prevTransition;
+    playerLeftEl.style.borderColor = prevBorder;
+    playerLeftEl.style.background = prevBackground;
+    playerLeftEl.style.boxShadow = prevBoxShadow;
+    playerLeftEl._foulFlashTimer = null;
   }, 650);
 }
 

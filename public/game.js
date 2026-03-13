@@ -87,6 +87,31 @@ function setOpponentGuessPlaceholder(name) {
   transientGuessPlaceholder = name ? `Opponent guessed ${name}` : "Opponent guessed a player";
 }
 
+function pulseCardRed(targetEl) {
+  if (!targetEl) return;
+  if (targetEl._foulFlashTimer) {
+    clearTimeout(targetEl._foulFlashTimer);
+  }
+
+  const prevTransition = targetEl.style.transition;
+  const prevBorder = targetEl.style.borderColor;
+  const prevBackground = targetEl.style.background;
+  const prevBoxShadow = targetEl.style.boxShadow;
+
+  targetEl.style.transition = 'border-color 120ms ease, background 120ms ease, box-shadow 120ms ease';
+  targetEl.style.borderColor = '#ea5656';
+  targetEl.style.background = 'rgba(234, 86, 86, 0.16)';
+  targetEl.style.boxShadow = 'inset 0 0 0 1px rgba(234, 86, 86, 0.55)';
+
+  targetEl._foulFlashTimer = setTimeout(() => {
+    targetEl.style.transition = prevTransition;
+    targetEl.style.borderColor = prevBorder;
+    targetEl.style.background = prevBackground;
+    targetEl.style.boxShadow = prevBoxShadow;
+    targetEl._foulFlashTimer = null;
+  }, 650);
+}
+
 function flashFoulCard(targetPlayerId) {
   if (!targetPlayerId) return;
   const targetEl = currentState && Array.isArray(currentState.players) && currentState.players[0] && currentState.players[0].playerId === targetPlayerId
@@ -94,14 +119,7 @@ function flashFoulCard(targetPlayerId) {
     : currentState && Array.isArray(currentState.players) && currentState.players[1] && currentState.players[1].playerId === targetPlayerId
       ? playerRightEl
       : null;
-  if (!targetEl) return;
-
-  targetEl.classList.remove('foul-flash');
-  void targetEl.offsetWidth;
-  targetEl.classList.add('foul-flash');
-  setTimeout(() => {
-    targetEl.classList.remove('foul-flash');
-  }, 650);
+  pulseCardRed(targetEl);
 }
 
 function isGuestLikeName(name) {
