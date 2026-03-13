@@ -436,9 +436,13 @@ function renderGameState(state) {
   currentPlayerEl.textContent = state.currentPlayer;
 
   guessInput.disabled = !isMyTurn || state.status !== 'active';
+  guessInput.readOnly = !isMyTurn || state.status !== 'active';
+  guessInput.removeAttribute('aria-disabled');
+  guessInput.tabIndex = 0;
   if (submitBtn) submitBtn.disabled = !isMyTurn || state.status !== 'active';
   if (guessRowEl) {
     guessRowEl.hidden = false;
+    guessRowEl.classList.remove('game-ended');
     guessRowEl.classList.toggle('turn-active', isMyTurn && state.status === 'active');
     guessRowEl.classList.toggle('turn-inactive', !isMyTurn || state.status !== 'active');
   }
@@ -529,6 +533,10 @@ if (submitBtn) {
 }
 
 guessInput.addEventListener('keydown', (e) => {
+  if (gameFinished || guessInput.disabled || guessInput.readOnly) {
+    e.preventDefault();
+    return;
+  }
   if (e.key !== 'Enter' && e.key !== 'ArrowUp' && e.key !== 'ArrowDown' && e.key !== 'Escape' && e.key !== 'Tab') {
     clearInputError();
     clearTransientGuessPlaceholder();
@@ -724,12 +732,18 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
 
   guessInput.disabled = true;
   guessInput.readOnly = true;
+  guessInput.setAttribute('aria-disabled', 'true');
+  guessInput.tabIndex = -1;
   guessInput.blur();
   if (submitBtn) submitBtn.disabled = true;
   if (guessRowEl) {
     guessRowEl.hidden = false;
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');
+    guessRowEl.classList.add('game-ended');
+  }
+  if (guessAutocomplete && typeof guessAutocomplete.close === 'function') {
+    guessAutocomplete.close();
   }
   clearTransientGuessPlaceholder();
   guessInput.placeholder = '';

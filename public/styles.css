@@ -593,6 +593,11 @@ body[data-page='practice'] .page-panel {
   color: rgba(255, 255, 255, 0.62);
 }
 
+#guess-row.game-ended input {
+  pointer-events: none;
+  caret-color: transparent;
+}
+
 #practice-guess-row.turn-inactive input {
   border: 2px solid rgba(255, 255, 255, 0.22) !important;
   background: rgba(255, 255, 255, 0.07);
