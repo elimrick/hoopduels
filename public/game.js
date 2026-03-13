@@ -397,7 +397,7 @@ function renderGameState(state) {
     const me = state.players.find((p) => p.playerId === playerId);
     const myName = me ? me.username : '';
     if (myName && strikeInfo.guesser === myName) {
-      showInputError(`Incorrect guess: ${capitalizeFirstChar(strikeInfo.reason)}`);
+      showInputError(`${capitalizeFirstChar(strikeInfo.reason)}`);
     } else {
       clearInputError();
       syncGuessPlaceholder(isMyTurn);
@@ -625,7 +625,7 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
       : null;
     const myName = me ? me.username : '';
     if (myName && finalStrikeInfo.guesser === myName) {
-      showInputError(`Incorrect guess: ${capitalizeFirstChar(finalStrikeInfo.reason)}`);
+      showInputError(`${capitalizeFirstChar(finalStrikeInfo.reason)}`);
     } else {
       clearInputError();
       const guessedName = finalStrikeInfo.guess || extractGuessedName(gameState.message) || 'blank guess';

@@ -163,7 +163,7 @@ function endPractice(reason, detailMessage = '') {
 function applyFoul(reason) {
   state.yourFouls += 1;
   yourFoulsEl.textContent = String(state.yourFouls);
-  const detailMessage = `Incorrect guess: ${capitalizeFirstChar(reason)}`;
+  const detailMessage = `${capitalizeFirstChar(reason)}`;
   if (state.yourFouls >= 3) {
     showInputError(detailMessage);
     endPractice('You Fouled Out', '');

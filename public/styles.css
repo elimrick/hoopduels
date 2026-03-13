@@ -549,6 +549,7 @@ body[data-page='practice'] .page-panel {
   gap: 12px;
   align-items: center;
   margin-top: 12px;
+  margin-bottom: 12px;
 }
 
 #guess-row input {
@@ -673,7 +674,7 @@ body[data-page='practice'] .page-panel {
 
 .message:not(:empty) {
   margin-top: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .message + .turn-row {
