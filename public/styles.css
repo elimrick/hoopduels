@@ -286,6 +286,14 @@ body[data-page='play'] .two-col .card h3 {
   align-items: center;
 }
 
+.guess-display[hidden] {
+  display: none !important;
+}
+
+.player-autocomplete[hidden] {
+  display: none !important;
+}
+
 .player-suggestions {
   position: absolute;
   top: calc(100% + 8px);

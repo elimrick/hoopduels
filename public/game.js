@@ -74,7 +74,10 @@ function getGuessFieldRoot() {
 
 function showGuessInput() {
   const guessFieldRoot = getGuessFieldRoot();
-  if (guessFieldRoot) guessFieldRoot.hidden = false;
+  if (guessFieldRoot) {
+    guessFieldRoot.hidden = false;
+  }
+  guessInput.hidden = false;
   if (guessDisplayEl) {
     guessDisplayEl.hidden = true;
     guessDisplayEl.textContent = '';
@@ -83,7 +86,10 @@ function showGuessInput() {
 
 function showGuessDisplay(text = '') {
   const guessFieldRoot = getGuessFieldRoot();
-  if (guessFieldRoot) guessFieldRoot.hidden = true;
+  if (guessFieldRoot) {
+    guessFieldRoot.hidden = true;
+  }
+  guessInput.hidden = true;
   if (guessDisplayEl) {
     guessDisplayEl.hidden = false;
     guessDisplayEl.textContent = text || '';
