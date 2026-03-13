@@ -52,6 +52,7 @@ let pregamePlayerElos = {};
 let currentGameId = null;
 let guessAutocomplete = null;
 let transientGuessPlaceholder = '';
+let transientGuessDisplay = '';
 let lastStrikeSignature = '';
 
 function getLocalProfileName() {
@@ -70,9 +71,17 @@ function clearInputError() {
 }
 
 function syncGuessPlaceholder(isMyTurn) {
+  if (transientGuessDisplay) {
+    guessInput.value = transientGuessDisplay;
+    guessInput.placeholder = '';
+    return;
+  }
   if (transientGuessPlaceholder) {
     guessInput.placeholder = transientGuessPlaceholder;
     return;
+  }
+  if (!guessInput.matches(':focus')) {
+    guessInput.value = '';
   }
   guessInput.placeholder = isMyTurn && currentState && currentState.status === 'active'
     ? DEFAULT_GUESS_PLACEHOLDER
@@ -81,10 +90,15 @@ function syncGuessPlaceholder(isMyTurn) {
 
 function clearTransientGuessPlaceholder() {
   transientGuessPlaceholder = '';
+  if (transientGuessDisplay && guessInput.value === transientGuessDisplay) {
+    guessInput.value = '';
+  }
+  transientGuessDisplay = '';
 }
 
 function setOpponentGuessPlaceholder(name) {
-  transientGuessPlaceholder = name ? `Opponent guessed ${name}` : "Opponent guessed a player";
+  transientGuessDisplay = name ? `Opponent guessed ${name}` : 'Opponent guessed a player';
+  transientGuessPlaceholder = '';
 }
 
 function pulseCardRed(targetEl) {
@@ -586,7 +600,7 @@ if (cancelMatchmakingBtn) {
     socket.emit('matchmaking:leave');
     isRequeueing = false;
     closeMatchmakingOverlay();
-    if (leaveGameBtn && gameFinished) leaveGameBtn.textContent = 'Find Another Game';
+    if (leaveGameBtn && gameFinished) leaveGameBtn.textContent = 'New Game';
   });
 }
 
@@ -656,7 +670,7 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   if (currentLabelEl) currentLabelEl.textContent = '';
   if (currentLabelEl) currentLabelEl.style.display = 'none';
   currentPlayerEl.textContent = endDisplay.detail;
-  if (leaveGameBtn) leaveGameBtn.textContent = 'Find Another Game';
+  if (leaveGameBtn) leaveGameBtn.textContent = 'New Game';
   finalWinnerPlayerId = winnerPlayerId;
   finalLoserPlayerId = loserPlayerId;
   isRequeueing = false;

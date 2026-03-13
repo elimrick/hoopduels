@@ -601,7 +601,7 @@ body[data-page='practice'] .page-panel {
 
 .duel-board {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: minmax(240px, 1fr) minmax(130px, 180px) minmax(240px, 1fr);
   gap: 14px;
   align-items: center;
 }
@@ -666,6 +666,14 @@ body[data-page='practice'] .page-panel {
   font-size: 18px;
 }
 
+body[data-page='play'] #player-left {
+  text-align: left;
+}
+
+body[data-page='play'] #player-right {
+  text-align: right;
+}
+
 .message {
   min-height: 0;
   margin: 0;
@@ -677,7 +685,7 @@ body[data-page='practice'] .page-panel {
   margin-bottom: 12px;
 }
 
-.message + .turn-row {
+.message:not(:empty) + .turn-row {
   margin-top: 0;
 }
 
@@ -1284,7 +1292,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .duel-page-header {
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
   }
 
@@ -1408,7 +1416,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .duel-page-header {
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     gap: 12px;
   }
