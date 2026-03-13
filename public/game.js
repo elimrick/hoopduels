@@ -529,7 +529,7 @@ guessInput.addEventListener('keydown', (e) => {
     syncGuessPlaceholder(Boolean(currentState && currentState.activePlayerId === playerId));
   }
   if (e.key === 'Enter') {
-    submitGuess();
+    e.preventDefault();
   }
 });
 
@@ -678,6 +678,8 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   isRequeueing = false;
   sessionStorage.setItem(GAME_END_REDIRECT_KEY, '1');
   const youWon = playerId === winnerPlayerId;
+  const normalizedReason = typeof reason === 'string' ? reason.trim().toLowerCase() : '';
+  let finalInputText = '';
 
   if (gameState) {
     if (Array.isArray(gameState.players)) {
@@ -702,15 +704,18 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     if (myName && finalStrikeInfo.guesser === myName) {
       clearTransientGuessPlaceholder();
       syncGuessPlaceholder(false);
+      finalInputText = '';
     } else {
       const guessedName = finalStrikeInfo.guess || extractGuessedName(gameState.message) || 'player';
       setOpponentGuessPlaceholder(guessedName);
       syncGuessPlaceholder(false);
+      finalInputText = transientGuessDisplay;
     }
   } else {
     setMessage('');
     clearTransientGuessPlaceholder();
     syncGuessPlaceholder(false);
+    finalInputText = '';
   }
 
   guessInput.disabled = true;
@@ -720,7 +725,14 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');
   }
-  guessInput.value = '';
+  if (normalizedReason === 'time expired') {
+    clearTransientGuessPlaceholder();
+    guessInput.value = '';
+  } else if (finalStrikeInfo) {
+    guessInput.value = finalInputText || '';
+  } else {
+    guessInput.value = '';
+  }
   syncGuessPlaceholder(false);
 
   if (window.HoopState && !hasRecordedCurrentGame && gameState && Array.isArray(gameState.players)) {

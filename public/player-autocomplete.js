@@ -150,10 +150,7 @@
           event.preventDefault();
           updateActive(activeIndex - 1);
         } else if (event.key === 'Enter') {
-          if (activeIndex >= 0 && items[activeIndex]) {
-            event.preventDefault();
-            choose(items[activeIndex]);
-          }
+          event.preventDefault();
         } else if (event.key === 'Escape') {
           close();
         }

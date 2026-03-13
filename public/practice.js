@@ -344,7 +344,7 @@ inputEl.addEventListener('keydown', (event) => {
     clearInputError();
     syncInputPlaceholder();
   }
-  if (event.key === 'Enter') submitGuess();
+  if (event.key === 'Enter') event.preventDefault();
 });
 leaveBtn.addEventListener('click', () => {
   if (!state.active) {
