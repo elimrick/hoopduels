@@ -13,6 +13,7 @@ const leaveBtn = document.getElementById('leave-practice-btn');
 const guessRowEl = document.getElementById('practice-guess-row');
 const playerLeftEl = document.getElementById('practice-player-left');
 const playerRightEl = document.getElementById('practice-player-right');
+const DEFAULT_PRACTICE_PLACEHOLDER = 'Name a teammate...';
 let practiceAutocomplete = null;
 
 const state = {
@@ -41,6 +42,28 @@ function getDisplayName() {
 function setMessage(text, kind = '') {
   messageEl.className = kind ? `message ${kind}` : 'message';
   messageEl.textContent = text || '';
+}
+
+function clearInputError() {
+  inputEl.classList.remove('input-error');
+}
+
+function syncInputPlaceholder() {
+  if (inputEl.classList.contains('input-error')) return;
+  if (!state.active) {
+    inputEl.placeholder = '';
+  } else if (state.phase === 'player') {
+    inputEl.placeholder = DEFAULT_PRACTICE_PLACEHOLDER;
+  } else {
+    inputEl.placeholder = "Computer's turn";
+  }
+}
+
+function showInputError(text) {
+  inputEl.value = '';
+  inputEl.classList.add('input-error');
+  inputEl.placeholder = text;
+  setMessage('');
 }
 
 function capitalizeFirstChar(value) {
@@ -106,18 +129,12 @@ function setTurnUi() {
 
   inputEl.disabled = !state.active;
   inputEl.readOnly = !playerTurn || state.pending;
-  submitEl.disabled = !playerTurn || state.pending;
+  if (submitEl) submitEl.disabled = !playerTurn || state.pending;
   if (guessRowEl) {
     guessRowEl.classList.toggle('turn-active', playerTurn);
     guessRowEl.classList.toggle('turn-inactive', !playerTurn);
   }
-  if (!state.active) {
-    inputEl.placeholder = '';
-  } else if (playerTurn) {
-    inputEl.placeholder = 'Name a teammate...';
-  } else {
-    inputEl.placeholder = "Computer's turn";
-  }
+  syncInputPlaceholder();
 }
 
 function savePracticeProgress() {
@@ -151,10 +168,11 @@ function applyFoul(reason) {
   yourFoulsEl.textContent = String(state.yourFouls);
   const detailMessage = `Incorrect guess: ${capitalizeFirstChar(reason)}`;
   if (state.yourFouls >= 3) {
-    endPractice('You Fouled Out', detailMessage);
+    showInputError(detailMessage);
+    endPractice('You Fouled Out', '');
     return;
   }
-  setMessage(detailMessage, 'error');
+  showInputError(detailMessage);
   state.phase = 'player';
   setTurnUi();
   inputEl.focus();
@@ -235,6 +253,8 @@ async function submitGuess() {
   if (!state.active || state.phase !== 'player') return;
   const guess = inputEl.value.trim();
   if (!guess) return;
+  clearInputError();
+  syncInputPlaceholder();
   state.pending = true;
   inputEl.value = '';
   setTurnUi();
@@ -296,8 +316,14 @@ async function submitGuess() {
   }
 }
 
-submitEl.addEventListener('click', submitGuess);
+if (submitEl) {
+  submitEl.addEventListener('click', submitGuess);
+}
 inputEl.addEventListener('keydown', (event) => {
+  if (event.key !== 'Enter' && event.key !== 'ArrowUp' && event.key !== 'ArrowDown' && event.key !== 'Escape' && event.key !== 'Tab') {
+    clearInputError();
+    syncInputPlaceholder();
+  }
   if (event.key === 'Enter') submitGuess();
 });
 leaveBtn.addEventListener('click', () => {
@@ -323,7 +349,10 @@ hydrateSignedInName();
 
 if (window.HoopAutocomplete) {
   window.HoopAutocomplete.attach(inputEl, {
-    getExcludedNames: () => state.usedPlayers
+    getExcludedNames: () => state.usedPlayers,
+    onSelect: () => {
+      submitGuess();
+    }
   }).then((instance) => {
     practiceAutocomplete = instance;
     refreshAutocomplete();

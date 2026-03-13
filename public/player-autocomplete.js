@@ -62,6 +62,7 @@
 
       let items = [];
       let activeIndex = -1;
+      let hasFocus = false;
 
       function getExcludedKeys() {
         return typeof options.getExcludedNames === 'function'
@@ -109,6 +110,10 @@
       }
 
       function refresh() {
+        if (!hasFocus) {
+          close();
+          return;
+        }
         const query = normalizeSearch(input.value);
         if (!query) {
           close();
@@ -131,7 +136,10 @@
       }
 
       input.addEventListener('input', refresh);
-      input.addEventListener('focus', refresh);
+      input.addEventListener('focus', () => {
+        hasFocus = true;
+        refresh();
+      });
       input.addEventListener('keydown', (event) => {
         if (dropdown.hidden || !items.length) return;
 
@@ -152,6 +160,7 @@
       });
 
       input.addEventListener('blur', () => {
+        hasFocus = false;
         setTimeout(close, 120);
       });
 

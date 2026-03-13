@@ -541,7 +541,7 @@ body[data-page='practice'] .page-panel {
 
 .turn-row {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr;
   gap: 12px;
   align-items: center;
 }
@@ -567,6 +567,23 @@ body[data-page='practice'] .page-panel {
   opacity: 1;
 }
 
+#guess-row input.input-error,
+#practice-guess-row input.input-error {
+  color: var(--text);
+}
+
+#guess-row input.input-error::placeholder,
+#practice-guess-row input.input-error::placeholder {
+  color: #ff8e8e;
+  opacity: 1;
+}
+
+#guess-row input.input-error::-webkit-input-placeholder,
+#practice-guess-row input.input-error::-webkit-input-placeholder {
+  color: #ff8e8e;
+  opacity: 1;
+}
+
 #guess-row.turn-active input {
   border: 2px solid var(--line) !important;
   outline: none !important;
@@ -587,18 +604,10 @@ body[data-page='practice'] .page-panel {
   color: rgba(255, 255, 255, 0.62);
 }
 
-#guess-row.turn-inactive #submit-btn {
-  opacity: 0.55;
-}
-
 #practice-guess-row.turn-inactive input {
   border: 2px solid rgba(255, 255, 255, 0.22) !important;
   background: rgba(255, 255, 255, 0.07);
   color: rgba(255, 255, 255, 0.62);
-}
-
-#practice-guess-row.turn-inactive #practice-submit-btn {
-  opacity: 0.55;
 }
 
 .duel-board {

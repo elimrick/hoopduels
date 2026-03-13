@@ -39,6 +39,7 @@ const playerLeftNameEl = document.getElementById('player-left-name');
 const playerRightNameEl = document.getElementById('player-right-name');
 const playerLeftStrikesEl = document.getElementById('player-left-strikes');
 const playerRightStrikesEl = document.getElementById('player-right-strikes');
+const DEFAULT_GUESS_PLACEHOLDER = 'Name a teammate...';
 
 let currentState = null;
 let timerInterval = null;
@@ -60,6 +61,24 @@ function getLocalProfileName() {
 function setMessage(text, kind = '') {
   messageEl.className = kind ? `message ${kind}` : 'message';
   messageEl.textContent = text || '';
+}
+
+function clearInputError() {
+  guessInput.classList.remove('input-error');
+}
+
+function syncGuessPlaceholder(isMyTurn) {
+  if (guessInput.classList.contains('input-error')) return;
+  guessInput.placeholder = isMyTurn && currentState && currentState.status === 'active'
+    ? DEFAULT_GUESS_PLACEHOLDER
+    : "Opponent's turn";
+}
+
+function showInputError(text) {
+  guessInput.value = '';
+  guessInput.classList.add('input-error');
+  guessInput.placeholder = text;
+  setMessage('');
 }
 
 function isGuestLikeName(name) {
@@ -361,13 +380,13 @@ function renderGameState(state) {
   currentPlayerEl.textContent = state.currentPlayer;
 
   guessInput.disabled = !isMyTurn || state.status !== 'active';
-  submitBtn.disabled = !isMyTurn || state.status !== 'active';
+  if (submitBtn) submitBtn.disabled = !isMyTurn || state.status !== 'active';
   if (guessRowEl) {
     guessRowEl.hidden = false;
     guessRowEl.classList.toggle('turn-active', isMyTurn && state.status === 'active');
     guessRowEl.classList.toggle('turn-inactive', !isMyTurn || state.status !== 'active');
   }
-  guessInput.placeholder = isMyTurn && state.status === 'active' ? 'Name a teammate...' : "Opponent's turn";
+  syncGuessPlaceholder(isMyTurn);
   if (isMyTurn && state.status === 'active') {
     setTimeout(() => {
       guessInput.focus();
@@ -381,12 +400,16 @@ function renderGameState(state) {
     const me = state.players.find((p) => p.playerId === playerId);
     const myName = me ? me.username : '';
     if (myName && strikeInfo.guesser === myName) {
-      setMessage(`Incorrect guess: ${capitalizeFirstChar(strikeInfo.reason)}`, 'error');
+      showInputError(`Incorrect guess: ${capitalizeFirstChar(strikeInfo.reason)}`);
     } else {
+      clearInputError();
+      syncGuessPlaceholder(isMyTurn);
       const guessedName = strikeInfo.guess || extractGuessedName(state.message) || 'blank guess';
       setMessage(`Opponent guessed "${guessedName}"`, 'error');
     }
   } else {
+    clearInputError();
+    syncGuessPlaceholder(isMyTurn);
     setMessage('');
   }
 
@@ -403,13 +426,18 @@ async function wireGuessAutocomplete() {
     getExcludedNames: () => {
       if (!currentState || !Array.isArray(currentState.usedPlayers)) return [];
       return currentState.usedPlayers;
+    },
+    onSelect: () => {
+      submitGuess();
     }
   });
 }
 
-submitBtn.addEventListener('click', () => {
+function submitGuess() {
   const guess = guessInput.value.trim();
   if (!guess) return;
+  clearInputError();
+  syncGuessPlaceholder(Boolean(currentState && currentState.activePlayerId === playerId));
   socket.emit('game:guess', guess);
   guessInput.value = '';
   if (window.innerWidth <= 1100) {
@@ -424,11 +452,19 @@ submitBtn.addEventListener('click', () => {
       }, 260);
     }
   }
-});
+}
+
+if (submitBtn) {
+  submitBtn.addEventListener('click', submitGuess);
+}
 
 guessInput.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== 'ArrowUp' && e.key !== 'ArrowDown' && e.key !== 'Escape' && e.key !== 'Tab') {
+    clearInputError();
+    syncGuessPlaceholder(Boolean(currentState && currentState.activePlayerId === playerId));
+  }
   if (e.key === 'Enter') {
-    submitBtn.click();
+    submitGuess();
   }
 });
 
@@ -592,24 +628,25 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
       : null;
     const myName = me ? me.username : '';
     if (myName && finalStrikeInfo.guesser === myName) {
-      setMessage(`Incorrect guess: ${capitalizeFirstChar(finalStrikeInfo.reason)}`, 'error');
+      showInputError(`Incorrect guess: ${capitalizeFirstChar(finalStrikeInfo.reason)}`);
     } else {
+      clearInputError();
       const guessedName = finalStrikeInfo.guess || extractGuessedName(gameState.message) || 'blank guess';
       setMessage(`Opponent guessed "${guessedName}"`, 'error');
     }
   } else {
+    clearInputError();
     setMessage('');
   }
 
   guessInput.disabled = true;
-  submitBtn.disabled = true;
+  if (submitBtn) submitBtn.disabled = true;
   if (guessRowEl) {
-    guessRowEl.hidden = true;
+    guessRowEl.hidden = false;
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');
   }
   guessInput.value = '';
-  guessInput.placeholder = '';
 
   if (window.HoopState && !hasRecordedCurrentGame && gameState && Array.isArray(gameState.players)) {
     const myRow = gameState.players.find((p) => p.playerId === playerId);
