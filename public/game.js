@@ -22,6 +22,7 @@ const currentPlayerEl = document.getElementById('current-player');
 const currentLabelEl = document.getElementById('current-label');
 const timerEl = document.getElementById('timer');
 const guessInput = document.getElementById('guess-input');
+const guessDisplayEl = document.getElementById('guess-display');
 const submitBtn = document.getElementById('submit-btn');
 const guessRowEl = document.getElementById('guess-row');
 const messageEl = document.getElementById('message');
@@ -54,6 +55,7 @@ let guessAutocomplete = null;
 let transientGuessPlaceholder = '';
 let transientGuessDisplay = '';
 let lastStrikeSignature = '';
+let lastRenderedStrikes = {};
 
 function getLocalProfileName() {
   if (!window.HoopState) return '';
@@ -64,6 +66,28 @@ function getLocalProfileName() {
 function setMessage(text, kind = '') {
   messageEl.className = kind ? `message ${kind}` : 'message';
   messageEl.textContent = text || '';
+}
+
+function getGuessFieldRoot() {
+  return guessInput ? (guessInput.closest('.player-autocomplete') || guessInput) : null;
+}
+
+function showGuessInput() {
+  const guessFieldRoot = getGuessFieldRoot();
+  if (guessFieldRoot) guessFieldRoot.hidden = false;
+  if (guessDisplayEl) {
+    guessDisplayEl.hidden = true;
+    guessDisplayEl.textContent = '';
+  }
+}
+
+function showGuessDisplay(text = '') {
+  const guessFieldRoot = getGuessFieldRoot();
+  if (guessFieldRoot) guessFieldRoot.hidden = true;
+  if (guessDisplayEl) {
+    guessDisplayEl.hidden = false;
+    guessDisplayEl.textContent = text || '';
+  }
 }
 
 function clearInputError() {
@@ -187,6 +211,17 @@ function getLastStrikeGuess(history) {
     }
   }
   return '';
+}
+
+function getLastStrikeEntry(history) {
+  if (!Array.isArray(history)) return null;
+  for (let i = history.length - 1; i >= 0; i -= 1) {
+    const entry = history[i];
+    if (entry && entry.type === 'strike') {
+      return entry;
+    }
+  }
+  return null;
 }
 
 function capitalizeFirstChar(value) {
@@ -417,6 +452,7 @@ function renderGameState(state) {
     hasRecordedCurrentGame = false;
     finalWinnerPlayerId = null;
     finalLoserPlayerId = null;
+    lastRenderedStrikes = {};
   }
   currentState = {
     ...state,
@@ -438,6 +474,7 @@ function renderGameState(state) {
   guessInput.disabled = !isMyTurn || state.status !== 'active';
   guessInput.readOnly = !isMyTurn || state.status !== 'active';
   guessInput.removeAttribute('aria-disabled');
+  delete guessInput.dataset.lockedValue;
   guessInput.tabIndex = 0;
   if (submitBtn) submitBtn.disabled = !isMyTurn || state.status !== 'active';
   if (guessRowEl) {
@@ -446,6 +483,7 @@ function renderGameState(state) {
     guessRowEl.classList.toggle('turn-active', isMyTurn && state.status === 'active');
     guessRowEl.classList.toggle('turn-inactive', !isMyTurn || state.status !== 'active');
   }
+  showGuessInput();
   syncGuessPlaceholder(isMyTurn);
   if (isMyTurn && state.status === 'active') {
     setTimeout(() => {
@@ -454,16 +492,20 @@ function renderGameState(state) {
   }
 
   const strikeInfo = parseStrikeMessage(state.message);
-  if (strikeInfo) {
-    const strikeSignature = `${currentGameId || ''}:${state.message}`;
-    const striker = state.players.find((p) => String(p.username || '').trim().toLowerCase() === String(strikeInfo.guesser || '').trim().toLowerCase());
-    if (strikeSignature !== lastStrikeSignature) {
-      flashFoulCard(striker ? striker.playerId : null);
-      lastStrikeSignature = strikeSignature;
-    }
-  } else {
-    lastStrikeSignature = '';
+  const nextRenderedStrikes = {};
+  if (Array.isArray(state.players)) {
+    state.players.forEach((p) => {
+      const strikeCount = Number(p && p.strikes);
+      const safeCount = Number.isFinite(strikeCount) ? strikeCount : 0;
+      if (p && p.playerId && Number.isFinite(lastRenderedStrikes[p.playerId]) && safeCount > lastRenderedStrikes[p.playerId]) {
+        flashFoulCard(p.playerId);
+      }
+      if (p && p.playerId) {
+        nextRenderedStrikes[p.playerId] = safeCount;
+      }
+    });
   }
+  lastRenderedStrikes = nextRenderedStrikes;
 
   renderScoreboard(state.players, state.activePlayerId);
   renderHistory(state.usedPlayers, state.history, state.players);
@@ -532,7 +574,7 @@ if (submitBtn) {
   submitBtn.addEventListener('click', submitGuess);
 }
 
-guessInput.addEventListener('keydown', (e) => {
+  guessInput.addEventListener('keydown', (e) => {
   if (gameFinished || guessInput.disabled || guessInput.readOnly) {
     e.preventDefault();
     return;
@@ -544,6 +586,25 @@ guessInput.addEventListener('keydown', (e) => {
   }
   if (e.key === 'Enter') {
     e.preventDefault();
+  }
+});
+
+guessInput.addEventListener('beforeinput', (e) => {
+  if (gameFinished || guessInput.disabled || guessInput.readOnly) {
+    e.preventDefault();
+  }
+});
+
+guessInput.addEventListener('input', () => {
+  if (gameFinished || guessInput.disabled || guessInput.readOnly) {
+    guessInput.value = guessInput.dataset.lockedValue || '';
+    return;
+  }
+});
+
+guessInput.addEventListener('focus', () => {
+  if (gameFinished || guessInput.disabled || guessInput.readOnly) {
+    guessInput.blur();
   }
 });
 
@@ -748,6 +809,8 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   clearTransientGuessPlaceholder();
   guessInput.placeholder = '';
   guessInput.value = normalizedReason === 'time expired' ? '' : (finalInputText || '');
+  guessInput.dataset.lockedValue = guessInput.value;
+  showGuessDisplay(guessInput.value);
 
   if (window.HoopState && !hasRecordedCurrentGame && gameState && Array.isArray(gameState.players)) {
     const myRow = gameState.players.find((p) => p.playerId === playerId);
