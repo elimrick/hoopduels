@@ -131,6 +131,10 @@ app.get('/api/leaderboard', async (req, res) => {
   res.json({ leaderboard: await accountStore.getLeaderboardRows(currentUserId) });
 });
 
+app.get('/api/players', (_req, res) => {
+  res.json({ players: playerStore.getAllPlayerNames() });
+});
+
 function pruneOnlineVisitors(now = Date.now()) {
   for (const [id, lastSeenAt] of onlineVisitors.entries()) {
     if (!lastSeenAt || now - lastSeenAt > ONLINE_TTL_MS) {

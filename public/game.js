@@ -49,6 +49,7 @@ let gameFinished = false;
 let isRequeueing = false;
 let pregamePlayerElos = {};
 let currentGameId = null;
+let guessAutocomplete = null;
 
 function getLocalProfileName() {
   if (!window.HoopState) return '';
@@ -389,7 +390,21 @@ function renderGameState(state) {
     setMessage('');
   }
 
+  if (guessAutocomplete && typeof guessAutocomplete.refresh === 'function') {
+    guessAutocomplete.refresh();
+  }
+
   startTimer();
+}
+
+async function wireGuessAutocomplete() {
+  if (!window.HoopAutocomplete || !guessInput) return;
+  guessAutocomplete = await window.HoopAutocomplete.attach(guessInput, {
+    getExcludedNames: () => {
+      if (!currentState || !Array.isArray(currentState.usedPlayers)) return [];
+      return currentState.usedPlayers;
+    }
+  });
 }
 
 submitBtn.addEventListener('click', () => {
@@ -638,3 +653,5 @@ socket.on('disconnect', () => {
   closeMatchmakingOverlay();
   setMessage('Connection lost.', 'error');
 });
+
+wireGuessAutocomplete().catch(() => {});

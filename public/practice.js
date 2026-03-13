@@ -13,6 +13,7 @@ const leaveBtn = document.getElementById('leave-practice-btn');
 const guessRowEl = document.getElementById('practice-guess-row');
 const playerLeftEl = document.getElementById('practice-player-left');
 const playerRightEl = document.getElementById('practice-player-right');
+let practiceAutocomplete = null;
 
 const state = {
   currentPlayer: '',
@@ -63,6 +64,12 @@ function renderHistory() {
       li.textContent = state.usedPlayers[i];
     }
     historyEl.appendChild(li);
+  }
+}
+
+function refreshAutocomplete() {
+  if (practiceAutocomplete && typeof practiceAutocomplete.refresh === 'function') {
+    practiceAutocomplete.refresh();
   }
 }
 
@@ -136,6 +143,7 @@ function endPractice(reason, detailMessage = '') {
     leaveBtn.textContent = 'Play Again';
   }
   savePracticeProgress();
+  refreshAutocomplete();
 }
 
 function applyFoul(reason) {
@@ -150,6 +158,7 @@ function applyFoul(reason) {
   state.phase = 'player';
   setTurnUi();
   inputEl.focus();
+  refreshAutocomplete();
 }
 
 function startPlayerTurnTimer() {
@@ -219,6 +228,7 @@ async function startPractice() {
   renderHistory();
   startPlayerTurnTimer();
   inputEl.focus();
+  refreshAutocomplete();
 }
 
 async function submitGuess() {
@@ -254,6 +264,7 @@ async function submitGuess() {
       state.usedPlayers.push(payload.userGuess);
     }
     renderHistory();
+    refreshAutocomplete();
 
     if (!payload.computerGuess) {
       state.currentPlayer = payload.nextCurrentPlayer || payload.userGuess || state.currentPlayer;
@@ -271,6 +282,7 @@ async function submitGuess() {
     state.currentPlayer = payload.nextCurrentPlayer || payload.computerGuess;
     currentEl.textContent = state.currentPlayer;
     renderHistory();
+    refreshAutocomplete();
     startPlayerTurnTimer();
     inputEl.focus();
   } catch (error) {
@@ -308,3 +320,12 @@ startPractice().catch((error) => {
 });
 
 hydrateSignedInName();
+
+if (window.HoopAutocomplete) {
+  window.HoopAutocomplete.attach(inputEl, {
+    getExcludedNames: () => state.usedPlayers
+  }).then((instance) => {
+    practiceAutocomplete = instance;
+    refreshAutocomplete();
+  }).catch(() => {});
+}
