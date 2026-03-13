@@ -548,6 +548,7 @@ body[data-page='practice'] .page-panel {
   grid-template-columns: 1fr;
   gap: 12px;
   align-items: center;
+  margin-top: 12px;
 }
 
 #guess-row input {
@@ -665,8 +666,18 @@ body[data-page='practice'] .page-panel {
 }
 
 .message {
-  min-height: 30px;
+  min-height: 0;
+  margin: 0;
   color: #ffe4a3;
+}
+
+.message:not(:empty) {
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.message + .turn-row {
+  margin-top: 0;
 }
 
 .message.error {
