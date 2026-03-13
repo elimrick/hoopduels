@@ -886,6 +886,22 @@
     });
   }
 
+  function wireLegalFooter() {
+    const main = document.querySelector('.main');
+    if (!main || main.querySelector('.site-legal-footer')) return;
+
+    const footer = document.createElement('footer');
+    footer.className = 'site-legal-footer';
+    footer.innerHTML = [
+      '<a href="privacy.html">Privacy Policy</a>',
+      '<span aria-hidden="true">|</span>',
+      '<a href="terms.html">Terms of Service</a>',
+      '<span aria-hidden="true">|</span>',
+      '<a href="contact.html">Contact</a>',
+    ].join('');
+    main.appendChild(footer);
+  }
+
   if (page === 'play') renderHome();
   if (page === 'leaderboard') renderLeaderboard();
   if (page === 'history') renderHistory();
@@ -895,5 +911,6 @@
   if (page === 'play') wirePracticeEntry();
   if (page === 'play' && !document.getElementById('find-game-home-btn')) {
   }
+  wireLegalFooter();
   wireSignOut();
 })();

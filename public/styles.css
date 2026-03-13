@@ -134,6 +134,28 @@ html.auth-signed-in #auth-nav-profile {
   overflow-y: auto;
 }
 
+.site-legal-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 28px 0 8px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.site-legal-footer a {
+  color: var(--muted);
+}
+
+.site-legal-footer a:hover,
+.site-legal-footer a:focus-visible {
+  color: var(--text);
+}
+
 .page-title {
   margin: 0 0 18px;
   font-size: 48px;
@@ -1078,6 +1100,11 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   body {
     overflow-y: auto;
     overscroll-behavior-y: auto;
+  }
+
+  .site-legal-footer {
+    margin-top: 20px;
+    font-size: 13px;
   }
 
   .mobile-topbar {
