@@ -64,11 +64,10 @@ function setMessage(text, kind = '') {
 }
 
 function clearInputError() {
-  guessInput.classList.remove('input-error');
+  setMessage('');
 }
 
 function syncGuessPlaceholder(isMyTurn) {
-  if (guessInput.classList.contains('input-error')) return;
   guessInput.placeholder = isMyTurn && currentState && currentState.status === 'active'
     ? DEFAULT_GUESS_PLACEHOLDER
     : "Opponent's turn";
@@ -76,9 +75,7 @@ function syncGuessPlaceholder(isMyTurn) {
 
 function showInputError(text) {
   guessInput.value = '';
-  guessInput.classList.add('input-error');
-  guessInput.placeholder = text;
-  setMessage('');
+  setMessage(text, 'error');
 }
 
 function isGuestLikeName(name) {

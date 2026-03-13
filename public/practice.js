@@ -45,11 +45,10 @@ function setMessage(text, kind = '') {
 }
 
 function clearInputError() {
-  inputEl.classList.remove('input-error');
+  setMessage('');
 }
 
 function syncInputPlaceholder() {
-  if (inputEl.classList.contains('input-error')) return;
   if (!state.active) {
     inputEl.placeholder = '';
   } else if (state.phase === 'player') {
@@ -61,9 +60,7 @@ function syncInputPlaceholder() {
 
 function showInputError(text) {
   inputEl.value = '';
-  inputEl.classList.add('input-error');
-  inputEl.placeholder = text;
-  setMessage('');
+  setMessage(text, 'error');
 }
 
 function capitalizeFirstChar(value) {

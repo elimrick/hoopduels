@@ -290,6 +290,10 @@ body[data-page='play'] .two-col .card h3 {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 
+.player-suggestions[hidden] {
+  display: none !important;
+}
+
 .player-suggestion {
   width: 100%;
   border: 0;
@@ -564,23 +568,6 @@ body[data-page='practice'] .page-panel {
 
 #guess-row input::-webkit-input-placeholder {
   color: var(--muted);
-  opacity: 1;
-}
-
-#guess-row input.input-error,
-#practice-guess-row input.input-error {
-  color: var(--text);
-}
-
-#guess-row input.input-error::placeholder,
-#practice-guess-row input.input-error::placeholder {
-  color: #ff8e8e;
-  opacity: 1;
-}
-
-#guess-row input.input-error::-webkit-input-placeholder,
-#practice-guess-row input.input-error::-webkit-input-placeholder {
-  color: #ff8e8e;
   opacity: 1;
 }
 
