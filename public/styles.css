@@ -601,7 +601,7 @@ body[data-page='practice'] .page-panel {
 
 .duel-board {
   display: grid;
-  grid-template-columns: minmax(240px, 1fr) minmax(130px, 180px) minmax(240px, 1fr);
+  grid-template-columns: minmax(200px, 1fr) max-content minmax(200px, 1fr);
   gap: 14px;
   align-items: center;
 }
@@ -664,6 +664,7 @@ body[data-page='practice'] .page-panel {
 .duel-current {
   color: var(--muted);
   font-size: 18px;
+  white-space: nowrap;
 }
 
 body[data-page='play'] #player-left {
@@ -671,7 +672,7 @@ body[data-page='play'] #player-left {
 }
 
 body[data-page='play'] #player-right {
-  text-align: right;
+  text-align: left;
 }
 
 .message {

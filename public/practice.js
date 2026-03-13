@@ -73,10 +73,10 @@ function flashPracticeFoul() {
   const prevBackground = playerLeftEl.style.background;
   const prevBoxShadow = playerLeftEl.style.boxShadow;
 
-  playerLeftEl.style.transition = 'border-color 120ms ease, background 120ms ease, box-shadow 120ms ease';
+  playerLeftEl.style.transition = 'border-color 140ms ease, background 140ms ease, box-shadow 140ms ease';
   playerLeftEl.style.borderColor = '#ea5656';
-  playerLeftEl.style.background = 'rgba(234, 86, 86, 0.16)';
-  playerLeftEl.style.boxShadow = 'inset 0 0 0 1px rgba(234, 86, 86, 0.55)';
+  playerLeftEl.style.background = 'rgba(234, 86, 86, 0.28)';
+  playerLeftEl.style.boxShadow = 'inset 0 0 0 2px rgba(234, 86, 86, 0.75), 0 0 0 2px rgba(234, 86, 86, 0.2)';
 
   playerLeftEl._foulFlashTimer = setTimeout(() => {
     playerLeftEl.style.transition = prevTransition;
@@ -84,7 +84,7 @@ function flashPracticeFoul() {
     playerLeftEl.style.background = prevBackground;
     playerLeftEl.style.boxShadow = prevBoxShadow;
     playerLeftEl._foulFlashTimer = null;
-  }, 650);
+  }, 1100);
 }
 
 function capitalizeFirstChar(value) {

@@ -112,10 +112,10 @@ function pulseCardRed(targetEl) {
   const prevBackground = targetEl.style.background;
   const prevBoxShadow = targetEl.style.boxShadow;
 
-  targetEl.style.transition = 'border-color 120ms ease, background 120ms ease, box-shadow 120ms ease';
+  targetEl.style.transition = 'border-color 140ms ease, background 140ms ease, box-shadow 140ms ease';
   targetEl.style.borderColor = '#ea5656';
-  targetEl.style.background = 'rgba(234, 86, 86, 0.16)';
-  targetEl.style.boxShadow = 'inset 0 0 0 1px rgba(234, 86, 86, 0.55)';
+  targetEl.style.background = 'rgba(234, 86, 86, 0.28)';
+  targetEl.style.boxShadow = 'inset 0 0 0 2px rgba(234, 86, 86, 0.75), 0 0 0 2px rgba(234, 86, 86, 0.2)';
 
   targetEl._foulFlashTimer = setTimeout(() => {
     targetEl.style.transition = prevTransition;
@@ -123,7 +123,7 @@ function pulseCardRed(targetEl) {
     targetEl.style.background = prevBackground;
     targetEl.style.boxShadow = prevBoxShadow;
     targetEl._foulFlashTimer = null;
-  }, 650);
+  }, 1100);
 }
 
 function flashFoulCard(targetPlayerId) {
@@ -463,9 +463,11 @@ function renderGameState(state) {
     clearInputError();
     if (myName && strikeInfo.guesser === myName) {
       clearTransientGuessPlaceholder();
+      syncGuessPlaceholder(isMyTurn);
     } else {
       const guessedName = strikeInfo.guess || extractGuessedName(state.message) || 'player';
       setOpponentGuessPlaceholder(guessedName);
+      syncGuessPlaceholder(isMyTurn);
     }
   } else {
     lastStrikeSignature = '';
@@ -699,13 +701,16 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     flashFoulCard(striker ? striker.playerId : null);
     if (myName && finalStrikeInfo.guesser === myName) {
       clearTransientGuessPlaceholder();
+      syncGuessPlaceholder(false);
     } else {
       const guessedName = finalStrikeInfo.guess || extractGuessedName(gameState.message) || 'player';
       setOpponentGuessPlaceholder(guessedName);
+      syncGuessPlaceholder(false);
     }
   } else {
     setMessage('');
     clearTransientGuessPlaceholder();
+    syncGuessPlaceholder(false);
   }
 
   guessInput.disabled = true;
