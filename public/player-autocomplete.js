@@ -45,6 +45,20 @@
     return button;
   }
 
+  function getFieldValue(field) {
+    if (!field) return '';
+    return 'value' in field ? field.value : (field.textContent || '');
+  }
+
+  function setFieldValue(field, value) {
+    if (!field) return;
+    if ('value' in field) {
+      field.value = value;
+      return;
+    }
+    field.textContent = value || '';
+  }
+
   window.HoopAutocomplete = {
     async attach(input, options = {}) {
       if (!input) return null;
@@ -71,7 +85,7 @@
       }
 
       function choose(name) {
-        input.value = name;
+        setFieldValue(input, name);
         close();
         if (typeof options.onSelect === 'function') {
           options.onSelect(name);
@@ -114,7 +128,7 @@
           close();
           return;
         }
-        const query = normalizeSearch(input.value);
+        const query = normalizeSearch(getFieldValue(input));
         if (!query) {
           close();
           return;

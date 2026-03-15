@@ -28,6 +28,32 @@ const state = {
   pending: false
 };
 
+function getInputValue() {
+  return String(inputEl.textContent || '');
+}
+
+function setInputValue(value = '') {
+  inputEl.textContent = value;
+}
+
+function normalizeInputValue() {
+  const normalized = getInputValue().replace(/\s+/g, ' ').trim();
+  if (normalized !== getInputValue()) {
+    setInputValue(normalized);
+  } else if (!normalized && inputEl.innerHTML) {
+    setInputValue('');
+  }
+}
+
+function setInputPlaceholder(value = '') {
+  inputEl.dataset.placeholder = value;
+}
+
+function setInputEditable(editable) {
+  inputEl.setAttribute('contenteditable', editable ? 'true' : 'false');
+  inputEl.setAttribute('aria-disabled', editable ? 'false' : 'true');
+}
+
 function refreshPlayerName() {
   playerNameEl.textContent = getDisplayName();
 }
@@ -50,16 +76,16 @@ function clearInputError() {
 
 function syncInputPlaceholder() {
   if (!state.active) {
-    inputEl.placeholder = '';
+    setInputPlaceholder('');
   } else if (state.phase === 'player') {
-    inputEl.placeholder = DEFAULT_PRACTICE_PLACEHOLDER;
+    setInputPlaceholder(DEFAULT_PRACTICE_PLACEHOLDER);
   } else {
-    inputEl.placeholder = "Computer's turn";
+    setInputPlaceholder("Computer's turn");
   }
 }
 
 function showInputError(text) {
-  inputEl.value = '';
+  setInputValue('');
   setMessage(text, 'error');
 }
 
@@ -138,8 +164,8 @@ function setTurnUi() {
     playerRightEl.style.boxShadow = '';
   }
 
-  inputEl.disabled = !state.active;
-  inputEl.readOnly = !playerTurn || state.pending;
+  setInputEditable(state.active && playerTurn && !state.pending);
+  inputEl.tabIndex = state.active && playerTurn && !state.pending ? 0 : -1;
   if (submitEl) submitEl.disabled = !playerTurn || state.pending;
   if (guessRowEl) {
     guessRowEl.classList.toggle('turn-active', playerTurn);
@@ -261,12 +287,12 @@ async function startPractice() {
 
 async function submitGuess() {
   if (!state.active || state.phase !== 'player') return;
-  const guess = inputEl.value.trim();
+  const guess = getInputValue().trim();
   if (!guess) return;
   clearInputError();
   syncInputPlaceholder();
   state.pending = true;
-  inputEl.value = '';
+  setInputValue('');
   setTurnUi();
 
   try {
@@ -335,6 +361,9 @@ inputEl.addEventListener('keydown', (event) => {
     syncInputPlaceholder();
   }
   if (event.key === 'Enter') event.preventDefault();
+});
+inputEl.addEventListener('input', () => {
+  normalizeInputValue();
 });
 leaveBtn.addEventListener('click', () => {
   if (!state.active) {

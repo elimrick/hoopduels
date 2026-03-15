@@ -72,13 +72,45 @@ function getGuessFieldRoot() {
   return guessInput ? (guessInput.closest('.player-autocomplete') || guessInput) : null;
 }
 
+function getGuessValue() {
+  return guessInput ? String(guessInput.textContent || '') : '';
+}
+
+function setGuessValue(value = '') {
+  if (!guessInput) return;
+  guessInput.textContent = value;
+}
+
+function normalizeGuessValue() {
+  const normalized = getGuessValue().replace(/\s+/g, ' ').trim();
+  if (normalized !== getGuessValue()) {
+    setGuessValue(normalized);
+  } else if (!normalized && guessInput.innerHTML) {
+    setGuessValue('');
+  }
+}
+
+function setGuessPlaceholder(value = '') {
+  if (!guessInput) return;
+  guessInput.dataset.placeholder = value;
+}
+
+function setGuessEditable(editable) {
+  if (!guessInput) return;
+  guessInput.setAttribute('contenteditable', editable ? 'true' : 'false');
+  guessInput.setAttribute('aria-disabled', editable ? 'false' : 'true');
+}
+
+function isGuessLocked() {
+  return !guessInput || guessInput.getAttribute('contenteditable') !== 'true';
+}
+
 function showGuessInput() {
   const guessFieldRoot = getGuessFieldRoot();
   if (guessFieldRoot) {
     guessFieldRoot.hidden = false;
     guessFieldRoot.style.display = '';
   }
-  guessInput.type = 'search';
   guessInput.hidden = false;
   guessInput.style.display = '';
   if (guessDisplayEl) {
@@ -90,8 +122,8 @@ function showGuessInput() {
 
 function lockGuessInput(value = '') {
   showGuessInput();
-  guessInput.placeholder = '';
-  guessInput.value = value;
+  setGuessPlaceholder('');
+  setGuessValue(value);
   guessInput.dataset.lockedValue = value;
 }
 function showGuessDisplay(text = '') {
@@ -100,7 +132,6 @@ function showGuessDisplay(text = '') {
     guessFieldRoot.hidden = true;
     guessFieldRoot.style.display = 'none';
   }
-  guessInput.type = 'hidden';
   guessInput.hidden = true;
   guessInput.style.display = 'none';
   if (guessDisplayEl) {
@@ -116,26 +147,26 @@ function clearInputError() {
 
 function syncGuessPlaceholder(isMyTurn) {
   if (transientGuessDisplay) {
-    guessInput.value = transientGuessDisplay;
-    guessInput.placeholder = '';
+    setGuessValue(transientGuessDisplay);
+    setGuessPlaceholder('');
     return;
   }
   if (transientGuessPlaceholder) {
-    guessInput.placeholder = transientGuessPlaceholder;
+    setGuessPlaceholder(transientGuessPlaceholder);
     return;
   }
   if (!guessInput.matches(':focus')) {
-    guessInput.value = '';
+    setGuessValue('');
   }
-  guessInput.placeholder = isMyTurn && currentState && currentState.status === 'active'
+  setGuessPlaceholder(isMyTurn && currentState && currentState.status === 'active'
     ? DEFAULT_GUESS_PLACEHOLDER
-    : "Opponent's turn";
+    : "Opponent's turn");
 }
 
 function clearTransientGuessPlaceholder() {
   transientGuessPlaceholder = '';
-  if (transientGuessDisplay && guessInput.value === transientGuessDisplay) {
-    guessInput.value = '';
+  if (transientGuessDisplay && getGuessValue() === transientGuessDisplay) {
+    setGuessValue('');
   }
   transientGuessDisplay = '';
 }
@@ -159,19 +190,10 @@ function getStrikeOutOutcome(players) {
 
 function enforceInputPrivacy(input) {
   if (!input) return;
-  const uniqueName = `hoopduels_guess_${Math.random().toString(36).slice(2)}`;
-  input.type = 'search';
-  input.name = uniqueName;
-  input.id = input.id || 'guess-input';
-  input.autocomplete = 'off';
-  input.setAttribute('autocomplete', 'off');
-  input.setAttribute('autocorrect', 'off');
-  input.setAttribute('autocapitalize', 'none');
-  input.setAttribute('spellcheck', 'false');
-  input.setAttribute('inputmode', 'search');
-  input.setAttribute('enterkeyhint', 'done');
+  input.removeAttribute('name');
   input.setAttribute('aria-autocomplete', 'list');
-  input.setAttribute('role', 'combobox');
+  input.setAttribute('role', 'textbox');
+  input.setAttribute('aria-multiline', 'false');
   input.setAttribute('data-form-type', 'other');
   input.setAttribute('data-lpignore', 'true');
   input.setAttribute('data-1p-ignore', 'true');
@@ -526,9 +548,7 @@ function renderGameState(state) {
   if (currentLabelEl) currentLabelEl.style.display = 'none';
   currentPlayerEl.textContent = state.currentPlayer;
 
-  guessInput.disabled = !canGuess;
-  guessInput.readOnly = !canGuess;
-  guessInput.removeAttribute('aria-disabled');
+  setGuessEditable(canGuess);
   delete guessInput.dataset.lockedValue;
   guessInput.tabIndex = canGuess ? 0 : -1;
   if (submitBtn) submitBtn.disabled = !canGuess;
@@ -587,7 +607,6 @@ function renderGameState(state) {
 
   if (lockedForTerminalStrike) {
     stopTimer();
-    guessInput.setAttribute('aria-disabled', 'true');
     if (guessRowEl) {
       guessRowEl.classList.remove('turn-active');
       guessRowEl.classList.add('turn-inactive');
@@ -596,7 +615,7 @@ function renderGameState(state) {
     if (guessAutocomplete && typeof guessAutocomplete.close === 'function') {
       guessAutocomplete.close();
     }
-    lockGuessInput(strikeOutOutcome.loserPlayerId === playerId ? '' : (guessInput.value || ''));
+    lockGuessInput(strikeOutOutcome.loserPlayerId === playerId ? '' : (getGuessValue() || ''));
     return;
   }
 
@@ -624,13 +643,13 @@ async function wireGuessAutocomplete() {
 enforceInputPrivacy(guessInput);
 
 function submitGuess() {
-  const guess = guessInput.value.trim();
+  const guess = getGuessValue().trim();
   if (!guess) return;
   clearInputError();
   clearTransientGuessPlaceholder();
   syncGuessPlaceholder(Boolean(currentState && currentState.activePlayerId === playerId));
   socket.emit('game:guess', guess);
-  guessInput.value = '';
+  setGuessValue('');
   if (window.innerWidth <= 1100) {
     guessInput.blur();
     if (typeof window.HoopSetViewportHeight === 'function') {
@@ -650,7 +669,7 @@ if (submitBtn) {
 }
 
   guessInput.addEventListener('keydown', (e) => {
-  if (gameFinished || guessInput.disabled || guessInput.readOnly) {
+  if (gameFinished || isGuessLocked()) {
     e.preventDefault();
     return;
   }
@@ -665,20 +684,21 @@ if (submitBtn) {
 });
 
 guessInput.addEventListener('beforeinput', (e) => {
-  if (gameFinished || guessInput.disabled || guessInput.readOnly) {
+  if (gameFinished || isGuessLocked()) {
     e.preventDefault();
   }
 });
 
 guessInput.addEventListener('input', () => {
-  if (gameFinished || guessInput.disabled || guessInput.readOnly) {
-    guessInput.value = guessInput.dataset.lockedValue || '';
+  if (gameFinished || isGuessLocked()) {
+    setGuessValue(guessInput.dataset.lockedValue || '');
     return;
   }
+  normalizeGuessValue();
 });
 
 guessInput.addEventListener('focus', () => {
-  if (gameFinished || guessInput.disabled || guessInput.readOnly) {
+  if (gameFinished || isGuessLocked()) {
     guessInput.blur();
   }
 });
@@ -866,9 +886,7 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     finalInputText = '';
   }
 
-  guessInput.disabled = true;
-  guessInput.readOnly = true;
-  guessInput.setAttribute('aria-disabled', 'true');
+  setGuessEditable(false);
   guessInput.tabIndex = -1;
   guessInput.blur();
   if (submitBtn) submitBtn.disabled = true;
@@ -884,8 +902,8 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   clearTransientGuessPlaceholder();
   const lockedValue = normalizedReason === 'time expired' ? '' : (finalInputText || '');
   if (lockedValue) {
-    guessInput.placeholder = '';
-    guessInput.value = lockedValue;
+    setGuessPlaceholder('');
+    setGuessValue(lockedValue);
     guessInput.dataset.lockedValue = lockedValue;
     showGuessDisplay(lockedValue);
   } else {

@@ -574,7 +574,8 @@ body[data-page='practice'] .page-panel {
   margin-bottom: 22px;
 }
 
-#guess-row input {
+#guess-row .guess-input,
+#practice-guess-row .guess-input {
   border: 2px solid rgba(255, 255, 255, 0.35) !important;
   background: #1f1e1d;
   color: var(--text);
@@ -583,47 +584,48 @@ body[data-page='practice'] .page-panel {
   outline: none !important;
   box-shadow: none !important;
   -webkit-appearance: none;
+  width: 100%;
+  min-height: 52px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-#guess-row input::placeholder {
+#guess-row .guess-input:empty::before,
+#practice-guess-row .guess-input:empty::before {
+  content: attr(data-placeholder);
   color: var(--muted);
   opacity: 1;
+  pointer-events: none;
 }
 
-#guess-row input::-webkit-input-placeholder {
-  color: var(--muted);
-  opacity: 1;
-}
-
-#guess-row.turn-active input {
+#guess-row.turn-active .guess-input,
+#practice-guess-row.turn-active .guess-input {
   border: 2px solid var(--line) !important;
   outline: none !important;
   box-shadow: none !important;
 }
 
-#guess-row input:focus,
-#guess-row input:focus-visible {
+#guess-row .guess-input:focus,
+#guess-row .guess-input:focus-visible,
+#practice-guess-row .guess-input:focus,
+#practice-guess-row .guess-input:focus-visible {
   border-color: rgba(255, 255, 255, 0.95) !important;
   border-width: 2px !important;
   outline: none !important;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18) !important;
 }
 
-#guess-row.turn-inactive input {
+#guess-row.turn-inactive .guess-input,
+#practice-guess-row.turn-inactive .guess-input {
   border: 2px solid rgba(255, 255, 255, 0.22) !important;
   background: rgba(255, 255, 255, 0.07);
   color: rgba(255, 255, 255, 0.62);
 }
 
-#guess-row.game-ended input {
+#guess-row.game-ended .guess-input {
   pointer-events: none;
   caret-color: transparent;
-}
-
-#practice-guess-row.turn-inactive input {
-  border: 2px solid rgba(255, 255, 255, 0.22) !important;
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.62);
 }
 
 .duel-board {
