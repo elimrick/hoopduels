@@ -73,36 +73,34 @@ function getGuessFieldRoot() {
 }
 
 function getGuessValue() {
-  return guessInput ? String(guessInput.textContent || '') : '';
+  return guessInput ? String('value' in guessInput ? guessInput.value : (guessInput.textContent || '')) : '';
 }
 
 function setGuessValue(value = '') {
   if (!guessInput) return;
-  guessInput.textContent = value;
-}
-
-function normalizeGuessValue() {
-  const normalized = getGuessValue().replace(/\s+/g, ' ').trim();
-  if (normalized !== getGuessValue()) {
-    setGuessValue(normalized);
-  } else if (!normalized && guessInput.innerHTML) {
-    setGuessValue('');
+  if ('value' in guessInput) {
+    guessInput.value = value;
+  } else {
+    guessInput.textContent = value;
   }
 }
 
 function setGuessPlaceholder(value = '') {
   if (!guessInput) return;
-  guessInput.dataset.placeholder = value;
+  guessInput.placeholder = value;
 }
 
 function setGuessEditable(editable) {
   if (!guessInput) return;
-  guessInput.setAttribute('contenteditable', editable ? 'true' : 'false');
+  if ('readOnly' in guessInput) {
+    guessInput.readOnly = !editable;
+    guessInput.disabled = false;
+  }
   guessInput.setAttribute('aria-disabled', editable ? 'false' : 'true');
 }
 
 function isGuessLocked() {
-  return !guessInput || guessInput.getAttribute('contenteditable') !== 'true';
+  return !guessInput || Boolean(guessInput.readOnly || guessInput.disabled);
 }
 
 function showGuessInput() {
@@ -191,9 +189,12 @@ function getStrikeOutOutcome(players) {
 function enforceInputPrivacy(input) {
   if (!input) return;
   input.removeAttribute('name');
+  input.setAttribute('autocomplete', 'off');
+  input.setAttribute('autocorrect', 'off');
+  input.setAttribute('autocapitalize', 'none');
+  input.setAttribute('spellcheck', 'false');
+  input.setAttribute('enterkeyhint', 'done');
   input.setAttribute('aria-autocomplete', 'list');
-  input.setAttribute('role', 'textbox');
-  input.setAttribute('aria-multiline', 'false');
   input.setAttribute('data-form-type', 'other');
   input.setAttribute('data-lpignore', 'true');
   input.setAttribute('data-1p-ignore', 'true');
@@ -694,7 +695,6 @@ guessInput.addEventListener('input', () => {
     setGuessValue(guessInput.dataset.lockedValue || '');
     return;
   }
-  normalizeGuessValue();
 });
 
 guessInput.addEventListener('focus', () => {

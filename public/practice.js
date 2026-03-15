@@ -29,28 +29,26 @@ const state = {
 };
 
 function getInputValue() {
-  return String(inputEl.textContent || '');
+  return String('value' in inputEl ? inputEl.value : (inputEl.textContent || ''));
 }
 
 function setInputValue(value = '') {
-  inputEl.textContent = value;
-}
-
-function normalizeInputValue() {
-  const normalized = getInputValue().replace(/\s+/g, ' ').trim();
-  if (normalized !== getInputValue()) {
-    setInputValue(normalized);
-  } else if (!normalized && inputEl.innerHTML) {
-    setInputValue('');
+  if ('value' in inputEl) {
+    inputEl.value = value;
+  } else {
+    inputEl.textContent = value;
   }
 }
 
 function setInputPlaceholder(value = '') {
-  inputEl.dataset.placeholder = value;
+  inputEl.placeholder = value;
 }
 
 function setInputEditable(editable) {
-  inputEl.setAttribute('contenteditable', editable ? 'true' : 'false');
+  if ('readOnly' in inputEl) {
+    inputEl.readOnly = !editable;
+    inputEl.disabled = false;
+  }
   inputEl.setAttribute('aria-disabled', editable ? 'false' : 'true');
 }
 
@@ -361,9 +359,6 @@ inputEl.addEventListener('keydown', (event) => {
     syncInputPlaceholder();
   }
   if (event.key === 'Enter') event.preventDefault();
-});
-inputEl.addEventListener('input', () => {
-  normalizeInputValue();
 });
 leaveBtn.addEventListener('click', () => {
   if (!state.active) {

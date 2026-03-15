@@ -589,14 +589,14 @@ body[data-page='practice'] .page-panel {
   line-height: 1.4;
   white-space: pre-wrap;
   word-break: break-word;
+  resize: none;
+  overflow: hidden;
 }
 
-#guess-row .guess-input:empty::before,
-#practice-guess-row .guess-input:empty::before {
-  content: attr(data-placeholder);
+#guess-row .guess-input::placeholder,
+#practice-guess-row .guess-input::placeholder {
   color: var(--muted);
   opacity: 1;
-  pointer-events: none;
 }
 
 #guess-row.turn-active .guess-input,
