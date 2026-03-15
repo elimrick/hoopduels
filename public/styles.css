@@ -508,13 +508,15 @@ body[data-page='practice'] .page-panel {
 .page-panel li,
 .page-panel label,
 .page-panel input,
+.page-panel textarea,
 .page-panel button,
 .page-panel small,
 .page-panel strong {
   font-size: 20px;
 }
 
-.page-panel input {
+.page-panel input,
+.page-panel textarea {
   width: 100%;
   border-radius: 12px;
   border: 2px solid var(--line);
@@ -584,11 +586,6 @@ body[data-page='practice'] .page-panel {
   outline: none !important;
   box-shadow: none !important;
   -webkit-appearance: none;
-  width: 100%;
-  min-height: 52px;
-  line-height: 1.4;
-  white-space: pre-wrap;
-  word-break: break-word;
   resize: none;
   overflow: hidden;
 }
