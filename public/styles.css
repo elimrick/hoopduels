@@ -586,7 +586,7 @@ body[data-page='practice'] .page-panel {
   background: #1f1e1d;
   color: var(--text);
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 12px 14px 16px;
   outline: none !important;
   box-shadow: none !important;
   -webkit-appearance: none;
