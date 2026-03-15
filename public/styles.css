@@ -579,8 +579,8 @@ body[data-page='practice'] .page-panel {
   border: 2px solid rgba(255, 255, 255, 0.35) !important;
   background: #1f1e1d;
   color: var(--text);
-  font: inherit;
-  font-size: 24px;
+  font-family: inherit;
+  font-size: 20px;
   border-radius: 12px;
   padding: 12px 14px;
   outline: none !important;
