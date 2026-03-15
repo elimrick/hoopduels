@@ -102,7 +102,7 @@
       function render(list) {
         dropdown.innerHTML = '';
         items = list;
-        activeIndex = list.length ? 0 : -1;
+        activeIndex = -1;
 
         if (!list.length) {
           close();
@@ -117,7 +117,8 @@
 
       function updateActive(nextIndex) {
         if (!items.length) return;
-        activeIndex = (nextIndex + items.length) % items.length;
+        const startIndex = activeIndex < 0 ? (nextIndex > activeIndex ? 0 : items.length - 1) : nextIndex;
+        activeIndex = (startIndex + items.length) % items.length;
         [...dropdown.children].forEach((child, index) => {
           child.classList.toggle('active', index === activeIndex);
         });
