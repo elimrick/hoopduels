@@ -38,10 +38,17 @@ function setInputValue(value = '') {
   } else {
     inputEl.textContent = value;
   }
+  resizeInput();
 }
 
 function setInputPlaceholder(value = '') {
   inputEl.placeholder = value;
+}
+
+function resizeInput() {
+  if (!inputEl || !('scrollHeight' in inputEl)) return;
+  inputEl.style.height = 'auto';
+  inputEl.style.height = `${Math.max(52, inputEl.scrollHeight)}px`;
 }
 
 function setInputEditable(editable) {
@@ -210,6 +217,7 @@ function applyFoul(reason) {
   state.phase = 'player';
   setTurnUi();
   inputEl.focus();
+  resizeInput();
   refreshAutocomplete();
 }
 
@@ -280,6 +288,7 @@ async function startPractice() {
   renderHistory();
   startPlayerTurnTimer();
   inputEl.focus();
+  resizeInput();
   refreshAutocomplete();
 }
 
@@ -325,6 +334,7 @@ async function submitGuess() {
       currentEl.textContent = state.currentPlayer;
       startPlayerTurnTimer();
       inputEl.focus();
+      resizeInput();
       return;
     }
 
@@ -339,6 +349,7 @@ async function submitGuess() {
     refreshAutocomplete();
     startPlayerTurnTimer();
     inputEl.focus();
+    resizeInput();
   } catch (error) {
     setMessage(error.message || 'Practice error.', 'error');
   } finally {
@@ -346,6 +357,7 @@ async function submitGuess() {
     if (state.active) {
       setTurnUi();
       if (state.phase === 'player') inputEl.focus();
+      resizeInput();
     }
   }
 }
@@ -359,6 +371,9 @@ inputEl.addEventListener('keydown', (event) => {
     syncInputPlaceholder();
   }
   if (event.key === 'Enter') event.preventDefault();
+});
+inputEl.addEventListener('input', () => {
+  resizeInput();
 });
 leaveBtn.addEventListener('click', () => {
   if (!state.active) {

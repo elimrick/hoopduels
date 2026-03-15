@@ -332,6 +332,7 @@ body[data-page='play'] .two-col .card h3 {
 }
 
 .player-suggestion:hover,
+.player-suggestion:active,
 .player-suggestion.active {
   background: rgba(255, 255, 255, 0.1);
 }

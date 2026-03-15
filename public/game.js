@@ -83,11 +83,18 @@ function setGuessValue(value = '') {
   } else {
     guessInput.textContent = value;
   }
+  resizeGuessInput();
 }
 
 function setGuessPlaceholder(value = '') {
   if (!guessInput) return;
   guessInput.placeholder = value;
+}
+
+function resizeGuessInput() {
+  if (!guessInput || !('scrollHeight' in guessInput) || guessInput.hidden) return;
+  guessInput.style.height = 'auto';
+  guessInput.style.height = `${Math.max(52, guessInput.scrollHeight)}px`;
 }
 
 function setGuessEditable(editable) {
@@ -111,6 +118,7 @@ function showGuessInput() {
   }
   guessInput.hidden = false;
   guessInput.style.display = '';
+  resizeGuessInput();
   if (guessDisplayEl) {
     guessDisplayEl.hidden = true;
     guessDisplayEl.textContent = '';
@@ -695,6 +703,7 @@ guessInput.addEventListener('input', () => {
     setGuessValue(guessInput.dataset.lockedValue || '');
     return;
   }
+  resizeGuessInput();
 });
 
 guessInput.addEventListener('focus', () => {
