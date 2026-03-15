@@ -159,15 +159,19 @@ function getStrikeOutOutcome(players) {
 
 function enforceInputPrivacy(input) {
   if (!input) return;
+  const uniqueName = `hoopduels_guess_${Math.random().toString(36).slice(2)}`;
   input.type = 'search';
-  input.autocomplete = 'one-time-code';
-  input.setAttribute('autocomplete', 'one-time-code');
+  input.name = uniqueName;
+  input.id = input.id || 'guess-input';
+  input.autocomplete = 'off';
+  input.setAttribute('autocomplete', 'off');
   input.setAttribute('autocorrect', 'off');
   input.setAttribute('autocapitalize', 'none');
   input.setAttribute('spellcheck', 'false');
   input.setAttribute('inputmode', 'search');
   input.setAttribute('enterkeyhint', 'done');
   input.setAttribute('aria-autocomplete', 'list');
+  input.setAttribute('role', 'combobox');
   input.setAttribute('data-form-type', 'other');
   input.setAttribute('data-lpignore', 'true');
   input.setAttribute('data-1p-ignore', 'true');

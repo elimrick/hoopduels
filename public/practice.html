@@ -52,9 +52,13 @@
             </div>
           </div>
           <div id="practice-message" class="message"></div>
-          <div class="turn-row" id="practice-guess-row">
-            <input id="practice-guess-input" type="search" placeholder="Name a teammate..." autocomplete="one-time-code" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="search" enterkeyhint="done" aria-autocomplete="list" data-form-type="other" data-lpignore="true" data-1p-ignore="true" />
-          </div>
+          <form autocomplete="off" data-form-type="other" onsubmit="return false;">
+            <input type="text" tabindex="-1" aria-hidden="true" autocomplete="username" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;opacity:0;pointer-events:none;" />
+            <input type="password" tabindex="-1" aria-hidden="true" autocomplete="current-password" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;opacity:0;pointer-events:none;" />
+            <div class="turn-row" id="practice-guess-row">
+              <input id="practice-guess-input" type="search" placeholder="Name a teammate..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="search" enterkeyhint="done" aria-autocomplete="list" data-form-type="other" data-lpignore="true" data-1p-ignore="true" />
+            </div>
+          </form>
           <ul id="practice-history-list" class="history-list chain-list"></ul>
         </section>
       </main>
