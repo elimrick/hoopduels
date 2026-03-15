@@ -88,6 +88,12 @@ function showGuessInput() {
   }
 }
 
+function lockGuessInput(value = '') {
+  showGuessInput();
+  guessInput.placeholder = '';
+  guessInput.value = value;
+  guessInput.dataset.lockedValue = value;
+}
 function showGuessDisplay(text = '') {
   const guessFieldRoot = getGuessFieldRoot();
   if (guessFieldRoot) {
@@ -821,10 +827,15 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     guessAutocomplete.close();
   }
   clearTransientGuessPlaceholder();
-  guessInput.placeholder = '';
-  guessInput.value = normalizedReason === 'time expired' ? '' : (finalInputText || '');
-  guessInput.dataset.lockedValue = guessInput.value;
-  showGuessDisplay(guessInput.value);
+  const lockedValue = normalizedReason === 'time expired' ? '' : (finalInputText || '');
+  if (lockedValue) {
+    guessInput.placeholder = '';
+    guessInput.value = lockedValue;
+    guessInput.dataset.lockedValue = lockedValue;
+    showGuessDisplay(lockedValue);
+  } else {
+    lockGuessInput('');
+  }
 
   if (window.HoopState && !hasRecordedCurrentGame && gameState && Array.isArray(gameState.players)) {
     const myRow = gameState.players.find((p) => p.playerId === playerId);
