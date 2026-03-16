@@ -165,6 +165,24 @@
     return date.toLocaleDateString();
   }
 
+  function buildSmoothLinePath(points) {
+    if (!points.length) return '';
+    if (points.length === 1) {
+      return `M ${points[0].x} ${points[0].y}`;
+    }
+    let path = `M ${points[0].x} ${points[0].y}`;
+    for (let i = 0; i < points.length - 1; i += 1) {
+      const current = points[i];
+      const next = points[i + 1];
+      const midX = (current.x + next.x) / 2;
+      const midY = (current.y + next.y) / 2;
+      path += ` Q ${current.x} ${current.y} ${midX} ${midY}`;
+    }
+    const last = points[points.length - 1];
+    path += ` T ${last.x} ${last.y}`;
+    return path;
+  }
+
   function renderHome() {
     const activeProfile = window.HoopState ? window.HoopState.getProfile() : null;
     if (!activeProfile) return;
@@ -351,7 +369,6 @@
     const rankedGames = games
       .filter((g) => Number.isFinite(Number(g.eloAfter)) && Number(g.eloAfter) > 0)
       .filter((g) => !rangeCutoff || !Number.isFinite(Number(g.at)) || Number(g.at) >= rangeCutoff)
-      .slice(0, profileChartRange === 'all' ? 100 : 60)
       .reverse();
 
     chartEl.innerHTML = '';
@@ -374,7 +391,15 @@
     const startValue = Number.isFinite(Number(rankedGames[0].eloBefore)) && Number(rankedGames[0].eloBefore) > 0
       ? Number(rankedGames[0].eloBefore)
       : Number(rankedGames[0].eloAfter);
-    const values = [startValue, ...rankedGames.map((g) => Number(g.eloAfter))];
+    const startAt = Number.isFinite(Number(rankedGames[0].at)) ? Number(rankedGames[0].at) - 1 : 0;
+    const pointData = [
+      { at: startAt, value: startValue },
+      ...rankedGames.map((g) => ({
+        at: Number.isFinite(Number(g.at)) ? Number(g.at) : startAt,
+        value: Number(g.eloAfter)
+      }))
+    ];
+    const values = pointData.map((item) => item.value);
     const min = Math.min(...values);
     const max = Math.max(...values);
     const span = Math.max(1, max - min);
@@ -386,12 +411,17 @@
     const innerW = width - (padX * 2);
     const innerH = height - (padY * 2);
 
+    const minAt = Math.min(...pointData.map((item) => item.at));
+    const maxAt = Math.max(...pointData.map((item) => item.at));
+    const timeSpan = Math.max(1, maxAt - minAt);
     const yFor = (v) => padY + innerH - (((v - min) / span) * innerH);
-    const points = values.map((v, i) => {
-      const x = padX + ((innerW * i) / Math.max(1, values.length - 1));
-      const y = yFor(v);
-      return `${x},${y}`;
-    }).join(' ');
+    const chartPoints = pointData.map((item, i) => ({
+      x: pointData.length === 1
+        ? padX + (innerW / 2)
+        : padX + ((((item.at - minAt) || i) / timeSpan) * innerW),
+      y: yFor(item.value)
+    }));
+    const linePath = buildSmoothLinePath(chartPoints);
 
     const mid = Math.round((min + max) / 2);
     const ticks = [Math.round(max), mid, Math.round(min)];
@@ -419,7 +449,7 @@
         </div>
         <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" role="img" aria-label="ELO progression chart">
           ${gridLines}
-          <polyline points="${points}" fill="none" stroke="rgba(58, 123, 255, 0.95)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+          <path d="${linePath}" fill="none" stroke="rgba(58, 123, 255, 0.95)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
       </div>
     `;

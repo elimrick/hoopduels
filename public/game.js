@@ -520,7 +520,7 @@ function startTimer() {
       timerEl.textContent = 'Game Over';
       return;
     }
-    timerEl.textContent = String(Math.max(0, Math.floor(ms / 1000)));
+    timerEl.textContent = String(Math.max(1, Math.ceil(ms / 1000)));
   };
 
   updateTimer();

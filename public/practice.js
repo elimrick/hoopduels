@@ -232,13 +232,13 @@ function startPlayerTurnTimer() {
   const tick = () => {
     if (!state.active || state.phase !== 'player') return;
     const ms = Math.max(0, state.turnDeadline - Date.now());
-    const left = Math.max(0, Math.floor(ms / 1000));
-    timerEl.textContent = String(left);
-    if (left <= 0 && !state.timeoutHandled) {
+    if (ms <= 0 && !state.timeoutHandled) {
       state.timeoutHandled = true;
       stopTimer();
       endPractice('Poor Clock Management');
+      return;
     }
+    timerEl.textContent = String(Math.max(1, Math.ceil(ms / 1000)));
   };
 
   tick();

@@ -648,7 +648,7 @@ io.on('connection', async (socket) => {
       return;
     }
 
-    if (Date.now() > game.turnDeadline) {
+    if (Date.now() >= game.turnDeadline) {
       endGame(game, playerId, 'time expired');
       return;
     }

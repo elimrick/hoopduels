@@ -1219,13 +1219,14 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: env(safe-area-inset-top) 14px 0;
+    padding: calc(env(safe-area-inset-top) + 10px) 14px 10px;
     background: linear-gradient(180deg, #252422 0%, #232220 100%);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: calc(var(--mobile-topbar-height) + env(safe-area-inset-top));
+    min-height: calc(var(--mobile-topbar-height) + env(safe-area-inset-top));
+    height: auto;
     z-index: 40;
     border-bottom: 0;
     transform: translate3d(0, 0, 0);
@@ -1431,7 +1432,15 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   }
 
   .practice-card {
-    gap: 10px;
+    gap: 0;
+  }
+
+  .practice-stat {
+    margin-top: 4px;
+  }
+
+  .practice-card .btn {
+    margin-top: 16px;
   }
 
   body[data-page='play'] .home-table-wrap .history-table,
@@ -1446,6 +1455,9 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   body[data-page='play'] .home-table-wrap .leaderboard-table th,
   body[data-page='play'] .home-table-wrap .leaderboard-table td {
     padding: 7px 8px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.25;
   }
 
   body[data-page='play'] .home-history-table th:nth-child(1),
@@ -1478,6 +1490,23 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   body[data-page='play'] .home-leaderboard-table th:nth-child(3),
   body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     width: 36%;
+  }
+
+  .profile-elo-chart-meta {
+    align-items: flex-start;
+  }
+
+  .profile-elo-range-tabs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-content: stretch;
+    gap: 8px;
+  }
+
+  .profile-elo-range-tabs .btn {
+    width: 100%;
+    text-align: center;
   }
 
   body[data-page='play'] .duel-board,
@@ -1611,15 +1640,4 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.02);
-}
-
-@media (max-width: 700px) {
-  .profile-elo-chart-meta {
-    align-items: flex-start;
-  }
-
-  .profile-elo-range-tabs {
-    width: 100%;
-    justify-content: flex-end;
-  }
 }
