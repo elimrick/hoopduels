@@ -1217,7 +1217,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .mobile-topbar {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     padding: calc(env(safe-area-inset-top) + 10px) 14px 10px;
     background: linear-gradient(180deg, #252422 0%, #232220 100%);
@@ -1455,9 +1455,15 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   body[data-page='play'] .home-table-wrap .leaderboard-table th,
   body[data-page='play'] .home-table-wrap .leaderboard-table td {
     padding: 7px 8px;
-    white-space: normal;
-    overflow-wrap: anywhere;
-    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.1;
+  }
+
+  body[data-page='play'] .home-table-wrap .history-table,
+  body[data-page='play'] .home-table-wrap .leaderboard-table {
+    font-size: 13px;
   }
 
   body[data-page='play'] .home-history-table th:nth-child(1),
