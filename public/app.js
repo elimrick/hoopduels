@@ -3,6 +3,8 @@
   const MOBILE_MENU_BREAKPOINT = 1100;
   let onlinePollTimer = null;
   let presenceTimer = null;
+  let profileChartRange = 'all';
+  let lastProfileForChart = null;
 
   function applyActiveNav() {
     if (!page) return;
@@ -339,14 +341,33 @@
     if (!chartEl) return;
 
     const games = Array.isArray(activeProfile.games) ? activeProfile.games : [];
+    lastProfileForChart = activeProfile;
+    const now = Date.now();
+    const rangeCutoff = profileChartRange === 'month'
+      ? now - (30 * 24 * 60 * 60 * 1000)
+      : profileChartRange === 'year'
+        ? now - (365 * 24 * 60 * 60 * 1000)
+        : null;
     const rankedGames = games
       .filter((g) => Number.isFinite(Number(g.eloAfter)) && Number(g.eloAfter) > 0)
-      .slice(0, 60)
+      .filter((g) => !rangeCutoff || !Number.isFinite(Number(g.at)) || Number(g.at) >= rangeCutoff)
+      .slice(0, profileChartRange === 'all' ? 100 : 60)
       .reverse();
 
     chartEl.innerHTML = '';
     if (!rankedGames.length) {
-      chartEl.innerHTML = '<p class="list-empty">Play ranked account-vs-account games to see ELO progression.</p>';
+      chartEl.innerHTML = `
+        <div class="profile-elo-chart-meta">
+          <strong>ELO Progression</strong>
+          <div class="profile-elo-range-tabs" role="tablist" aria-label="ELO progression range">
+            <button class="btn btn-compact${profileChartRange === 'month' ? ' is-selected' : ''}" data-profile-range="month" type="button">Month</button>
+            <button class="btn btn-compact${profileChartRange === 'year' ? ' is-selected' : ''}" data-profile-range="year" type="button">Year</button>
+            <button class="btn btn-compact${profileChartRange === 'all' ? ' is-selected' : ''}" data-profile-range="all" type="button">All Time</button>
+          </div>
+        </div>
+        <p class="list-empty">Play ranked account-vs-account games in this range to see ELO progression.</p>
+      `;
+      wireProfileChartRangeButtons();
       return;
     }
 
@@ -357,7 +378,8 @@
     const min = Math.min(...values);
     const max = Math.max(...values);
     const span = Math.max(1, max - min);
-    const width = 960;
+    const shellWidth = Math.max(320, Math.round(chartEl.clientWidth || 720));
+    const width = Math.max(360, shellWidth - 12);
     const height = 200;
     const padX = 16;
     const padY = 16;
@@ -382,7 +404,12 @@
 
     chartEl.innerHTML = `
       <div class="profile-elo-chart-meta">
-        <strong>Rating Progression</strong>
+        <strong>ELO Progression</strong>
+        <div class="profile-elo-range-tabs" role="tablist" aria-label="ELO progression range">
+          <button class="btn btn-compact${profileChartRange === 'month' ? ' is-selected' : ''}" data-profile-range="month" type="button">Month</button>
+          <button class="btn btn-compact${profileChartRange === 'year' ? ' is-selected' : ''}" data-profile-range="year" type="button">Year</button>
+          <button class="btn btn-compact${profileChartRange === 'all' ? ' is-selected' : ''}" data-profile-range="all" type="button">All Time</button>
+        </div>
       </div>
       <div class="profile-elo-chart-shell">
         <div class="profile-elo-axis" aria-hidden="true">
@@ -390,12 +417,24 @@
           <span>${Math.round(mid)}</span>
           <span>${Math.round(min)}</span>
         </div>
-        <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" preserveAspectRatio="none" role="img" aria-label="ELO progression chart">
+        <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" role="img" aria-label="ELO progression chart">
           ${gridLines}
           <polyline points="${points}" fill="none" stroke="rgba(58, 123, 255, 0.95)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
         </svg>
       </div>
     `;
+    wireProfileChartRangeButtons();
+  }
+
+  function wireProfileChartRangeButtons() {
+    document.querySelectorAll('[data-profile-range]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const nextRange = btn.dataset.profileRange;
+        if (!nextRange || nextRange === profileChartRange) return;
+        profileChartRange = nextRange;
+        if (lastProfileForChart) renderProfileChart(lastProfileForChart);
+      });
+    });
   }
 
   function renderLeaderboard() {
@@ -558,6 +597,12 @@
     }
     renderProfileChart(activeProfile);
   }
+
+  window.addEventListener('resize', () => {
+    if (page === 'profile' && lastProfileForChart) {
+      renderProfileChart(lastProfileForChart);
+    }
+  });
 
   function wirePresencePing() {
     if (!window.HoopState || typeof window.HoopState.getClientId !== 'function') return;

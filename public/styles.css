@@ -185,7 +185,7 @@ html.auth-signed-in #auth-nav-profile {
 }
 
 .practice-stat {
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 .practice-card {
@@ -462,6 +462,12 @@ body[data-page='play'] .duel-page-header .page-title {
   overflow: auto;
 }
 
+body[data-page='play'] #history-preview,
+body[data-page='play'] #leaderboard-preview {
+  display: grid;
+  gap: 10px;
+}
+
 body[data-page='play'] .home-table-wrap .history-table,
 body[data-page='play'] .home-table-wrap .leaderboard-table {
   font-size: 16px;
@@ -472,6 +478,7 @@ body[data-page='play'] .home-table-wrap .history-table td,
 body[data-page='play'] .home-table-wrap .leaderboard-table th,
 body[data-page='play'] .home-table-wrap .leaderboard-table td {
   padding: 7px 9px;
+  white-space: nowrap;
 }
 
 .page-panel {
@@ -1077,34 +1084,34 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   margin: 0;
 }
 
-.profile-page-header + .profile-stats-box {
-  margin-top: var(--profile-vertical-gap);
-}
-
-.profile-stats-box + .profile-signout-btn {
+.profile-elo-card,
+.profile-stats-box,
+.profile-signout-btn {
   margin-top: var(--profile-vertical-gap);
 }
 
 .rules-simple-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 14px;
   width: 100%;
 }
 
 .rules-simple-box {
   border: 1px solid rgba(255, 255, 255, 0.26);
-  border-radius: 12px;
-  padding: 12px 14px;
-  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  padding: 16px 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .rules-simple-box h3 {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
+  font-size: 24px;
 }
 
 .rules-simple-box p {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
 }
 
 .rules-simple-box p:last-child {
@@ -1116,6 +1123,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   margin: 0;
   padding-left: 26px;
   list-style-position: outside;
+  display: grid;
+  gap: 8px;
 }
 
 .rules-simple-wide {
@@ -1278,6 +1287,10 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     gap: 8px;
   }
 
+  .profile-joined-text {
+    text-align: left;
+  }
+
   .rules-simple-grid {
     grid-template-columns: 1fr;
   }
@@ -1308,6 +1321,11 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .two-col {
     grid-template-columns: 1fr;
+  }
+
+  body[data-page='play'] .two-col .card {
+    display: grid;
+    gap: 10px;
   }
 
   .btn {
@@ -1412,6 +1430,56 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     grid-template-columns: 1fr;
   }
 
+  .practice-card {
+    gap: 10px;
+  }
+
+  body[data-page='play'] .home-table-wrap .history-table,
+  body[data-page='play'] .home-table-wrap .leaderboard-table {
+    min-width: 0;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  body[data-page='play'] .home-table-wrap .history-table th,
+  body[data-page='play'] .home-table-wrap .history-table td,
+  body[data-page='play'] .home-table-wrap .leaderboard-table th,
+  body[data-page='play'] .home-table-wrap .leaderboard-table td {
+    padding: 7px 8px;
+  }
+
+  body[data-page='play'] .home-history-table th:nth-child(1),
+  body[data-page='play'] .home-history-table td:nth-child(1) {
+    width: 18%;
+  }
+
+  body[data-page='play'] .home-history-table th:nth-child(2),
+  body[data-page='play'] .home-history-table td:nth-child(2) {
+    width: 40%;
+  }
+
+  body[data-page='play'] .home-history-table th:nth-child(3),
+  body[data-page='play'] .home-history-table td:nth-child(3),
+  body[data-page='play'] .home-history-table th:nth-child(4),
+  body[data-page='play'] .home-history-table td:nth-child(4) {
+    width: 21%;
+  }
+
+  body[data-page='play'] .home-leaderboard-table th:nth-child(1),
+  body[data-page='play'] .home-leaderboard-table td:nth-child(1) {
+    width: 18%;
+  }
+
+  body[data-page='play'] .home-leaderboard-table th:nth-child(2),
+  body[data-page='play'] .home-leaderboard-table td:nth-child(2) {
+    width: 46%;
+  }
+
+  body[data-page='play'] .home-leaderboard-table th:nth-child(3),
+  body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
+    width: 36%;
+  }
+
   body[data-page='play'] .duel-board,
   body[data-page='practice'] .duel-board {
     grid-template-columns: 1fr 1fr;
@@ -1477,7 +1545,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 }
 
 .profile-elo-card {
-  margin-bottom: 18px;
+  margin-bottom: 0;
 }
 
 #profile-elo-chart {
@@ -1505,17 +1573,35 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 .profile-elo-chart-meta {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  gap: 8px;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 10px;
   font-size: 16px;
   color: var(--muted);
+  flex-wrap: wrap;
 }
 
 .profile-elo-chart-meta strong {
   color: var(--text);
   font-size: 24px;
   font-weight: 700;
+}
+
+.profile-elo-range-tabs {
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.profile-elo-range-tabs .btn {
+  width: auto;
+}
+
+.profile-elo-range-tabs .btn.is-selected {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.92);
 }
 
 .profile-elo-svg {
@@ -1525,4 +1611,15 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.02);
+}
+
+@media (max-width: 700px) {
+  .profile-elo-chart-meta {
+    align-items: flex-start;
+  }
+
+  .profile-elo-range-tabs {
+    width: 100%;
+    justify-content: flex-end;
+  }
 }
