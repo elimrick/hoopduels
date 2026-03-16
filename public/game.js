@@ -845,6 +845,7 @@ socket.on('game:state', (state) => {
 socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason, eloUpdate, gameState }) => {
   gameFinished = true;
   stopTimer();
+  closeLeaveGameOverlay();
   closeMatchmakingOverlay();
   const endDisplay = getEndDisplay(reason, winnerPlayerId, loserPlayerId);
   timerEl.textContent = endDisplay.title;
