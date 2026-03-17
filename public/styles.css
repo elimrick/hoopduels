@@ -868,10 +868,8 @@ body[data-page='history'] .history-table td:nth-child(2),
 body[data-page='history'] .history-table th:nth-child(3),
 body[data-page='history'] .history-table td:nth-child(3),
 body[data-page='history'] .history-table th:nth-child(4),
-body[data-page='history'] .history-table td:nth-child(4),
-body[data-page='history'] .history-table th:nth-child(5),
-body[data-page='history'] .history-table td:nth-child(5) {
-  width: 20%;
+body[data-page='history'] .history-table td:nth-child(4) {
+  width: 25%;
 }
 
 .history-opponent {
@@ -902,8 +900,10 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(1),
 body[data-page='play'] .home-leaderboard-table th:nth-child(2),
 body[data-page='play'] .home-leaderboard-table td:nth-child(2),
 body[data-page='play'] .home-leaderboard-table th:nth-child(3),
-body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
-  width: 33.3333%;
+body[data-page='play'] .home-leaderboard-table td:nth-child(3),
+body[data-page='play'] .home-leaderboard-table th:nth-child(4),
+body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
+  width: 25%;
 }
 
 @media (max-width: 700px) {
@@ -923,10 +923,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   body[data-page='history'] .history-table th:nth-child(3),
   body[data-page='history'] .history-table td:nth-child(3),
   body[data-page='history'] .history-table th:nth-child(4),
-  body[data-page='history'] .history-table td:nth-child(4),
-  body[data-page='history'] .history-table th:nth-child(5),
-  body[data-page='history'] .history-table td:nth-child(5) {
-    width: 20%;
+  body[data-page='history'] .history-table td:nth-child(4) {
+    width: 25%;
   }
 
   body[data-page='play'] .home-history-table th:nth-child(1),
@@ -945,8 +943,10 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   body[data-page='play'] .home-leaderboard-table th:nth-child(2),
   body[data-page='play'] .home-leaderboard-table td:nth-child(2),
   body[data-page='play'] .home-leaderboard-table th:nth-child(3),
-  body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
-    width: 33.3333%;
+  body[data-page='play'] .home-leaderboard-table td:nth-child(3),
+  body[data-page='play'] .home-leaderboard-table th:nth-child(4),
+  body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
+    width: 25%;
   }
 }
 
@@ -998,10 +998,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 .leaderboard-table th:nth-child(3),
 .leaderboard-table td:nth-child(3),
 .leaderboard-table th:nth-child(4),
-.leaderboard-table td:nth-child(4),
-.leaderboard-table th:nth-child(5),
-.leaderboard-table td:nth-child(5) {
-  width: 20%;
+.leaderboard-table td:nth-child(4) {
+  width: 25%;
 }
 
 .page-table-wrap {

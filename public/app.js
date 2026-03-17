@@ -275,7 +275,7 @@
 
         const thead = document.createElement('thead');
         const headRow = document.createElement('tr');
-        ['Rank', 'Name', 'Rating'].forEach((label) => {
+        ['Rank', 'Name', 'Rating', 'Record'].forEach((label) => {
           const th = document.createElement('th');
           th.textContent = label;
           headRow.appendChild(th);
@@ -297,11 +297,15 @@
           name.textContent = row.username;
           name.className = `leaderboard-name ${row.isYou ? 'leaderboard-name-you' : ''}`.trim();
 
+          const rating = document.createElement('td');
+          rating.textContent = formatElo(row.elo);
+
           const record = document.createElement('td');
-          record.textContent = formatElo(row.elo);
+          record.textContent = `${row.wins}-${row.losses}`;
 
           tr.appendChild(rank);
           tr.appendChild(name);
+          tr.appendChild(rating);
           tr.appendChild(record);
           tbody.appendChild(tr);
         });
@@ -483,7 +487,7 @@
 
     const thead = document.createElement('thead');
     const headRow = document.createElement('tr');
-    ['Rank', 'Name', 'Rating', 'Record', 'Longest Chain'].forEach((label) => {
+    ['Rank', 'Name', 'Rating', 'Record'].forEach((label) => {
       const th = document.createElement('th');
       th.textContent = label;
       headRow.appendChild(th);
@@ -511,14 +515,10 @@
       const recordCell = document.createElement('td');
       recordCell.textContent = `${row.wins}-${row.losses}`;
 
-      const chainCell = document.createElement('td');
-      chainCell.textContent = String(row.longestChain);
-
       tr.appendChild(rankCell);
       tr.appendChild(nameCell);
       tr.appendChild(eloCell);
       tr.appendChild(recordCell);
-      tr.appendChild(chainCell);
       tbody.appendChild(tr);
     });
 
@@ -557,7 +557,7 @@
 
     const thead = document.createElement('thead');
     const headRow = document.createElement('tr');
-    ['Result', 'Opponent', 'Rating', 'Chain', 'Date'].forEach((label) => {
+    ['Result', 'Opponent', 'Rating', 'Chain'].forEach((label) => {
       const th = document.createElement('th');
       th.textContent = label;
       headRow.appendChild(th);
@@ -583,14 +583,10 @@
       const chain = document.createElement('td');
       chain.textContent = String(g.chainLength || 0);
 
-      const date = document.createElement('td');
-      date.textContent = new Date(g.at).toLocaleDateString();
-
       tr.appendChild(wl);
       tr.appendChild(opp);
       tr.appendChild(elo);
       tr.appendChild(chain);
-      tr.appendChild(date);
       tbody.appendChild(tr);
     });
 
