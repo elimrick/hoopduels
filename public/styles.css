@@ -836,6 +836,9 @@ body[data-page='play'] #player-right {
   text-align: left;
   padding: clamp(8px, 1.2vw, 10px) clamp(8px, 1.4vw, 12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .history-table th {
@@ -859,34 +862,16 @@ body[data-page='play'] #player-right {
 }
 
 body[data-page='history'] .history-table th:nth-child(1),
-body[data-page='history'] .history-table td:nth-child(1) {
-  width: 12%;
-}
-
-body[data-page='history'] .history-table th:nth-child(3),
-body[data-page='history'] .history-table td:nth-child(3) {
-  width: 18%;
-}
-
-body[data-page='history'] .history-table th:nth-child(4),
-body[data-page='history'] .history-table td:nth-child(4) {
-  width: 18%;
-}
-
-body[data-page='history'] .history-table th:nth-child(5),
-body[data-page='history'] .history-table td:nth-child(5) {
-  width: 20%;
-  white-space: nowrap;
-}
-
-/* Keep game-history table spacing consistent with leaderboard chart style. */
+body[data-page='history'] .history-table td:nth-child(1),
+body[data-page='history'] .history-table th:nth-child(2),
+body[data-page='history'] .history-table td:nth-child(2),
 body[data-page='history'] .history-table th:nth-child(3),
 body[data-page='history'] .history-table td:nth-child(3),
 body[data-page='history'] .history-table th:nth-child(4),
 body[data-page='history'] .history-table td:nth-child(4),
 body[data-page='history'] .history-table th:nth-child(5),
 body[data-page='history'] .history-table td:nth-child(5) {
-  text-align: left;
+  width: 20%;
 }
 
 .history-opponent {
@@ -932,20 +917,13 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   }
 
   body[data-page='history'] .history-table th:nth-child(1),
-  body[data-page='history'] .history-table td:nth-child(1) {
-    width: 12%;
-  }
-
+  body[data-page='history'] .history-table td:nth-child(1),
+  body[data-page='history'] .history-table th:nth-child(2),
+  body[data-page='history'] .history-table td:nth-child(2),
   body[data-page='history'] .history-table th:nth-child(3),
-  body[data-page='history'] .history-table td:nth-child(3) {
-    width: 18%;
-  }
-
+  body[data-page='history'] .history-table td:nth-child(3),
   body[data-page='history'] .history-table th:nth-child(4),
-  body[data-page='history'] .history-table td:nth-child(4) {
-    width: 18%;
-  }
-
+  body[data-page='history'] .history-table td:nth-child(4),
   body[data-page='history'] .history-table th:nth-child(5),
   body[data-page='history'] .history-table td:nth-child(5) {
     width: 20%;
@@ -992,6 +970,9 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   text-align: left;
   padding: clamp(8px, 1.2vw, 10px) clamp(8px, 1.4vw, 12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .leaderboard-table th {
@@ -1011,17 +992,15 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 }
 
 .leaderboard-table th:nth-child(1),
-.leaderboard-table td:nth-child(1) {
-  width: 12%;
-}
-
+.leaderboard-table td:nth-child(1),
+.leaderboard-table th:nth-child(2),
+.leaderboard-table td:nth-child(2),
 .leaderboard-table th:nth-child(3),
-.leaderboard-table td:nth-child(3) {
-  width: 18%;
-}
-
+.leaderboard-table td:nth-child(3),
 .leaderboard-table th:nth-child(4),
-.leaderboard-table td:nth-child(4) {
+.leaderboard-table td:nth-child(4),
+.leaderboard-table th:nth-child(5),
+.leaderboard-table td:nth-child(5) {
   width: 20%;
 }
 
@@ -1033,7 +1012,9 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
 .page-table-wrap .history-table,
 .page-table-wrap .leaderboard-table {
-  min-width: 720px;
+  min-width: 0;
+  width: 100%;
+  table-layout: fixed;
 }
 
 .leaderboard-name {
@@ -1223,7 +1204,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 .matchmaking-card p {
   margin: 0;
   color: var(--muted);
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .matchmaking-card > * + * {
@@ -1235,7 +1216,13 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   justify-content: center;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+}
+
+.matchmaking-actions .btn {
+  width: auto;
+  min-width: 120px;
+  margin: 0;
 }
 
 .matchmaking-inline-row {
@@ -1344,6 +1331,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
+    transform: translateY(-4px);
     font-size: 30px;
     font-weight: 800;
     font-style: italic;
@@ -1360,7 +1348,6 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     height: 44px;
     padding: 0;
     margin-top: 0;
-    transform: translateY(-4px);
     cursor: pointer;
     display: inline-flex;
     flex-direction: column;
@@ -1463,7 +1450,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .page-table-wrap .history-table,
   .page-table-wrap .leaderboard-table {
-    min-width: 620px;
+    min-width: 0;
   }
 
   .layout {
@@ -1591,7 +1578,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     align-items: flex-start;
   }
 
-  .profile-elo-range-tabs {
+  .profile-elo-chart-meta.is-compact .profile-elo-range-tabs {
     width: 100%;
   }
 
@@ -1601,7 +1588,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
   }
 
   .matchmaking-card p {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   #leave-game-overlay .matchmaking-card p {
@@ -1668,7 +1655,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 
   .page-table-wrap .history-table,
   .page-table-wrap .leaderboard-table {
-    min-width: 620px;
+    min-width: 0;
   }
 }
 

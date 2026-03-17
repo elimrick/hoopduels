@@ -443,6 +443,7 @@
 
     const compact = meta.clientWidth < (title.scrollWidth + tabs.scrollWidth + 28);
     profileChartCompactLayout = compact;
+    meta.classList.toggle('is-compact', compact);
     tabs.classList.toggle('is-compact', compact);
   }
 
