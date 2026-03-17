@@ -44,7 +44,7 @@
             <div class="stats">
               <div>
                 <div class="stat-value" id="stat-rating">-</div>
-                <div class="stat-label">ELO</div>
+                <div class="stat-label">Rating</div>
               </div>
               <div>
                 <div class="stat-value" id="stat-wl">0-0</div>
@@ -56,7 +56,7 @@
               </div>
               <div>
                 <div class="stat-value" id="stat-peak">-</div>
-                <div class="stat-label">Peak ELO</div>
+                <div class="stat-label">Peak Rating</div>
               </div>
               <div>
                 <div class="stat-value" id="stat-best-win">-</div>
@@ -84,7 +84,7 @@
               <div id="history-preview" class="list-empty">No games played yet.</div>
             </section>
             <section class="card">
-              <h3>Leaderboard</h3>
+              <h3>Top 10 Players</h3>
               <div id="leaderboard-preview" class="list-empty">No players yet.</div>
             </section>
           </div>
@@ -96,10 +96,12 @@
       <div class="matchmaking-card">
         <h3>Finding Game</h3>
         <p id="matchmaking-status">Connecting to matchmaking...</p>
-        <div class="loading-dots" aria-hidden="true">
-          <span></span><span></span><span></span>
+        <div class="matchmaking-inline-row">
+          <div class="loading-dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <button class="btn btn-overlay-secondary btn-overlay-inline" id="cancel-matchmaking-btn" type="button">Cancel</button>
         </div>
-        <button class="btn" id="cancel-matchmaking-btn" type="button">Cancel</button>
       </div>
     </div>
 

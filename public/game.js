@@ -466,10 +466,10 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
   if (leftMetaEl) {
     if (Number.isFinite(leftInitialElo)) {
       leftMetaEl.textContent = (outcome && bothRanked)
-        ? `ELO: ${Math.round(leftAfter)} ${formatEloChange(leftDelta)}`
-        : `ELO: ${Math.round(leftInitialElo)}`;
+        ? `Rating: ${Math.round(leftAfter)} ${formatEloChange(leftDelta)}`
+        : `Rating: ${Math.round(leftInitialElo)}`;
     } else if (isGuestLikeName(left.username)) {
-      leftMetaEl.textContent = 'ELO: -';
+      leftMetaEl.textContent = 'Rating: -';
     } else {
       leftMetaEl.textContent = '';
     }
@@ -477,10 +477,10 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
   if (rightMetaEl) {
     if (Number.isFinite(rightInitialElo)) {
       rightMetaEl.textContent = (outcome && bothRanked)
-        ? `ELO: ${Math.round(rightAfter)} ${formatEloChange(rightDelta)}`
-        : `ELO: ${Math.round(rightInitialElo)}`;
+        ? `Rating: ${Math.round(rightAfter)} ${formatEloChange(rightDelta)}`
+        : `Rating: ${Math.round(rightInitialElo)}`;
     } else if (isGuestLikeName(right.username)) {
-      rightMetaEl.textContent = 'ELO: -';
+      rightMetaEl.textContent = 'Rating: -';
     } else {
       rightMetaEl.textContent = '';
     }

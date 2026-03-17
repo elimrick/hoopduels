@@ -5,6 +5,7 @@
   let presenceTimer = null;
   let profileChartRange = 'all';
   let lastProfileForChart = null;
+  let profileChartCompactLayout = false;
 
   function applyActiveNav() {
     if (!page) return;
@@ -218,7 +219,7 @@
 
           const thead = document.createElement('thead');
           const headRow = document.createElement('tr');
-          ['Result', 'Opponent', 'ELO', 'Chain'].forEach((label) => {
+          ['Result', 'Opponent', 'Rating', 'Chain'].forEach((label) => {
             const th = document.createElement('th');
             th.textContent = label;
             headRow.appendChild(th);
@@ -274,7 +275,7 @@
 
         const thead = document.createElement('thead');
         const headRow = document.createElement('tr');
-        ['Rank', 'Name', 'ELO'].forEach((label) => {
+        ['Rank', 'Name', 'Rating'].forEach((label) => {
           const th = document.createElement('th');
           th.textContent = label;
           headRow.appendChild(th);
@@ -351,22 +352,28 @@
     const rankedGames = games
       .filter((g) => Number.isFinite(Number(g.eloAfter)) && Number(g.eloAfter) > 0)
       .filter((g) => !rangeCutoff || !Number.isFinite(Number(g.at)) || Number(g.at) >= rangeCutoff)
-      .reverse();
+      .slice()
+      .sort((a, b) => {
+        const aAt = Number.isFinite(Number(a.at)) ? Number(a.at) : 0;
+        const bAt = Number.isFinite(Number(b.at)) ? Number(b.at) : 0;
+        return aAt - bAt;
+      });
 
     chartEl.innerHTML = '';
     if (!rankedGames.length) {
       chartEl.innerHTML = `
         <div class="profile-elo-chart-meta">
-          <strong>ELO Progression</strong>
-          <div class="profile-elo-range-tabs" role="tablist" aria-label="ELO progression range">
+          <strong>Rating Progression</strong>
+          <div class="profile-elo-range-tabs${profileChartCompactLayout ? ' is-compact' : ''}" role="tablist" aria-label="Rating progression range">
             <button class="btn btn-compact${profileChartRange === 'month' ? ' is-selected' : ''}" data-profile-range="month" type="button">Month</button>
             <button class="btn btn-compact${profileChartRange === 'year' ? ' is-selected' : ''}" data-profile-range="year" type="button">Year</button>
             <button class="btn btn-compact${profileChartRange === 'all' ? ' is-selected' : ''}" data-profile-range="all" type="button">All Time</button>
           </div>
         </div>
-        <p class="list-empty">Play ranked account-vs-account games in this range to see ELO progression.</p>
+        <p class="list-empty">Play ranked account-vs-account games in this range to see your Rating progression.</p>
       `;
       wireProfileChartRangeButtons();
+      updateProfileChartLayout();
       return;
     }
 
@@ -403,8 +410,8 @@
 
     chartEl.innerHTML = `
       <div class="profile-elo-chart-meta">
-        <strong>ELO Progression</strong>
-        <div class="profile-elo-range-tabs" role="tablist" aria-label="ELO progression range">
+        <strong>Rating Progression</strong>
+        <div class="profile-elo-range-tabs${profileChartCompactLayout ? ' is-compact' : ''}" role="tablist" aria-label="Rating progression range">
           <button class="btn btn-compact${profileChartRange === 'month' ? ' is-selected' : ''}" data-profile-range="month" type="button">Month</button>
           <button class="btn btn-compact${profileChartRange === 'year' ? ' is-selected' : ''}" data-profile-range="year" type="button">Year</button>
           <button class="btn btn-compact${profileChartRange === 'all' ? ' is-selected' : ''}" data-profile-range="all" type="button">All Time</button>
@@ -416,13 +423,27 @@
           <span>${Math.round(mid)}</span>
           <span>${Math.round(min)}</span>
         </div>
-        <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" role="img" aria-label="ELO progression chart">
+        <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" role="img" aria-label="Rating progression chart">
           ${gridLines}
           <polyline points="${points}" fill="none" stroke="rgba(58, 123, 255, 0.95)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
         </svg>
       </div>
     `;
     wireProfileChartRangeButtons();
+    updateProfileChartLayout();
+  }
+
+  function updateProfileChartLayout() {
+    const chartEl = document.getElementById('profile-elo-chart');
+    if (!chartEl) return;
+    const meta = chartEl.querySelector('.profile-elo-chart-meta');
+    const title = meta ? meta.querySelector('strong') : null;
+    const tabs = meta ? meta.querySelector('.profile-elo-range-tabs') : null;
+    if (!meta || !title || !tabs) return;
+
+    const compact = meta.clientWidth < (title.scrollWidth + tabs.scrollWidth + 28);
+    profileChartCompactLayout = compact;
+    tabs.classList.toggle('is-compact', compact);
   }
 
   function wireProfileChartRangeButtons() {
@@ -458,7 +479,7 @@
 
     const thead = document.createElement('thead');
     const headRow = document.createElement('tr');
-    ['Rank', 'Name', 'ELO', 'Record', 'Longest Chain'].forEach((label) => {
+    ['Rank', 'Name', 'Rating', 'Record', 'Longest Chain'].forEach((label) => {
       const th = document.createElement('th');
       th.textContent = label;
       headRow.appendChild(th);
@@ -532,7 +553,7 @@
 
     const thead = document.createElement('thead');
     const headRow = document.createElement('tr');
-    ['Result', 'Opponent', 'ELO', 'Chain', 'Date'].forEach((label) => {
+    ['Result', 'Opponent', 'Rating', 'Chain', 'Date'].forEach((label) => {
       const th = document.createElement('th');
       th.textContent = label;
       headRow.appendChild(th);
