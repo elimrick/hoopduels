@@ -441,7 +441,10 @@
     const tabs = meta ? meta.querySelector('.profile-elo-range-tabs') : null;
     if (!meta || !title || !tabs) return;
 
-    const compact = meta.clientWidth < (title.scrollWidth + tabs.scrollWidth + 28);
+    meta.classList.remove('is-compact');
+    tabs.classList.remove('is-compact');
+    const tabsNaturalWidth = Math.min(360, Math.max(tabs.scrollWidth, tabs.offsetWidth));
+    const compact = meta.clientWidth < (title.scrollWidth + tabsNaturalWidth + 28);
     profileChartCompactLayout = compact;
     meta.classList.toggle('is-compact', compact);
     tabs.classList.toggle('is-compact', compact);

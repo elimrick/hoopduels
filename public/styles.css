@@ -1186,8 +1186,10 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
 }
 
 .matchmaking-card {
-  width: fit-content;
-  min-width: min(360px, 100%);
+  display: grid;
+  justify-items: center;
+  width: auto;
+  min-width: min(280px, 100%);
   max-width: min(560px, 100%);
   background: #242321;
   border: 2px solid var(--line);
@@ -1331,7 +1333,6 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    transform: translateY(-4px);
     font-size: 30px;
     font-weight: 800;
     font-style: italic;
@@ -1348,6 +1349,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     height: 44px;
     padding: 0;
     margin-top: 0;
+    transform: translateY(-2px);
     cursor: pointer;
     display: inline-flex;
     flex-direction: column;
