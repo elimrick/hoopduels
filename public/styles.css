@@ -1473,7 +1473,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(3) {
     right: 0;
     height: auto;
     max-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
-    padding: calc(14px + var(--mobile-stripe-height)) 14px calc(14px + var(--mobile-stripe-height));
+    padding: calc(14px + var(--mobile-stripe-height)) 14px 14px;
     z-index: 35;
     transform: scaleY(0);
     transform-origin: top;
