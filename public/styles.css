@@ -862,14 +862,17 @@ body[data-page='play'] #player-right {
 }
 
 body[data-page='history'] .history-table th:nth-child(1),
-body[data-page='history'] .history-table td:nth-child(1),
+body[data-page='history'] .history-table td:nth-child(1) {
+  width: 12%;
+}
+
 body[data-page='history'] .history-table th:nth-child(2),
 body[data-page='history'] .history-table td:nth-child(2),
 body[data-page='history'] .history-table th:nth-child(3),
 body[data-page='history'] .history-table td:nth-child(3),
 body[data-page='history'] .history-table th:nth-child(4),
 body[data-page='history'] .history-table td:nth-child(4) {
-  width: 25%;
+  width: 29.3333%;
 }
 
 .history-opponent {
@@ -879,14 +882,17 @@ body[data-page='history'] .history-table td:nth-child(4) {
 }
 
 body[data-page='play'] .home-history-table th:nth-child(1),
-body[data-page='play'] .home-history-table td:nth-child(1),
+body[data-page='play'] .home-history-table td:nth-child(1) {
+  width: 12%;
+}
+
 body[data-page='play'] .home-history-table th:nth-child(2),
 body[data-page='play'] .home-history-table td:nth-child(2),
 body[data-page='play'] .home-history-table th:nth-child(3),
 body[data-page='play'] .home-history-table td:nth-child(3),
 body[data-page='play'] .home-history-table th:nth-child(4),
 body[data-page='play'] .home-history-table td:nth-child(4) {
-  width: 25%;
+  width: 29.3333%;
 }
 
 body[data-page='play'] .home-history-table .history-opponent {
@@ -896,14 +902,17 @@ body[data-page='play'] .home-history-table .history-opponent {
 }
 
 body[data-page='play'] .home-leaderboard-table th:nth-child(1),
-body[data-page='play'] .home-leaderboard-table td:nth-child(1),
+body[data-page='play'] .home-leaderboard-table td:nth-child(1) {
+  width: 12%;
+}
+
 body[data-page='play'] .home-leaderboard-table th:nth-child(2),
 body[data-page='play'] .home-leaderboard-table td:nth-child(2),
 body[data-page='play'] .home-leaderboard-table th:nth-child(3),
 body[data-page='play'] .home-leaderboard-table td:nth-child(3),
 body[data-page='play'] .home-leaderboard-table th:nth-child(4),
 body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
-  width: 25%;
+  width: 29.3333%;
 }
 
 @media (max-width: 700px) {
@@ -917,36 +926,45 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   }
 
   body[data-page='history'] .history-table th:nth-child(1),
-  body[data-page='history'] .history-table td:nth-child(1),
+  body[data-page='history'] .history-table td:nth-child(1) {
+    width: 12%;
+  }
+
   body[data-page='history'] .history-table th:nth-child(2),
   body[data-page='history'] .history-table td:nth-child(2),
   body[data-page='history'] .history-table th:nth-child(3),
   body[data-page='history'] .history-table td:nth-child(3),
   body[data-page='history'] .history-table th:nth-child(4),
   body[data-page='history'] .history-table td:nth-child(4) {
-    width: 25%;
+    width: 29.3333%;
   }
 
   body[data-page='play'] .home-history-table th:nth-child(1),
-  body[data-page='play'] .home-history-table td:nth-child(1),
+  body[data-page='play'] .home-history-table td:nth-child(1) {
+    width: 12%;
+  }
+
   body[data-page='play'] .home-history-table th:nth-child(2),
   body[data-page='play'] .home-history-table td:nth-child(2),
   body[data-page='play'] .home-history-table th:nth-child(3),
   body[data-page='play'] .home-history-table td:nth-child(3),
   body[data-page='play'] .home-history-table th:nth-child(4),
   body[data-page='play'] .home-history-table td:nth-child(4) {
-    width: 25%;
+    width: 29.3333%;
   }
 
   body[data-page='play'] .home-leaderboard-table th:nth-child(1),
-  body[data-page='play'] .home-leaderboard-table td:nth-child(1),
+  body[data-page='play'] .home-leaderboard-table td:nth-child(1) {
+    width: 12%;
+  }
+
   body[data-page='play'] .home-leaderboard-table th:nth-child(2),
   body[data-page='play'] .home-leaderboard-table td:nth-child(2),
   body[data-page='play'] .home-leaderboard-table th:nth-child(3),
   body[data-page='play'] .home-leaderboard-table td:nth-child(3),
   body[data-page='play'] .home-leaderboard-table th:nth-child(4),
   body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
-    width: 25%;
+    width: 29.3333%;
   }
 }
 
@@ -992,14 +1010,17 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 }
 
 .leaderboard-table th:nth-child(1),
-.leaderboard-table td:nth-child(1),
+.leaderboard-table td:nth-child(1) {
+  width: 12%;
+}
+
 .leaderboard-table th:nth-child(2),
 .leaderboard-table td:nth-child(2),
 .leaderboard-table th:nth-child(3),
 .leaderboard-table td:nth-child(3),
 .leaderboard-table th:nth-child(4),
 .leaderboard-table td:nth-child(4) {
-  width: 25%;
+  width: 29.3333%;
 }
 
 .page-table-wrap {
