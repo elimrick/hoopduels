@@ -1217,7 +1217,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
 .rules-flow {
   display: grid;
-  gap: 28px;
+  gap: 16px;
 }
 
 .rules-lead {
@@ -1239,7 +1239,6 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
 .rules-basics {
   display: grid;
-  gap: 10px;
 }
 
 .rules-note-card {
@@ -1267,9 +1266,16 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   line-height: 1.45;
 }
 
+.rules-basics .rules-lead {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
 .rules-example {
   display: grid;
-  gap: 18px;
+  gap: 16px;
 }
 
 .rules-example h3 {
