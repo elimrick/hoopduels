@@ -1220,57 +1220,34 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   gap: 28px;
 }
 
+.rules-hero {
+  padding: 22px 24px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
 .rules-lead {
   margin: 0;
-  max-width: 760px;
-  font-size: 24px;
-  line-height: 1.5;
+  max-width: none;
+  font-size: clamp(22px, 2.3vw, 28px);
+  line-height: 1.45;
   color: rgba(255, 255, 255, 0.92);
-}
-
-.rules-steps {
-  display: grid;
-  gap: 18px;
-}
-
-.rules-step {
-  display: grid;
-  grid-template-columns: 54px minmax(0, 1fr);
-  gap: 16px;
-  align-items: start;
-}
-
-.rules-step-number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 54px;
-  height: 54px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  font-size: 22px;
-  font-weight: 700;
-}
-
-.rules-step h2 {
-  margin: 0 0 6px;
-  font-size: 28px;
-}
-
-.rules-step p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .rules-inline-notes {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
-  padding: 18px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.rules-note-card {
+  padding: 22px 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .rules-inline-notes h3 {
@@ -1285,24 +1262,42 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 }
 
 .rules-example {
-  padding-left: 18px;
-  border-left: 4px solid rgba(58, 123, 255, 0.85);
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .rules-example h3 {
-  margin: 0 0 8px;
+  margin: 0;
   font-size: 22px;
 }
 
-.rules-example p {
-  margin: 0 0 8px;
-  font-size: 24px;
+.rules-chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.rules-chain-player {
+  display: inline-flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 10px 18px;
+  border-radius: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 22px;
   font-weight: 600;
 }
 
-.rules-example small {
-  color: var(--muted);
-  line-height: 1.4;
+.rules-chain-arrow {
+  font-size: 26px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 
@@ -1519,6 +1514,27 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
     grid-template-columns: 1fr;
   }
 
+  .rules-hero,
+  .rules-note-card,
+  .rules-example {
+    padding: 18px;
+  }
+
+  .rules-chain {
+    gap: 10px;
+  }
+
+  .rules-chain-player {
+    width: 100%;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .rules-chain-arrow {
+    width: 100%;
+    text-align: center;
+  }
+
   .main {
     padding: 28px 16px  calc(110px + env(safe-area-inset-bottom));
     min-height: 0;
@@ -1535,6 +1551,14 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
     font-size: clamp(24px, 5.8vw, 36px);
     white-space: normal;
     line-height: 1.1;
+  }
+
+  html.auth-signed-out body[data-page='play'] #home-history-card {
+    min-height: 0;
+  }
+
+  html.auth-signed-out body[data-page='play'] #history-preview {
+    min-height: 0;
   }
 
   .home-title-note {
