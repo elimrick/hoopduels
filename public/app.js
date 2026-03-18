@@ -203,7 +203,7 @@
       historyPreview.innerHTML = '';
       if (isGuest) {
         historyPreview.textContent = 'Create an account to track games played.';
-        historyPreview.className = 'list-empty';
+        historyPreview.className = 'list-empty create-account-note';
       } else {
         const recent = activeProfile.games.slice(0, 10);
         if (!recent.length) {
@@ -536,7 +536,7 @@
     container.innerHTML = '';
     if (!activeProfile.signedIn) {
       const empty = document.createElement('p');
-      empty.className = 'list-empty';
+      empty.className = 'list-empty create-account-note';
       empty.textContent = 'Create an account to track games played.';
       container.appendChild(empty);
       return;
