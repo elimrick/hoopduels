@@ -580,14 +580,31 @@ body[data-page='createaccount'] .page-panel {
 .auth-form-stack {
   display: grid;
   align-content: start;
+  gap: 2px;
 }
 
 .auth-field-input {
-  margin: 8px 0 12px;
+  margin: 6px 0 8px;
 }
 
 .auth-message {
-  margin-top: 10px;
+  margin-top: 6px;
+}
+
+body[data-page='signin'] .field-error,
+body[data-page='createaccount'] .field-error {
+  margin: -4px 0 8px;
+  min-height: 20px;
+}
+
+body[data-page='signin'] .auth-actions,
+body[data-page='createaccount'] .auth-actions {
+  margin-top: 6px;
+}
+
+body[data-page='signin'] .auth-actions .btn,
+body[data-page='createaccount'] .auth-actions .btn {
+  width: auto;
 }
 
 .page-panel p,
