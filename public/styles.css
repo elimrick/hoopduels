@@ -446,7 +446,6 @@ body[data-page='practice'] .duel-page-header .page-title {
   font-style: italic;
 }
 
-body[data-page='play'] .home-top-row > .card,
 body[data-page='play'] .two-col .card {
   min-height: 396px;
 }
