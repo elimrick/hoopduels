@@ -405,8 +405,18 @@ body[data-page='practice'] .duel-page-header .page-title {
 
 .create-account-note {
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 400 !important;
   font-style: italic;
+}
+
+body[data-page='play'] .two-col .card {
+  min-height: 396px;
+}
+
+body[data-page='play'] #history-preview,
+body[data-page='play'] #leaderboard-preview {
+  min-height: 330px;
+  align-content: start;
 }
 
 .btn.btn-status[disabled] {
