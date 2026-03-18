@@ -28,19 +28,16 @@
     const authNavLink = document.getElementById('auth-nav-link');
     const existingCreate = document.getElementById('auth-nav-create');
     const profileNavLink = document.getElementById('auth-nav-profile');
-    const historyNavLinks = Array.from(document.querySelectorAll('[data-nav="history"]'));
     if (!authNavLink || !existingCreate || !profileNavLink) return;
 
     if (isSignedIn) {
       authNavLink.classList.add('is-hidden');
       existingCreate.classList.add('is-hidden');
       profileNavLink.classList.remove('is-hidden');
-      historyNavLinks.forEach((link) => link.classList.remove('is-hidden'));
     } else {
       authNavLink.classList.remove('is-hidden');
       existingCreate.classList.remove('is-hidden');
       profileNavLink.classList.add('is-hidden');
-      historyNavLinks.forEach((link) => link.classList.add('is-hidden'));
     }
   }
 
@@ -196,7 +193,7 @@
       if (activeProfile.signedIn) {
         homeTitle.textContent = `Welcome back, ${activeProfile.username}!`;
       } else {
-        homeTitle.innerHTML = 'Welcome! <span class="home-title-note">Create an account to track games and stats.</span>';
+        homeTitle.textContent = 'Welcome!';
       }
     }
     setText(
@@ -224,7 +221,7 @@
     if (historyPreview) {
       historyPreview.innerHTML = '';
       if (isGuest) {
-        historyPreview.textContent = 'Create an account to track games played.';
+        historyPreview.textContent = 'Create an account to track games and stats.';
         historyPreview.className = 'list-empty create-account-note';
       } else {
         const recent = activeProfile.games.slice(0, 10);
@@ -559,7 +556,7 @@
     if (!activeProfile.signedIn) {
       const empty = document.createElement('p');
       empty.className = 'list-empty create-account-note';
-      empty.textContent = 'Create an account to track games played.';
+      empty.textContent = 'Create an account to track games and stats.';
       container.appendChild(empty);
       return;
     }
@@ -991,14 +988,7 @@
 
   if (page === 'play') renderHome();
   if (page === 'leaderboard') renderLeaderboard();
-  if (page === 'history') {
-    const activeProfile = window.HoopState ? window.HoopState.getProfile() : null;
-    if (!activeProfile || !activeProfile.signedIn) {
-      window.location.href = '/';
-      return;
-    }
-    renderHistory();
-  }
+  if (page === 'history') renderHistory();
   if (page === 'profile') renderProfile();
   if (page === 'signin' || page === 'createaccount') wireSignIn();
   if (page === 'play') wireHomeFindGame();

@@ -123,10 +123,6 @@ html.auth-signed-in #auth-nav-profile {
   display: flex;
 }
 
-html.auth-signed-out [data-nav='history'] {
-  display: none !important;
-}
-
 .nav.bottom {
   margin-top: auto;
 }
