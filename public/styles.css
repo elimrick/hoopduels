@@ -254,6 +254,7 @@ body[data-page='play'] .two-col .card h3 {
 .duel-header-copy {
   display: grid;
   gap: 4px;
+  min-height: 56px;
 }
 
 .btn {
@@ -548,7 +549,6 @@ body[data-page='createaccount'] .page-panel {
 }
 
 .auth-page-panel {
-  flex: 1 1 auto;
   display: grid;
   align-content: start;
   min-height: 0;
@@ -1487,7 +1487,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   }
 
   .auth-page-panel {
-    flex: 1 1 auto;
+    min-height: 0;
   }
 
   .duel-board {
