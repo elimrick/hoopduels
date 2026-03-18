@@ -1217,7 +1217,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
 .rules-flow {
   display: grid;
-  gap: 16px;
+  gap: 20px;
 }
 
 .rules-lead {
@@ -1234,7 +1234,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 .rules-inline-notes {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 20px;
 }
 
 .rules-basics {
@@ -1275,7 +1275,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
 .rules-example {
   display: grid;
-  gap: 16px;
+  gap: 20px;
 }
 
 .rules-example h3 {
