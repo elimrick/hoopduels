@@ -187,7 +187,7 @@ html.auth-signed-out [data-nav='history'] {
 
 body[data-page='play'].home-guest-layout .left-grid {
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 396px;
+  grid-template-rows: auto minmax(396px, auto);
   grid-template-areas:
     'duel practice'
     'duel leaderboard';
@@ -206,14 +206,17 @@ body[data-page='play'].home-guest-layout #home-secondary-grid {
 }
 
 body[data-page='play'].home-guest-layout #home-duel-card {
+  align-self: stretch;
   grid-area: duel;
 }
 
 body[data-page='play'].home-guest-layout #home-practice-card {
+  align-self: stretch;
   grid-area: practice;
 }
 
 body[data-page='play'].home-guest-layout #home-leaderboard-card {
+  align-self: stretch;
   grid-area: leaderboard;
 }
 
