@@ -1276,6 +1276,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 .rules-example {
   display: grid;
   gap: 20px;
+  justify-items: stretch;
+  width: 100%;
 }
 
 .rules-example h3 {
@@ -1294,10 +1296,12 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 .rules-chain.history-list {
   max-height: none;
   overflow: visible;
+  width: 100%;
 }
 
 .rules-chain .history-item {
   width: 100%;
+  box-sizing: border-box;
 }
 
 
