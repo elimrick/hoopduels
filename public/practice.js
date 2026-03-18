@@ -1,5 +1,5 @@
 const TURN_MS = 60_000;
-const CPU_DELAY_MS = 2000;
+const CPU_DELAY_MS = 900;
 
 const timerEl = document.getElementById('practice-timer');
 const currentEl = document.getElementById('practice-current-player');

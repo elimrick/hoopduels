@@ -1432,9 +1432,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
 @media (max-width: 1100px) {
   body {
-    overflow-y: auto;
-    overflow-x: hidden;
-    overscroll-behavior-y: auto;
+    overflow: hidden;
+    overscroll-behavior-y: none;
   }
 
   .site-legal-footer {
@@ -1533,16 +1532,18 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   }
 
   .rules-example {
-    width: calc(100% + 36px);
-    margin-left: -18px;
-    margin-right: -18px;
+    width: calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+    margin-left: calc(50% - 50vw + 16px);
+    margin-right: calc(50% - 50vw + 16px);
   }
 
   .main {
     padding: 28px 16px  calc(110px + env(safe-area-inset-bottom));
-    min-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
-    height: auto;
-    overflow-y: visible;
+    min-height: 0;
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -1672,7 +1673,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   .layout {
     grid-template-columns: 1fr;
     min-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
-    height: auto;
+    height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
     margin-top: var(--mobile-topbar-offset);
   }
 
@@ -1682,8 +1683,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   body[data-page='history'] .main,
   body[data-page='leaderboard'] .main,
   body[data-page='profile'] .main {
-    min-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
-    height: auto;
+    min-height: 0;
+    height: 100%;
   }
 
   .sidebar {
