@@ -214,7 +214,7 @@ body[data-page='play'].home-guest-layout #home-duel-card {
 
 body[data-page='play'].home-guest-layout #home-practice-card {
   grid-area: practice;
-  align-self: stretch;
+  align-self: start;
 }
 
 body[data-page='play'].home-guest-layout #home-leaderboard-card {
