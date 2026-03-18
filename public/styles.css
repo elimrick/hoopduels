@@ -209,14 +209,17 @@ body[data-page='play'].home-guest-layout #home-secondary-grid {
 
 body[data-page='play'].home-guest-layout #home-duel-card {
   grid-area: duel;
+  align-self: stretch;
 }
 
 body[data-page='play'].home-guest-layout #home-practice-card {
   grid-area: practice;
+  align-self: start;
 }
 
 body[data-page='play'].home-guest-layout #home-leaderboard-card {
   grid-area: leaderboard;
+  align-self: start;
 }
 
 .practice-card .duel-header h2 {
