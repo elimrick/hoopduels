@@ -113,10 +113,6 @@ function setPracticeEndState(result) {
   playerRightEl.classList.remove('winner', 'loser');
   if (result === 'loss') {
     playerLeftEl.classList.add('loser');
-    playerRightEl.classList.add('winner');
-  } else if (result === 'win') {
-    playerLeftEl.classList.add('winner');
-    playerRightEl.classList.add('loser');
   }
 }
 

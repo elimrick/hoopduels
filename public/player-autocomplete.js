@@ -37,6 +37,7 @@
     const button = document.createElement('button');
     button.type = 'button';
     button.className = `player-suggestion${isActive ? ' active' : ''}`;
+    button.tabIndex = -1;
     button.textContent = name;
     button.addEventListener('mousedown', (event) => {
       event.preventDefault();

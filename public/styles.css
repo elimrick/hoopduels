@@ -1695,11 +1695,11 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
   .sidebar {
     position: fixed;
-    top: var(--mobile-topbar-total);
+    top: var(--mobile-topbar-offset);
     left: 0;
     right: 0;
     height: auto;
-    max-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-total));
+    max-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
     padding: calc(14px + var(--mobile-stripe-height)) 14px 10px;
     z-index: 35;
     transform: scaleY(0);
