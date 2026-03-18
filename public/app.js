@@ -173,7 +173,7 @@
     const activeProfile = window.HoopState ? window.HoopState.getProfile() : null;
     if (!activeProfile) return;
     const isGuest = !activeProfile.signedIn;
-    document.body.classList.toggle('home-guest-layout', isGuest);
+    document.body.classList.remove('home-guest-layout');
 
     const topRow = document.getElementById('home-top-row');
     const secondaryGrid = document.getElementById('home-secondary-grid');
@@ -182,19 +182,12 @@
     const leaderboardCard = document.getElementById('home-leaderboard-card');
 
     if (topRow && secondaryGrid && practiceCard && historyCard && leaderboardCard) {
-      if (isGuest) {
-        historyCard.hidden = true;
-        if (practiceCard.parentElement !== topRow) {
-          topRow.appendChild(practiceCard);
-        }
-      } else {
-        historyCard.hidden = false;
-        if (practiceCard.parentElement !== topRow) {
-          topRow.appendChild(practiceCard);
-        }
-        if (historyCard.parentElement !== secondaryGrid) {
-          secondaryGrid.insertBefore(historyCard, leaderboardCard);
-        }
+      historyCard.hidden = false;
+      if (practiceCard.parentElement !== topRow) {
+        topRow.appendChild(practiceCard);
+      }
+      if (historyCard.parentElement !== secondaryGrid) {
+        secondaryGrid.insertBefore(historyCard, leaderboardCard);
       }
     }
 
