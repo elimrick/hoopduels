@@ -187,7 +187,6 @@ html.auth-signed-out [data-nav='history'] {
 
 body[data-page='play'].home-guest-layout .left-grid {
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto minmax(396px, auto);
   grid-template-areas:
     'duel practice'
     'duel leaderboard';
@@ -629,9 +628,9 @@ body[data-page='play'].home-guest-layout #home-history-card {
 
 body[data-page='play'].home-guest-layout #home-duel-card .stats {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-rows: 1fr;
-  align-content: space-between;
-  height: 100%;
+  grid-auto-rows: auto;
+  align-content: start;
+  height: auto;
 }
 
 body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(1) {
