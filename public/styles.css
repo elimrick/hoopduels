@@ -1278,6 +1278,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   gap: 20px;
   justify-items: stretch;
   width: 100%;
+  align-items: stretch;
 }
 
 .rules-example h3 {
@@ -1289,11 +1290,13 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  align-self: stretch;
   gap: 22px;
   width: 100%;
   max-width: none;
   margin: 0;
   padding: 0;
+  min-width: 0;
 }
 
 .rules-chain.history-list {
@@ -1306,6 +1309,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   width: 100%;
   box-sizing: border-box;
   display: block;
+  max-width: none;
 }
 
 
@@ -1530,8 +1534,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   .main {
     padding: 28px 16px  calc(110px + env(safe-area-inset-bottom));
     min-height: 0;
-    height: auto;
-    min-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
+    height: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -1662,13 +1665,18 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   .layout {
     grid-template-columns: 1fr;
     min-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
-    height: auto;
+    height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
     margin-top: var(--mobile-topbar-offset);
   }
 
   body[data-page='play'] .main,
-  body[data-page='practice'] .main {
+  body[data-page='practice'] .main,
+  body[data-page='rules'] .main,
+  body[data-page='history'] .main,
+  body[data-page='leaderboard'] .main,
+  body[data-page='profile'] .main {
     min-height: 0;
+    height: 100%;
   }
 
   .sidebar {
