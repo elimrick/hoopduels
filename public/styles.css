@@ -1432,8 +1432,9 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
 @media (max-width: 1100px) {
   body {
-    overflow: hidden;
-    overscroll-behavior-y: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: auto;
   }
 
   .site-legal-footer {
@@ -1447,10 +1448,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
     justify-content: space-between;
     padding: env(safe-area-inset-top) 14px var(--mobile-stripe-height);
     background: linear-gradient(180deg, #252422 0%, #232220 100%);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    position: relative;
     min-height: var(--mobile-topbar-total);
     height: var(--mobile-topbar-total);
     z-index: 40;
@@ -1532,18 +1530,29 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   }
 
   .rules-example {
-    width: calc(100vw - 32px);
-    max-width: calc(100vw - 32px);
-    margin-left: calc(50% - 50vw + 16px);
-    margin-right: calc(50% - 50vw + 16px);
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  body[data-page='rules'] .page-panel {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .rules-flow,
+  .rules-example,
+  .rules-chain {
+    width: 100%;
+    max-width: none;
   }
 
   .main {
     padding: 28px 16px  calc(110px + env(safe-area-inset-bottom));
     min-height: 0;
-    height: 100%;
-    overflow-y: auto;
-    overscroll-behavior-y: contain;
+    height: auto;
+    overflow-y: visible;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -1672,9 +1681,9 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
   .layout {
     grid-template-columns: 1fr;
-    min-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
-    height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
-    margin-top: var(--mobile-topbar-offset);
+    min-height: 0;
+    height: auto;
+    margin-top: 0;
   }
 
   body[data-page='play'] .main,
@@ -1684,16 +1693,16 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   body[data-page='leaderboard'] .main,
   body[data-page='profile'] .main {
     min-height: 0;
-    height: 100%;
+    height: auto;
   }
 
   .sidebar {
     position: fixed;
-    top: var(--mobile-topbar-offset);
+    top: 0;
     left: 0;
     right: 0;
     height: auto;
-    max-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
+    max-height: calc(var(--app-vh, 100dvh));
     padding: calc(14px + var(--mobile-stripe-height)) 14px 14px;
     z-index: 35;
     transform: scaleY(0);
