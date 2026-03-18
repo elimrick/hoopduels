@@ -1237,6 +1237,11 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   gap: 16px;
 }
 
+.rules-basics {
+  display: grid;
+  gap: 10px;
+}
+
 .rules-note-card {
   padding: 22px 20px;
   border-radius: 18px;
@@ -1246,6 +1251,11 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
 .rules-inline-notes h3 {
   margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.rules-basics h3 {
+  margin: 0;
   font-size: 20px;
 }
 
