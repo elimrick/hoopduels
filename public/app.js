@@ -170,6 +170,30 @@
     const activeProfile = window.HoopState ? window.HoopState.getProfile() : null;
     if (!activeProfile) return;
     const isGuest = !activeProfile.signedIn;
+    document.body.classList.toggle('home-guest-layout', isGuest);
+
+    const topRow = document.getElementById('home-top-row');
+    const secondaryGrid = document.getElementById('home-secondary-grid');
+    const practiceCard = document.getElementById('home-practice-card');
+    const historyCard = document.getElementById('home-history-card');
+    const leaderboardCard = document.getElementById('home-leaderboard-card');
+
+    if (topRow && secondaryGrid && practiceCard && historyCard && leaderboardCard) {
+      if (isGuest) {
+        historyCard.hidden = true;
+        if (practiceCard.parentElement !== secondaryGrid) {
+          secondaryGrid.insertBefore(practiceCard, leaderboardCard);
+        }
+      } else {
+        historyCard.hidden = false;
+        if (practiceCard.parentElement !== topRow) {
+          topRow.appendChild(practiceCard);
+        }
+        if (historyCard.parentElement !== secondaryGrid) {
+          secondaryGrid.insertBefore(historyCard, leaderboardCard);
+        }
+      }
+    }
 
     const homeTitle = document.getElementById('home-title');
     if (homeTitle) {
@@ -179,11 +203,6 @@
       'practice-longest-chain',
       isGuest ? '-' : String(Number(activeProfile.practiceLongestChain) || 0)
     );
-
-    const guestNote = document.getElementById('home-guest-stats-note');
-    if (guestNote) {
-      guestNote.hidden = !isGuest;
-    }
 
     if (isGuest) {
       setText('stat-rating', '-');

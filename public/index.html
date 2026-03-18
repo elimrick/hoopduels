@@ -34,12 +34,11 @@
         <h1 class="page-title" id="home-title">Welcome!</h1>
 
         <div class="left-grid">
-          <div class="home-top-row">
-          <section class="card duel-card">
+          <div class="home-top-row" id="home-top-row">
+          <section class="card duel-card" id="home-duel-card">
             <div class="duel-header">
               <div class="duel-header-copy">
                 <h2>Duel <span id="online-count" class="online-count">0 Online</span></h2>
-                <p id="home-guest-stats-note" class="guest-note" hidden>Create an account to track stats.</p>
               </div>
               <button class="btn" id="find-game-home-btn" type="button">Find Game</button>
             </div>
@@ -70,7 +69,7 @@
               </div>
             </div>
           </section>
-          <section class="card practice-card">
+          <section class="card practice-card" id="home-practice-card">
             <h2>Practice</h2>
             <div class="practice-stat">
               <div class="stat-value" id="practice-longest-chain">0</div>
@@ -80,12 +79,12 @@
           </section>
           </div>
 
-          <div class="two-col">
-            <section class="card">
+          <div class="two-col" id="home-secondary-grid">
+            <section class="card" id="home-history-card">
               <h3>Last 10 Games</h3>
               <div id="history-preview" class="list-empty">No games played yet.</div>
             </section>
-            <section class="card">
+            <section class="card" id="home-leaderboard-card">
               <h3>Top 10 Players</h3>
               <div id="leaderboard-preview" class="list-empty">No players yet.</div>
             </section>
