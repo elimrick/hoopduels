@@ -154,6 +154,7 @@
       input.addEventListener('input', refresh);
       input.addEventListener('focus', () => {
         hasFocus = true;
+        activeIndex = -1;
         refresh();
       });
       input.addEventListener('keydown', (event) => {
@@ -176,6 +177,13 @@
         hasFocus = false;
         setTimeout(close, 120);
       });
+
+      dropdown.addEventListener('touchstart', () => {
+        activeIndex = -1;
+        [...dropdown.children].forEach((child) => {
+          child.classList.remove('active');
+        });
+      }, { passive: true });
 
       return {
         refresh,

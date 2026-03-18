@@ -200,12 +200,15 @@ function endPractice(reason, detailMessage = '') {
   stopTimer();
   timerEl.textContent = 'Game Over';
   currentEl.textContent = reason || 'Finished';
+  setInputValue('');
   setMessage(detailMessage, detailMessage ? 'error' : '');
   if (guessRowEl) {
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');
+    guessRowEl.classList.add('game-ended');
   }
   setTurnUi();
+  inputEl.blur();
   if (leaveBtn) {
     leaveBtn.textContent = 'Play Again';
   }
@@ -297,6 +300,9 @@ async function startPractice() {
     leaveBtn.textContent = 'Leave Game';
   }
   renderHistory();
+  if (guessRowEl) {
+    guessRowEl.classList.remove('game-ended');
+  }
   startPlayerTurnTimer();
   inputEl.focus();
   resizeInput();
