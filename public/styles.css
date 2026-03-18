@@ -184,15 +184,11 @@ html.auth-signed-in #auth-nav-profile {
   font-weight: 700;
 }
 
-.practice-stat {
-  margin-top: 6px;
-}
-
 .practice-card {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   align-items: stretch;
-  gap: 16px;
+  gap: 0;
 }
 
 .practice-card h2 {
@@ -201,8 +197,14 @@ html.auth-signed-in #auth-nav-profile {
   font-weight: 700;
 }
 
+.practice-stat {
+  margin: 0;
+  align-self: center;
+}
+
 .practice-card .btn {
-  margin-top: auto;
+  margin-top: 0;
+  align-self: end;
 }
 
 .card {

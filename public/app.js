@@ -28,16 +28,19 @@
     const authNavLink = document.getElementById('auth-nav-link');
     const existingCreate = document.getElementById('auth-nav-create');
     const profileNavLink = document.getElementById('auth-nav-profile');
+    const historyNavLinks = Array.from(document.querySelectorAll('[data-nav="history"]'));
     if (!authNavLink || !existingCreate || !profileNavLink) return;
 
     if (isSignedIn) {
       authNavLink.classList.add('is-hidden');
       existingCreate.classList.add('is-hidden');
       profileNavLink.classList.remove('is-hidden');
+      historyNavLinks.forEach((link) => link.classList.remove('is-hidden'));
     } else {
       authNavLink.classList.remove('is-hidden');
       existingCreate.classList.remove('is-hidden');
       profileNavLink.classList.add('is-hidden');
+      historyNavLinks.forEach((link) => link.classList.add('is-hidden'));
     }
   }
 
@@ -991,7 +994,14 @@
 
   if (page === 'play') renderHome();
   if (page === 'leaderboard') renderLeaderboard();
-  if (page === 'history') renderHistory();
+  if (page === 'history') {
+    const activeProfile = window.HoopState ? window.HoopState.getProfile() : null;
+    if (!activeProfile || !activeProfile.signedIn) {
+      window.location.href = '/';
+      return;
+    }
+    renderHistory();
+  }
   if (page === 'profile') renderProfile();
   if (page === 'signin' || page === 'createaccount') wireSignIn();
   if (page === 'play') wireHomeFindGame();
