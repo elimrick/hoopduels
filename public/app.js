@@ -173,7 +173,7 @@
     const activeProfile = window.HoopState ? window.HoopState.getProfile() : null;
     if (!activeProfile) return;
     const isGuest = !activeProfile.signedIn;
-    document.body.classList.remove('home-guest-layout');
+    document.body.classList.toggle('home-guest-layout', isGuest);
 
     const topRow = document.getElementById('home-top-row');
     const secondaryGrid = document.getElementById('home-secondary-grid');
