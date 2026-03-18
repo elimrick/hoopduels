@@ -200,9 +200,11 @@
 
     const homeTitle = document.getElementById('home-title');
     if (homeTitle) {
-      homeTitle.textContent = activeProfile.signedIn
-        ? `Welcome back, ${activeProfile.username}!`
-        : 'Welcome! Create an account to track games and stats.';
+      if (activeProfile.signedIn) {
+        homeTitle.textContent = `Welcome back, ${activeProfile.username}!`;
+      } else {
+        homeTitle.innerHTML = 'Welcome! <span class="home-title-note">Create an account to track games and stats.</span>';
+      }
     }
     setText(
       'practice-longest-chain',
