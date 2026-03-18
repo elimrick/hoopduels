@@ -251,6 +251,11 @@ body[data-page='play'] .two-col .card h3 {
   margin-bottom: 14px;
 }
 
+.duel-header-copy {
+  display: grid;
+  gap: 4px;
+}
+
 .btn {
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.8);
@@ -384,9 +389,10 @@ body[data-page='practice'] .duel-page-header .page-title {
 }
 
 .guest-note {
-  margin: -2px 0 12px;
+  margin: 0;
   color: var(--muted);
-  font-size: 20px;
+  font-size: 18px;
+  line-height: 1.25;
 }
 
 .btn.btn-status[disabled] {
@@ -527,6 +533,38 @@ body[data-page='profile'] .page-panel {
 body[data-page='practice'] .page-panel {
   max-width: none;
   width: 100%;
+}
+
+body[data-page='signin'] .main,
+body[data-page='createaccount'] .main {
+  display: flex;
+  flex-direction: column;
+}
+
+body[data-page='signin'] .page-panel,
+body[data-page='createaccount'] .page-panel {
+  max-width: none;
+  width: 100%;
+}
+
+.auth-page-panel {
+  flex: 1 1 auto;
+  display: grid;
+  align-content: start;
+  min-height: 0;
+}
+
+.auth-form-stack {
+  display: grid;
+  align-content: start;
+}
+
+.auth-field-input {
+  margin: 8px 0 12px;
+}
+
+.auth-message {
+  margin-top: 10px;
 }
 
 .page-panel p,
@@ -1441,6 +1479,15 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   body[data-page='play'] .duel-header .btn {
     width: auto;
     flex: 0 0 auto;
+  }
+
+  body[data-page='signin'] .main,
+  body[data-page='createaccount'] .main {
+    min-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
+  }
+
+  .auth-page-panel {
+    flex: 1 1 auto;
   }
 
   .duel-board {

@@ -32,17 +32,19 @@
 
       <main class="main">
         <h1 class="page-title">Sign In</h1>
-        <section class="card page-panel">
-          <label for="signin-username">Username</label>
-          <input id="signin-username" maxlength="24" placeholder="Enter username" style="margin: 8px 0 12px;" />
-          <p id="signin-username-error" class="field-error"></p>
-          <label for="signin-password">Password</label>
-          <input id="signin-password" type="password" maxlength="72" placeholder="Enter password" style="margin: 8px 0 12px;" />
-          <p id="signin-password-error" class="field-error"></p>
-          <div class="auth-actions">
-            <button class="btn" id="signin-btn" type="button">Sign In</button>
+        <section class="card page-panel auth-page-panel">
+          <div class="auth-form-stack">
+            <label for="signin-username">Username</label>
+            <input id="signin-username" maxlength="24" placeholder="Enter username" class="auth-field-input" />
+            <p id="signin-username-error" class="field-error"></p>
+            <label for="signin-password">Password</label>
+            <input id="signin-password" type="password" maxlength="72" placeholder="Enter password" class="auth-field-input" />
+            <p id="signin-password-error" class="field-error"></p>
+            <div class="auth-actions">
+              <button class="btn" id="signin-btn" type="button">Sign In</button>
+            </div>
+            <p id="signin-message" class="list-empty auth-message"></p>
           </div>
-          <p id="signin-message" class="list-empty" style="margin-top: 10px;"></p>
         </section>
       </main>
     </div>
