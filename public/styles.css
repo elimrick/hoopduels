@@ -187,10 +187,10 @@ html.auth-signed-out [data-nav='history'] {
 
 body[data-page='play'].home-guest-layout .left-grid {
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 324px 396px;
   grid-template-areas:
     'duel practice'
     'duel leaderboard';
-  align-items: start;
 }
 
 .home-top-row {
@@ -214,12 +214,12 @@ body[data-page='play'].home-guest-layout #home-duel-card {
 
 body[data-page='play'].home-guest-layout #home-practice-card {
   grid-area: practice;
-  align-self: start;
+  align-self: stretch;
 }
 
 body[data-page='play'].home-guest-layout #home-leaderboard-card {
   grid-area: leaderboard;
-  align-self: start;
+  align-self: stretch;
 }
 
 body[data-page='play'].home-guest-layout #home-history-card {
