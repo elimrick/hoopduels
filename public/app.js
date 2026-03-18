@@ -776,8 +776,16 @@
           setUsernameError('Username must be at least 2 characters.');
           return;
         }
+        if (!/^[A-Za-z0-9]+$/.test(username)) {
+          setUsernameError('Username can only use letters and numbers.');
+          return;
+        }
         if (!password || password.length < 4 || password.length > 72) {
           setPasswordError('Password must be 4-72 characters.');
+          return;
+        }
+        if (!/^[\x20-\x7E]+$/.test(password)) {
+          setPasswordError('Password can only use standard keyboard characters.');
           return;
         }
       } else {
@@ -808,6 +816,15 @@
             setMessage('');
           } else if (/username must be at least 2/i.test(raw)) {
             setUsernameError('Username must be at least 2 characters.');
+            setMessage('');
+          } else if (/username can only use letters and numbers/i.test(raw)) {
+            setUsernameError('Username can only use letters and numbers.');
+            setMessage('');
+          } else if (/username is not allowed/i.test(raw)) {
+            setUsernameError('That username is not allowed.');
+            setMessage('');
+          } else if (/password can only use standard keyboard characters/i.test(raw)) {
+            setPasswordError('Password can only use standard keyboard characters.');
             setMessage('');
           } else if (/password must be 4-72/i.test(raw) || /password/i.test(raw)) {
             setPasswordError('Password must be 4-72 characters.');
