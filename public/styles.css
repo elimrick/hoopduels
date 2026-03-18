@@ -186,6 +186,10 @@ html.auth-signed-out [data-nav='history'] {
 }
 
 body[data-page='play'].home-guest-layout .left-grid {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'duel practice'
+    'duel leaderboard';
   align-items: start;
 }
 
@@ -196,7 +200,23 @@ body[data-page='play'].home-guest-layout .left-grid {
 }
 
 body[data-page='play'].home-guest-layout #home-top-row {
-  grid-template-columns: 1fr 1fr;
+  display: contents;
+}
+
+body[data-page='play'].home-guest-layout #home-secondary-grid {
+  display: contents;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card {
+  grid-area: duel;
+}
+
+body[data-page='play'].home-guest-layout #home-practice-card {
+  grid-area: practice;
+}
+
+body[data-page='play'].home-guest-layout #home-leaderboard-card {
+  grid-area: leaderboard;
 }
 
 .practice-card .duel-header h2 {
@@ -602,13 +622,38 @@ body[data-page='createaccount'] .page-panel {
   margin-top: 6px;
 }
 
-body[data-page='play'].home-guest-layout #home-duel-card .stats {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+body[data-page='play'].home-guest-layout #home-history-card {
+  display: none;
 }
 
-body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(3),
+body[data-page='play'].home-guest-layout #home-duel-card .stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: auto;
+  align-content: start;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(1) {
+  order: 1;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(4) {
+  order: 2;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(2) {
+  order: 3;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(5) {
+  order: 4;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(3) {
+  order: 5;
+}
+
 body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(6) {
-  display: none;
+  order: 6;
 }
 
 body[data-page='signin'] .field-error,
