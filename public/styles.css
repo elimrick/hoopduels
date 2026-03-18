@@ -1448,15 +1448,12 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
     justify-content: space-between;
     padding: env(safe-area-inset-top) 14px var(--mobile-stripe-height);
     background: linear-gradient(180deg, #252422 0%, #232220 100%);
-    position: relative;
+    position: sticky;
+    top: 0;
     min-height: var(--mobile-topbar-total);
     height: var(--mobile-topbar-total);
     z-index: 40;
     border-bottom: 0;
-    transform: translate3d(0, 0, 0);
-    -webkit-transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
   }
 
   .mobile-topbar::after {
@@ -1698,11 +1695,11 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
   .sidebar {
     position: fixed;
-    top: 0;
+    top: var(--mobile-topbar-total);
     left: 0;
     right: 0;
     height: auto;
-    max-height: calc(var(--app-vh, 100dvh));
+    max-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-total));
     padding: calc(14px + var(--mobile-stripe-height)) 14px 14px;
     z-index: 35;
     transform: scaleY(0);
