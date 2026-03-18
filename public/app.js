@@ -182,7 +182,7 @@
     const leaderboardCard = document.getElementById('home-leaderboard-card');
 
     if (topRow && secondaryGrid && practiceCard && historyCard && leaderboardCard) {
-      historyCard.hidden = isGuest;
+      historyCard.hidden = false;
       if (practiceCard.parentElement !== topRow) {
         topRow.appendChild(practiceCard);
       }
