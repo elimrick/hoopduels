@@ -160,6 +160,9 @@ html.auth-signed-in #auth-nav-profile {
   margin: 0 0 18px;
   font-size: 48px;
   font-weight: 700;
+  line-height: 1.08;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .grid-home {
@@ -173,10 +176,35 @@ html.auth-signed-in #auth-nav-profile {
   gap: 18px;
 }
 
+body[data-page='play'].home-guest-layout .left-grid {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'duel practice'
+    'duel leaderboard';
+  align-items: stretch;
+}
+
 .home-top-row {
   display: grid;
   grid-template-columns: minmax(0, 2.35fr) minmax(220px, 0.85fr);
   gap: 18px;
+}
+
+body[data-page='play'].home-guest-layout #home-top-row,
+body[data-page='play'].home-guest-layout #home-secondary-grid {
+  display: contents;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card {
+  grid-area: duel;
+}
+
+body[data-page='play'].home-guest-layout #home-practice-card {
+  grid-area: practice;
+}
+
+body[data-page='play'].home-guest-layout #home-leaderboard-card {
+  grid-area: leaderboard;
 }
 
 .practice-card .duel-header h2 {
@@ -582,12 +610,36 @@ body[data-page='createaccount'] .page-panel {
   margin-top: 6px;
 }
 
-body[data-page='play'].home-guest-layout .home-top-row {
-  grid-template-columns: 1fr;
-}
-
 body[data-page='play'].home-guest-layout #home-history-card {
   display: none;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card .stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(1) {
+  order: 1;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(4) {
+  order: 2;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(2) {
+  order: 3;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(3) {
+  order: 4;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(5) {
+  order: 5;
+}
+
+body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(6) {
+  order: 6;
 }
 
 body[data-page='signin'] .field-error,
@@ -1489,7 +1541,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
   #home-title {
     font-size: clamp(24px, 5.8vw, 36px);
-    white-space: nowrap;
+    white-space: normal;
     line-height: 1.1;
   }
 

@@ -184,8 +184,8 @@
     if (topRow && secondaryGrid && practiceCard && historyCard && leaderboardCard) {
       if (isGuest) {
         historyCard.hidden = true;
-        if (practiceCard.parentElement !== secondaryGrid) {
-          secondaryGrid.insertBefore(practiceCard, leaderboardCard);
+        if (practiceCard.parentElement !== topRow) {
+          topRow.appendChild(practiceCard);
         }
       } else {
         historyCard.hidden = false;
@@ -200,7 +200,9 @@
 
     const homeTitle = document.getElementById('home-title');
     if (homeTitle) {
-      homeTitle.textContent = activeProfile.signedIn ? `Welcome back, ${activeProfile.username}!` : 'Welcome!';
+      homeTitle.textContent = activeProfile.signedIn
+        ? `Welcome back, ${activeProfile.username}!`
+        : 'Welcome! Create an account to track games and stats.';
     }
     setText(
       'practice-longest-chain',
