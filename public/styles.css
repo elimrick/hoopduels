@@ -190,7 +190,7 @@ body[data-page='play'].home-guest-layout .left-grid {
   grid-template-areas:
     'duel practice'
     'duel leaderboard';
-  align-items: stretch;
+  align-items: start;
 }
 
 .home-top-row {
@@ -205,17 +205,14 @@ body[data-page='play'].home-guest-layout #home-secondary-grid {
 }
 
 body[data-page='play'].home-guest-layout #home-duel-card {
-  align-self: stretch;
   grid-area: duel;
 }
 
 body[data-page='play'].home-guest-layout #home-practice-card {
-  align-self: stretch;
   grid-area: practice;
 }
 
 body[data-page='play'].home-guest-layout #home-leaderboard-card {
-  align-self: stretch;
   grid-area: leaderboard;
 }
 
@@ -630,7 +627,6 @@ body[data-page='play'].home-guest-layout #home-duel-card .stats {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-auto-rows: auto;
   align-content: start;
-  height: auto;
 }
 
 body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(1) {
@@ -655,11 +651,6 @@ body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(5) 
 
 body[data-page='play'].home-guest-layout #home-duel-card .stats > :nth-child(6) {
   order: 6;
-}
-
-body[data-page='play'].home-guest-layout #home-duel-card {
-  display: grid;
-  grid-template-rows: auto 1fr;
 }
 
 body[data-page='signin'] .field-error,
