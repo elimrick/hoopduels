@@ -108,6 +108,18 @@ function flashPracticeFoul() {
   }, 1000);
 }
 
+function setPracticeEndState(result) {
+  playerLeftEl.classList.remove('winner', 'loser');
+  playerRightEl.classList.remove('winner', 'loser');
+  if (result === 'loss') {
+    playerLeftEl.classList.add('loser');
+    playerRightEl.classList.add('winner');
+  } else if (result === 'win') {
+    playerLeftEl.classList.add('winner');
+    playerRightEl.classList.add('loser');
+  }
+}
+
 function capitalizeFirstChar(value) {
   const txt = String(value || '').trim();
   if (!txt) return '';
@@ -200,6 +212,9 @@ function endPractice(reason, detailMessage = '') {
   setTurnUi();
   if (leaveBtn) {
     leaveBtn.textContent = 'Play Again';
+  }
+  if (reason === 'You Fouled Out' || reason === 'Poor Clock Management') {
+    setPracticeEndState('loss');
   }
   savePracticeProgress();
   refreshAutocomplete();
