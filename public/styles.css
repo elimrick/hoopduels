@@ -1223,7 +1223,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 .rules-lead {
   margin: 0;
   max-width: none;
-  font-size: clamp(24px, 2.5vw, 30px);
+  font-size: clamp(26px, 2.8vw, 34px);
   font-weight: 700;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.92);
@@ -1267,46 +1267,19 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
 .rules-chain {
   display: grid;
-  justify-items: center;
+  justify-items: stretch;
   gap: 22px;
-}
-
-.rules-chain-step {
-  display: grid;
-  justify-items: center;
-  position: relative;
-  width: min(100%, 420px);
-}
-
-.rules-chain-arrow {
-  display: none;
-}
-
-.rules-chain .duel-player {
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.03);
+  max-width: none;
 }
 
-.rules-chain .duel-player-name {
-  font-size: 24px;
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.rules-chain.history-list {
+  max-height: none;
+  overflow: visible;
 }
 
-.rules-chain-step:not(:last-child)::after {
-  content: '↓';
-  position: absolute;
-  left: 50%;
-  bottom: -20px;
-  transform: translateX(-50%);
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 16px;
-  line-height: 1;
+.rules-chain .history-item {
+  width: 100%;
 }
 
 
@@ -1526,10 +1499,6 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   .rules-note-card,
   .rules-example {
     padding: 18px;
-  }
-
-  .rules-chain-arrow {
-    display: none;
   }
 
   .main {
