@@ -1456,6 +1456,10 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
     border-bottom: 0;
   }
 
+  body.mobile-nav-open {
+    overflow: hidden;
+  }
+
   .mobile-topbar::after {
     content: '';
     position: absolute;
@@ -1551,6 +1555,10 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
     height: auto;
     overflow-y: visible;
     -webkit-overflow-scrolling: touch;
+  }
+
+  body.mobile-nav-open .main {
+    overflow: hidden;
   }
 
   .page-title {
