@@ -1432,9 +1432,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
 @media (max-width: 1100px) {
   body {
-    overflow-y: auto;
-    overflow-x: hidden;
-    overscroll-behavior-y: auto;
+    overflow: hidden;
+    overscroll-behavior-y: none;
   }
 
   .site-legal-footer {
@@ -1548,8 +1547,9 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   .main {
     padding: 28px 16px  calc(110px + env(safe-area-inset-bottom));
     min-height: 0;
-    height: auto;
-    overflow-y: visible;
+    height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-total));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -1679,7 +1679,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   .layout {
     grid-template-columns: 1fr;
     min-height: 0;
-    height: auto;
+    height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-total));
     margin-top: 0;
   }
 
@@ -1690,7 +1690,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   body[data-page='leaderboard'] .main,
   body[data-page='profile'] .main {
     min-height: 0;
-    height: auto;
+    height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-total));
   }
 
   .sidebar {
