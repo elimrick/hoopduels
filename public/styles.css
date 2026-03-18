@@ -215,6 +215,7 @@ body[data-page='play'].home-guest-layout #home-duel-card {
 body[data-page='play'].home-guest-layout #home-practice-card {
   grid-area: practice;
   align-self: stretch;
+  min-height: 396px;
 }
 
 body[data-page='play'].home-guest-layout #home-leaderboard-card {
