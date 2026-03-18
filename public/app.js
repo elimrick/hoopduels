@@ -175,7 +175,10 @@
     if (homeTitle) {
       homeTitle.textContent = activeProfile.signedIn ? `Welcome back, ${activeProfile.username}!` : 'Welcome!';
     }
-    setText('practice-longest-chain', String(Number(activeProfile.practiceLongestChain) || 0));
+    setText(
+      'practice-longest-chain',
+      isGuest ? '-' : String(Number(activeProfile.practiceLongestChain) || 0)
+    );
 
     const guestNote = document.getElementById('home-guest-stats-note');
     if (guestNote) {
