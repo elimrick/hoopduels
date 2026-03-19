@@ -807,7 +807,7 @@
         } else {
           await window.HoopState.signIn(username, password);
         }
-        window.location.href = 'profile.html';
+        window.location.href = '/profile';
       } catch (error) {
         const raw = error && error.message ? error.message : '';
         if (mode === 'signup') {
@@ -871,7 +871,7 @@
     if (!signOutButton) return;
     signOutButton.addEventListener('click', async () => {
       await window.HoopState.signOut();
-      window.location.href = 'signin.html';
+      window.location.href = '/signin';
     });
   }
 
@@ -951,7 +951,7 @@
             matchmakingSocket.disconnect();
             matchmakingSocket = null;
           }
-          window.location.href = 'game.html';
+          window.location.href = '/game';
         }, 300);
       });
 
@@ -983,7 +983,7 @@
     const btn = document.getElementById('enter-practice-btn');
     if (!btn) return;
     btn.addEventListener('click', () => {
-      window.location.href = 'practice.html';
+      window.location.href = '/practice';
     });
   }
 
@@ -994,11 +994,11 @@
     const footer = document.createElement('footer');
     footer.className = 'site-legal-footer';
     footer.innerHTML = [
-      '<a href="privacy.html">Privacy Policy</a>',
+      '<a href="/privacy">Privacy Policy</a>',
       '<span aria-hidden="true">|</span>',
-      '<a href="terms.html">Terms of Service</a>',
+      '<a href="/terms">Terms of Service</a>',
       '<span aria-hidden="true">|</span>',
-      '<a href="contact.html">Contact</a>',
+      '<a href="/contact">Contact</a>',
     ].join('');
     main.appendChild(footer);
   }

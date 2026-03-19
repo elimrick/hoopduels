@@ -19,9 +19,36 @@ const server = http.createServer(app);
 const io = new Server(server);
 const ONLINE_TTL_MS = 15_000;
 const onlineVisitors = new Map();
+const publicDir = path.join(__dirname, 'public');
+const PAGE_ROUTES = {
+  '/': 'index.html',
+  '/leaderboard': 'leaderboard.html',
+  '/game-history': 'game-history.html',
+  '/how-to-play': 'how-to-play.html',
+  '/signin': 'signin.html',
+  '/create-account': 'create-account.html',
+  '/profile': 'profile.html',
+  '/practice': 'practice.html',
+  '/game': 'game.html',
+  '/friends': 'friends.html',
+  '/settings': 'settings.html',
+  '/privacy': 'privacy.html',
+  '/terms': 'terms.html',
+  '/contact': 'contact.html'
+};
 
 app.use(express.json({ limit: '1mb' }));
-app.use(express.static(path.join(__dirname, 'public')));
+for (const [routePath, fileName] of Object.entries(PAGE_ROUTES)) {
+  if (routePath === '/') {
+    app.get('/index.html', (_req, res) => res.redirect(301, '/'));
+  } else {
+    app.get(`/${fileName}`, (_req, res) => res.redirect(301, routePath));
+  }
+  app.get(routePath, (_req, res) => {
+    res.sendFile(path.join(publicDir, fileName));
+  });
+}
+app.use(express.static(publicDir));
 app.get('/healthz', (_req, res) => {
   res.status(200).send('ok');
 });
