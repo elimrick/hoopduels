@@ -2067,6 +2067,10 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
     margin-inline: auto;
     line-height: 1.15;
   }
+
+  body[data-page='practice'] #practice-current-player {
+    margin-top: 0;
+  }
 }
 
 .profile-elo-card {
