@@ -924,6 +924,8 @@ body[data-page='practice'] #practice-current-player {
   font-weight: 400;
   line-height: inherit;
   white-space: inherit;
+  display: block;
+  margin-top: 8px;
 }
 
 body[data-page='play'] #player-left {
