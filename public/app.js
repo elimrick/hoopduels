@@ -373,6 +373,7 @@
         ? now - (365 * 24 * 60 * 60 * 1000)
         : null;
     const rankedGames = games
+      .filter((g) => g && g.ranked === true)
       .filter((g) => Number.isFinite(Number(g.eloAfter)) && Number(g.eloAfter) > 0)
       .filter((g) => !rangeCutoff || !Number.isFinite(Number(g.at)) || Number(g.at) >= rangeCutoff)
       .slice()
