@@ -796,6 +796,13 @@ socket.on('connect', () => {
   }
 });
 
+socket.on('auth:invalid', () => {
+  if (window.HoopState && typeof window.HoopState.signOut === 'function') {
+    window.HoopState.signOut().catch(() => {});
+  }
+  setMessage('Your session expired. Please sign in again.', 'error');
+});
+
 socket.on('matchmaking:queued', () => {
   if (!gameFinished) {
     hasRecordedCurrentGame = false;

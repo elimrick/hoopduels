@@ -937,6 +937,14 @@
         matchmakingSocket.emit('matchmaking:join');
       });
 
+      matchmakingSocket.on('auth:invalid', () => {
+        if (window.HoopState && typeof window.HoopState.signOut === 'function') {
+          window.HoopState.signOut().catch(() => {});
+        }
+        status.textContent = 'Your session expired. Please sign in again.';
+        isSearching = false;
+      });
+
       matchmakingSocket.on('matchmaking:queued', () => {
         status.textContent = 'Searching for opponent...';
       });

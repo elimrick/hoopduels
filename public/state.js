@@ -66,6 +66,12 @@
     })()
   };
 
+  function clearAuthState() {
+    runtime.token = null;
+    localStorage.removeItem(TOKEN_KEY);
+    applyProfile(defaultProfile(GUEST_USERNAME, false), false);
+  }
+
   function emitUpdated() {
     window.dispatchEvent(new CustomEvent('hoopstate:updated'));
   }
@@ -196,9 +202,7 @@
         // Only clear token on explicit auth failure.
         const status = error && error.status ? Number(error.status) : 0;
         if (status === 401) {
-          runtime.token = null;
-          localStorage.removeItem(TOKEN_KEY);
-          applyProfile(defaultProfile(GUEST_USERNAME, false), false);
+          clearAuthState();
         } else {
           const cached = readJson(PROFILE_CACHE_KEY, null);
           if (cached && typeof cached === 'object' && cached.username) {
@@ -253,9 +257,7 @@
     } catch (_) {
     }
 
-    runtime.token = null;
-    localStorage.removeItem(TOKEN_KEY);
-    applyProfile(defaultProfile(GUEST_USERNAME, false), false);
+    clearAuthState();
     await refreshLeaderboard();
     emitUpdated();
     return getProfile();
@@ -305,6 +307,12 @@
       }
       emitUpdated();
     } catch (_) {
+      const status = _ && _.status ? Number(_.status) : 0;
+      if (status === 401) {
+        clearAuthState();
+        refreshLeaderboard().catch(() => {});
+        emitUpdated();
+      }
     }
   }
 

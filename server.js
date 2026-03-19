@@ -602,6 +602,8 @@ io.on('connection', async (socket) => {
     socket.data.signedIn = true;
     socket.data.username = signedProfile.username;
     socket.data.elo = Number(signedProfile.elo) || 1200;
+  } else if (token) {
+    socket.emit('auth:invalid');
   }
 
   const existingGame = getGameByPlayerId(playerId);
