@@ -911,8 +911,8 @@ body[data-page='play'] #player-left {
   grid-template-columns: minmax(0, 1fr) auto;
   grid-template-areas:
     'name clock'
-    'fouls clock'
-    'elo clock';
+    'elo clock'
+    'fouls clock';
   align-items: center;
   column-gap: 12px;
   row-gap: 4px;
@@ -923,8 +923,8 @@ body[data-page='play'] #player-right {
   grid-template-columns: auto minmax(0, 1fr);
   grid-template-areas:
     'clock name'
-    'clock fouls'
-    'clock elo';
+    'clock elo'
+    'clock fouls';
   align-items: center;
   column-gap: 12px;
   row-gap: 4px;
