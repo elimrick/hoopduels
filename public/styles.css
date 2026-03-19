@@ -898,6 +898,30 @@ body[data-page='createaccount'] .auth-actions .btn {
   font-weight: 400;
 }
 
+body[data-page='practice'] .duel-player {
+  gap: 4px;
+}
+
+body[data-page='practice'] .duel-timer {
+  color: var(--text);
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+body[data-page='practice'] .duel-current {
+  display: block;
+}
+
+body[data-page='practice'] #practice-current-player {
+  color: var(--muted);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
 body[data-page='play'] #player-left {
   text-align: left;
 }
