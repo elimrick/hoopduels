@@ -440,6 +440,8 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
   const rightInitialElo = pregamePlayerElos[right.playerId]
     ?? (Number.isFinite(Number(right.elo)) ? Number(right.elo) : null)
     ?? getAccountEloByName(right.username);
+  const leftSignedIn = Boolean(left && left.signedIn);
+  const rightSignedIn = Boolean(right && right.signedIn);
   if (left.playerId && Number.isFinite(leftInitialElo)) {
     pregamePlayerElos[left.playerId] = leftInitialElo;
   }
@@ -447,7 +449,10 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
     pregamePlayerElos[right.playerId] = rightInitialElo;
   }
 
-  const bothRanked = Number.isFinite(leftInitialElo) && Number.isFinite(rightInitialElo);
+  const bothRanked = leftSignedIn
+    && rightSignedIn
+    && Number.isFinite(leftInitialElo)
+    && Number.isFinite(rightInitialElo);
   let leftAfter = leftInitialElo;
   let rightAfter = rightInitialElo;
   let leftDelta = 0;
@@ -464,25 +469,21 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
   }
 
   if (leftMetaEl) {
-    if (Number.isFinite(leftInitialElo)) {
+    if (leftSignedIn && Number.isFinite(leftInitialElo)) {
       leftMetaEl.textContent = (outcome && bothRanked)
         ? `Rating: ${Math.round(leftAfter)} ${formatEloChange(leftDelta)}`
         : `Rating: ${Math.round(leftInitialElo)}`;
-    } else if (isGuestLikeName(left.username)) {
-      leftMetaEl.textContent = 'Rating: -';
     } else {
-      leftMetaEl.textContent = '';
+      leftMetaEl.textContent = 'Rating: -';
     }
   }
   if (rightMetaEl) {
-    if (Number.isFinite(rightInitialElo)) {
+    if (rightSignedIn && Number.isFinite(rightInitialElo)) {
       rightMetaEl.textContent = (outcome && bothRanked)
         ? `Rating: ${Math.round(rightAfter)} ${formatEloChange(rightDelta)}`
         : `Rating: ${Math.round(rightInitialElo)}`;
-    } else if (isGuestLikeName(right.username)) {
-      rightMetaEl.textContent = 'Rating: -';
     } else {
-      rightMetaEl.textContent = '';
+      rightMetaEl.textContent = 'Rating: -';
     }
   }
 

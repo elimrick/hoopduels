@@ -351,6 +351,7 @@ function buildGameState(game, message) {
       playerId,
       username: game.playerNames[playerId],
       strikes: game.strikes[playerId],
+      signedIn: Boolean(game.playerSignedIn && game.playerSignedIn[playerId]),
       elo: Number.isFinite(Number(game.playerElos && game.playerElos[playerId]))
         ? Number(game.playerElos[playerId])
         : null,
@@ -506,7 +507,12 @@ async function endGame(game, loserPlayerId, reason) {
   const winnerPlayerId = getOpponentPlayerId(game, loserPlayerId);
   const winnerEloBefore = Number(game.playerElos && game.playerElos[winnerPlayerId]);
   const loserEloBefore = Number(game.playerElos && game.playerElos[loserPlayerId]);
-  const ranked = Number.isFinite(winnerEloBefore) && Number.isFinite(loserEloBefore);
+  const winnerSignedIn = Boolean(game.playerSignedIn && game.playerSignedIn[winnerPlayerId]);
+  const loserSignedIn = Boolean(game.playerSignedIn && game.playerSignedIn[loserPlayerId]);
+  const ranked = winnerSignedIn
+    && loserSignedIn
+    && Number.isFinite(winnerEloBefore)
+    && Number.isFinite(loserEloBefore);
 
   const calcElo = (myElo, oppElo, won) => {
     const expected = 1 / (1 + Math.pow(10, (oppElo - myElo) / 400));
@@ -612,6 +618,10 @@ function createGame(playerAId, playerBId) {
     playerNames: {
       [playerAId]: socketA.data.username || makeDefaultName(playerAId),
       [playerBId]: socketB.data.username || makeDefaultName(playerBId)
+    },
+    playerSignedIn: {
+      [playerAId]: Boolean(socketA.data.signedIn),
+      [playerBId]: Boolean(socketB.data.signedIn)
     },
     playerElos: {
       [playerAId]: socketA.data.signedIn ? (Number(socketA.data.elo) || 1200) : null,
