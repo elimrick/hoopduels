@@ -9,7 +9,7 @@ const { runSeasonSyncIfDue } = require('./lib/season-sync');
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
-const PLAYER_CLOCK_MS = 3 * 60_000;
+const PLAYER_CLOCK_MS = 2 * 60_000;
 const MAX_STRIKES = 3;
 const DISCONNECT_GRACE_MS = 15_000;
 const ADMIN_HEALTH_KEY = process.env.ADMIN_HEALTH_KEY || '';

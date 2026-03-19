@@ -79,8 +79,8 @@ function getDisplayedPlayerClock(player) {
 function renderPlayerClocks(players) {
   const left = Array.isArray(players) ? players[0] : null;
   const right = Array.isArray(players) ? players[1] : null;
-  const leftMs = left ? getDisplayedPlayerClock(left) : (3 * 60 * 1000);
-  const rightMs = right ? getDisplayedPlayerClock(right) : (3 * 60 * 1000);
+  const leftMs = left ? getDisplayedPlayerClock(left) : (2 * 60 * 1000);
+  const rightMs = right ? getDisplayedPlayerClock(right) : (2 * 60 * 1000);
   if (playerLeftClockEl) {
     playerLeftClockEl.textContent = formatClock(leftMs);
   }
