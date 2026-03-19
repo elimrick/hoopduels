@@ -783,13 +783,10 @@ body[data-page='createaccount'] .auth-actions .btn {
   border-radius: 12px;
   padding: 12px;
   background: rgba(255, 255, 255, 0.03);
-}
-
-.duel-player-head {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
 }
 
 .duel-player.active {
@@ -823,20 +820,22 @@ body[data-page='createaccount'] .auth-actions .btn {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
 }
 
 .duel-player-clock {
-  margin-left: auto;
   text-align: right;
   font-size: 22px;
   font-weight: 700;
   color: var(--text);
   white-space: nowrap;
- }
+  width: 100%;
+}
 
 .duel-player-meta {
   color: var(--muted);
   font-size: 18px;
+  width: 100%;
 }
 
 .duel-player-meta-placeholder {
@@ -860,16 +859,28 @@ body[data-page='createaccount'] .auth-actions .btn {
 
 .duel-current-label {
   color: var(--muted);
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 400;
   white-space: nowrap;
 }
 
 .duel-current-player {
   color: var(--text);
-  font-size: 18px;
+  font-size: 30px;
   font-weight: 700;
   white-space: nowrap;
+}
+
+.duel-current.is-end .duel-current-label {
+  color: var(--text);
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.duel-current.is-end .duel-current-player {
+  color: var(--muted);
+  font-size: 18px;
+  font-weight: 400;
 }
 
 body[data-page='play'] #player-left {
@@ -877,6 +888,59 @@ body[data-page='play'] #player-left {
 }
 
 body[data-page='play'] #player-right {
+  text-align: right;
+}
+
+body[data-page='play'] #player-left {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'name clock'
+    'fouls clock'
+    'elo clock';
+  align-items: start;
+  column-gap: 12px;
+  row-gap: 6px;
+}
+
+body[data-page='play'] #player-right {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    'clock name'
+    'clock fouls'
+    'clock elo';
+  align-items: start;
+  column-gap: 12px;
+  row-gap: 6px;
+}
+
+body[data-page='play'] #player-left .duel-player-name,
+body[data-page='play'] #player-right .duel-player-name {
+  grid-area: name;
+}
+
+body[data-page='play'] #player-left .duel-player-fouls,
+body[data-page='play'] #player-right .duel-player-fouls {
+  grid-area: fouls;
+}
+
+body[data-page='play'] #player-left .duel-player-elo,
+body[data-page='play'] #player-right .duel-player-elo {
+  grid-area: elo;
+}
+
+body[data-page='play'] #player-left .duel-player-clock,
+body[data-page='play'] #player-right .duel-player-clock {
+  grid-area: clock;
+  align-self: start;
+}
+
+body[data-page='play'] #player-left .duel-player-clock {
+  text-align: right;
+}
+
+body[data-page='play'] #player-right .duel-player-clock {
   text-align: left;
 }
 
@@ -1919,6 +1983,21 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   .page-table-wrap .history-table,
   .page-table-wrap .leaderboard-table {
     min-width: 0;
+  }
+
+  body[data-page='play'] #player-left,
+  body[data-page='play'] #player-right {
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+  }
+
+  body[data-page='play'] #player-left .duel-player-clock {
+    text-align: left;
+  }
+
+  body[data-page='play'] #player-right .duel-player-clock {
+    text-align: right;
   }
 }
 
