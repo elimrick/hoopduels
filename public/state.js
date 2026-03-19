@@ -169,6 +169,29 @@
     emitUpdated();
   }
 
+  async function refreshProfile() {
+    if (!runtime.token) {
+      emitUpdated();
+      return getProfile();
+    }
+    try {
+      const payload = await api('/api/account/profile');
+      if (payload && payload.profile) {
+        applyProfile(payload.profile, true);
+      }
+      emitUpdated();
+      return getProfile();
+    } catch (error) {
+      const status = error && error.status ? Number(error.status) : 0;
+      if (status === 401) {
+        clearAuthState();
+        await refreshLeaderboard();
+      }
+      emitUpdated();
+      return getProfile();
+    }
+  }
+
   async function init() {
     // Ensure guest sessions always start from a blank/default profile.
     localStorage.removeItem(LEGACY_GUEST_PROFILE_KEY);
@@ -423,6 +446,7 @@
     signOut,
     recordGame,
     savePracticeChain,
+    refreshProfile,
     getLeaderboardRows,
     refreshLeaderboard
   };

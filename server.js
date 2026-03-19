@@ -389,11 +389,110 @@ function scheduleTurnTimeout(game) {
   const waitMs = Math.max(0, game.turnDeadline - Date.now());
   game.timer = setTimeout(() => {
     const activePlayerId = getActivePlayerId(game);
-    endGame(game, activePlayerId, 'time expired');
+    void endGame(game, activePlayerId, 'time expired');
   }, waitMs);
 }
 
-function endGame(game, loserPlayerId, reason) {
+function applyProfileGameResult(profile, result) {
+  const won = Boolean(result && result.won);
+  const chainLength = Number(result && result.chainLength) || 0;
+  const rankedGame = Boolean(result && result.ranked);
+  const opponentElo = result && Number.isFinite(Number(result.opponentElo))
+    ? Number(result.opponentElo)
+    : null;
+
+  if (won) {
+    profile.streak = Number(profile.streak) >= 0 ? Number(profile.streak) + 1 : 1;
+    profile.wins = (Number(profile.wins) || 0) + 1;
+  } else {
+    profile.streak = Number(profile.streak) <= 0 ? Number(profile.streak) - 1 : -1;
+    profile.losses = (Number(profile.losses) || 0) + 1;
+  }
+
+  if (won && rankedGame && opponentElo != null) {
+    profile.bestWin = profile.bestWin == null
+      ? opponentElo
+      : Math.max(Number(profile.bestWin) || opponentElo, opponentElo);
+  }
+
+  profile.longestChain = Math.max(Number(profile.longestChain) || 0, chainLength);
+
+  const currentElo = Number(profile.elo) || 1200;
+  const eloAfter = rankedGame && Number.isFinite(Number(result.eloAfter))
+    ? Math.round(Number(result.eloAfter))
+    : currentElo;
+  const eloBefore = rankedGame && Number.isFinite(Number(result.eloBefore))
+    ? Math.round(Number(result.eloBefore))
+    : currentElo;
+  const eloDelta = rankedGame && Number.isFinite(Number(result.eloDelta))
+    ? Math.round(Number(result.eloDelta))
+    : (eloAfter - eloBefore);
+
+  profile.elo = eloAfter;
+  profile.peakElo = Math.max(Number(profile.peakElo) || eloAfter, eloAfter);
+  profile.games = Array.isArray(profile.games) ? profile.games : [];
+  profile.games.unshift({
+    at: Date.now(),
+    won,
+    reason: result && result.reason ? String(result.reason) : 'finished',
+    opponent: result && result.opponent ? String(result.opponent) : 'Opponent',
+    opponentRank: opponentElo,
+    chainLength,
+    myStrikes: Number(result && result.myStrikes) || 0,
+    oppStrikes: Number(result && result.oppStrikes) || 0,
+    ranked: rankedGame,
+    eloBefore,
+    eloAfter,
+    eloDelta
+  });
+  if (profile.games.length > 100) {
+    profile.games = profile.games.slice(0, 100);
+  }
+  profile.profileUpdatedAt = Date.now();
+  return profile;
+}
+
+async function persistSignedInGameResults(game, winnerPlayerId, loserPlayerId, reason, eloUpdate) {
+  const chainLength = Array.isArray(game.history)
+    ? game.history.filter((entry) => entry && entry.type === 'guess').length
+    : 0;
+
+  await Promise.all(game.players.map(async (playerId) => {
+    const socket = getSocketByPlayerId(playerId);
+    const token = socket && socket.data ? socket.data.token : '';
+    if (!socket || !socket.data || !socket.data.signedIn || !token) return;
+
+    try {
+      const profile = await accountStore.getProfileByToken(token);
+      if (!profile) return;
+
+      const opponentPlayerId = playerId === winnerPlayerId ? loserPlayerId : winnerPlayerId;
+      const myElo = eloUpdate && eloUpdate[playerId] ? eloUpdate[playerId] : null;
+      const oppElo = eloUpdate && eloUpdate[opponentPlayerId] ? eloUpdate[opponentPlayerId] : null;
+      const ranked = Boolean(eloUpdate && eloUpdate.ranked && myElo && oppElo);
+
+      applyProfileGameResult(profile, {
+        won: playerId === winnerPlayerId,
+        reason,
+        opponent: game.playerNames[opponentPlayerId] || 'Opponent',
+        opponentElo: oppElo && Number.isFinite(Number(oppElo.before)) ? Number(oppElo.before) : null,
+        chainLength,
+        myStrikes: Number(game.strikes[playerId]) || 0,
+        oppStrikes: Number(game.strikes[opponentPlayerId]) || 0,
+        ranked,
+        eloBefore: myElo && Number.isFinite(Number(myElo.before)) ? Number(myElo.before) : null,
+        eloAfter: myElo && Number.isFinite(Number(myElo.after)) ? Number(myElo.after) : null,
+        eloDelta: myElo && Number.isFinite(Number(myElo.delta)) ? Number(myElo.delta) : null
+      });
+
+      await accountStore.saveProfileByToken(token, profile);
+      socket.emit('profile:refresh');
+    } catch (_) {
+    }
+  }));
+}
+
+async function endGame(game, loserPlayerId, reason) {
   if (game.status !== 'active') return;
 
   clearTimeout(game.timer);
@@ -447,6 +546,8 @@ function endGame(game, loserPlayerId, reason) {
     reason
   });
 
+  await persistSignedInGameResults(game, winnerPlayerId, loserPlayerId, reason, eloUpdate);
+
   io.to(game.id).emit('game:ended', {
     winnerPlayerId,
     winnerUsername: game.playerNames[winnerPlayerId],
@@ -485,7 +586,7 @@ function applyStrike(game, playerId, reason, guessText = '') {
       includeMessage: true,
       message: `${game.playerNames[playerId]} guessed "${guessText || 'blank guess'}" and got strike 3/3 (${reason}).`
     });
-    endGame(game, playerId, '3 strikes');
+    void endGame(game, playerId, '3 strikes');
     return;
   }
 
@@ -595,6 +696,7 @@ io.on('connection', async (socket) => {
   socket.data.username = makeDefaultName(playerId);
   socket.data.signedIn = false;
   socket.data.elo = null;
+  socket.data.token = null;
   socket.data.gameId = null;
 
   const signedProfile = await getSignedInProfileFromToken(token);
@@ -602,6 +704,7 @@ io.on('connection', async (socket) => {
     socket.data.signedIn = true;
     socket.data.username = signedProfile.username;
     socket.data.elo = Number(signedProfile.elo) || 1200;
+    socket.data.token = token;
   } else if (token) {
     socket.emit('auth:invalid');
   }
@@ -656,7 +759,7 @@ io.on('connection', async (socket) => {
   socket.on('matchmaking:leave', () => {
     const game = getGameByPlayerId(playerId);
     if (game && game.status === 'active') {
-      endGame(game, playerId, 'left game');
+      void endGame(game, playerId, 'left game');
       return;
     }
 
@@ -678,7 +781,7 @@ io.on('connection', async (socket) => {
     }
 
     if (Date.now() >= game.turnDeadline) {
-      endGame(game, playerId, 'time expired');
+      void endGame(game, playerId, 'time expired');
       return;
     }
 
@@ -738,7 +841,7 @@ io.on('connection', async (socket) => {
       const timer = setTimeout(() => {
         const stillDisconnected = !getSocketByPlayerId(playerId);
         if (stillDisconnected) {
-          endGame(game, playerId, 'disconnect');
+          void endGame(game, playerId, 'disconnect');
         }
       }, DISCONNECT_GRACE_MS);
       disconnectTimers.set(playerId, timer);

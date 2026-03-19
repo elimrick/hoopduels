@@ -750,26 +750,6 @@ if (leaveGameBtn && leaveGameOverlay && leaveGameConfirmBtn && leaveGameCancelBt
   });
 
   leaveGameConfirmBtn.addEventListener('click', () => {
-    // Record a local loss immediately so it shows in history even if we navigate away fast.
-    try {
-      if (window.HoopState && currentState && currentState.status === 'active') {
-        const players = Array.isArray(currentState.players) ? currentState.players : [];
-        const myRow = players.find((p) => p.playerId === playerId);
-        const oppRow = players.find((p) => p.playerId !== playerId);
-        const chainLength = Array.isArray(currentState.history)
-          ? currentState.history.filter((item) => item.type === 'guess').length
-          : 0;
-        window.HoopState.recordGame({
-          won: false,
-          reason: 'left game',
-          opponent: oppRow ? oppRow.username : 'Opponent',
-          chainLength,
-          myStrikes: myRow ? myRow.strikes : 0,
-          oppStrikes: oppRow ? oppRow.strikes : 0
-        });
-      }
-    } catch (_) {
-    }
     socket.emit('matchmaking:leave');
     closeLeaveGameOverlay();
     window.location.href = '/';
@@ -801,6 +781,16 @@ socket.on('auth:invalid', () => {
     window.HoopState.signOut().catch(() => {});
   }
   setMessage('Your session expired. Please sign in again.', 'error');
+});
+
+socket.on('profile:refresh', () => {
+  if (!window.HoopState) return;
+  if (typeof window.HoopState.refreshProfile === 'function') {
+    window.HoopState.refreshProfile().catch(() => {});
+  }
+  if (typeof window.HoopState.refreshLeaderboard === 'function') {
+    window.HoopState.refreshLeaderboard().catch(() => {});
+  }
 });
 
 socket.on('matchmaking:queued', () => {
@@ -927,35 +917,49 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     lockGuessInput('');
   }
 
-  if (window.HoopState && !hasRecordedCurrentGame && gameState && Array.isArray(gameState.players)) {
-    const myRow = gameState.players.find((p) => p.playerId === playerId);
-    const oppRow = gameState.players.find((p) => p.playerId !== playerId);
-    const chainLength = Array.isArray(gameState.history)
-      ? gameState.history.filter((item) => item.type === 'guess').length
+  const finalState = gameState && Array.isArray(gameState.players) ? gameState : currentState;
+  if (window.HoopState && !hasRecordedCurrentGame && finalState && Array.isArray(finalState.players)) {
+    const myRow = finalState.players.find((p) => p.playerId === playerId);
+    const oppRow = finalState.players.find((p) => p.playerId !== playerId);
+    const chainLength = Array.isArray(finalState.history)
+      ? finalState.history.filter((item) => item.type === 'guess').length
       : 0;
 
     const myElo = eloUpdate && eloUpdate[playerId] ? eloUpdate[playerId] : null;
     const oppElo = oppRow && eloUpdate && eloUpdate[oppRow.playerId] ? eloUpdate[oppRow.playerId] : null;
     const ranked = Boolean(eloUpdate && eloUpdate.ranked && myElo && oppElo);
+    const profile = typeof window.HoopState.getProfile === 'function'
+      ? window.HoopState.getProfile()
+      : null;
+    const signedIn = Boolean(profile && profile.signedIn);
 
-    window.HoopState.recordGame({
-      won: youWon,
-      reason,
-      opponent: oppRow ? oppRow.username : winnerUsername || 'Opponent',
-      opponentElo: oppElo && Number.isFinite(Number(oppElo.before)) ? Number(oppElo.before) : null,
-      chainLength,
-      myStrikes: myRow ? myRow.strikes : 0,
-      oppStrikes: oppRow ? oppRow.strikes : 0,
-      ranked,
-      eloBefore: myElo && Number.isFinite(Number(myElo.before)) ? Number(myElo.before) : null,
-      eloAfter: myElo && Number.isFinite(Number(myElo.after)) ? Number(myElo.after) : null,
-      eloDelta: myElo && Number.isFinite(Number(myElo.delta)) ? Number(myElo.delta) : null
-    });
-    if (typeof window.HoopState.refreshLeaderboard === 'function') {
-      window.HoopState.refreshLeaderboard().catch(() => {});
+    if (!signedIn) {
+      window.HoopState.recordGame({
+        won: youWon,
+        reason,
+        opponent: oppRow ? oppRow.username : winnerUsername || 'Opponent',
+        opponentElo: oppElo && Number.isFinite(Number(oppElo.before)) ? Number(oppElo.before) : null,
+        chainLength,
+        myStrikes: myRow ? myRow.strikes : 0,
+        oppStrikes: oppRow ? oppRow.strikes : 0,
+        ranked,
+        eloBefore: myElo && Number.isFinite(Number(myElo.before)) ? Number(myElo.before) : null,
+        eloAfter: myElo && Number.isFinite(Number(myElo.after)) ? Number(myElo.after) : null,
+        eloDelta: myElo && Number.isFinite(Number(myElo.delta)) ? Number(myElo.delta) : null
+      });
+      if (typeof window.HoopState.refreshLeaderboard === 'function') {
+        window.HoopState.refreshLeaderboard().catch(() => {});
+      }
+    } else {
+      if (typeof window.HoopState.refreshProfile === 'function') {
+        window.HoopState.refreshProfile().catch(() => {});
+      }
+      if (typeof window.HoopState.refreshLeaderboard === 'function') {
+        window.HoopState.refreshLeaderboard().catch(() => {});
+      }
     }
-    if (Array.isArray(gameState.players)) {
-      renderScoreboard(gameState.players, gameState.activePlayerId, {
+    if (Array.isArray(finalState.players)) {
+      renderScoreboard(finalState.players, finalState.activePlayerId, {
         winnerPlayerId,
         loserPlayerId
       });
