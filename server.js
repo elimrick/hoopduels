@@ -9,7 +9,7 @@ const { runSeasonSyncIfDue } = require('./lib/season-sync');
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
-const TURN_DURATION_MS = 60_000;
+const PLAYER_CLOCK_MS = 3 * 60_000;
 const MAX_STRIKES = 3;
 const DISCONNECT_GRACE_MS = 15_000;
 const ADMIN_HEALTH_KEY = process.env.ADMIN_HEALTH_KEY || '';
@@ -352,6 +352,7 @@ function buildGameState(game, message) {
       username: game.playerNames[playerId],
       strikes: game.strikes[playerId],
       signedIn: Boolean(game.playerSignedIn && game.playerSignedIn[playerId]),
+      timeRemainingMs: getPlayerTimeRemaining(game, playerId),
       elo: Number.isFinite(Number(game.playerElos && game.playerElos[playerId]))
         ? Number(game.playerElos[playerId])
         : null,
@@ -360,7 +361,6 @@ function buildGameState(game, message) {
     currentPlayer: playerStore.getName(game.currentPlayerKey),
     activePlayerId,
     activeUsername: game.playerNames[activePlayerId],
-    timeRemainingMs: Math.max(0, game.turnDeadline - Date.now()),
     usedPlayers: [...game.usedPlayerKeys].map((key) => playerStore.getName(key)),
     history: game.history,
     status: game.status,
@@ -383,14 +383,39 @@ function attachSocketToGame(playerId, game) {
   socket.join(game.id);
 }
 
+function getPlayerTimeRemaining(game, playerId, now = Date.now()) {
+  const stored = Number(game.playerTimeRemainingMs && game.playerTimeRemainingMs[playerId]);
+  const base = Number.isFinite(stored) ? stored : PLAYER_CLOCK_MS;
+  if (game.status !== 'active') {
+    return Math.max(0, base);
+  }
+  const activePlayerId = getActivePlayerId(game);
+  if (activePlayerId !== playerId) {
+    return Math.max(0, base);
+  }
+  const startedAt = Number(game.turnStartedAt) || now;
+  return Math.max(0, base - Math.max(0, now - startedAt));
+}
+
+function settleActivePlayerClock(game, now = Date.now()) {
+  const activePlayerId = getActivePlayerId(game);
+  if (!activePlayerId) return;
+  if (!game.playerTimeRemainingMs) {
+    game.playerTimeRemainingMs = {};
+  }
+  game.playerTimeRemainingMs[activePlayerId] = getPlayerTimeRemaining(game, activePlayerId, now);
+  game.turnStartedAt = now;
+}
+
 function scheduleTurnTimeout(game) {
   clearTimeout(game.timer);
   if (game.status !== 'active') return;
 
-  const waitMs = Math.max(0, game.turnDeadline - Date.now());
+  const activePlayerId = getActivePlayerId(game);
+  const waitMs = getPlayerTimeRemaining(game, activePlayerId);
   game.timer = setTimeout(() => {
-    const activePlayerId = getActivePlayerId(game);
-    void endGame(game, activePlayerId, 'time expired');
+    const currentActivePlayerId = getActivePlayerId(game);
+    void endGame(game, currentActivePlayerId, 'time expired');
   }, waitMs);
 }
 
@@ -496,6 +521,7 @@ async function persistSignedInGameResults(game, winnerPlayerId, loserPlayerId, r
 async function endGame(game, loserPlayerId, reason) {
   if (game.status !== 'active') return;
 
+  settleActivePlayerClock(game);
   clearTimeout(game.timer);
   game.timer = null;
   game.status = 'finished';
@@ -623,6 +649,10 @@ function createGame(playerAId, playerBId) {
       [playerAId]: Boolean(socketA.data.signedIn),
       [playerBId]: Boolean(socketB.data.signedIn)
     },
+    playerTimeRemainingMs: {
+      [playerAId]: PLAYER_CLOCK_MS,
+      [playerBId]: PLAYER_CLOCK_MS
+    },
     playerElos: {
       [playerAId]: socketA.data.signedIn ? (Number(socketA.data.elo) || 1200) : null,
       [playerBId]: socketB.data.signedIn ? (Number(socketB.data.elo) || 1200) : null
@@ -634,7 +664,7 @@ function createGame(playerAId, playerBId) {
       [playerBId]: 0
     },
     turnIndex: Math.random() < 0.5 ? 0 : 1,
-    turnDeadline: Date.now() + TURN_DURATION_MS,
+    turnStartedAt: Date.now(),
     timer: null,
     status: 'active',
     history: [
@@ -790,7 +820,7 @@ io.on('connection', async (socket) => {
       return;
     }
 
-    if (Date.now() >= game.turnDeadline) {
+    if (getPlayerTimeRemaining(game, playerId) <= 0) {
       void endGame(game, playerId, 'time expired');
       return;
     }
@@ -823,8 +853,9 @@ io.on('connection', async (socket) => {
       player: playerStore.getName(guessKey)
     });
 
+    settleActivePlayerClock(game);
     game.turnIndex = game.turnIndex === 0 ? 1 : 0;
-    game.turnDeadline = Date.now() + TURN_DURATION_MS;
+    game.turnStartedAt = Date.now();
 
     emitGameState(game, {
       includeMessage: true,

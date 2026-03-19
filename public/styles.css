@@ -785,6 +785,13 @@ body[data-page='createaccount'] .auth-actions .btn {
   background: rgba(255, 255, 255, 0.03);
 }
 
+.duel-player-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .duel-player.active {
   border-color: var(--accent-blue) !important;
   background: rgba(58, 123, 255, 0.14) !important;
@@ -818,6 +825,15 @@ body[data-page='createaccount'] .auth-actions .btn {
   text-overflow: ellipsis;
 }
 
+.duel-player-clock {
+  margin-left: auto;
+  text-align: right;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+ }
+
 .duel-player-meta {
   color: var(--muted);
   font-size: 18px;
@@ -835,14 +851,24 @@ body[data-page='createaccount'] .auth-actions .btn {
   text-align: center;
 }
 
-.duel-timer {
-  font-size: 36px;
-  font-weight: 700;
+.duel-current {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
-.duel-current {
+.duel-current-label {
   color: var(--muted);
   font-size: 18px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.duel-current-player {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 700;
   white-space: nowrap;
 }
 

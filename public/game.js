@@ -20,7 +20,8 @@ if (staleLiveBadge) {
 }
 const currentPlayerEl = document.getElementById('current-player');
 const currentLabelEl = document.getElementById('current-label');
-const timerEl = document.getElementById('timer');
+const playerLeftClockEl = document.getElementById('player-left-clock');
+const playerRightClockEl = document.getElementById('player-right-clock');
 const guessInput = document.getElementById('guess-input');
 const guessDisplayEl = document.getElementById('guess-display');
 const submitBtn = document.getElementById('submit-btn');
@@ -56,6 +57,36 @@ let transientGuessPlaceholder = '';
 let transientGuessDisplay = '';
 let lastStrikeSignature = '';
 let lastRenderedStrikes = {};
+
+function formatClock(ms) {
+  const totalSeconds = Math.max(0, Math.ceil(Math.max(0, Number(ms) || 0) / 1000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${String(seconds).padStart(2, '0')}`;
+}
+
+function getDisplayedPlayerClock(player) {
+  if (!player) return 0;
+  const stored = Math.max(0, Number(player.timeRemainingMs) || 0);
+  if (!currentState || currentState.status !== 'active' || currentState.activePlayerId !== player.playerId) {
+    return stored;
+  }
+  const startedAt = Number(currentState.turnStartedAtClient) || Date.now();
+  return Math.max(0, stored - Math.max(0, Date.now() - startedAt));
+}
+
+function renderPlayerClocks(players) {
+  const left = Array.isArray(players) ? players[0] : null;
+  const right = Array.isArray(players) ? players[1] : null;
+  const leftMs = left ? getDisplayedPlayerClock(left) : (3 * 60 * 1000);
+  const rightMs = right ? getDisplayedPlayerClock(right) : (3 * 60 * 1000);
+  if (playerLeftClockEl) {
+    playerLeftClockEl.textContent = formatClock(leftMs);
+  }
+  if (playerRightClockEl) {
+    playerRightClockEl.textContent = formatClock(rightMs);
+  }
+}
 
 function getLocalProfileName() {
   if (!window.HoopState) return '';
@@ -410,6 +441,7 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
     playerRightNameEl.textContent = 'Player 2';
     playerLeftStrikesEl.textContent = '0';
     playerRightStrikesEl.textContent = '0';
+    renderPlayerClocks(null);
     playerLeftEl.classList.remove('active');
     playerRightEl.classList.remove('active');
     playerLeftEl.classList.remove('winner', 'loser');
@@ -430,6 +462,7 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
   playerRightNameEl.textContent = `${right.username}`;
   playerLeftStrikesEl.textContent = String(left.strikes);
   playerRightStrikesEl.textContent = String(right.strikes);
+  renderPlayerClocks(players);
 
   const leftMetaEl = document.getElementById('player-left-elo');
   const rightMetaEl = document.getElementById('player-right-elo');
@@ -511,17 +544,7 @@ function stopTimer() {
 function startTimer() {
   stopTimer();
   const updateTimer = () => {
-    if (!currentState || currentState.status !== 'active') {
-      timerEl.textContent = '0';
-      return;
-    }
-
-    const ms = Math.max(0, currentState.turnDeadline - Date.now());
-    if (ms <= 0) {
-      timerEl.textContent = 'Game Over';
-      return;
-    }
-    timerEl.textContent = String(Math.max(1, Math.ceil(ms / 1000)));
+    renderPlayerClocks(currentState && Array.isArray(currentState.players) ? currentState.players : null);
   };
 
   updateTimer();
@@ -540,7 +563,7 @@ function renderGameState(state) {
   }
   currentState = {
     ...state,
-    turnDeadline: Date.now() + state.timeRemainingMs
+    turnStartedAtClient: Date.now()
   };
   gameFinished = false;
   isRequeueing = false;
@@ -554,8 +577,8 @@ function renderGameState(state) {
 
   if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 
-  if (currentLabelEl) currentLabelEl.textContent = '';
-  if (currentLabelEl) currentLabelEl.style.display = 'none';
+  if (currentLabelEl) currentLabelEl.textContent = 'Current Player:';
+  if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = state.currentPlayer;
 
   setGuessEditable(canGuess);
@@ -846,9 +869,8 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   closeLeaveGameOverlay();
   closeMatchmakingOverlay();
   const endDisplay = getEndDisplay(reason, winnerPlayerId, loserPlayerId);
-  timerEl.textContent = endDisplay.title;
-  if (currentLabelEl) currentLabelEl.textContent = '';
-  if (currentLabelEl) currentLabelEl.style.display = 'none';
+  if (currentLabelEl) currentLabelEl.textContent = endDisplay.title;
+  if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = endDisplay.detail;
   if (leaveGameBtn) leaveGameBtn.textContent = 'New Game';
   finalWinnerPlayerId = winnerPlayerId;
@@ -860,6 +882,10 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   let finalInputText = '';
 
   if (gameState) {
+    currentState = {
+      ...gameState,
+      turnStartedAtClient: Date.now()
+    };
     if (Array.isArray(gameState.players)) {
       renderScoreboard(gameState.players, gameState.activePlayerId, {
         winnerPlayerId,
