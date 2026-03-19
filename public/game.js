@@ -89,6 +89,10 @@ function renderPlayerClocks(players) {
   }
 }
 
+function formatRatingMeta(value) {
+  return `<span class="duel-player-meta-label">Rating:</span> ${value}`;
+}
+
 function getLocalProfileName() {
   if (!window.HoopState) return '';
   const profile = window.HoopState.getProfile();
@@ -504,20 +508,24 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
 
   if (leftMetaEl) {
     if (leftSignedIn && Number.isFinite(leftInitialElo)) {
-      leftMetaEl.textContent = (outcome && bothRanked)
-        ? `Rating: ${Math.round(leftAfter)} ${formatEloChange(leftDelta)}`
-        : `Rating: ${Math.round(leftInitialElo)}`;
+      leftMetaEl.innerHTML = formatRatingMeta(
+        (outcome && bothRanked)
+          ? `${Math.round(leftAfter)} ${formatEloChange(leftDelta)}`
+          : `${Math.round(leftInitialElo)}`
+      );
     } else {
-      leftMetaEl.textContent = 'Rating: -';
+      leftMetaEl.innerHTML = formatRatingMeta('-');
     }
   }
   if (rightMetaEl) {
     if (rightSignedIn && Number.isFinite(rightInitialElo)) {
-      rightMetaEl.textContent = (outcome && bothRanked)
-        ? `Rating: ${Math.round(rightAfter)} ${formatEloChange(rightDelta)}`
-        : `Rating: ${Math.round(rightInitialElo)}`;
+      rightMetaEl.innerHTML = formatRatingMeta(
+        (outcome && bothRanked)
+          ? `${Math.round(rightAfter)} ${formatEloChange(rightDelta)}`
+          : `${Math.round(rightInitialElo)}`
+      );
     } else {
-      rightMetaEl.textContent = 'Rating: -';
+      rightMetaEl.innerHTML = formatRatingMeta('-');
     }
   }
 
@@ -579,7 +587,7 @@ function renderGameState(state) {
   if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 
   if (duelCurrentEl) duelCurrentEl.classList.remove('is-end');
-  if (currentLabelEl) currentLabelEl.textContent = 'Current Player:';
+  if (currentLabelEl) currentLabelEl.textContent = 'Current Player';
   if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = state.currentPlayer;
 
