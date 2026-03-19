@@ -825,11 +825,16 @@ body[data-page='createaccount'] .auth-actions .btn {
 
 .duel-player-clock {
   text-align: right;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--text);
   white-space: nowrap;
-  width: 100%;
+  width: fit-content;
+  min-width: 88px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .duel-player-meta {
@@ -859,14 +864,14 @@ body[data-page='createaccount'] .auth-actions .btn {
 
 .duel-current-label {
   color: var(--muted);
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 400;
   white-space: nowrap;
 }
 
 .duel-current-player {
   color: var(--text);
-  font-size: 30px;
+  font-size: 22px;
   font-weight: 700;
   white-space: nowrap;
 }
@@ -938,10 +943,12 @@ body[data-page='play'] #player-right .duel-player-clock {
 
 body[data-page='play'] #player-left .duel-player-clock {
   text-align: right;
+  justify-self: end;
 }
 
 body[data-page='play'] #player-right .duel-player-clock {
   text-align: left;
+  justify-self: start;
 }
 
 .message {
@@ -1990,14 +1997,23 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
     display: flex;
     flex-direction: column;
     row-gap: 6px;
+    align-items: center;
+    text-align: center;
   }
 
-  body[data-page='play'] #player-left .duel-player-clock {
-    text-align: left;
+  body[data-page='play'] #player-left .duel-player-name,
+  body[data-page='play'] #player-right .duel-player-name,
+  body[data-page='play'] #player-left .duel-player-fouls,
+  body[data-page='play'] #player-right .duel-player-fouls,
+  body[data-page='play'] #player-left .duel-player-elo,
+  body[data-page='play'] #player-right .duel-player-elo {
+    text-align: center;
   }
 
+  body[data-page='play'] #player-left .duel-player-clock,
   body[data-page='play'] #player-right .duel-player-clock {
-    text-align: right;
+    text-align: center;
+    justify-self: center;
   }
 }
 
