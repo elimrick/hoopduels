@@ -243,10 +243,12 @@ body[data-page='play'].home-guest-layout #home-history-card {
 .practice-stat {
   margin: 0;
   align-self: center;
+  margin-top: 4px;
+  margin-bottom: 0;
 }
 
 .practice-card .btn {
-  margin-top: 0;
+  margin-top: 16px;
 }
 
 .card {
@@ -1916,8 +1918,6 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
   .practice-stat {
     align-self: center;
-    margin-top: 4px;
-    margin-bottom: 0;
   }
 
   .practice-card .btn {
@@ -2025,6 +2025,11 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   .btn {
     width: 100%;
     font-size: 20px;
+  }
+
+  body[data-page='signin'] .auth-actions .btn,
+  body[data-page='createaccount'] .auth-actions .btn {
+    width: 100%;
   }
 
   body[data-page='play'] .duel-header .btn {
