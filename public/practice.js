@@ -301,6 +301,12 @@ async function startPractice() {
   yourFoulsEl.textContent = '0';
   currentEl.textContent = state.currentPlayer;
   setMessage('');
+  playerLeftEl.classList.remove('winner', 'loser', 'foul-flash');
+  playerRightEl.classList.remove('winner', 'loser', 'foul-flash');
+  if (playerLeftEl._foulFlashTimer) {
+    clearTimeout(playerLeftEl._foulFlashTimer);
+    playerLeftEl._foulFlashTimer = null;
+  }
   if (leaveBtn) {
     leaveBtn.textContent = 'Leave Game';
   }
