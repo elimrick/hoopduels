@@ -228,9 +228,8 @@ body[data-page='play'].home-guest-layout #home-history-card {
 }
 
 .practice-card {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  align-items: stretch;
+  display: flex;
+  flex-direction: column;
   gap: 0;
 }
 
@@ -242,15 +241,15 @@ body[data-page='play'].home-guest-layout #home-history-card {
 
 .practice-stat {
   margin: 0;
-  align-self: stretch;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .practice-card .btn {
   margin-top: 0;
-  align-self: end;
 }
 
 .card {
@@ -619,13 +618,13 @@ body[data-page='createaccount'] .page-panel {
 
 body[data-page='signin'] .auth-page-panel,
 body[data-page='createaccount'] .auth-page-panel {
-  padding-bottom: 12px;
+  padding-bottom: 16px;
 }
 
 .auth-form-stack {
   display: grid;
   align-content: start;
-  gap: 2px;
+  gap: 4px;
 }
 
 .auth-field-input {
@@ -634,13 +633,7 @@ body[data-page='createaccount'] .auth-page-panel {
 
 .auth-message {
   margin-top: 6px;
-}
-
-body[data-page='signin'] .auth-message:empty,
-body[data-page='createaccount'] .auth-message:empty,
-body[data-page='signin'] .field-error:empty,
-body[data-page='createaccount'] .field-error:empty {
-  display: none;
+  min-height: 24px;
 }
 
 body[data-page='play'].home-guest-layout #home-duel-card .stats {
@@ -923,6 +916,11 @@ body[data-page='practice'] .duel-player {
 body[data-page='practice'] #practice-player-right {
   text-align: right;
   align-items: flex-end;
+}
+
+body[data-page='practice'] #practice-player-right .duel-player-name,
+body[data-page='practice'] #practice-player-right .duel-player-meta {
+  text-align: right;
 }
 
 body[data-page='practice'] .duel-timer {
@@ -1915,7 +1913,8 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   }
 
   .practice-stat {
-    margin-top: 4px;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   .practice-card .btn {

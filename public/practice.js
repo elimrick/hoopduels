@@ -203,10 +203,10 @@ function endPractice(reason, detailMessage = '') {
   state.phase = 'ended';
   stopTimer();
   timerEl.textContent = 'Game Over';
-  currentEl.textContent = reason || 'Finished';
-  setInputValue('');
   const chainLength = Math.max(0, state.usedPlayers.length - 1);
-  setMessage(`<strong>Chain:</strong> ${chainLength}`, '', true);
+  currentEl.innerHTML = `<strong>Chain:</strong> ${chainLength}`;
+  setInputValue('');
+  setMessage(detailMessage, detailMessage ? 'error' : '');
   if (guessRowEl) {
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');
