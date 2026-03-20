@@ -839,8 +839,10 @@ body[data-page='createaccount'] .auth-actions .btn {
   max-width: 100%;
 }
 
-body[data-page='play'] .duel-player-name {
-  font-size: 26px;
+@media (min-width: 701px) {
+  body[data-page='play'] .duel-player-name {
+    font-size: 26px;
+  }
 }
 
 .duel-player-clock {
