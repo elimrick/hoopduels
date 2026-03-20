@@ -1697,6 +1697,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   }
 
   .rules-example {
+    padding: 0;
     width: 100%;
     max-width: none;
     margin-left: 0;
