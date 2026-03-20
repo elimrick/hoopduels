@@ -228,8 +228,9 @@ body[data-page='play'].home-guest-layout #home-history-card {
 }
 
 .practice-card {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: stretch;
   gap: 0;
 }
 
@@ -241,11 +242,7 @@ body[data-page='play'].home-guest-layout #home-history-card {
 
 .practice-stat {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: auto;
-  margin-bottom: auto;
+  align-self: center;
 }
 
 .practice-card .btn {
@@ -618,7 +615,7 @@ body[data-page='createaccount'] .page-panel {
 
 body[data-page='signin'] .auth-page-panel,
 body[data-page='createaccount'] .auth-page-panel {
-  padding-bottom: 16px;
+  padding-bottom: 18px;
 }
 
 .auth-form-stack {
@@ -633,7 +630,12 @@ body[data-page='createaccount'] .auth-page-panel {
 
 .auth-message {
   margin-top: 6px;
-  min-height: 24px;
+  min-height: 0;
+}
+
+body[data-page='signin'] .auth-message:empty,
+body[data-page='createaccount'] .auth-message:empty {
+  display: none;
 }
 
 body[data-page='play'].home-guest-layout #home-duel-card .stats {
@@ -1913,8 +1915,9 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   }
 
   .practice-stat {
-    margin-top: auto;
-    margin-bottom: auto;
+    align-self: center;
+    margin-top: 4px;
+    margin-bottom: 0;
   }
 
   .practice-card .btn {
