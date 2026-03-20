@@ -228,8 +228,8 @@ body[data-page='play'].home-guest-layout #home-history-card {
 }
 
 .practice-card {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
   align-items: stretch;
   gap: 0;
 }
@@ -243,6 +243,7 @@ body[data-page='play'].home-guest-layout #home-history-card {
 .practice-stat {
   margin: 0;
   align-self: center;
+  margin-block: auto;
 }
 
 .practice-card .btn {
