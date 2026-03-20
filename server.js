@@ -429,6 +429,7 @@ function applyProfileGameResult(profile, result) {
 
   if (won) {
     profile.streak = Number(profile.streak) >= 0 ? Number(profile.streak) + 1 : 1;
+    profile.longestStreak = Math.max(Number(profile.longestStreak) || 0, Number(profile.streak) || 0);
     profile.wins = (Number(profile.wins) || 0) + 1;
   } else {
     profile.streak = Number(profile.streak) <= 0 ? Number(profile.streak) - 1 : -1;
@@ -463,6 +464,8 @@ function applyProfileGameResult(profile, result) {
     reason: result && result.reason ? String(result.reason) : 'finished',
     opponent: result && result.opponent ? String(result.opponent) : 'Opponent',
     opponentRank: opponentElo,
+    opponentWins: result && result.opponentWins != null ? Number(result.opponentWins) || 0 : null,
+    opponentLosses: result && result.opponentLosses != null ? Number(result.opponentLosses) || 0 : null,
     chainLength,
     myStrikes: Number(result && result.myStrikes) || 0,
     oppStrikes: Number(result && result.oppStrikes) || 0,
@@ -502,6 +505,12 @@ async function persistSignedInGameResults(game, winnerPlayerId, loserPlayerId, r
         reason,
         opponent: game.playerNames[opponentPlayerId] || 'Opponent',
         opponentElo: oppElo && Number.isFinite(Number(oppElo.before)) ? Number(oppElo.before) : null,
+        opponentWins: game.playerRecords && game.playerRecords[opponentPlayerId]
+          ? Number(game.playerRecords[opponentPlayerId].wins) || 0
+          : null,
+        opponentLosses: game.playerRecords && game.playerRecords[opponentPlayerId]
+          ? Number(game.playerRecords[opponentPlayerId].losses) || 0
+          : null,
         chainLength,
         myStrikes: Number(game.strikes[playerId]) || 0,
         oppStrikes: Number(game.strikes[opponentPlayerId]) || 0,
@@ -511,7 +520,12 @@ async function persistSignedInGameResults(game, winnerPlayerId, loserPlayerId, r
         eloDelta: myElo && Number.isFinite(Number(myElo.delta)) ? Number(myElo.delta) : null
       });
 
-      await accountStore.saveProfileByToken(token, profile);
+      const savedProfile = await accountStore.saveProfileByToken(token, profile);
+      if (savedProfile && socket && socket.data) {
+        socket.data.elo = Number(savedProfile.elo) || socket.data.elo;
+        socket.data.wins = Number(savedProfile.wins) || 0;
+        socket.data.losses = Number(savedProfile.losses) || 0;
+      }
       socket.emit('profile:refresh');
     } catch (_) {
     }
@@ -657,6 +671,16 @@ function createGame(playerAId, playerBId) {
       [playerAId]: socketA.data.signedIn ? (Number(socketA.data.elo) || 1200) : null,
       [playerBId]: socketB.data.signedIn ? (Number(socketB.data.elo) || 1200) : null
     },
+    playerRecords: {
+      [playerAId]: socketA.data.signedIn ? {
+        wins: Number(socketA.data.wins) || 0,
+        losses: Number(socketA.data.losses) || 0
+      } : null,
+      [playerBId]: socketB.data.signedIn ? {
+        wins: Number(socketB.data.wins) || 0,
+        losses: Number(socketB.data.losses) || 0
+      } : null
+    },
     currentPlayerKey: startingKey,
     usedPlayerKeys: new Set([startingKey]),
     strikes: {
@@ -736,6 +760,8 @@ io.on('connection', async (socket) => {
   socket.data.username = makeDefaultName(playerId);
   socket.data.signedIn = false;
   socket.data.elo = null;
+  socket.data.wins = 0;
+  socket.data.losses = 0;
   socket.data.token = null;
   socket.data.gameId = null;
 
@@ -744,6 +770,8 @@ io.on('connection', async (socket) => {
     socket.data.signedIn = true;
     socket.data.username = signedProfile.username;
     socket.data.elo = Number(signedProfile.elo) || 1200;
+    socket.data.wins = Number(signedProfile.wins) || 0;
+    socket.data.losses = Number(signedProfile.losses) || 0;
     socket.data.token = token;
   } else if (token) {
     socket.emit('auth:invalid');

@@ -214,7 +214,7 @@
       setText('stat-streak', formatStreak(activeProfile.streak));
       setText('stat-peak', formatElo(activeProfile.peakElo));
       setText('stat-best-win', formatBestWin(activeProfile.bestWin));
-      setText('stat-longest-chain', activeProfile.longestChain);
+      setText('stat-longest-chain', Number(activeProfile.longestStreak) || 0);
     }
 
     const historyPreview = document.getElementById('history-preview');
@@ -238,7 +238,7 @@
 
           const thead = document.createElement('thead');
           const headRow = document.createElement('tr');
-          ['Result', 'Opponent', 'Rating', 'Chain'].forEach((label) => {
+          ['Result', 'Opponent', 'Rating', 'Record'].forEach((label) => {
             const th = document.createElement('th');
             th.textContent = label;
             headRow.appendChild(th);
@@ -261,13 +261,15 @@
             const elo = document.createElement('td');
             elo.textContent = g.opponentRank == null ? '-' : String(Math.round(g.opponentRank));
 
-            const chain = document.createElement('td');
-            chain.textContent = String(g.chainLength || 0);
+            const record = document.createElement('td');
+            record.textContent = g.opponentWins != null && g.opponentLosses != null
+              ? `${g.opponentWins}-${g.opponentLosses}`
+              : '-';
 
             tr.appendChild(wl);
             tr.appendChild(opp);
             tr.appendChild(elo);
-            tr.appendChild(chain);
+            tr.appendChild(record);
             tbody.appendChild(tr);
           });
           table.appendChild(tbody);
@@ -577,7 +579,7 @@
 
     const thead = document.createElement('thead');
     const headRow = document.createElement('tr');
-    ['Result', 'Opponent', 'Rating', 'Chain'].forEach((label) => {
+    ['Result', 'Opponent', 'Rating', 'Record'].forEach((label) => {
       const th = document.createElement('th');
       th.textContent = label;
       headRow.appendChild(th);
@@ -600,13 +602,15 @@
       const elo = document.createElement('td');
       elo.textContent = g.opponentRank == null ? '-' : String(Math.round(g.opponentRank));
 
-      const chain = document.createElement('td');
-      chain.textContent = String(g.chainLength || 0);
+      const record = document.createElement('td');
+      record.textContent = g.opponentWins != null && g.opponentLosses != null
+        ? `${g.opponentWins}-${g.opponentLosses}`
+        : '-';
 
       tr.appendChild(wl);
       tr.appendChild(opp);
       tr.appendChild(elo);
-      tr.appendChild(chain);
+      tr.appendChild(record);
       tbody.appendChild(tr);
     });
 
@@ -633,7 +637,7 @@
       setText('profile-wl', `${activeProfile.wins}-${activeProfile.losses}`);
       setText('profile-streak', formatStreak(activeProfile.streak));
       setText('profile-best-win', formatBestWin(activeProfile.bestWin));
-      setText('profile-longest-chain', activeProfile.longestChain);
+      setText('profile-longest-chain', Number(activeProfile.longestStreak) || 0);
     }
     renderProfileChart(activeProfile);
   }

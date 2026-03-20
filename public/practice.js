@@ -70,9 +70,13 @@ function getDisplayName() {
   return name || 'Guest';
 }
 
-function setMessage(text, kind = '') {
+function setMessage(text, kind = '', allowHtml = false) {
   messageEl.className = kind ? `message ${kind}` : 'message';
-  messageEl.textContent = text || '';
+  if (allowHtml) {
+    messageEl.innerHTML = text || '';
+  } else {
+    messageEl.textContent = text || '';
+  }
 }
 
 function clearInputError() {
@@ -201,7 +205,8 @@ function endPractice(reason, detailMessage = '') {
   timerEl.textContent = 'Game Over';
   currentEl.textContent = reason || 'Finished';
   setInputValue('');
-  setMessage(detailMessage, detailMessage ? 'error' : '');
+  const chainLength = Math.max(0, state.usedPlayers.length - 1);
+  setMessage(`<strong>Chain:</strong> ${chainLength}`, '', true);
   if (guessRowEl) {
     guessRowEl.classList.remove('turn-active');
     guessRowEl.classList.add('turn-inactive');

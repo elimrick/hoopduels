@@ -27,6 +27,7 @@
       wins: 0,
       losses: 0,
       streak: 0,
+      longestStreak: 0,
       elo: 1200,
       bestWin: null,
       peakElo: 1200,
@@ -289,6 +290,7 @@
   function applyStreak(profile, won) {
     if (won) {
       profile.streak = profile.streak >= 0 ? profile.streak + 1 : 1;
+      profile.longestStreak = Math.max(Number(profile.longestStreak) || 0, Number(profile.streak) || 0);
       profile.wins += 1;
     } else {
       profile.streak = profile.streak <= 0 ? profile.streak - 1 : -1;
@@ -384,6 +386,8 @@
       reason: result && result.reason ? String(result.reason) : 'finished',
       opponent,
       opponentRank: opponentElo,
+      opponentWins: result && result.opponentWins != null ? Number(result.opponentWins) || 0 : null,
+      opponentLosses: result && result.opponentLosses != null ? Number(result.opponentLosses) || 0 : null,
       chainLength,
       myStrikes: Number(result && result.myStrikes) || 0,
       oppStrikes: Number(result && result.oppStrikes) || 0,
