@@ -1578,9 +1578,11 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
 @media (max-width: 1100px) {
   body {
+    min-height: 100dvh;
+    padding-top: var(--mobile-topbar-total);
     overflow-y: auto;
     overflow-x: hidden;
-    overscroll-behavior-y: auto;
+    overscroll-behavior-y: none;
   }
 
   .mobile-topbar {
@@ -1690,7 +1692,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
   }
 
   .main {
-    padding: 28px 16px  calc(110px + env(safe-area-inset-bottom));
+    padding: 28px 16px calc(28px + env(safe-area-inset-bottom));
     min-height: 0;
     height: auto;
     overflow-y: visible;
@@ -1785,7 +1787,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
 
   body[data-page='signin'] .main,
   body[data-page='createaccount'] .main {
-    min-height: calc(var(--app-vh, 100dvh) - var(--mobile-topbar-offset));
+    min-height: calc(100dvh - var(--mobile-topbar-total));
   }
 
   .auth-page-panel {
@@ -1826,7 +1828,7 @@ body[data-page='play'] .home-leaderboard-table td:nth-child(4) {
     grid-template-columns: 1fr;
     min-height: 0;
     height: auto;
-    margin-top: var(--mobile-topbar-total);
+    margin-top: 0;
   }
 
   body[data-page='play'] .main,
