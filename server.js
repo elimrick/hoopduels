@@ -31,10 +31,7 @@ const PAGE_ROUTES = {
   '/practice': 'practice.html',
   '/game': 'game.html',
   '/friends': 'friends.html',
-  '/settings': 'settings.html',
-  '/privacy': 'privacy.html',
-  '/terms': 'terms.html',
-  '/contact': 'contact.html'
+  '/settings': 'settings.html'
 };
 
 app.use(express.json({ limit: '1mb' }));
