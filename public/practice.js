@@ -162,25 +162,6 @@ function setTurnUi() {
   const cpuTurn = state.active && state.phase === 'cpu';
   playerLeftEl.classList.toggle('active', playerTurn);
   playerRightEl.classList.toggle('active', cpuTurn);
-  if (playerTurn) {
-    playerLeftEl.style.borderColor = '#3a7bff';
-    playerLeftEl.style.background = 'rgba(58, 123, 255, 0.14)';
-    playerLeftEl.style.boxShadow = 'inset 0 0 0 1px rgba(58, 123, 255, 0.5)';
-  } else {
-    playerLeftEl.style.borderColor = '';
-    playerLeftEl.style.background = '';
-    playerLeftEl.style.boxShadow = '';
-  }
-  if (cpuTurn) {
-    playerRightEl.style.borderColor = '#3a7bff';
-    playerRightEl.style.background = 'rgba(58, 123, 255, 0.14)';
-    playerRightEl.style.boxShadow = 'inset 0 0 0 1px rgba(58, 123, 255, 0.5)';
-  } else {
-    playerRightEl.style.borderColor = '';
-    playerRightEl.style.background = '';
-    playerRightEl.style.boxShadow = '';
-  }
-
   setInputEditable(state.active && playerTurn && !state.pending);
   inputEl.tabIndex = state.active && playerTurn && !state.pending ? 0 : -1;
   if (submitEl) submitEl.disabled = !playerTurn || state.pending;
@@ -206,7 +187,7 @@ function endPractice(reason, detailMessage = '') {
   timerEl.parentElement.classList.add('is-end');
   document.querySelector('.duel-current-label').textContent = 'FINAL CHAIN';
   const chainLength = Math.max(0, state.usedPlayers.length - 1);
-  currentEl.innerHTML = `<strong>Chain:</strong> ${chainLength}`;
+  currentEl.textContent = String(chainLength);
   setInputValue('');
   setMessage(detailMessage, detailMessage ? 'error' : '');
   if (guessRowEl) {
@@ -228,13 +209,13 @@ function endPractice(reason, detailMessage = '') {
 
 function applyFoul(reason) {
   state.yourFouls += 1;
-  yourFoulsEl.textContent = String(state.yourFouls);
+  window.HoopFeedback.setFouls(yourFoulsEl, state.yourFouls);
   flashPracticeFoul();
   if (state.yourFouls >= 3) {
-    endPractice('You Fouled Out', '');
+    endPractice('You Fouled Out', reason);
     return;
   }
-  clearInputError();
+  showInputError(reason);
   state.phase = 'player';
   setTurnUi();
   inputEl.focus();
@@ -302,7 +283,7 @@ async function startPractice() {
   state.phase = 'player';
   state.yourFouls = 0;
   refreshPlayerName();
-  yourFoulsEl.textContent = '0';
+  window.HoopFeedback.setFouls(yourFoulsEl, 0);
   currentEl.textContent = state.currentPlayer;
   setMessage('');
   playerLeftEl.classList.remove('winner', 'loser', 'foul-flash');

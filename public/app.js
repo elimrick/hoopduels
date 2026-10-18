@@ -9,7 +9,7 @@
 
   function applyActiveNav() {
     if (!page) return;
-    const navPage = page;
+    const navPage = page === 'practice' ? 'play' : page;
     document.querySelectorAll('[data-nav]').forEach((el) => {
       el.classList.remove('active');
     });
@@ -492,65 +492,10 @@
   }
 
   function renderLeaderboard() {
-    if (!window.HoopState) return;
     const container = document.getElementById('leaderboard-list');
-    if (!container) return;
-
-    const rows = window.HoopState.getLeaderboardRows();
-    container.innerHTML = '';
-    if (!rows.length) {
-      const empty = document.createElement('p');
-      empty.className = 'list-empty';
-      empty.textContent = 'No players yet.';
-      container.appendChild(empty);
-      return;
+    if (container && window.HoopState && window.HoopLeaderboard) {
+      window.HoopLeaderboard.mount(container, window.HoopState.getLeaderboardRows());
     }
-
-    const wrap = document.createElement('div');
-    wrap.className = 'page-table-wrap';
-    const table = document.createElement('table');
-    table.className = 'leaderboard-table';
-
-    const thead = document.createElement('thead');
-    const headRow = document.createElement('tr');
-    ['Rank', 'Name', 'Rating', 'Record'].forEach((label) => {
-      const th = document.createElement('th');
-      th.textContent = label;
-      headRow.appendChild(th);
-    });
-    thead.appendChild(headRow);
-    table.appendChild(thead);
-
-    const tbody = document.createElement('tbody');
-    rows.forEach((row) => {
-      const tr = document.createElement('tr');
-      if (row.isYou) {
-        tr.classList.add('leaderboard-row-you');
-      }
-
-      const rankCell = document.createElement('td');
-      rankCell.textContent = String(row.rank);
-
-      const nameCell = document.createElement('td');
-      nameCell.textContent = row.username;
-      nameCell.className = `leaderboard-name ${row.isYou ? 'leaderboard-name-you' : ''}`.trim();
-
-      const eloCell = document.createElement('td');
-      eloCell.textContent = formatElo(row.elo);
-
-      const recordCell = document.createElement('td');
-      recordCell.textContent = `${row.wins}-${row.losses}`;
-
-      tr.appendChild(rankCell);
-      tr.appendChild(nameCell);
-      tr.appendChild(eloCell);
-      tr.appendChild(recordCell);
-      tbody.appendChild(tr);
-    });
-
-    table.appendChild(tbody);
-    wrap.appendChild(table);
-    container.appendChild(wrap);
   }
 
   function renderHistory() {

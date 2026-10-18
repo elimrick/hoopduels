@@ -57,7 +57,7 @@ html.auth-signed-in #auth-nav-link,html.auth-signed-in #auth-nav-create,html.aut
 .duel-header {display:flex;align-items:center;justify-content:space-between;gap:16px}
 #home-duel-card h2 {font-size:32px;line-height:1.12;margin-bottom:14px;letter-spacing:-1px}
 .duel-header-copy p,.practice-card>p {font-size:14px;line-height:1.65;color:var(--muted);margin-bottom:22px}
-.example-chain {display:flex;align-items:center;gap:22px;padding:15px 18px;border:1px solid var(--line);border-radius:5px;margin:0 0 22px;background:var(--bg)}
+.example-chain {display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);text-align:center;align-items:center;gap:22px;padding:15px 18px;border:1px solid var(--line);border-radius:5px;margin:0 0 22px;background:var(--bg)}
 .example-chain span {font-size:14px;font-weight:650;flex:1;min-width:0}
 .example-chain small {display:block;font-size:8px;font-weight:650;letter-spacing:1px;color:var(--muted);margin-bottom:5px}
 .example-chain>b {color:var(--accent-blue);font-weight:400;font-size:20px}
@@ -109,7 +109,7 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .home-table-wrap th {font-size:9px}
 .home-table-wrap .history-table th:first-child {width:16%}
 .home-table-wrap .history-table th:nth-child(2) {width:40%}
-.arena-main {max-width:900px}
+.arena-main {max-width:1060px}
 .arena-main>.eyebrow {text-align:center}
 .duel-page-header {display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:16px}
 .duel-page-header .page-title {margin:0;font-size:30px}
@@ -257,3 +257,26 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 @media(prefers-reduced-motion:reduce) {* {animation:none!important;transition:none!important}}
 
 .duel-timer.is-end::after {content:none}
+
+/* Review refinements */
+#auth-nav-create {transition:background .15s,border-color .15s,color .15s}
+#auth-nav-create:hover,#auth-nav-create:focus-visible {background:#eef3fd;border-color:var(--accent-blue);color:var(--accent-blue)}
+.sr-only {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.foul-meter {display:flex;align-items:center;gap:8px;margin-top:8px}
+#player-right .foul-meter {justify-content:flex-end}
+.foul-label {font-size:10px;text-transform:uppercase;letter-spacing:.6px}
+.foul-pips {display:inline-flex;gap:5px}
+.foul-pip {display:grid;place-items:center;width:18px;height:18px;border:1px solid #c4cdda;border-radius:50%;color:transparent;font-size:15px;font-weight:700;line-height:1;background:#fff}
+.foul-pip.filled {background:var(--danger);border-color:var(--danger);color:white}
+.duel-player.foul-flash {border-color:#cd3f4a;background:#ffe4e7;box-shadow:0 0 0 3px #b43d4526;animation:foul-alert 1s ease-out}
+.duel-player.foul-flash::before {background:var(--danger)}
+@keyframes foul-alert {0%,35% {background:#ffd0d5;box-shadow:0 0 0 4px #b43d4533}100% {background:#ffe4e7;box-shadow:0 0 0 0 transparent}}
+.leaderboard-toolbar {display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px}
+.leaderboard-toolbar label {display:grid;gap:7px;font-size:12px;font-weight:600;width:min(340px,100%)}
+.leaderboard-toolbar input {font:inherit;font-size:16px;font-weight:400;width:100%;min-height:44px;padding:10px 12px;border:1px solid #c8d1de;border-radius:5px;background:white;color:var(--text)}
+.leaderboard-summary,.leaderboard-empty {font-size:12px;color:var(--muted);margin:0 0 18px}
+.leaderboard-pagination {display:flex;justify-content:center;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:18px;margin-top:18px}
+.leaderboard-pagination button {border:1px solid var(--line);border-radius:4px;background:white;color:var(--accent-blue);padding:8px 12px;min-height:40px;font-size:12px}
+.leaderboard-pagination button:hover:not(:disabled) {background:#eef3fd;border-color:var(--accent-blue)}
+.leaderboard-pagination span {font-size:12px;color:var(--muted);padding:0 8px;font-variant-numeric:tabular-nums}
+@media(max-width:600px){.leaderboard-toolbar {align-items:stretch;flex-direction:column;gap:10px}.leaderboard-toolbar label {width:100%}.my-rank {align-self:flex-start;font-size:12px;padding:8px 12px;min-height:36px}.leaderboard-pagination {gap:4px;flex-wrap:wrap}.leaderboard-pagination button {padding:8px 9px}.leaderboard-pagination span {font-size:11px;padding:0 4px}}

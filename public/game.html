@@ -28,7 +28,6 @@
         <div class="brand"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><path d="M3 16h26M16 3v26M7 6c11 5 11 15 0 20M25 6c-11 5-11 15 0 20"/></svg><span>HoopDuels</span></div>
         <nav class="nav">
           <a class="nav-link" data-nav="play" href="/">Play</a>
-          <a class="nav-link" data-nav="practice" href="/practice">Practice</a>
           <a class="nav-link" data-nav="leaderboard" href="/leaderboard">Leaderboard</a>
           <a class="nav-link" data-nav="history" href="/game-history">Game History</a>
           <a class="nav-link" data-nav="rules" href="/how-to-play">How to Play</a>
@@ -49,7 +48,7 @@
             <div class="duel-player" id="player-left">
               <div class="duel-player-name" id="player-left-name">Player 1</div>
               <div class="duel-player-meta duel-player-elo" id="player-left-elo"></div>
-              <div class="duel-player-meta duel-player-fouls"><span class="duel-player-meta-label">Fouls:</span> <span id="player-left-strikes">0</span>/3</div>
+              <div class="duel-player-meta foul-meter" data-fouls="0" role="img" aria-label="0 of 3 fouls"><span class="foul-label" aria-hidden="true">Fouls</span><span id="player-left-strikes" class="sr-only" aria-hidden="true">0</span><span class="foul-pips" aria-hidden="true"><span class="foul-pip">×</span><span class="foul-pip">×</span><span class="foul-pip">×</span></span></div>
               <div class="duel-player-clock" id="player-left-clock">2:00</div>
             </div>
             <div class="duel-center">
@@ -61,7 +60,7 @@
             <div class="duel-player" id="player-right">
               <div class="duel-player-name" id="player-right-name">Player 2</div>
               <div class="duel-player-meta duel-player-elo" id="player-right-elo"></div>
-              <div class="duel-player-meta duel-player-fouls"><span class="duel-player-meta-label">Fouls:</span> <span id="player-right-strikes">0</span>/3</div>
+              <div class="duel-player-meta foul-meter" data-fouls="0" role="img" aria-label="0 of 3 fouls"><span class="foul-label" aria-hidden="true">Fouls</span><span id="player-right-strikes" class="sr-only" aria-hidden="true">0</span><span class="foul-pips" aria-hidden="true"><span class="foul-pip">×</span><span class="foul-pip">×</span><span class="foul-pip">×</span></span></div>
               <div class="duel-player-clock" id="player-right-clock">2:00</div>
             </div>
           </div>
@@ -69,7 +68,7 @@
           <form autocomplete="off" data-form-type="other" onsubmit="return false;">
             <input type="text" tabindex="-1" aria-hidden="true" autocomplete="username" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;opacity:0;pointer-events:none;" />
             <input type="password" tabindex="-1" aria-hidden="true" autocomplete="current-password" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;opacity:0;pointer-events:none;" />
-            <label class="search-label" for="guess-input">Name a teammate</label><div class="turn-row" id="guess-row">
+            <label class="search-label" for="guess-input">Search NBA players</label><div class="turn-row" id="guess-row">
               <textarea id="guess-input" aria-label="Search NBA players" class="guess-input" rows="1" placeholder="Name a teammate..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" enterkeyhint="done" aria-autocomplete="list" data-form-type="other" data-lpignore="true" data-1p-ignore="true"></textarea>
               <div id="guess-display" class="guess-display" hidden aria-hidden="true"></div>
             </div>
@@ -105,6 +104,7 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
+    <script src="game-feedback.js"></script>
     <script src="state.js?v=20260318h"></script>
     <script src="app.js?v=20260318h"></script>
     <script src="player-autocomplete.js?v=20260312a"></script>

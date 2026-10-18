@@ -428,31 +428,17 @@ function renderHistory(chainPlayers, historyEntries, players) {
 }
 
 function renderScoreboard(players, activePlayerId, outcome = null) {
-  const applyActiveStyles = (el, isActive) => {
-    if (!el) return;
-    if (isActive) {
-      el.style.borderColor = '#3a7bff';
-      el.style.background = 'rgba(58, 123, 255, 0.14)';
-      el.style.boxShadow = 'inset 0 0 0 1px rgba(58, 123, 255, 0.5)';
-    } else {
-      el.style.borderColor = '';
-      el.style.background = '';
-      el.style.boxShadow = '';
-    }
-  };
 
   if (!players || !players.length) {
     playerLeftNameEl.textContent = 'Player 1';
     playerRightNameEl.textContent = 'Player 2';
-    playerLeftStrikesEl.textContent = '0';
-    playerRightStrikesEl.textContent = '0';
+    window.HoopFeedback.setFouls(playerLeftStrikesEl, 0);
+    window.HoopFeedback.setFouls(playerRightStrikesEl, 0);
     renderPlayerClocks(null);
     playerLeftEl.classList.remove('active');
     playerRightEl.classList.remove('active');
     playerLeftEl.classList.remove('winner', 'loser');
     playerRightEl.classList.remove('winner', 'loser');
-    applyActiveStyles(playerLeftEl, false);
-    applyActiveStyles(playerRightEl, false);
     const leftMetaEl = document.getElementById('player-left-elo');
     const rightMetaEl = document.getElementById('player-right-elo');
     if (leftMetaEl) leftMetaEl.textContent = '';
@@ -465,8 +451,8 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
 
   playerLeftNameEl.textContent = `${left.username}`;
   playerRightNameEl.textContent = `${right.username}`;
-  playerLeftStrikesEl.textContent = String(left.strikes);
-  playerRightStrikesEl.textContent = String(right.strikes);
+  window.HoopFeedback.setFouls(playerLeftStrikesEl, left.strikes);
+  window.HoopFeedback.setFouls(playerRightStrikesEl, right.strikes);
   renderPlayerClocks(players);
 
   const leftMetaEl = document.getElementById('player-left-elo');
@@ -539,8 +525,6 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
   playerRightEl.classList.toggle('winner', right.playerId === winnerId);
   playerLeftEl.classList.toggle('loser', left.playerId === loserId);
   playerRightEl.classList.toggle('loser', right.playerId === loserId);
-  applyActiveStyles(playerLeftEl, leftActive);
-  applyActiveStyles(playerRightEl, rightActive);
 }
 
 function stopTimer() {
