@@ -1,9 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5273840321914189"
-     crossorigin="anonymous"></script>
-    <meta charset="UTF-8" />
+<meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex,follow"  />
     <link rel="icon" type="image/x-icon" href="/favicon-20260326.ico"  />
@@ -18,17 +16,19 @@
     <title>Friends | HoopDuels</title>
     <script>document.documentElement.classList.add(localStorage.getItem("hoopduels_auth_token_v1") ? "auth-signed-in" : "auth-signed-out");</script>
     <style>#auth-nav-link,#auth-nav-create,#auth-nav-profile{display:none}html.auth-signed-out #auth-nav-link,html.auth-signed-out #auth-nav-create{display:flex}html.auth-signed-in #auth-nav-profile{display:flex}</style>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260216f" />
+
+
+
+    <link rel="stylesheet" href="styles.css?v=redesign-1" />
   </head>
   <body data-page="friends">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <aside class="sidebar">
-        <div class="brand">HoopDuels</div>
+        <div class="brand"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><path d="M3 16h26M16 3v26M7 6c11 5 11 15 0 20M25 6c-11 5-11 15 0 20"/></svg><span>HoopDuels</span></div>
         <nav class="nav">
           <a class="nav-link" data-nav="play" href="/">Play</a>
+          <a class="nav-link" data-nav="practice" href="/practice">Practice</a>
           <a class="nav-link" data-nav="leaderboard" href="/leaderboard">Leaderboard</a>
           <a class="nav-link" data-nav="history" href="/game-history">Game History</a>
           <a class="nav-link" data-nav="rules" href="/how-to-play">How to Play</a>
@@ -38,12 +38,10 @@
         </nav>
       </aside>
 
-      <main class="main">
-        <h1 class="page-title">Friends</h1>
-        <section class="card page-panel">
-          <p>Friends system placeholder for now.</p>
-          <p class="list-empty">Once auth is added, this page can show online status and direct challenges.</p>
-        </section>
+      <main class="main" id="main-content">
+        <header class="page-intro"><p class="eyebrow">YOUR COMMUNITY</p><h1 class="page-title">Friends</h1><p class="page-description">Good games start with good rivals.</p></header>
+        <section class="card page-panel empty-panel"><h2>Find your next rival.</h2><p>Direct friend challenges aren’t available yet. Join a live duel to meet your next opponent.</p><a class="btn" href="/">Play a duel →</a></section>
+      <footer class="site-note"><span>HoopDuels</span> A game for people who know ball.</footer>
       </main>
     </div>
     <script src="state.js?v=20260318h"></script>

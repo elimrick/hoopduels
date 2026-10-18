@@ -43,10 +43,8 @@
     button.className = `player-suggestion${isActive ? ' active' : ''}`;
     button.tabIndex = -1;
     button.textContent = name;
-    button.addEventListener('mousedown', (event) => {
-      event.preventDefault();
-      onSelect(name);
-    });
+    button.addEventListener('mousedown', (event) => event.preventDefault());
+    button.addEventListener('click', () => onSelect(name));
     return button;
   }
 
@@ -77,6 +75,12 @@
       const dropdown = document.createElement('div');
       dropdown.className = 'player-suggestions';
       dropdown.hidden = true;
+      dropdown.id = input.id + '-results';
+      dropdown.setAttribute('role', 'listbox');
+      dropdown.setAttribute('aria-label', 'NBA players');
+      input.setAttribute('role', 'combobox');
+      input.setAttribute('aria-controls', dropdown.id);
+      input.setAttribute('aria-expanded', 'false');
       root.appendChild(dropdown);
 
       let items = [];
@@ -99,6 +103,8 @@
 
       function close() {
         dropdown.hidden = true;
+        input.setAttribute('aria-expanded', 'false');
+        input.removeAttribute('aria-activedescendant');
         dropdown.innerHTML = '';
         activeIndex = -1;
         items = [];
@@ -110,14 +116,27 @@
         activeIndex = -1;
 
         if (!list.length) {
-          close();
+          const empty = document.createElement('div');
+          empty.className = 'search-empty';
+          empty.setAttribute('role', 'status');
+          empty.textContent = 'No matching players. Try a different name.';
+          dropdown.appendChild(empty);
+          dropdown.hidden = false;
+          input.setAttribute('aria-expanded', 'true');
+          input.removeAttribute('aria-activedescendant');
           return;
         }
 
         list.forEach((name, index) => {
-          dropdown.appendChild(createSuggestionItem(name, index === activeIndex, choose));
+          const item = createSuggestionItem(name, index === activeIndex, choose);
+          item.id = dropdown.id + '-' + index;
+          item.setAttribute('role', 'option');
+          item.setAttribute('aria-selected', 'false');
+          dropdown.appendChild(item);
         });
         dropdown.hidden = false;
+        input.setAttribute('aria-expanded', 'true');
+        input.removeAttribute('aria-activedescendant');
       }
 
       function updateActive(nextIndex) {
@@ -126,11 +145,16 @@
         activeIndex = (startIndex + items.length) % items.length;
         [...dropdown.children].forEach((child, index) => {
           child.classList.toggle('active', index === activeIndex);
+          child.setAttribute('aria-selected', index === activeIndex ? 'true' : 'false');
+          if (index === activeIndex) {
+            input.setAttribute('aria-activedescendant', child.id);
+            child.scrollIntoView({ block: 'nearest' });
+          }
         });
       }
 
       function refresh() {
-        if (!hasFocus) {
+        if (!hasFocus || input.readOnly || input.disabled || input.getAttribute('aria-disabled') === 'true') {
           close();
           return;
         }
@@ -162,6 +186,7 @@
         refresh();
       });
       input.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') { close(); return; }
         if (dropdown.hidden || !items.length) return;
 
         if (event.key === 'ArrowDown') {
@@ -172,8 +197,7 @@
           updateActive(activeIndex - 1);
         } else if (event.key === 'Enter') {
           event.preventDefault();
-        } else if (event.key === 'Escape') {
-          close();
+          if (activeIndex >= 0) choose(items[activeIndex]);
         }
       });
 
@@ -183,9 +207,11 @@
       });
 
       dropdown.addEventListener('touchstart', () => {
+        input.removeAttribute('aria-activedescendant');
         activeIndex = -1;
         [...dropdown.children].forEach((child) => {
           child.classList.remove('active');
+          child.setAttribute('aria-selected', 'false');
         });
       }, { passive: true });
 

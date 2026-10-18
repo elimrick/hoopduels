@@ -16,7 +16,8 @@
     "db:seed": "node scripts/seed-players-db.js",
     "season:sync": "node scripts/season-sync-now.js",
     "season:sync:force": "node scripts/season-sync-now.js --force",
-    "data:overnight": "bash scripts/run-data-build-overnight.sh"
+    "preview": "node scripts/preview.js",
+    "preview:check": "node scripts/check-preview.js"
   },
   "dependencies": {
     "cheerio": "^1.1.2",

@@ -1,9 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5273840321914189"
-     crossorigin="anonymous"></script>
-    <meta charset="UTF-8" />
+<meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="An NBA teammate chain game. Duel live with other NBA fans or practice to grow your knowledge of the league." />
     <meta property="og:title" content="HoopDuels | NBA Teammate Chain Game" />
@@ -28,17 +26,19 @@
     <title>HoopDuels | NBA Teammate Chain Game</title>
     <script>document.documentElement.classList.add(localStorage.getItem("hoopduels_auth_token_v1") ? "auth-signed-in" : "auth-signed-out");</script>
     <style>#auth-nav-link,#auth-nav-create,#auth-nav-profile{display:none}html.auth-signed-out #auth-nav-link,html.auth-signed-out #auth-nav-create{display:flex}html.auth-signed-in #auth-nav-profile{display:flex}</style>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260216f" />
+
+
+
+    <link rel="stylesheet" href="styles.css?v=redesign-1" />
   </head>
   <body data-page="play">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <aside class="sidebar">
-        <div class="brand">HoopDuels</div>
+        <div class="brand"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><path d="M3 16h26M16 3v26M7 6c11 5 11 15 0 20M25 6c-11 5-11 15 0 20"/></svg><span>HoopDuels</span></div>
         <nav class="nav">
           <a class="nav-link" data-nav="play" href="/">Play</a>
+          <a class="nav-link" data-nav="practice" href="/practice">Practice</a>
           <a class="nav-link" data-nav="leaderboard" href="/leaderboard">Leaderboard</a>
           <a class="nav-link" data-nav="history" href="/game-history">Game History</a>
           <a class="nav-link" data-nav="rules" href="/how-to-play">How to Play</a>
@@ -48,67 +48,30 @@
         </nav>
       </aside>
 
-      <main class="main">
-        <h1 class="page-title" id="home-title">Welcome!</h1>
-
-        <div class="left-grid">
-          <div class="home-top-row" id="home-top-row">
-          <section class="card duel-card" id="home-duel-card">
-            <div class="duel-header">
-              <div class="duel-header-copy">
-                <h2>Duel <span id="online-count" class="online-count">0 Online</span></h2>
-              </div>
-              <button class="btn" id="find-game-home-btn" type="button">Find Game</button>
-            </div>
-            <div class="stats">
-              <div>
-                <div class="stat-value" id="stat-rating">-</div>
-                <div class="stat-label">Rating</div>
-              </div>
-              <div>
-                <div class="stat-value" id="stat-wl">0-0</div>
-                <div class="stat-label">W-L</div>
-              </div>
-              <div>
-                <div class="stat-value" id="stat-streak">0</div>
-                <div class="stat-label">Current Streak</div>
-              </div>
-              <div>
-                <div class="stat-value" id="stat-peak">-</div>
-                <div class="stat-label">Peak Rating</div>
-              </div>
-              <div>
-                <div class="stat-value" id="stat-best-win">-</div>
-                <div class="stat-label">Best Win</div>
-              </div>
-              <div>
-                <div class="stat-value" id="stat-longest-chain">0</div>
-                <div class="stat-label">Longest Win Streak</div>
-              </div>
-            </div>
-          </section>
-          <section class="card practice-card" id="home-practice-card">
-            <h2>Practice</h2>
-            <div class="practice-stat">
-              <div class="stat-value" id="practice-longest-chain">0</div>
-              <div class="stat-label">Longest Chain</div>
-            </div>
-            <button class="btn" id="enter-practice-btn" type="button">Enter Game</button>
-          </section>
-          </div>
-
-          <div class="two-col" id="home-secondary-grid">
-            <section class="card" id="home-history-card">
-              <h3>Last 10 Games</h3>
-              <div id="history-preview" class="list-empty">No games played yet.</div>
-            </section>
-            <section class="card" id="home-leaderboard-card">
-              <h3>Top 10 Players</h3>
-              <div id="leaderboard-preview" class="list-empty">No players yet.</div>
-            </section>
-          </div>
-        </div>
-      </main>
+      <main class="main home-main" id="main-content">
+ <header class="home-intro"><p class="eyebrow">THE NBA TEAMMATE CHAIN GAME</p><h1 class="page-title" id="home-title">How well do you know ball?</h1><p class="page-description">One player leads to the next. Keep the connection alive.</p></header>
+ <div class="left-grid">
+  <div class="home-top-row" id="home-top-row">
+   <section class="card duel-card" id="home-duel-card">
+    <div class="mode-topline"><span class="eyebrow">HEAD TO HEAD</span><span id="online-count" class="online-count">0 Online</span></div>
+    <div class="duel-header"><div class="duel-header-copy"><h2>Your knowledge.<br>Your next opponent.</h2><p>Take turns naming NBA teammates.<br>Outlast your opponent to win the duel.</p></div></div>
+    <div class="example-chain" aria-label="Example: LeBron James and Dwyane Wade were Miami teammates"><span><small>START WITH</small>LeBron James</span><b aria-hidden="true">→</b><span><small>NAME A TEAMMATE</small>Dwyane Wade</span></div>
+    <button class="btn" id="find-game-home-btn" type="button">Find a duel <span aria-hidden="true">→</span></button><p class="mode-footnote">2-minute clocks · 3 fouls and you're out</p>
+    <div class="stats"><div><div class="stat-value" id="stat-rating">—</div><div class="stat-label">Rating</div></div><div><div class="stat-value" id="stat-wl">—</div><div class="stat-label">Record</div></div><div><div class="stat-value" id="stat-streak">—</div><div class="stat-label">Streak</div></div><div><div class="stat-value" id="stat-peak">—</div><div class="stat-label">Peak rating</div></div><div><div class="stat-value" id="stat-best-win">—</div><div class="stat-label">Best win</div></div><div><div class="stat-value" id="stat-longest-chain">—</div><div class="stat-label">Best streak</div></div></div>
+   </section>
+   <section class="card practice-card" id="home-practice-card">
+    <span class="eyebrow">SOLO PRACTICE</span><div class="practice-symbol" aria-hidden="true"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><path d="M3 16h26M16 3v26M7 6c11 5 11 15 0 20M25 6c-11 5-11 15 0 20"/></svg></div><h2>Find your rhythm.</h2><p>Play against the computer.<br>Build a longer chain, one teammate at a time.</p>
+    <div class="practice-stat"><div class="stat-value" id="practice-longest-chain">—</div><div class="stat-label">Your longest chain</div></div>
+    <button class="btn btn-secondary" id="enter-practice-btn" type="button">Start practicing <span aria-hidden="true">→</span></button>
+   </section>
+  </div>
+  <section class="how-strip" aria-label="How it works"><span class="eyebrow">THE SHORT VERSION</span><p><b>01</b> Start with an All-Star</p><p><b>02</b> Name their teammate</p><p><b>03</b> Keep the chain going</p><a href="/how-to-play">All the rules ↗</a></section>
+  <div class="two-col" id="home-secondary-grid">
+   <section class="card" id="home-history-card"><div class="section-heading"><h3>Your recent games</h3><a href="/game-history">View history ↗</a></div><div id="history-preview" class="list-empty">Your next rivalry starts here.</div></section>
+   <section class="card" id="home-leaderboard-card"><div class="section-heading"><h3>The leaderboard</h3><a href="/leaderboard">All players ↗</a></div><div id="leaderboard-preview" class="list-empty">No players yet.</div></section>
+  </div>
+ </div><footer class="site-note"><span>HoopDuels</span> A game for people who know ball.</footer>
+</main>
     </div>
 
     <div class="matchmaking-overlay" id="matchmaking-overlay" hidden>

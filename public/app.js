@@ -1,6 +1,6 @@
 (async function markActiveNav() {
   const page = document.body.dataset.page;
-  const MOBILE_MENU_BREAKPOINT = 1100;
+  const MOBILE_MENU_BREAKPOINT = 900;
   let onlinePollTimer = null;
   let presenceTimer = null;
   let profileChartRange = 'all';
@@ -9,7 +9,7 @@
 
   function applyActiveNav() {
     if (!page) return;
-    const navPage = page === 'practice' ? 'play' : page;
+    const navPage = page;
     document.querySelectorAll('[data-nav]').forEach((el) => {
       el.classList.remove('active');
     });
@@ -65,7 +65,7 @@
 
     const topbar = document.createElement('div');
     topbar.className = 'mobile-topbar';
-    topbar.innerHTML = '<div class="mobile-brand" role="link" tabindex="0" aria-label="Go to home">HoopDuels</div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
+    topbar.innerHTML = '<div class="mobile-brand" role="link" tabindex="0" aria-label="Go to home"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><path d="M3 16h26M16 3v26M7 6c11 5 11 15 0 20M25 6c-11 5-11 15 0 20"/></svg><span>HoopDuels</span></div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
     document.body.insertBefore(topbar, layout);
 
     const toggleBtn = topbar.querySelector('.mobile-menu-btn');
@@ -75,12 +75,14 @@
     const closeMenu = () => {
       document.body.classList.remove('mobile-nav-open');
       toggleBtn.setAttribute('aria-expanded', 'false');
+      toggleBtn.setAttribute('aria-label', 'Open menu');
     };
 
     toggleBtn.addEventListener('click', () => {
       const willOpen = !document.body.classList.contains('mobile-nav-open');
       document.body.classList.toggle('mobile-nav-open', willOpen);
       toggleBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      toggleBtn.setAttribute('aria-label', willOpen ? 'Close menu' : 'Open menu');
     });
 
     if (mobileBrand) {
@@ -94,6 +96,8 @@
         }
       });
     }
+
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
 
     sidebar.querySelectorAll('.nav-link').forEach((link) => {
       link.addEventListener('click', () => {
@@ -191,9 +195,9 @@
     const homeTitle = document.getElementById('home-title');
     if (homeTitle) {
       if (activeProfile.signedIn) {
-        homeTitle.textContent = `Welcome back, ${activeProfile.username}!`;
+        homeTitle.textContent = `Your next connection, ${activeProfile.username}.`;
       } else {
-        homeTitle.textContent = 'Welcome!';
+        homeTitle.textContent = 'How well do you know ball?';
       }
     }
     setText(
@@ -430,7 +434,7 @@
     const gridLines = ticks.map((value) => {
       const y = yFor(value);
       return `
-        <line x1="${padX}" y1="${y}" x2="${width - padX}" y2="${y}" stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
+        <line x1="${padX}" y1="${y}" x2="${width - padX}" y2="${y}" stroke="rgba(29,43,57,0.12)" stroke-width="1"></line>
       `;
     }).join('');
 
