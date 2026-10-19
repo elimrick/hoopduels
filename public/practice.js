@@ -13,7 +13,7 @@ const leaveBtn = document.getElementById('leave-practice-btn');
 const guessRowEl = document.getElementById('practice-guess-row');
 const playerLeftEl = document.getElementById('practice-player-left');
 const playerRightEl = document.getElementById('practice-player-right');
-const DEFAULT_PRACTICE_PLACEHOLDER = 'Name a teammate...';
+const DEFAULT_PRACTICE_PLACEHOLDER = 'Search...';
 let practiceAutocomplete = null;
 
 const state = {

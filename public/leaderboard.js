@@ -9,7 +9,7 @@
   }
   function mount(container, rows) {
     let query = '', page = 1;
-    container.innerHTML = '<div class="leaderboard-toolbar"><label>Find a player<input type="search" placeholder="Search usernames…" autocomplete="off" /></label><button class="btn btn-secondary my-rank" type="button">My rank</button></div><p class="leaderboard-summary" aria-live="polite"></p><div class="page-table-wrap"><table class="leaderboard-table"><caption class="sr-only">Players ranked by rating</caption><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Rating</th><th scope="col">Record</th></tr></thead><tbody></tbody></table></div><p class="leaderboard-empty" hidden>No matching players. Try another username.</p><nav class="leaderboard-pagination" aria-label="Leaderboard pages"><button type="button" data-step="first" aria-label="First page">«</button><button type="button" data-step="previous">Previous</button><span aria-live="polite"></span><button type="button" data-step="next">Next</button><button type="button" data-step="last" aria-label="Last page">»</button></nav>';
+    container.innerHTML = '<div class="leaderboard-toolbar"><label>Find a player<input type="search" placeholder="Search..." autocomplete="off" /></label><button class="btn btn-secondary my-rank" type="button">My rank</button></div><p class="leaderboard-summary" aria-live="polite"></p><div class="page-table-wrap"><table class="leaderboard-table"><caption class="sr-only">Players ranked by rating</caption><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Rating</th><th scope="col">Record</th></tr></thead><tbody></tbody></table></div><p class="leaderboard-empty" hidden>No matching players. Try another username.</p><nav class="leaderboard-pagination" aria-label="Leaderboard pages"><button type="button" data-step="first" aria-label="First page">«</button><button type="button" data-step="previous">Previous</button><span aria-live="polite"></span><button type="button" data-step="next">Next</button><button type="button" data-step="last" aria-label="Last page">»</button></nav>';
     const input = container.querySelector('input');
     const mine = rows.findIndex(row => row.isYou);
     const myButton = container.querySelector('.my-rank');
@@ -25,7 +25,7 @@
         [row.rank.toLocaleString(), row.username, Math.round(row.elo).toLocaleString(), `${row.wins}-${row.losses}`].forEach(value => { const td = document.createElement('td'); td.textContent = value; td.title = String(value); tr.appendChild(td); });
         tbody.appendChild(tr);
       });
-      container.querySelector('.leaderboard-summary').textContent = result.total ? `${(result.start + 1).toLocaleString()}–${(result.start + result.rows.length).toLocaleString()} of ${result.total.toLocaleString()} ${query ? 'matching players' : 'players'}${query ? ' · Overall ranks shown' : ''}` : (rows.length ? 'No matching players' : 'No players yet. Your first duel starts the story.');
+      container.querySelector('.leaderboard-summary').textContent = result.total ? `${(result.start + 1).toLocaleString()}–${(result.start + result.rows.length).toLocaleString()} of ${result.total.toLocaleString()} ${query ? 'matching players' : 'players'}${query ? ' · Overall ranks shown' : ''}` : (rows.length ? '' : 'No players yet. Your first duel starts the story.');
       container.querySelector('.leaderboard-empty').hidden = result.total > 0 || rows.length === 0;
       container.querySelector('table').hidden = result.total === 0;
       pagination.hidden = result.pages === 1;

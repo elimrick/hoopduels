@@ -42,7 +42,7 @@ const playerLeftNameEl = document.getElementById('player-left-name');
 const playerRightNameEl = document.getElementById('player-right-name');
 const playerLeftStrikesEl = document.getElementById('player-left-strikes');
 const playerRightStrikesEl = document.getElementById('player-right-strikes');
-const DEFAULT_GUESS_PLACEHOLDER = 'Name a teammate...';
+const DEFAULT_GUESS_PLACEHOLDER = 'Search...';
 
 let currentState = null;
 let timerInterval = null;

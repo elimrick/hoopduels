@@ -58,7 +58,7 @@
           <div class="duel-board practice-board">
             <div class="duel-player" id="practice-player-left">
               <div class="duel-player-name" id="practice-player-name">Player</div>
-              <div class="duel-player-meta foul-meter" data-fouls="0" role="img" aria-label="0 of 3 fouls"><span class="foul-label" aria-hidden="true">Fouls</span><span id="practice-you-fouls" class="sr-only" aria-hidden="true">0</span><span class="foul-pips" aria-hidden="true"><span class="foul-pip">×</span><span class="foul-pip">×</span><span class="foul-pip">×</span></span></div>
+              <div class="duel-player-meta foul-meter" data-fouls="0" role="img" aria-label="0 of 3 fouls"><span class="foul-label" aria-hidden="true">Fouls</span><span id="practice-you-fouls" class="sr-only" aria-hidden="true">0</span><span class="foul-pips" aria-hidden="true"><span class="foul-pip"></span><span class="foul-pip"></span><span class="foul-pip"></span></span></div>
             </div>
             <div class="duel-center">
               <div class="duel-timer"><span id="practice-timer">60</span></div>
@@ -69,14 +69,14 @@
               <div class="duel-player-meta duel-player-meta-placeholder" aria-hidden="true">&nbsp;</div>
             </div>
           </div>
-          <div id="practice-message" class="message"></div>
           <form autocomplete="off" data-form-type="other" onsubmit="return false;">
             <input type="text" tabindex="-1" aria-hidden="true" autocomplete="username" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;opacity:0;pointer-events:none;" />
             <input type="password" tabindex="-1" aria-hidden="true" autocomplete="current-password" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;opacity:0;pointer-events:none;" />
-            <label class="search-label" for="practice-guess-input">Search NBA players</label><div class="turn-row" id="practice-guess-row">
-              <textarea id="practice-guess-input" aria-label="Search NBA players" class="guess-input" rows="1" placeholder="Name a teammate..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" enterkeyhint="done" aria-autocomplete="list" data-form-type="other" data-lpignore="true" data-1p-ignore="true"></textarea>
+            <label class="search-label" for="practice-guess-input">Name a teammate</label><div class="turn-row" id="practice-guess-row">
+              <textarea id="practice-guess-input" aria-label="Search NBA players" class="guess-input" rows="1" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" enterkeyhint="done" aria-autocomplete="list" data-form-type="other" data-lpignore="true" data-1p-ignore="true"></textarea>
             </div>
           </form>
+          <div id="practice-message" class="message" role="status" aria-live="polite"></div>
           <div class="chain-heading"><span class="eyebrow">THE CHAIN</span><span>Most recent first</span></div><ul id="practice-history-list" class="history-list chain-list"></ul>
         </section>
       <footer class="site-note"><span>HoopDuels</span> A game for people who know ball.</footer>
