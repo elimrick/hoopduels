@@ -14,10 +14,10 @@
     <meta name="twitter:description" content="An NBA teammate chain game. Duel live with other NBA fans or practice to grow your knowledge of the league." />
     <meta name="twitter:image" content="https://hoopduels.com/favicon-512.png?v=20260318b" />
     <link rel="canonical" href="https://hoopduels.com/"  />
-    <link rel="icon" type="image/x-icon" href="/favicon-20260326.ico"  />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"  />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="shortcut icon" href="/favicon-20260326.ico" />
+
+
+
+
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
     <link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png" />
@@ -30,15 +30,17 @@
 
 
     <link rel="stylesheet" href="styles.css?v=redesign-1" />
-  </head>
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+</head>
   <body data-page="play">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <aside class="sidebar">
-        <div class="brand"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><path d="M3 16h26M16 3v26M7 6c11 5 11 15 0 20M25 6c-11 5-11 15 0 20"/></svg><span>HoopDuels</span></div>
+        <div class="brand"><img class="brand-mark" src="/logo.svg" alt="" width="32" height="32"><span>HoopDuels</span></div>
         <nav class="nav">
           <a class="nav-link" data-nav="play" href="/">Play</a>
           <a class="nav-link" data-nav="leaderboard" href="/leaderboard">Leaderboard</a>
+          <a class="nav-link" data-nav="friends" href="/friends">Friends</a>
           <a class="nav-link" data-nav="history" href="/game-history">Game History</a>
           <a class="nav-link" data-nav="rules" href="/how-to-play">How to Play</a>
           <a class="nav-link" id="auth-nav-link" data-nav="signin" href="/signin">Sign In</a>
@@ -48,12 +50,12 @@
       </aside>
 
       <main class="main home-main" id="main-content">
- <header class="home-intro"><p class="eyebrow">THE NBA TEAMMATE CHAIN GAME</p><h1 class="page-title" id="home-title">How well do you know ball?</h1><p class="page-description">One player leads to the next. Keep the connection alive.</p></header>
+ <header class="home-intro"><h1 class="page-title" id="home-title">Play HoopDuels</h1></header>
  <div class="left-grid">
   <div class="home-top-row" id="home-top-row">
    <section class="card duel-card" id="home-duel-card">
     <div class="mode-topline"><span class="eyebrow">HEAD TO HEAD</span><span id="online-count" class="online-count">0 Online</span></div>
-    <div class="duel-header"><div class="duel-header-copy"><h2>Your knowledge.<br>Your next opponent.</h2><p>Take turns naming NBA teammates.<br>Outlast your opponent to win the duel.</p></div></div>
+    <div class="duel-header"><div class="duel-header-copy"><h2>Play a ranked duel.</h2><p>Take turns naming NBA teammates.<br>Outlast your opponent to win the duel.</p></div></div>
     <div class="example-chain" aria-label="Example: LeBron James and Dwyane Wade were Miami teammates"><span><small>START WITH</small>LeBron James</span><b aria-hidden="true">→</b><span><small>NAME A TEAMMATE</small>Dwyane Wade</span></div>
     <button class="btn" id="find-game-home-btn" type="button">Find a duel <span aria-hidden="true">→</span></button><p class="mode-footnote">2-minute clocks · 3 fouls and you're out</p>
     <div class="stats"><div><div class="stat-value" id="stat-rating">—</div><div class="stat-label">Rating</div></div><div><div class="stat-value" id="stat-wl">—</div><div class="stat-label">Record</div></div><div><div class="stat-value" id="stat-streak">—</div><div class="stat-label">Streak</div></div><div><div class="stat-value" id="stat-peak">—</div><div class="stat-label">Peak rating</div></div><div><div class="stat-value" id="stat-best-win">—</div><div class="stat-label">Best win</div></div><div><div class="stat-value" id="stat-longest-chain">—</div><div class="stat-label">Best streak</div></div></div>
@@ -64,12 +66,13 @@
     <button class="btn btn-secondary" id="enter-practice-btn" type="button">Start practicing <span aria-hidden="true">→</span></button>
    </section>
   </div>
+  <section class="friend-play"><div><h2>Play a friend</h2><p>Challenge someone you know to an unranked duel.</p></div><a class="btn btn-secondary" href="/friends">Find friends</a></section>
   <section class="how-strip" aria-label="How it works"><span class="eyebrow">HOW IT WORKS</span><p><b>01</b> Start with an All-Star</p><p><b>02</b> Name their teammate</p><p><b>03</b> Keep the chain going</p><a href="/how-to-play">All the rules ↗</a></section>
   <div class="two-col" id="home-secondary-grid">
    <section class="card" id="home-history-card"><div class="section-heading"><h3>Your recent games</h3><a href="/game-history">View history ↗</a></div><div id="history-preview" class="list-empty">Your next rivalry starts here.</div></section>
-   <section class="card" id="home-leaderboard-card"><div class="section-heading"><h3>The leaderboard</h3><a href="/leaderboard">All players ↗</a></div><div id="leaderboard-preview" class="list-empty">No players yet.</div></section>
+   <section class="card" id="home-leaderboard-card"><div class="section-heading"><h3>Leaderboard</h3><a href="/leaderboard">All players ↗</a></div><div id="leaderboard-preview" class="list-empty">No players yet.</div></section>
   </div>
- </div><footer class="site-note"><span>HoopDuels</span> A game for people who know ball.</footer>
+ </div>
 </main>
     </div>
 

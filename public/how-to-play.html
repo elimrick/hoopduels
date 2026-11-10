@@ -5,41 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex,follow" />
     <meta name="description" content="Learn how HoopDuels works, how to keep an NBA teammate chain going, what counts as a foul, and how to win live duels." />
-    <meta property="og:title" content="How To Play | HoopDuels" />
+    <meta property="og:title" content="How to Play | HoopDuels" />
     <meta property="og:description" content="Learn how HoopDuels works, how to keep an NBA teammate chain going, what counts as a foul, and how to win live duels." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://hoopduels.com/how-to-play" />
     <meta property="og:image" content="https://hoopduels.com/favicon-512.png?v=20260318b" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="How To Play | HoopDuels" />
+    <meta name="twitter:title" content="How to Play | HoopDuels" />
     <meta name="twitter:description" content="Learn how HoopDuels works, how to keep an NBA teammate chain going, what counts as a foul, and how to win live duels." />
     <meta name="twitter:image" content="https://hoopduels.com/favicon-512.png?v=20260318b" />
     <link rel="canonical" href="https://hoopduels.com/how-to-play"  />
-    <link rel="icon" type="image/x-icon" href="/favicon-20260326.ico"  />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"  />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="shortcut icon" href="/favicon-20260326.ico" />
+
+
+
+
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
     <link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png" />
     <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
     <meta name="apple-mobile-web-app-title" content="HoopDuels" />
-    <title>How To Play | HoopDuels</title>
+    <title>How to Play | HoopDuels</title>
     <script>document.documentElement.classList.add(localStorage.getItem("hoopduels_auth_token_v1") ? "auth-signed-in" : "auth-signed-out");</script>
     <style>#auth-nav-link,#auth-nav-create,#auth-nav-profile{display:none}html.auth-signed-out #auth-nav-link,html.auth-signed-out #auth-nav-create{display:flex}html.auth-signed-in #auth-nav-profile{display:flex}</style>
 
 
 
     <link rel="stylesheet" href="styles.css?v=redesign-1" />
-  </head>
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+</head>
   <body data-page="rules">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <aside class="sidebar">
-        <div class="brand"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><path d="M3 16h26M16 3v26M7 6c11 5 11 15 0 20M25 6c-11 5-11 15 0 20"/></svg><span>HoopDuels</span></div>
+        <div class="brand"><img class="brand-mark" src="/logo.svg" alt="" width="32" height="32"><span>HoopDuels</span></div>
         <nav class="nav">
           <a class="nav-link" data-nav="play" href="/">Play</a>
           <a class="nav-link" data-nav="leaderboard" href="/leaderboard">Leaderboard</a>
+          <a class="nav-link" data-nav="friends" href="/friends">Friends</a>
           <a class="nav-link" data-nav="history" href="/game-history">Game History</a>
           <a class="nav-link" data-nav="rules" href="/how-to-play">How to Play</a>
           <a class="nav-link" id="auth-nav-link" data-nav="signin" href="/signin">Sign In</a>
@@ -49,12 +51,12 @@
       </aside>
 
       <main class="main" id="main-content">
-        <header class="page-intro"><p class="eyebrow">KNOW THE GAME</p><h1 class="page-title">How To Play</h1><p class="page-description">A simple idea. A lot of basketball knowledge.</p></header>
+        <header class="page-intro"><h1 class="page-title">How to Play</h1></header>
         <section class="card page-panel">
           <div class="rules-flow">
             <div class="rules-note-card rules-basics">
               <h3>The Basics</h3>
-              <p class="rules-lead">Every duel starts with a random NBA All-Star. The player pool is made up of all NBA players from 2000 to present. Keep the chain moving by naming a teammate of the current player before your time runs out. Climb the leaderboard and prove you know ball.</p>
+              <p class="rules-lead">Every duel starts with a random NBA All-Star. The player pool is made up of all NBA players from 2000 to present. Keep the chain moving by naming a teammate of the current player before your time runs out. </p>
             </div>
 
             <div class="rules-inline-notes" aria-label="Important rules">
@@ -64,11 +66,11 @@
               </div>
               <div class="rules-note-card">
                 <h3>What Counts as a Foul</h3>
-                <p>Guessing a player who was not teammates with the current player.</p>
+                <p>Guessing a player who was not teammates with the current player, or repeating a player already in the chain.</p>
               </div>
               <div class="rules-note-card">
-                <h3>Rating System</h3>
-                <p>Create an account to have a rating. Duels against guests have no impact.</p>
+                <h3>No Repeat Players</h3><p>Each player can appear only once in a chain, including the starting player. A repeat guess counts as a foul.</p></div><div class="rules-note-card"><h3>Rating System</h3>
+                <p>Create an account to play ranked duels. Friend games and duels against guests do not affect your rating.</p>
               </div>
             </div>
 
@@ -83,7 +85,7 @@
             </div>
           </div>
         </section>
-      <footer class="site-note"><span>HoopDuels</span> A game for people who know ball.</footer>
+
       </main>
     </div>
     <script src="state.js?v=20260318h"></script>

@@ -292,6 +292,8 @@ const games = new Map();
 const playerToGameId = new Map();
 const playerToSocketId = new Map();
 const disconnectTimers = new Map();
+const friendStore = require('./lib/friends-server').installFriends({app,io,accounts:accountStore,
+  getSocket:getSocketByPlayerId,getGame:getGameByPlayerId,createGame,waitingQueue});
 
 function makeDefaultName(playerId) {
   return `Player-${String(playerId).slice(0, 4)}`;
@@ -344,6 +346,7 @@ function buildGameState(game, message) {
   const activePlayerId = getActivePlayerId(game);
   return {
     gameId: game.id,
+    mode: game.mode,
     players: game.players.map((playerId) => ({
       playerId,
       username: game.playerNames[playerId],
@@ -424,13 +427,15 @@ function applyProfileGameResult(profile, result) {
     ? Number(result.opponentElo)
     : null;
 
-  if (won) {
-    profile.streak = Number(profile.streak) >= 0 ? Number(profile.streak) + 1 : 1;
-    profile.longestStreak = Math.max(Number(profile.longestStreak) || 0, Number(profile.streak) || 0);
-    profile.wins = (Number(profile.wins) || 0) + 1;
-  } else {
-    profile.streak = Number(profile.streak) <= 0 ? Number(profile.streak) - 1 : -1;
-    profile.losses = (Number(profile.losses) || 0) + 1;
+  if (!result.friendGame) {
+    if (won) {
+      profile.streak = Number(profile.streak) >= 0 ? Number(profile.streak) + 1 : 1;
+      profile.longestStreak = Math.max(Number(profile.longestStreak) || 0, Number(profile.streak) || 0);
+      profile.wins = (Number(profile.wins) || 0) + 1;
+    } else {
+      profile.streak = Number(profile.streak) <= 0 ? Number(profile.streak) - 1 : -1;
+      profile.losses = (Number(profile.losses) || 0) + 1;
+    }
   }
 
   if (won && rankedGame && opponentElo != null) {
@@ -485,8 +490,8 @@ async function persistSignedInGameResults(game, winnerPlayerId, loserPlayerId, r
 
   await Promise.all(game.players.map(async (playerId) => {
     const socket = getSocketByPlayerId(playerId);
-    const token = socket && socket.data ? socket.data.token : '';
-    if (!socket || !socket.data || !socket.data.signedIn || !token) return;
+    const token = game.playerTokens[playerId];
+    if (!token) return;
 
     try {
       const profile = await accountStore.getProfileByToken(token);
@@ -499,6 +504,7 @@ async function persistSignedInGameResults(game, winnerPlayerId, loserPlayerId, r
 
       applyProfileGameResult(profile, {
         won: playerId === winnerPlayerId,
+        friendGame: game.mode === 'friend',
         reason,
         opponent: game.playerNames[opponentPlayerId] || 'Opponent',
         opponentElo: oppElo && Number.isFinite(Number(oppElo.before)) ? Number(oppElo.before) : null,
@@ -523,7 +529,7 @@ async function persistSignedInGameResults(game, winnerPlayerId, loserPlayerId, r
         socket.data.wins = Number(savedProfile.wins) || 0;
         socket.data.losses = Number(savedProfile.losses) || 0;
       }
-      socket.emit('profile:refresh');
+      if (socket) socket.emit('profile:refresh');
     } catch (_) {
     }
   }));
@@ -546,7 +552,7 @@ async function endGame(game, loserPlayerId, reason) {
   const loserEloBefore = Number(game.playerElos && game.playerElos[loserPlayerId]);
   const winnerSignedIn = Boolean(game.playerSignedIn && game.playerSignedIn[winnerPlayerId]);
   const loserSignedIn = Boolean(game.playerSignedIn && game.playerSignedIn[loserPlayerId]);
-  const ranked = winnerSignedIn
+  const ranked = game.mode !== 'friend' && winnerSignedIn
     && loserSignedIn
     && Number.isFinite(winnerEloBefore)
     && Number.isFinite(loserEloBefore);
@@ -641,7 +647,7 @@ function applyStrike(game, playerId, reason, guessText = '') {
   scheduleTurnTimeout(game);
 }
 
-function createGame(playerAId, playerBId) {
+function createGame(playerAId, playerBId, mode = 'ranked') {
   const socketA = getSocketByPlayerId(playerAId);
   const socketB = getSocketByPlayerId(playerBId);
   if (!socketA || !socketB) return null;
@@ -651,6 +657,9 @@ function createGame(playerAId, playerBId) {
 
   const game = {
     id: gameId,
+    mode,
+    playerUserIds: {[playerAId]: socketA.data.userId, [playerBId]: socketB.data.userId},
+    playerTokens: {[playerAId]: socketA.data.token, [playerBId]: socketB.data.token},
     players: [playerAId, playerBId],
     playerNames: {
       [playerAId]: socketA.data.username || makeDefaultName(playerAId),
@@ -745,7 +754,14 @@ io.on('connection', async (socket) => {
     ? rawPlayerId.trim().slice(0, 64)
     : socket.id;
 
+  const authUser = token ? await Promise.resolve(accountStore.getUserByToken(token)).catch(() => null) : null;
+  const userId = authUser ? Number(authUser.id) : null;
+  const ownedGame = getGameByPlayerId(playerId);
   const existingSocket = getSocketByPlayerId(playerId);
+  if ((ownedGame && ownedGame.playerUserIds[playerId] !== userId) ||
+      (existingSocket && existingSocket.data.userId !== userId)) {
+    socket.emit('auth:invalid'); socket.disconnect(true); return;
+  }
   if (existingSocket && existingSocket.id !== socket.id) {
     existingSocket.disconnect(true);
   }
@@ -754,6 +770,7 @@ io.on('connection', async (socket) => {
   clearDisconnectTimer(playerId);
 
   socket.data.playerId = playerId;
+  socket.data.userId = userId;
   socket.data.username = makeDefaultName(playerId);
   socket.data.signedIn = false;
   socket.data.elo = null;
@@ -787,6 +804,8 @@ io.on('connection', async (socket) => {
     });
   }
 
+  socket.on('friends:ready', () => { if(socket.data.signedIn) socket.data.friendsReady = true; });
+
   socket.on('user:set-name', (rawName, ack) => {
     if (socket.data.signedIn) {
       if (typeof ack === 'function') {
@@ -809,6 +828,7 @@ io.on('connection', async (socket) => {
   });
 
   socket.on('matchmaking:join', () => {
+    socket.data.friendsReady = false;
     if (getGameByPlayerId(playerId)) {
       socket.emit('matchmaking:error', 'You are already in a game.');
       return;
@@ -890,6 +910,8 @@ io.on('connection', async (socket) => {
     scheduleTurnTimeout(game);
   });
 
+  socket.emit('session:ready');
+
   socket.on('disconnect', () => {
     const mappedSocketId = playerToSocketId.get(playerId);
     if (mappedSocketId === socket.id) {
@@ -921,6 +943,7 @@ io.on('connection', async (socket) => {
 
 async function boot() {
   await accountStore.init();
+  await friendStore.init();
   server.listen(PORT, HOST, () => {
     const counts = playerStore.getCounts();
     console.log(`Players loaded from DB: ${counts.players} total, ${counts.allStars} all-stars`);

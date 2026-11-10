@@ -65,7 +65,7 @@
 
     const topbar = document.createElement('div');
     topbar.className = 'mobile-topbar';
-    topbar.innerHTML = '<div class="mobile-brand" role="link" tabindex="0" aria-label="Go to home"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><path d="M3 16h26M16 3v26M7 6c11 5 11 15 0 20M25 6c-11 5-11 15 0 20"/></svg><span>HoopDuels</span></div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
+    topbar.innerHTML = '<div class="mobile-brand" role="link" tabindex="0" aria-label="Go to home"><img class="brand-mark" src="/logo.svg" alt="" width="32" height="32"><span>HoopDuels</span></div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
     document.body.insertBefore(topbar, layout);
 
     const toggleBtn = topbar.querySelector('.mobile-menu-btn');
@@ -195,9 +195,9 @@
     const homeTitle = document.getElementById('home-title');
     if (homeTitle) {
       if (activeProfile.signedIn) {
-        homeTitle.textContent = `Your next connection, ${activeProfile.username}.`;
+        homeTitle.textContent = `Welcome back, ${activeProfile.username}.`;
       } else {
-        homeTitle.textContent = 'How well do you know ball?';
+        homeTitle.textContent = 'Play HoopDuels';
       }
     }
     setText(

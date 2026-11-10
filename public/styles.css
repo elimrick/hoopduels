@@ -285,3 +285,21 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 .foul-pip.filled {animation:foul-mark .22s ease-out}
 @keyframes foul-mark {from {transform:scale(.55);opacity:.4}to {transform:scale(1);opacity:1}}
 @media(prefers-reduced-motion:reduce){.foul-pip.filled {animation:none}}
+
+/* Friends uses the same spacing and controls as the existing pages. */
+.brand-mark {object-fit:contain}
+@media(min-width:901px){.sidebar {gap:28px}.nav {gap:18px}}
+.friend-play {display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;border-bottom:1px solid var(--line)}
+.friend-play h2 {margin:0 0 6px;font-size:20px}.friend-play p {margin:0;color:var(--muted)}
+.friend-add {display:flex;align-items:flex-end;gap:12px}.friend-add label {display:grid;gap:8px;flex:1;font-size:14px}
+.friend-add input {width:100%;min-height:44px;border:1px solid var(--line);border-radius:5px;padding:10px 12px;font:inherit;font-size:16px}
+#friends-content section {margin-top:28px}#friends-content h2 {font-size:18px;margin:0 0 12px}
+#friends-message {min-height:24px;margin:12px 0;color:var(--muted)}
+.friend-row {display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.friend-row strong {overflow-wrap:anywhere}.friend-row small {display:block;color:var(--muted);margin-top:4px}
+.friend-actions {display:flex;gap:8px;flex-wrap:wrap}.friend-actions button {min-height:44px;font-size:13px;padding:8px 12px}
+@media(max-width:600px){.friend-add,.friend-play {align-items:stretch;flex-direction:column}.friend-row {align-items:flex-start;flex-direction:column}.friend-actions {width:100%}}
+
+.friend-add input::placeholder {color:var(--muted);opacity:1}
+
+.friend-play p,#friends-content {--muted:#5e697b}

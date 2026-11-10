@@ -743,6 +743,7 @@ function closeMatchmakingOverlay() {
 }
 
 function queueForAnotherGame() {
+  if(currentState && currentState.mode === 'friend'){window.location.href='/friends';return;}
   isRequeueing = true;
   const displayName = getLocalProfileName();
   if (displayName) {
@@ -779,7 +780,7 @@ if (cancelMatchmakingBtn) {
     socket.emit('matchmaking:leave');
     isRequeueing = false;
     closeMatchmakingOverlay();
-    if (leaveGameBtn && gameFinished) leaveGameBtn.textContent = 'New Game';
+    if (leaveGameBtn && gameFinished) leaveGameBtn.textContent = currentState && currentState.mode === 'friend' ? 'Back to Friends' : 'New Game';
   });
 }
 
@@ -852,6 +853,8 @@ socket.on('game:error', (msg) => {
 });
 
 socket.on('game:state', (state) => {
+  const heading=document.querySelector('h1');
+  if(heading)heading.textContent=state.mode==='friend'?'Friend Duel':'Live Duel';
   if (gameFinished && !isRequeueing) return;
   closeMatchmakingOverlay();
   renderGameState(state);
@@ -867,7 +870,7 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   if (currentLabelEl) currentLabelEl.textContent = endDisplay.title;
   if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = endDisplay.detail;
-  if (leaveGameBtn) leaveGameBtn.textContent = 'New Game';
+  if (leaveGameBtn) leaveGameBtn.textContent = currentState && currentState.mode === 'friend' ? 'Back to Friends' : 'New Game';
   finalWinnerPlayerId = winnerPlayerId;
   finalLoserPlayerId = loserPlayerId;
   isRequeueing = false;
