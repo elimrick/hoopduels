@@ -36,6 +36,10 @@ const PAGE_ROUTES = {
 
 app.use(express.json({ limit: '1mb' }));
 for (const [routePath, fileName] of Object.entries(PAGE_ROUTES)) {
+  if (routePath === '/game-history') {
+    app.get(['/game-history', '/game-history.html'], (_req,res) => res.redirect(302, '/profile#game-history'));
+    continue;
+  }
   if (routePath === '/') {
     app.get('/index.html', (_req, res) => res.redirect(301, '/'));
   } else {

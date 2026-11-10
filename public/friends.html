@@ -20,18 +20,17 @@
 
 
     <link rel="stylesheet" href="styles.css?v=redesign-1" />
-  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg?v=1be45d2d">
 </head>
   <body data-page="friends">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <aside class="sidebar">
-        <div class="brand"><img class="brand-mark" src="/logo.svg" alt="" width="32" height="32"><span>HoopDuels</span></div>
+        <div class="brand"><img class="brand-mark" src="/logo.svg?v=1be45d2d" alt="" width="32" height="32"><span>HoopDuels</span></div>
         <nav class="nav">
           <a class="nav-link" data-nav="play" href="/">Play</a>
-          <a class="nav-link" data-nav="leaderboard" href="/leaderboard">Leaderboard</a>
           <a class="nav-link" data-nav="friends" href="/friends">Friends</a>
-          <a class="nav-link" data-nav="history" href="/game-history">Game History</a>
+          <a class="nav-link" data-nav="leaderboard" href="/leaderboard">Leaderboard</a>
           <a class="nav-link" data-nav="rules" href="/how-to-play">How to Play</a>
           <a class="nav-link" id="auth-nav-link" data-nav="signin" href="/signin">Sign In</a>
           <a class="nav-link" id="auth-nav-create" data-nav="createaccount" href="/create-account">Create Account</a>
@@ -41,8 +40,11 @@
 
       <main class="main" id="main-content">
         <header class="page-intro"><h1 class="page-title">Friends</h1></header>
-        <section class="card page-panel" id="friends-panel"><p id="friends-auth" hidden><a href="/signin">Sign in</a> to add friends and challenge them.</p><div id="friends-content" hidden><form id="friend-add-form" class="friend-add"><label for="friend-username">Add a friend by username<input id="friend-username" placeholder="Search..." maxlength="24" required autocomplete="off"></label><button class="btn" type="submit">Send request</button></form><p id="friends-message" role="status" aria-live="polite"></p><section><h2>Challenges</h2><p>Both players need this page open to start a duel. Challenges expire after one minute.</p><div id="friend-challenges">No pending challenges.</div></section><section><h2>Requests</h2><div id="friend-requests">No pending requests.</div></section><section><h2>Your friends</h2><div id="friend-list">Loading friends...</div></section></div></section>
+        <section class="card page-panel" id="friends-panel"><p id="friends-auth" hidden><a href="/signin">Sign in</a> to add friends and challenge them.</p><div id="friends-content" hidden><form id="friend-add-form" class="leaderboard-toolbar friend-add"><label for="friend-username">Add a friend<input type="search" id="friend-username" placeholder="Search..." maxlength="24" required autocomplete="off"></label><button class="btn" type="submit">Send request</button></form><p id="friends-message" role="status" aria-live="polite"></p><section class="friends-section" aria-labelledby="friend-list-heading"><div class="section-heading"><h2 id="friend-list-heading">Your friends</h2><span class="friends-hint">Unranked duels</span></div><div id="friend-list">Loading friends...</div></section>
+<section class="friends-section" aria-labelledby="friend-requests-heading"><div class="section-heading"><h2 id="friend-requests-heading">Friend requests</h2></div><div id="friend-requests">No pending requests.</div></section>
+<section class="friends-section" aria-labelledby="friend-challenges-heading"><div class="section-heading"><h2 id="friend-challenges-heading">Challenges</h2></div><p class="friends-hint">Open Friends together to play. Challenges expire after one minute.</p><div id="friend-challenges">No pending challenges.</div></section></div></section>
 
+      <footer class="site-note"><span>HoopDuels</span> The NBA Teammate Chain Game</footer>
       </main>
     </div>
     <script src="/socket.io/socket.io.js"></script>

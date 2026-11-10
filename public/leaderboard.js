@@ -9,7 +9,7 @@
   }
   function mount(container, rows) {
     let query = '', page = 1;
-    container.innerHTML = '<div class="leaderboard-toolbar"><label>Find a player<input type="search" placeholder="Search..." autocomplete="off" /></label><button class="btn btn-secondary my-rank" type="button">My rank</button></div><p class="leaderboard-summary" aria-live="polite"></p><div class="page-table-wrap"><table class="leaderboard-table"><caption class="sr-only">Players ranked by rating</caption><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Rating</th><th scope="col">Record</th></tr></thead><tbody></tbody></table></div><p class="leaderboard-empty" hidden>No matching players. Try another username.</p><nav class="leaderboard-pagination" aria-label="Leaderboard pages"><button type="button" data-step="first" aria-label="First page">«</button><button type="button" data-step="previous">Previous</button><span aria-live="polite"></span><button type="button" data-step="next">Next</button><button type="button" data-step="last" aria-label="Last page">»</button></nav>';
+    container.innerHTML = '<div class="leaderboard-toolbar"><label>Find a player<input type="search" placeholder="Search..." autocomplete="off" /></label><span class="my-rank">My rank</span></div><p class="leaderboard-summary" aria-live="polite"></p><div class="page-table-wrap"><table class="leaderboard-table"><caption class="sr-only">Players ranked by rating</caption><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Rating</th><th scope="col">Record</th></tr></thead><tbody></tbody></table></div><p class="leaderboard-empty" hidden>No matching players. Try another username.</p><nav class="leaderboard-pagination" aria-label="Leaderboard pages"><button type="button" data-step="first" aria-label="First page">«</button><button type="button" data-step="previous">Previous</button><span aria-live="polite"></span><button type="button" data-step="next">Next</button><button type="button" data-step="last" aria-label="Last page">»</button></nav>';
     const input = container.querySelector('input');
     const mine = rows.findIndex(row => row.isYou);
     const myButton = container.querySelector('.my-rank');
@@ -33,7 +33,6 @@
       pagination.querySelectorAll('button').forEach(button => {button.disabled = ['first','previous'].includes(button.dataset.step) ? page === 1 : page === result.pages;});
     }
     input.addEventListener('input', () => { query = input.value; page = 1; paint(); });
-    myButton.addEventListener('click', () => {query = ''; input.value = ''; page = Math.floor(mine / 25) + 1; paint(); const row=container.querySelector('.leaderboard-row-you'); if(row) row.scrollIntoView({block:'nearest'});});
     pagination.addEventListener('click', event => {const step=event.target.dataset.step;if(!step)return;const total=paginate(rows,query,page).pages;page=step==='first'?1:step==='last'?total:page+(step==='next'?1:-1);paint();});
     paint();
   }

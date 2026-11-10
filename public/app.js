@@ -65,7 +65,7 @@
 
     const topbar = document.createElement('div');
     topbar.className = 'mobile-topbar';
-    topbar.innerHTML = '<div class="mobile-brand" role="link" tabindex="0" aria-label="Go to home"><img class="brand-mark" src="/logo.svg" alt="" width="32" height="32"><span>HoopDuels</span></div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
+    topbar.innerHTML = '<div class="mobile-brand" role="link" tabindex="0" aria-label="Go to home"><img class="brand-mark" src="/logo.svg?v=1be45d2d" alt="" width="32" height="32"><span>HoopDuels</span></div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
     document.body.insertBefore(topbar, layout);
 
     const toggleBtn = topbar.querySelector('.mobile-menu-btn');
@@ -195,9 +195,9 @@
     const homeTitle = document.getElementById('home-title');
     if (homeTitle) {
       if (activeProfile.signedIn) {
-        homeTitle.textContent = `Welcome back, ${activeProfile.username}.`;
+        homeTitle.textContent = `Welcome back, ${activeProfile.username}!`;
       } else {
-        homeTitle.textContent = 'Play HoopDuels';
+        homeTitle.textContent = 'Welcome to HoopDuels!';
       }
     }
     setText(
@@ -951,7 +951,7 @@
 
   if (page === 'play') renderHome();
   if (page === 'leaderboard') renderLeaderboard();
-  if (page === 'history') renderHistory();
+  if (page === 'history' || page === 'profile') renderHistory();
   if (page === 'profile') renderProfile();
   if (page === 'signin' || page === 'createaccount') wireSignIn();
   if (page === 'play') wireHomeFindGame();

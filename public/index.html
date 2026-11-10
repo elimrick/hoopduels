@@ -30,18 +30,17 @@
 
 
     <link rel="stylesheet" href="styles.css?v=redesign-1" />
-  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg?v=1be45d2d">
 </head>
   <body data-page="play">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <aside class="sidebar">
-        <div class="brand"><img class="brand-mark" src="/logo.svg" alt="" width="32" height="32"><span>HoopDuels</span></div>
+        <div class="brand"><img class="brand-mark" src="/logo.svg?v=1be45d2d" alt="" width="32" height="32"><span>HoopDuels</span></div>
         <nav class="nav">
           <a class="nav-link" data-nav="play" href="/">Play</a>
-          <a class="nav-link" data-nav="leaderboard" href="/leaderboard">Leaderboard</a>
           <a class="nav-link" data-nav="friends" href="/friends">Friends</a>
-          <a class="nav-link" data-nav="history" href="/game-history">Game History</a>
+          <a class="nav-link" data-nav="leaderboard" href="/leaderboard">Leaderboard</a>
           <a class="nav-link" data-nav="rules" href="/how-to-play">How to Play</a>
           <a class="nav-link" id="auth-nav-link" data-nav="signin" href="/signin">Sign In</a>
           <a class="nav-link" id="auth-nav-create" data-nav="createaccount" href="/create-account">Create Account</a>
@@ -50,7 +49,7 @@
       </aside>
 
       <main class="main home-main" id="main-content">
- <header class="home-intro"><h1 class="page-title" id="home-title">Play HoopDuels</h1></header>
+ <header class="home-intro"><h1 class="page-title" id="home-title">Welcome to HoopDuels!</h1></header>
  <div class="left-grid">
   <div class="home-top-row" id="home-top-row">
    <section class="card duel-card" id="home-duel-card">
@@ -66,14 +65,15 @@
     <button class="btn btn-secondary" id="enter-practice-btn" type="button">Start practicing <span aria-hidden="true">→</span></button>
    </section>
   </div>
-  <section class="friend-play"><div><h2>Play a friend</h2><p>Challenge someone you know to an unranked duel.</p></div><a class="btn btn-secondary" href="/friends">Find friends</a></section>
+  <section class="card friend-play"><div><h2>Play a friend</h2><p>Challenge someone you know to an unranked duel.</p></div><a class="btn btn-secondary" href="/friends">Find friends</a></section>
   <section class="how-strip" aria-label="How it works"><span class="eyebrow">HOW IT WORKS</span><p><b>01</b> Start with an All-Star</p><p><b>02</b> Name their teammate</p><p><b>03</b> Keep the chain going</p><a href="/how-to-play">All the rules ↗</a></section>
   <div class="two-col" id="home-secondary-grid">
-   <section class="card" id="home-history-card"><div class="section-heading"><h3>Your recent games</h3><a href="/game-history">View history ↗</a></div><div id="history-preview" class="list-empty">Your next rivalry starts here.</div></section>
+   <section class="card" id="home-history-card"><div class="section-heading"><h3>Game History</h3><a href="/profile#game-history">View history ↗</a></div><div id="history-preview" class="list-empty">Your next rivalry starts here.</div></section>
    <section class="card" id="home-leaderboard-card"><div class="section-heading"><h3>Leaderboard</h3><a href="/leaderboard">All players ↗</a></div><div id="leaderboard-preview" class="list-empty">No players yet.</div></section>
   </div>
  </div>
-</main>
+<footer class="site-note"><span>HoopDuels</span> The NBA Teammate Chain Game</footer>
+      </main>
     </div>
 
     <div class="matchmaking-overlay" id="matchmaking-overlay" hidden>

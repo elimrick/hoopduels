@@ -16,12 +16,18 @@
     try {await api(path,body);message.textContent=success;await refresh();}catch(e){message.textContent=e.message;}finally{busy=false;}
   }
   function row(container,name,detail,buttons) {
-    const el=document.createElement('div');el.className='friend-row';
-    const copy=document.createElement('div'),strong=document.createElement('strong'),small=document.createElement('small');
+    let table=container.querySelector('table');
+    if(!table){
+      table=document.createElement('table');table.className='leaderboard-table friends-table';
+      table.innerHTML='<thead><tr><th scope="col">Player</th><th scope="col">Actions</th></tr></thead><tbody></tbody>';
+      table.setAttribute('aria-labelledby',container.id+'-heading');container.append(table);
+    }
+    const el=document.createElement('tr');
+    const copy=document.createElement('td'),strong=document.createElement('strong'),small=document.createElement('small');
     strong.textContent=name;small.textContent=detail;copy.append(strong,small);el.append(copy);
-    const actions=document.createElement('div');actions.className='friend-actions';
+    const actions=document.createElement('td');actions.className='friend-actions';
     for(const [label,fn,disabled] of buttons){const b=document.createElement('button');b.type='button';b.className='btn btn-secondary';b.textContent=label;b.disabled=!!disabled;b.addEventListener('click',fn);actions.append(b);}
-    el.append(actions);container.append(el);
+    el.append(actions);table.querySelector('tbody').append(el);
   }
   async function refresh() {
     if(navigating)return;
