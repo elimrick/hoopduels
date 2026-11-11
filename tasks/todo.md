@@ -9,3 +9,12 @@
 - [x] Safari desktop and phone/tablet layout review; no horizontal overflow.
 
 Before production: exercise PostgreSQL on staging and real devices. No deployment performed. The 60-second expiry has code review coverage, not a timed end-to-end check.
+
+## November 10 follow-up
+
+- [x] Updated home friend wording, navigation alignment, header spacing, turn-bar border coverage, and end-message weight.
+- [x] Responsive home tables and full-width bottom-up example chain.
+- [x] Shared autocomplete for friends, simpler Friends layout, ratings, online status, and durable head-to-head records.
+- [x] Friendly Duel naming, corrected rating display, and mutual rematches.
+- [x] Opponent username search in Profile Game History.
+- [x] Gameplay, friends, autocomplete, scoreboard, history-filter, and leaderboard checks pass.

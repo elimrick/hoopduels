@@ -473,7 +473,7 @@ function renderScoreboard(players, activePlayerId, outcome = null) {
     pregamePlayerElos[right.playerId] = rightInitialElo;
   }
 
-  const bothRanked = leftSignedIn
+  const bothRanked = currentState?.mode !== 'friend' && leftSignedIn
     && rightSignedIn
     && Number.isFinite(leftInitialElo)
     && Number.isFinite(rightInitialElo);
@@ -743,7 +743,10 @@ function closeMatchmakingOverlay() {
 }
 
 function queueForAnotherGame() {
-  if(currentState && currentState.mode === 'friend'){window.location.href='/friends';return;}
+  if (currentState?.mode === 'friend') {
+    socket.emit('friend:rematch');
+    return;
+  }
   isRequeueing = true;
   const displayName = getLocalProfileName();
   if (displayName) {
@@ -780,7 +783,7 @@ if (cancelMatchmakingBtn) {
     socket.emit('matchmaking:leave');
     isRequeueing = false;
     closeMatchmakingOverlay();
-    if (leaveGameBtn && gameFinished) leaveGameBtn.textContent = currentState && currentState.mode === 'friend' ? 'Back to Friends' : 'New Game';
+    if (leaveGameBtn && gameFinished) leaveGameBtn.textContent = currentState && currentState.mode === 'friend' ? 'Rematch' : 'New Game';
   });
 }
 
@@ -848,14 +851,22 @@ socket.on('matchmaking:error', (msg) => {
   setMessage(msg, 'error');
 });
 
+socket.on('friend:rematch-status', ({requestedBy, message}) => {
+  setMessage(message);
+  if (leaveGameBtn) {
+    leaveGameBtn.disabled = false;
+    leaveGameBtn.textContent = requestedBy === playerId ? 'Rematch requested' : 'Accept rematch';
+  }
+});
+
 socket.on('game:error', (msg) => {
   setMessage(msg, 'error');
 });
 
 socket.on('game:state', (state) => {
   const heading=document.querySelector('h1');
-  if(heading)heading.textContent=state.mode==='friend'?'Friend Duel':'Live Duel';
-  if (gameFinished && !isRequeueing) return;
+  if(heading)heading.textContent=state.mode==='friend'?'Friendly Duel':'Live Duel';
+  if (gameFinished && !isRequeueing && state.gameId === currentGameId) return;
   closeMatchmakingOverlay();
   renderGameState(state);
 });
@@ -870,7 +881,7 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   if (currentLabelEl) currentLabelEl.textContent = endDisplay.title;
   if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = endDisplay.detail;
-  if (leaveGameBtn) leaveGameBtn.textContent = currentState && currentState.mode === 'friend' ? 'Back to Friends' : 'New Game';
+  if (leaveGameBtn) leaveGameBtn.textContent = currentState && currentState.mode === 'friend' ? 'Rematch' : 'New Game';
   finalWinnerPlayerId = winnerPlayerId;
   finalLoserPlayerId = loserPlayerId;
   isRequeueing = false;

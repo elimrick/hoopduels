@@ -66,7 +66,7 @@
     async attach(input, options = {}) {
       if (!input) return null;
 
-      const names = await getPlayerNames();
+      const names = options.search ? [] : await getPlayerNames();
       const root = document.createElement('div');
       root.className = 'player-autocomplete';
       input.parentNode.insertBefore(root, input);
@@ -77,7 +77,8 @@
       dropdown.hidden = true;
       dropdown.id = input.id + '-results';
       dropdown.setAttribute('role', 'listbox');
-      dropdown.setAttribute('aria-label', 'NBA players');
+      dropdown.setAttribute('aria-label', options.label || 'NBA players');
+      input.setAttribute('aria-autocomplete', 'list');
       input.setAttribute('role', 'combobox');
       input.setAttribute('aria-controls', dropdown.id);
       input.setAttribute('aria-expanded', 'false');
@@ -86,6 +87,7 @@
       let items = [];
       let activeIndex = -1;
       let hasFocus = false;
+      let requestVersion = 0;
 
       function getExcludedKeys() {
         return typeof options.getExcludedNames === 'function'
@@ -102,6 +104,7 @@
       }
 
       function close() {
+        requestVersion += 1;
         dropdown.hidden = true;
         input.setAttribute('aria-expanded', 'false');
         input.removeAttribute('aria-activedescendant');
@@ -110,7 +113,7 @@
         items = [];
       }
 
-      function render(list) {
+      function render(list, emptyMessage) {
         dropdown.innerHTML = '';
         items = list;
         activeIndex = -1;
@@ -119,7 +122,7 @@
           const empty = document.createElement('div');
           empty.className = 'search-empty';
           empty.setAttribute('role', 'status');
-          empty.textContent = 'No matching players. Try a different name.';
+          empty.textContent = emptyMessage || options.emptyText || 'No matching players. Try a different name.';
           dropdown.appendChild(empty);
           dropdown.hidden = false;
           input.setAttribute('aria-expanded', 'true');
@@ -153,7 +156,7 @@
         });
       }
 
-      function refresh() {
+      async function refresh() {
         if (!hasFocus || input.readOnly || input.disabled || input.getAttribute('aria-disabled') === 'true') {
           close();
           return;
@@ -164,6 +167,21 @@
           return;
         }
 
+        if (options.search) {
+          const version = ++requestVersion;
+          dropdown.hidden = true;
+          items = [];
+          activeIndex = -1;
+          input.setAttribute('aria-expanded', 'false');
+          input.removeAttribute('aria-activedescendant');
+          try {
+            const results = await options.search(query);
+            if (version === requestVersion && hasFocus) render(results.slice(0, 8));
+          } catch {
+            if (version === requestVersion && hasFocus) render([], 'Could not load suggestions. Try again.');
+          }
+          return;
+        }
         const excluded = getExcludedKeys();
         const suggestions = names
           .filter((name) => !excluded.has(normalizeSearch(name)))

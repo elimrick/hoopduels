@@ -566,6 +566,14 @@
     table.appendChild(tbody);
     wrap.appendChild(table);
     container.appendChild(wrap);
+    const search=document.getElementById('history-search');
+    if(search) {
+      const filter=()=>{const key=search.value.trim().toLowerCase();let count=0;
+        [...tbody.rows].forEach((row,index)=>{row.hidden=!activeProfile.games[index].opponent.toLowerCase().includes(key);if(!row.hidden)count++;});
+        table.hidden=count===0;document.getElementById('history-search-empty').hidden=count!==0;
+      };
+      search.addEventListener('input',filter);filter();
+    }
   }
 
   function renderProfile() {
@@ -605,7 +613,7 @@
     const ping = () => {
       fetch('/api/online/ping', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer '+(window.HoopState.getToken()||'') },
         body: JSON.stringify({ clientId })
       }).catch(() => {});
     };

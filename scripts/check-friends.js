@@ -16,7 +16,7 @@ async function client(playerId,token){return new Promise((resolve,reject)=>{
  const a=accounts.createUser('FriendOne','preview123'),b=accounts.createUser('FriendTwo','preview123'),c=accounts.createUser('FriendThree','preview123');
  await assert.rejects(store.request(a,'FriendOne'));await assert.rejects(store.request(a,'MissingAccount'));
  await store.request(a,'friendtwo');await assert.rejects(store.request(a,'FriendTwo'));await assert.rejects(store.act(a,b,'accept'));await assert.rejects(store.act(c,b,'accept'));
- await store.act(b,a,'accept');assert(await store.areFriends(a,b));assert(await store.areFriends(b,a));await store.act(a,b,'remove');assert(!await store.areFriends(a,b));accounts.db.close();
+ await store.act(b,a,'accept');assert(await store.areFriends(a,b));assert(await store.areFriends(b,a));await store.recordGame(a,b);assert.equal((await store.list(a))[0].record.wins,1);assert.equal((await store.list(b))[0].record.losses,1);assert.equal((await store.search(a,'friend')).some(row=>row.id===a),false);await store.act(a,b,'remove');assert(!await store.areFriends(a,b));accounts.db.close();
  console.log('PASS: friendship persistence, self/duplicate rejection, recipient-only acceptance, removal.');
  const users=[];for(const username of ['PreviewOne','PreviewTwo','PreviewThree']){let r=await fetch(base+'/api/auth/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password:'preview123'})});users.push(r.ok?await r.json():await api('/api/auth/signin',{username,password:'preview123'}));}
  const [u,v,w]=users;await api('/api/friends',null,null,401);
@@ -27,6 +27,10 @@ async function client(playerId,token){return new Promise((resolve,reject)=>{
  await api('/api/friends/action',{userId:Number(other.id),action:'accept'},u.token,400);
  await api('/api/friends/action',{userId:Number(incoming.id),action:'accept'},v.token);
  await api('/api/friends/challenge',{userId:Number(other.id)},u.token,400);
+ const results=await api('/api/friends/search?q=preview',null,u.token);assert(results.users.some(row=>row.username==='PreviewTwo'));assert(!results.users.some(row=>row.username==='PreviewOne'));assert(results.users.every(row=>Object.keys(row).sort().join(',')==='id,username'));
+ await fetch(base+'/api/online/ping',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+u.token},body:JSON.stringify({clientId:'presence-preview'})});
+ const presence=(await api('/api/friends',null,v.token)).friends.find(row=>row.username==='PreviewOne');assert(presence.online);assert(!presence.available);
+ const beforeRecord=(await api('/api/friends',null,u.token)).friends.find(row=>row.username==='PreviewTwo').record;
  const ca=await client('friend-preview-one',u.token),cb=await client('friend-preview-two',v.token);
  try {
   ca.send('friends:ready');cb.send('friends:ready');
@@ -49,6 +53,13 @@ async function client(playerId,token){return new Promise((resolve,reject)=>{
   const after=(await api('/api/account/profile',null,u.token)).profile;
   for(const key of ['wins','losses','elo','streak'])assert.equal(after[key],before[key],key);
   assert.equal(after.games[0].ranked,false);assert.equal(after.games[0].opponent,'PreviewTwo');
+  ca.events.length=0;cb.events.length=0;
+  ca.send('friend:rematch');await cb.wait('friend:rematch-status');assert(!ca.events.some(e=>e[0]==='game:state'));
+  cb.send('friend:rematch');const rematch=await ca.wait('game:state');assert.equal(rematch.mode,'friend');assert.notEqual(rematch.gameId,game.gameId);
+  ca.send('matchmaking:leave');await ca.wait('game:ended');
+  const record=(await api('/api/friends',null,u.token)).friends.find(row=>row.username==='PreviewTwo').record;assert.equal(record.losses,beforeRecord.losses+2);assert.equal(record.wins,beforeRecord.wins);
+  const afterRematch=(await api('/api/account/profile',null,u.token)).profile;assert.equal(afterRematch.elo,before.elo);
+  console.log('PASS: suggestions, site-wide presence, rematch consent, persistent head-to-head records.');
   console.log('PASS: online challenge, unauthorized acceptance, decline, busy rejection, unranked game and unchanged rating/record.');
  }finally{ca.ws.close();cb.ws.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

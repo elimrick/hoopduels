@@ -17,3 +17,11 @@ The UI has been reviewed in Safari at desktop and phone widths, including autoco
 Friend requests persist in the account database. Both players open Friends to send/accept a direct challenge; challenges expire after 60 seconds. These games use the existing duel rules, appear in history, and do not change rating or win/loss record. One active game tab per browser identity.
 
 Run `node scripts/check-friends.js` with the preview running to check requests, permissions, presence, challenges and unranked results. SQLite is verified locally; PostgreSQL uses the same parameterized SQL but needs staging verification before deployment. Challenges and games remain process-local, matching existing matchmaking; multiple server instances would need shared coordination.
+
+## Latest refinements
+
+Friends uses the shared NBA-player autocomplete, displays rating and head-to-head record, and reports site-wide online presence. Direct challenges still require both players to have Friends open. Friendly rematches require both players to agree within two minutes. Friendly results leave ranked ratings and records unchanged.
+
+Head-to-head counts persist separately from the rolling game history. Older results are seeded from retained history only. Profile Game History supports opponent username filtering.
+
+Additional checks are `node scripts/check-autocomplete.js`, `node scripts/check-friendly-display.js`, and `node scripts/check-history-search.js`. All passed alongside the gameplay, friends, and 10,003-player leaderboard checks. Safari confirmed shared suggestions and full-width vertical example-chain cards at smaller widths.

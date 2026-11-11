@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const source=fs.readFileSync(require('node:path').join(__dirname,'../public/app.js'),'utf8');
+const start=source.indexOf('const filter=()=>');
+const end=source.indexOf("search.addEventListener('input',filter)",start);
+const empty={hidden:true};
+const context={search:{value:' EWING '},tbody:{rows:[{},{},{}]},table:{hidden:false},activeProfile:{games:[{opponent:'ewing'},{opponent:'Guest'},{opponent:'Ewing'}]},document:{getElementById:()=>empty}};
+vm.createContext(context);vm.runInContext(source.slice(start,end)+'globalThis.runFilter=filter;',context);
+context.runFilter();assert.deepEqual(context.tbody.rows.map(r=>r.hidden),[false,true,false]);
+context.search.value='missing';context.runFilter();assert(context.table.hidden);assert(!empty.hidden);
+context.search.value='';context.runFilter();assert(context.tbody.rows.every(r=>!r.hidden));assert(empty.hidden);
+console.log('PASS: actual history filter matches usernames case-insensitively, handles no results, and clears correctly.');

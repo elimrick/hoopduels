@@ -40,9 +40,9 @@
 
       <main class="main" id="main-content">
         <header class="page-intro"><h1 class="page-title">Friends</h1></header>
-        <section class="card page-panel" id="friends-panel"><p id="friends-auth" hidden><a href="/signin">Sign in</a> to add friends and challenge them.</p><div id="friends-content" hidden><form id="friend-add-form" class="leaderboard-toolbar friend-add"><label for="friend-username">Add a friend<input type="search" id="friend-username" placeholder="Search..." maxlength="24" required autocomplete="off"></label><button class="btn" type="submit">Send request</button></form><p id="friends-message" role="status" aria-live="polite"></p><section class="friends-section" aria-labelledby="friend-list-heading"><div class="section-heading"><h2 id="friend-list-heading">Your friends</h2><span class="friends-hint">Unranked duels</span></div><div id="friend-list">Loading friends...</div></section>
-<section class="friends-section" aria-labelledby="friend-requests-heading"><div class="section-heading"><h2 id="friend-requests-heading">Friend requests</h2></div><div id="friend-requests">No pending requests.</div></section>
-<section class="friends-section" aria-labelledby="friend-challenges-heading"><div class="section-heading"><h2 id="friend-challenges-heading">Challenges</h2></div><p class="friends-hint">Open Friends together to play. Challenges expire after one minute.</p><div id="friend-challenges">No pending challenges.</div></section></div></section>
+        <section class="card page-panel" id="friends-panel"><p id="friends-auth" hidden><a href="/signin">Sign in</a> to add friends and challenge them.</p><div id="friends-content" hidden><form id="friend-add-form" class="leaderboard-toolbar friend-add"><label for="friend-username">Add a friend<input type="search" id="friend-username" aria-describedby="friend-search-help" placeholder="Search..." maxlength="24" required autocomplete="off"></label><button class="btn" type="submit">Send request</button></form><p id="friend-search-help" class="friends-hint" aria-live="polite">Start typing a username to find an account.</p><p id="friends-message" role="status" aria-live="polite"></p><section class="friends-section" aria-labelledby="friend-list-heading"><div class="section-heading"><h2 id="friend-list-heading">Your friends</h2><span class="friends-hint">Friendly duels do not affect ratings.</span></div><div id="friend-list">Loading friends...</div></section>
+<details class="friends-requests"><summary id="friend-requests-heading">Friend requests <span id="friend-request-count">0</span></summary><div id="friend-requests">No pending requests.</div></details>
+<section class="friends-section" aria-labelledby="friend-challenges-heading"><div class="section-heading"><h2 id="friend-challenges-heading">Challenges</h2></div><p class="friends-hint">Challenges expire after one minute.</p><div id="friend-challenges">No pending challenges.</div></section></div></section>
 
       <footer class="site-note"><span>HoopDuels</span> The NBA Teammate Chain Game</footer>
       </main>
@@ -50,6 +50,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="state.js?v=20260318h"></script>
     <script src="app.js?v=20260318h"></script>
-  <script src="friends.js"></script>
+  <script src="player-autocomplete.js"></script>
+<script src="friends.js"></script>
 </body>
 </html>

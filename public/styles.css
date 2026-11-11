@@ -27,21 +27,20 @@ h1,h2,h3 {line-height:1.18;letter-spacing:-.035em}
 .brand,.mobile-brand {display:inline-flex;align-items:center;gap:10px;font-size:23px;font-weight:760;letter-spacing:-1px;white-space:nowrap;cursor:pointer;color:var(--text)}
 .brand-mark {width:30px;height:30px;fill:none;stroke:var(--accent-blue);stroke-width:1.8;flex:none}
 .nav {display:flex;align-items:center;gap:24px;flex:1;height:100%}
-.nav-link {display:flex;align-items:center;height:100%;color:var(--muted);font-size:13px;font-weight:600;white-space:nowrap;position:relative}
+.nav-link {display:flex;align-items:center;height:100%;justify-content:center;color:var(--muted);font-size:13px;font-weight:600;white-space:nowrap;position:relative}
 .nav-link:hover {color:var(--text);text-decoration:none}
 .nav-link.active {color:var(--accent-blue)}
-.nav-link.active::after {content:'';position:absolute;height:3px;background:var(--accent-blue);bottom:0;left:0;right:0;border-radius:3px 3px 0 0}
 #auth-nav-link,#auth-nav-profile {margin-left:auto}
 #auth-nav-create {height:36px;padding:0 14px;border:1px solid var(--line);border-radius:5px;color:var(--text)}
 #auth-nav-create.active::after {display:none}
 html.auth-signed-in #auth-nav-link,html.auth-signed-in #auth-nav-create,html.auth-signed-out #auth-nav-profile {display:none}
 .mobile-topbar {display:none}
-.main {width:min(1060px,100%);margin:0 auto;padding:24px 32px 24px;min-width:0}
+.main {width:min(1060px,100%);margin:0 auto;padding:34px 32px 24px;min-width:0}
 .page-title {font-size:38px;font-weight:740;letter-spacing:-1.4px;margin:0 0 10px;overflow-wrap:anywhere}
 .eyebrow {font-size:10px;font-weight:750;letter-spacing:1.65px;color:var(--muted);line-height:1.5;margin:0 0 12px;text-transform:uppercase}
 .page-description {font-size:16px;color:var(--muted);line-height:1.6;margin:0}
 .page-intro {margin-bottom:20px}
-.home-intro {text-align:center;padding:0 0 20px}
+.home-intro {text-align:center;padding:12px 0 30px}
 .home-intro .eyebrow {color:var(--accent-blue)}
 .home-intro .page-title {font-size:42px}
 .card {background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:26px;min-width:0}
@@ -115,9 +114,9 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .duel-page-header .page-title {margin:0;font-size:30px}
 .arena-card {padding:28px 32px}
 .duel-board {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
-.duel-player {border:1px solid var(--line);border-radius:6px;background:var(--bg);padding:16px;position:relative;min-width:0;overflow:hidden}
+.duel-player {border:1px solid var(--line);border-radius:6px;background:var(--bg);padding:16px;position:relative;min-width:0}
 .duel-player.active {border-color:#8ba9e9;background:#f0f5ff}
-.duel-player.active::before {content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent-blue);border-radius:5px 5px 0 0}
+.duel-player.active::before {content:'';position:absolute;top:-1px;left:-1px;right:-1px;height:4px;background:var(--accent-blue);border-radius:6px 6px 0 0}
 .duel-player.winner {border-color:#6eaf88;background:#eff8f2}
 .duel-player.loser {border-color:#db9197;background:#fff1f2}
 .duel-player-name {font-size:16px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
@@ -132,7 +131,7 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .duel-timer {order:2;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .duel-timer::after {content:' seconds remaining';font-size:11px}
 .duel-current.is-end .duel-current-label {font-size:25px;letter-spacing:-.5px;color:var(--text)}
-.duel-current.is-end .duel-current-player {font-size:16px;color:var(--muted)}
+.duel-current.is-end .duel-current-player {font-size:16px;font-weight:500;color:var(--muted)}
 .search-label {display:block;font-size:12px;font-weight:650;margin-top:24px;margin-bottom:7px}
 .turn-row {display:grid;grid-template-columns:1fr;gap:12px;margin:0 0 30px}
 .player-autocomplete {position:relative;width:100%;min-width:0}
@@ -141,7 +140,7 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .guess-input:focus {outline:none;border-color:var(--accent-blue);box-shadow:0 0 0 3px #e1eafa}
 .turn-inactive .guess-input,.guess-display {background:var(--bg);color:var(--muted)}
 .player-suggestions {position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:30;border:1px solid #ccd5e1;border-radius:6px;background:#fff;box-shadow:0 8px 28px #22334b14;max-height:296px;overflow-y:auto;padding:5px}
-.player-suggestion {display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;border:0;background:#fff;border-radius:3px;padding:12px 13px;font-size:15px;color:var(--text);min-height:45px}
+.player-suggestion {display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;border:0;background:#fff;border-radius:3px;padding:12px 13px;font-size:15px;font-weight:400;color:var(--text);min-height:45px}
 .player-suggestion:hover,.player-suggestion.active {background:#eef3fc;color:#234fab}
 .player-suggestion.active::after {content:'↵';color:var(--accent-blue)}
 .search-empty {padding:17px 13px;color:var(--muted);font-size:13px}
@@ -226,12 +225,12 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
  .nav {display:flex;flex-wrap:wrap;gap:4px;height:auto}.nav-link {height:44px;width:calc(50% - 2px);font-size:14px;padding:0 12px;border-radius:4px}
  .nav-link.active {background:#eef3fd}.nav-link.active::after {display:none}
  #auth-nav-link,#auth-nav-profile {margin:0}#auth-nav-create {height:44px}
- .main {padding:22px 24px 22px}.home-intro {padding-top:0}.home-intro .page-title {font-size:36px}
+ .main {padding:32px 24px 22px}.home-intro {padding-top:0}.home-intro .page-title {font-size:36px}
  .how-strip {flex-wrap:wrap;justify-content:flex-start;gap:14px 22px}.how-strip .eyebrow {width:100%}.how-strip a {margin-left:auto}
  .profile-stats-box .stats {grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media(max-width:600px) {
- .main {padding:20px 18px 20px}.page-title {font-size:32px;letter-spacing:-1px}.page-description {font-size:14px}
+ .main {padding:28px 18px 20px}.page-title {font-size:32px;letter-spacing:-1px}.page-description {font-size:14px}
  .home-intro {text-align:left;padding-bottom:18px}.home-intro .page-title {font-size:35px;max-width:330px;line-height:1.12}
  .home-intro .page-description {max-width:300px}.eyebrow {font-size:9px}
  .home-top-row,.two-col {grid-template-columns:1fr;gap:18px}.left-grid {gap:22px}
@@ -248,7 +247,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
  .arena-card {padding:18px 15px}.duel-board {gap:10px}.duel-player {padding:12px}.duel-player-name {font-size:14px}.duel-player-meta {font-size:10px}.duel-player-clock {font-size:24px}
  .duel-center {padding:20px 0 6px}.duel-current-player,#practice-current-player {font-size:29px}.search-label {margin-top:18px}
  .chain-heading {margin-top:4px}.history-item {font-size:13px}.player-suggestions {max-height:240px}
- .rules-inline-notes {grid-template-columns:1fr;gap:22px}.rules-chain {grid-template-columns:1fr 1fr}.rules-note-card p {font-size:13px}
+ .rules-inline-notes {grid-template-columns:1fr;gap:22px}.rules-chain {grid-template-columns:1fr}.rules-note-card p {font-size:13px}
  .profile-page-header {align-items:flex-start;flex-direction:column;gap:0;margin-bottom:18px}.profile-joined-text {margin:0;font-size:11px}
  .profile-elo-chart-meta {gap:14px}.profile-elo-range-tabs {width:100%}.profile-elo-range-tabs .btn {flex:1}.profile-stats-box .stats {gap:22px 10px}.stat-value {font-size:25px}.stat-label {font-size:10px}
  body[data-page='signin'] .main,body[data-page='createaccount'] .main {padding-top:20px}.auth-page-panel {padding:24px}
@@ -310,3 +309,18 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 .friends-table .friend-actions {text-align:right}.friend-actions button {display:inline-flex;min-height:36px;padding:7px 10px;margin:3px 0 3px 6px;font-size:12px}
 .friends-table th:last-child {text-align:right}
 @media(max-width:600px){.friends-table th:first-child,.friends-table td:first-child {width:48%}.friends-table td,.friends-table th {padding:12px 10px}.friend-actions button {margin-left:0}.friends-section .section-heading {gap:8px}.site-note {flex-wrap:wrap}}
+
+/* Tables need room for their labels at intermediate window widths. */
+.home-table-wrap table {min-width:340px;table-layout:auto}.home-table-wrap th {white-space:nowrap}
+.home-table-wrap .leaderboard-table th:first-child {width:15%}
+@media(max-width:900px){.two-col {grid-template-columns:1fr}.rules-chain {grid-template-columns:1fr}.rules-chain .history-item {width:100%}.home-top-row {grid-template-columns:1fr}.home-intro {padding-top:12px;padding-bottom:30px}}
+
+.friends-requests {margin-top:24px;border-top:1px solid var(--line);padding-top:18px}
+.friends-requests summary {cursor:pointer;font-size:14px;font-weight:600;color:var(--text)}
+.friends-requests summary span {color:var(--muted);font-weight:400;margin-left:6px}
+.friends-requests[open] summary {margin-bottom:14px}
+.friend-rating {margin-left:10px;color:var(--muted);font-size:12px;font-weight:400;font-variant-numeric:tabular-nums}
+.friend-actions button:last-child:not(:first-child) {border-color:transparent;color:var(--muted);background:transparent}
+.friend-actions button:last-child:not(:first-child):hover {color:var(--text);background:var(--panel-soft)}
+#friends-panel .friends-section[hidden] {display:none}
+.friends-section .section-heading {flex-wrap:wrap}

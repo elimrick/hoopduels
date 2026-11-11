@@ -19,6 +19,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 const ONLINE_TTL_MS = 15_000;
 const onlineVisitors = new Map();
+const accountPresence = new Map();
 const publicDir = path.join(__dirname, 'public');
 const PAGE_ROUTES = {
   '/': 'index.html',
@@ -171,7 +172,9 @@ function pruneOnlineVisitors(now = Date.now()) {
   }
 }
 
-app.post('/api/online/ping', (req, res) => {
+app.post('/api/online/ping', async (req, res) => {
+  try {const user=await accountStore.getUserByToken(getBearerToken(req));if(user)accountPresence.set(Number(user.id),Date.now());}catch{}
+  for(const [id,seen] of accountPresence)if(Date.now()-seen>ONLINE_TTL_MS)accountPresence.delete(id);
   const raw = req.body && req.body.clientId;
   const clientId = typeof raw === 'string' ? raw.trim().slice(0, 96) : '';
   if (clientId) {
@@ -297,7 +300,8 @@ const playerToGameId = new Map();
 const playerToSocketId = new Map();
 const disconnectTimers = new Map();
 const friendStore = require('./lib/friends-server').installFriends({app,io,accounts:accountStore,
-  getSocket:getSocketByPlayerId,getGame:getGameByPlayerId,createGame,waitingQueue});
+  getSocket:getSocketByPlayerId,getGame:getGameByPlayerId,createGame,waitingQueue,
+  isOnline:id=>Date.now()-(accountPresence.get(Number(id))||0)<ONLINE_TTL_MS});
 
 function makeDefaultName(playerId) {
   return `Player-${String(playerId).slice(0, 4)}`;
@@ -599,7 +603,15 @@ async function endGame(game, loserPlayerId, reason) {
     reason
   });
 
+  const winnerUser=game.playerUserIds[winnerPlayerId], loserUser=game.playerUserIds[loserPlayerId];
+  if(winnerUser && loserUser && winnerUser!==loserUser) {
+    try {await friendStore.recordGame(winnerUser,loserUser);}catch(error){console.error('Could not save head-to-head result:',error.message);}
+  }
   await persistSignedInGameResults(game, winnerPlayerId, loserPlayerId, reason, eloUpdate);
+  if(game.mode==='friend') {
+    const rematch={players:[...game.players],expiresAt:Date.now()+120000,requestedBy:null};
+    for(const id of game.players){const peer=getSocketByPlayerId(id);if(peer)peer.data.rematch=rematch;}
+  }
 
   io.to(game.id).emit('game:ended', {
     winnerPlayerId,
@@ -807,6 +819,23 @@ io.on('connection', async (socket) => {
       message: `${existingGame.playerNames[playerId]} reconnected.`
     });
   }
+
+  socket.on('friend:rematch', () => {
+    const rematch=socket.data.rematch;
+    const opponentId=rematch?.players.find(id=>id!==playerId);
+    const opponent=opponentId && getSocketByPlayerId(opponentId);
+    if(!rematch || rematch.expiresAt<Date.now() || !opponent || opponent.data.rematch!==rematch ||
+      rematch.players.some(id=>getGameByPlayerId(id)||waitingQueue.includes(id))) {
+      socket.emit('game:error','Your opponent is no longer available for a rematch.');return;
+    }
+    if(rematch.requestedBy && rematch.requestedBy!==playerId){
+      socket.data.rematch=null;opponent.data.rematch=null;
+      createGame(rematch.players[0],rematch.players[1],'friend');return;
+    }
+    rematch.requestedBy=playerId;
+    socket.emit('friend:rematch-status',{requestedBy:playerId,message:'Rematch requested. Waiting for your opponent.'});
+    opponent.emit('friend:rematch-status',{requestedBy:playerId,message:'Your opponent wants a rematch. Select Accept rematch to play.'});
+  });
 
   socket.on('friends:ready', () => { if(socket.data.signedIn) socket.data.friendsReady = true; });
 
