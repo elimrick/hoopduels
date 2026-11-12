@@ -330,7 +330,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 #friends-panel .friends-section[hidden] {display:none}
 .friends-section .section-heading {flex-wrap:wrap}
 
-.home-title-accent {display:block;margin-top:12px;font-size:20px;font-weight:500;letter-spacing:0;color:var(--accent-blue)}
+.home-title-accent {display:block;margin-top:12px;font-size:16px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--accent-blue)}
 #history-preview.create-account-note {margin:0;padding:0}
 .friend-online,.rating-gain {color:var(--success)}
 .friend-offline {color:var(--muted)}
