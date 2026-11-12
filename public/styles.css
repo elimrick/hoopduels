@@ -102,8 +102,8 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .leaderboard-table th:nth-child(3),.leaderboard-table td:nth-child(3) {width:22%}
 .leaderboard-row-you {background:#eef4ff}
 .history-wl {font-weight:700}
-.history-wl.win,.history-win {color:var(--success)}
-.history-wl.loss,.history-loss {color:var(--danger)}
+.history-table td.history-wl.win,.history-win {color:var(--success)}
+.history-table td.history-wl.loss,.history-loss {color:var(--danger)}
 .home-table-wrap th,.home-table-wrap td {padding:10px 8px;font-size:12px}
 .home-table-wrap th {font-size:9px}
 .home-table-wrap .history-table th:first-child {width:16%}
@@ -265,7 +265,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 #player-right .foul-meter {justify-content:flex-end}
 .foul-label {font-size:10px;text-transform:uppercase;letter-spacing:.6px}
 .foul-pips {display:inline-flex;gap:5px}
-.foul-pip {display:grid;place-items:center;width:18px;height:18px;border:1px solid #c4cdda;border-radius:50%;color:transparent;font-size:15px;font-weight:700;line-height:1;background:#fff}
+.foul-pip {display:grid;place-items:center;width:12px;height:12px;border:1px solid #c4cdda;border-radius:50%;color:transparent;font-size:15px;font-weight:700;line-height:1;background:#fff}
 .foul-pip.filled {background:var(--danger);border-color:var(--danger);color:white}
 .leaderboard-toolbar {display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px}
 .leaderboard-toolbar label {display:grid;gap:7px;font-size:12px;font-weight:600;width:min(340px,100%)}
@@ -316,11 +316,32 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 @media(max-width:900px){.two-col {grid-template-columns:1fr}.rules-chain {grid-template-columns:1fr}.rules-chain .history-item {width:100%}.home-top-row {grid-template-columns:1fr}.home-intro {padding-top:12px;padding-bottom:30px}}
 
 .friends-requests {margin-top:24px;border-top:1px solid var(--line);padding-top:18px}
-.friends-requests summary {cursor:pointer;font-size:14px;font-weight:600;color:var(--text)}
+.friends-requests summary {cursor:pointer;font-size:16px;font-weight:700;letter-spacing:-.035em;line-height:1.18;color:var(--text)}
+.friends-requests summary {list-style:none}
+.friends-requests summary::-webkit-details-marker {display:none}
+.friends-requests summary::before {content:"▸";display:inline-block;margin-right:8px}
+.friends-requests[open] summary::before {content:"▾"}
 .friends-requests summary span {color:var(--muted);font-weight:400;margin-left:6px}
 .friends-requests[open] summary {margin-bottom:14px}
 .friend-rating {margin-left:10px;color:var(--muted);font-size:12px;font-weight:400;font-variant-numeric:tabular-nums}
 .friend-actions button:last-child:not(:first-child) {border-color:transparent;color:var(--muted);background:transparent}
-.friend-actions button:last-child:not(:first-child):hover {color:var(--text);background:var(--panel-soft)}
+.friend-actions button.friend-remove:hover {color:var(--danger);background:transparent;border-color:transparent}
+#friends-auth {margin:0}
 #friends-panel .friends-section[hidden] {display:none}
 .friends-section .section-heading {flex-wrap:wrap}
+
+.home-title-accent {display:block;margin-top:12px;font-size:20px;font-weight:500;letter-spacing:0;color:var(--accent-blue)}
+#history-preview.create-account-note {margin:0;padding:0}
+.friend-online,.rating-gain {color:var(--success)}
+.friend-offline {color:var(--muted)}
+.rating-loss {color:var(--danger)}
+.duel-player-heading {display:flex;align-items:baseline;gap:5px;flex-wrap:wrap}
+.duel-player-heading .duel-player-elo {font-size:12px;color:var(--muted);white-space:nowrap}
+#player-right .duel-player-heading {justify-content:flex-end}
+#friends-message:empty {display:none}
+@media(max-width:900px) {
+ .nav-link {justify-content:flex-start;text-align:left}
+ .sidebar {opacity:0;transform:translateY(-8px);transition:opacity .18s cubic-bezier(0.23,1,0.32,1),transform .18s cubic-bezier(0.23,1,0.32,1),visibility 0s linear .18s}
+ .mobile-nav-open .sidebar {opacity:1;transform:translateY(0);transition-delay:0s}
+}
+@media(prefers-reduced-motion:reduce) {.sidebar {transition:none;transform:none}}

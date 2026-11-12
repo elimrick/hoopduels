@@ -90,7 +90,7 @@ function renderPlayerClocks(players) {
 }
 
 function formatRatingMeta(value) {
-  return `<span class="duel-player-meta-label">Rating:</span> ${value}`;
+  return `(${value})`;
 }
 
 function getLocalProfileName() {
@@ -276,8 +276,8 @@ function isGuestLikeName(name) {
 
 function formatEloChange(delta) {
   const num = Number(delta);
-  if (!Number.isFinite(num) || num === 0) return '(0)';
-  return num > 0 ? `(+${Math.round(num)})` : `(${Math.round(num)})`;
+  if (!Number.isFinite(num) || num === 0) return '0';
+  return `<span class="${num > 0 ? 'rating-gain' : 'rating-loss'}">${num > 0 ? '+' : ''}${Math.round(num)}</span>`;
 }
 
 function getAccountEloByName(username) {
@@ -351,7 +351,7 @@ function capitalizeFirstChar(value) {
 function getEndDisplay(reason, winnerPlayerId, loserPlayerId) {
   const lost = playerId === loserPlayerId;
   const won = playerId === winnerPlayerId;
-  const title = lost ? 'You Lost' : (won ? 'You Won' : 'Game Over');
+  const title = lost ? 'You lost.' : (won ? 'You won!' : 'Game Over');
   const normalized = typeof reason === 'string' ? reason.trim().toLowerCase() : '';
 
   if (normalized === 'left game') {
@@ -619,6 +619,8 @@ function renderGameState(state) {
     clearInputError();
     if (myName && strikeInfo.guesser === myName) {
       clearTransientGuessPlaceholder();
+      setGuessValue('');
+      setMessage(capitalizeFirstChar(strikeInfo.reason) + '.', 'error');
       syncGuessPlaceholder(canGuess);
     } else {
       const guessedName = strikeInfo.guess || extractGuessedName(state.message) || 'player';
@@ -915,6 +917,7 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     const myName = me ? me.username : '';
     flashFoulCard(striker ? striker.playerId : null);
     if (myName && finalStrikeInfo.guesser === myName) {
+      setMessage(capitalizeFirstChar(finalStrikeInfo.reason) + '.', 'error');
       clearTransientGuessPlaceholder();
       finalInputText = '';
     } else {

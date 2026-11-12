@@ -197,7 +197,7 @@
       if (activeProfile.signedIn) {
         homeTitle.textContent = `Welcome back, ${activeProfile.username}!`;
       } else {
-        homeTitle.textContent = 'Welcome to HoopDuels!';
+        homeTitle.innerHTML = 'Welcome to HoopDuels!<span class="home-title-accent">The NBA Chain Game.</span>';
       }
     }
     setText(
@@ -832,6 +832,7 @@
     const signOutButton = document.getElementById('signout-btn');
     if (!signOutButton) return;
     signOutButton.addEventListener('click', async () => {
+      if (!window.confirm('Are you sure you want to sign out?')) return;
       await window.HoopState.signOut();
       window.location.href = '/signin';
     });
