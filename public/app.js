@@ -197,7 +197,7 @@
       if (activeProfile.signedIn) {
         homeTitle.textContent = `Welcome back, ${activeProfile.username}!`;
       } else {
-        homeTitle.innerHTML = 'Welcome to HoopDuels!<span class="home-title-accent">The NBA Chain Game.</span>';
+        homeTitle.innerHTML = 'Welcome to HoopDuels!<span class="eyebrow home-title-accent">The NBA Chain Game.</span>';
       }
     }
     setText(

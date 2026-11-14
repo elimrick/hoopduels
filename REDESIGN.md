@@ -1,11 +1,11 @@
 # HoopDuels redesign
 
-Isolated branch: redesign/light-interface. Production remains on main.
+Production deploys from main. The original live design is preserved on branch archive/original-design-2026-11-14 and tag original-design-2026-11-14, both pointing to 17642b3b510f0d0536d88ccab3e7727f9ccc49a3. To restore it, deploy that commit through Render. The added friendship tables can remain in place during rollback.
 
 Run npm ci, then npm run preview. Open http://127.0.0.1:3101.
 The preview command forcibly uses its own local SQLite accounts database, binds only to loopback, and never connects to the production database. Browser accounts are separate from hoopduels.com. Advertisements are omitted in this design branch.
 
-Scope: shared navigation, homepage, practice and live game interfaces, autocomplete, leaderboard, history, profiles, authentication, rules, and the existing auxiliary routes. No production push or deployment is part of this redesign.
+Scope: shared navigation, homepage, practice and live game interfaces, autocomplete, leaderboard, history, profiles, authentication, rules, and the existing auxiliary routes. The redesign was approved for production on November 14, 2026.
 
 ## Review and checks
 
@@ -16,7 +16,7 @@ The UI has been reviewed in Safari at desktop and phone widths, including autoco
 ## Friends
 Friend requests persist in the account database. Both players open Friends to send/accept a direct challenge; challenges expire after 60 seconds. These games use the existing duel rules, appear in history, and do not change rating or win/loss record. One active game tab per browser identity.
 
-Run `node scripts/check-friends.js` with the preview running to check requests, permissions, presence, challenges and unranked results. SQLite is verified locally; PostgreSQL uses the same parameterized SQL but needs staging verification before deployment. Challenges and games remain process-local, matching existing matchmaking; multiple server instances would need shared coordination.
+Run `node scripts/check-friends.js` with the preview running to check requests, permissions, presence, challenges and unranked results. SQLite and an isolated PostgreSQL instance were verified locally, including schema creation, friend requests, saved ratings, historical records, game results, and removal. Challenges and games remain process-local, matching existing matchmaking; multiple server instances would need shared coordination.
 
 ## Latest refinements
 

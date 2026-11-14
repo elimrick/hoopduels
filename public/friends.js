@@ -31,7 +31,7 @@
       status.textContent=online ? 'Online' : 'Offline';
       small.prepend(status, ' · ');
     }
-    if(rating!==null){const badge=document.createElement('span');badge.className='friend-rating';badge.textContent=String(rating);badge.setAttribute('aria-label','Rating '+rating);copy.append(badge);}
+    if(rating!==null){const badge=document.createElement('span');badge.className='friend-rating';badge.textContent='('+rating+')';badge.setAttribute('aria-label','Rating '+rating);copy.append(badge);}
     copy.append(small);el.append(copy);
     const actions=document.createElement('td');actions.className='friend-actions';
     for(const [label,fn,disabled] of buttons){const b=document.createElement('button');b.type='button';b.className='btn btn-secondary';b.textContent=label;if(label==='Remove')b.classList.add('friend-remove');b.disabled=!!disabled;if(disabled && label==='Challenge')b.title='Both players need Friends open and must not already be in a game.';b.addEventListener('click',fn);actions.append(b);}
