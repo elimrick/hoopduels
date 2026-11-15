@@ -77,7 +77,7 @@ console.log('PASS: visibility edges, server validation/deduplication, off-turn f
     setMessage: (message) => errors.push(message),
     inputEl: { focus() {} }, resizeInput() {}
   };
-  vm.runInNewContext(practice.slice(practice.indexOf('async function submitGuess()'), practice.indexOf('if (submitEl)')), turnContext);
+  vm.runInNewContext(practice.slice(practice.indexOf('async function submitGuess()'), practice.indexOf('if (submitEl)', practice.indexOf('async function submitGuess()'))), turnContext);
   let submission = vm.runInNewContext('submitGuess()', turnContext);
   response({ ok: true, json: async () => ({ ok: false, reason: 'Not a teammate' }) });
   await submission;
