@@ -257,6 +257,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 }
 @media(prefers-reduced-motion:reduce) {* {animation:none!important;transition:none!important}}
 
+.duel-timer.is-end {font-size:14px}
 .duel-timer.is-end::after {content:none}
 
 /* Review refinements */
