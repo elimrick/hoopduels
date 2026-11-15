@@ -363,5 +363,5 @@ html.auth-signed-out .home-history-link {display:none}
 .password-toggle .password-eye-closed,.password-toggle[aria-pressed="true"] .password-eye {display:none}
 .password-toggle[aria-pressed="true"] .password-eye-closed {display:block}
 
-.message-appearing {animation:message-appear .22s ease-out}
-@keyframes message-appear {from {opacity:0} to {opacity:1}}
+.message-appearing {animation:message-appear .4s ease-out}
+@keyframes message-appear {from {opacity:.45} to {opacity:1}}
