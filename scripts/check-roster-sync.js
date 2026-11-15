@@ -64,6 +64,13 @@ const {transactionIntervals, addTransactionOverlaps} = require('../lib/roster-tr
   assert.equal(calls,2,'concurrent refreshes must share one request');
   assert.equal(sync.status().teams,30);
   await sync.refresh();assert.equal(calls,2,'successful updates must wait until the next day');
+  const yesterday = new Date();
+  yesterday.setUTCDate(yesterday.getUTCDate()-1);
+  yesterday.setUTCHours(23,59,59,0);
+  sync.state.updatedAt = yesterday.toISOString();
+  sync.lastAttempt = 0;
+  await sync.refresh();
+  assert.equal(calls,4,'a new UTC day must refresh even when fewer than 24 hours have elapsed');
   const restarted = new RosterSync({playerStore:store,statePath:path.join(temp,'sync.json')});
   await restarted.init();
   assert.equal(restarted.status().updatedAt,sync.status().updatedAt);

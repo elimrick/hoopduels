@@ -37,7 +37,7 @@ npm run db:seed
 
 The updater preserves historical connections and adds connections supported by simultaneous roster membership. It no longer builds teammate connections from season-wide team lists. Dated signings, waivers, trades, and 10-day expirations also supply overlap evidence, including players who never appeared in a game. Draft-rights trades alone do not establish roster membership.
 
-Production refreshes automatically every 24 hours, retries failures hourly, and keeps its last successful additions in PostgreSQL. The daily GitHub Actions workflow wakes the Render service and checks `/api/players/data-status`, including while the free service is sleeping. Scheduled Actions can run late. A failed check is visible in GitHub Actions.
+Production refreshes automatically each UTC day, retries failures hourly, and keeps its last successful additions in PostgreSQL. The daily GitHub Actions workflow wakes the Render service and checks `/api/players/data-status`, including while the free service is sleeping. Scheduled Actions can run late. A failed check is visible in GitHub Actions.
 
 Local previews use the bundled graph. Set `NBA_ROSTER_SYNC=1` to enable fetching locally. Local additions persist in ignored `data/roster-sync-state.json`.
 
