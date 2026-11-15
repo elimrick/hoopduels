@@ -80,6 +80,7 @@ function setMessage(text, kind = '', allowHtml = false) {
   } else {
     messageEl.textContent = text || '';
   }
+  if (text && kind === 'error') window.HoopFeedback.animateError(messageEl);
 }
 
 function clearInputError() {

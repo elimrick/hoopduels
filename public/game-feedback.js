@@ -1,4 +1,9 @@
 window.HoopFeedback = {
+  animateError(element) {
+    element.classList.remove('message-appearing');
+    void element.offsetWidth;
+    element.classList.add('message-appearing');
+  },
   setFouls(element, count) {
     const fouls = Math.max(0, Math.min(3, Number(count) || 0));
     element.textContent = String(fouls);

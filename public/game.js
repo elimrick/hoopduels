@@ -102,6 +102,7 @@ function getLocalProfileName() {
 function setMessage(text, kind = '') {
   messageEl.className = kind ? `message ${kind}` : 'message';
   messageEl.textContent = text || '';
+  if (text && kind === 'error') window.HoopFeedback.animateError(messageEl);
 }
 
 function getGuessFieldRoot() {
