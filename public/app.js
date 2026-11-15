@@ -65,7 +65,7 @@
 
     const topbar = document.createElement('div');
     topbar.className = 'mobile-topbar';
-    topbar.innerHTML = '<div class="mobile-brand" role="link" tabindex="0" aria-label="Go to home"><img class="brand-mark" src="/logo.svg?v=1be45d2d" alt="" width="32" height="32"><span>HoopDuels</span></div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
+    topbar.innerHTML = '<div class="mobile-brand" role="link" tabindex="0" aria-label="Go to home"><img class="brand-mark" src="/logo.svg?v=20261115" alt="" width="32" height="32"><span>HoopDuels</span></div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
     document.body.insertBefore(topbar, layout);
 
     const toggleBtn = topbar.querySelector('.mobile-menu-btn');
@@ -697,6 +697,15 @@
     const passwordError = document.getElementById('signin-password-error');
     const message = document.getElementById('signin-message');
     if (!usernameInput || !passwordInput) return;
+
+    const passwordToggle = document.getElementById('password-toggle');
+    passwordToggle?.addEventListener('click', () => {
+      const show = passwordInput.type === 'password';
+      passwordInput.type = show ? 'text' : 'password';
+      passwordToggle.textContent = show ? 'Hide' : 'Show';
+      passwordToggle.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+      passwordToggle.setAttribute('aria-pressed', String(show));
+    });
 
     const activeProfile = window.HoopState.getProfile();
     if (activeProfile && activeProfile.signedIn && activeProfile.username && activeProfile.username !== 'Guest') {
