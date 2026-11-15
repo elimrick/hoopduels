@@ -571,7 +571,7 @@ function renderGameState(state) {
   if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 
   if (duelCurrentEl) duelCurrentEl.classList.remove('is-end');
-  if (currentLabelEl) currentLabelEl.textContent = 'Current Player';
+  if (currentLabelEl) currentLabelEl.textContent = 'CURRENT PLAYER';
   if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = state.currentPlayer;
 
@@ -614,10 +614,8 @@ function renderGameState(state) {
   renderScoreboard(state.players, state.activePlayerId, strikeOutOutcome);
   renderHistory(state.usedPlayers, state.history, state.players);
   if (strikeInfo) {
-    const me = state.players.find((p) => p.playerId === playerId);
-    const myName = me ? me.username : '';
     clearInputError();
-    if (myName && strikeInfo.guesser === myName) {
+    if (state.activePlayerId === playerId) {
       clearTransientGuessPlaceholder();
       setGuessValue('');
       setMessage(capitalizeFirstChar(strikeInfo.reason) + '.', 'error');
@@ -911,16 +909,13 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     const striker = gameState && Array.isArray(gameState.players)
       ? gameState.players.find((p) => String(p.username || '').trim().toLowerCase() === String(finalStrikeInfo.guesser || '').trim().toLowerCase())
       : null;
-    const me = gameState && Array.isArray(gameState.players)
-      ? gameState.players.find((p) => p.playerId === playerId)
-      : null;
-    const myName = me ? me.username : '';
     flashFoulCard(striker ? striker.playerId : null);
-    if (myName && finalStrikeInfo.guesser === myName) {
+    if (loserPlayerId === playerId) {
       setMessage(capitalizeFirstChar(finalStrikeInfo.reason) + '.', 'error');
       clearTransientGuessPlaceholder();
       finalInputText = '';
     } else {
+      setMessage('');
       const guessedName = finalStrikeInfo.guess || finalHistoryGuess || extractGuessedName(gameState.message) || 'player';
       finalInputText = `Opponent guessed ${guessedName}`;
     }

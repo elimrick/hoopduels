@@ -61,6 +61,9 @@ function setInputEditable(editable) {
 
 function refreshPlayerName() {
   playerNameEl.textContent = getDisplayName();
+  const profile = window.HoopState?.getProfile();
+  const rating = document.getElementById('practice-player-elo');
+  if (rating) rating.textContent = profile?.signedIn ? `(${Math.round(Number(profile.elo) || 1200)})` : '';
 }
 
 function getDisplayName() {

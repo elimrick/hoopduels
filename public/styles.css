@@ -88,7 +88,7 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .section-heading h3 {margin:0}
 .section-heading a {font-size:11px;white-space:nowrap}
 .list-empty {color:var(--muted);font-size:14px;line-height:1.7;margin:10px 0}
-#history-preview.list-empty,#leaderboard-preview.list-empty {padding:22px 0}
+#history-preview.list-empty,#leaderboard-preview.list-empty {margin:0;padding:0}
 .site-note {margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:18px;color:var(--muted);font-size:11px}
 .site-note span {color:var(--text);font-weight:700}
 .page-panel {width:100%}
@@ -222,7 +222,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
  .mobile-brand {font-size:22px}.mobile-brand .brand-mark {width:27px;height:27px}
  .mobile-menu-btn {display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;border:0;background:transparent;border-radius:5px}
  .mobile-menu-btn span {width:21px;height:2px;background:var(--text)}
- .sidebar {position:fixed;top:var(--mobile-topbar-total);left:0;right:0;height:auto;padding:12px 22px 20px;background:#fff;z-index:49;border-bottom:1px solid var(--line);box-shadow:0 10px 18px #2030400d;visibility:hidden;pointer-events:none;max-height:calc(100dvh - var(--mobile-topbar-total));overflow:auto}
+ .sidebar {position:fixed;top:var(--mobile-topbar-total);left:0;right:0;height:auto;padding:20px 22px;background:#fff;z-index:49;border-bottom:1px solid var(--line);box-shadow:0 10px 18px #2030400d;visibility:hidden;pointer-events:none;max-height:calc(100dvh - var(--mobile-topbar-total));overflow:auto}
  .sidebar .brand {display:none}.mobile-nav-open .sidebar {visibility:visible;pointer-events:auto}
  .nav {display:flex;flex-wrap:wrap;gap:4px;height:auto}.nav-link {height:44px;width:calc(50% - 2px);font-size:14px;padding:0 12px;border-radius:4px}
  .nav-link.active {background:#eef3fd}.nav-link.active::after {display:none}
@@ -241,10 +241,10 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
  #find-game-home-btn {width:100%}.mode-footnote {text-align:center}
  .practice-card {position:relative}.practice-card .eyebrow {margin-bottom:16px}.practice-symbol {position:absolute;right:22px;top:18px;width:40px;height:40px;margin:0}.practice-symbol .brand-mark {width:26px;height:26px}
  .practice-card h2 {font-size:25px}.practice-card>p {font-size:13px}.practice-card .btn {margin-top:8px}
- .how-strip {display:grid;grid-template-columns:1fr;gap:10px;padding:0 5px}.how-strip .eyebrow {margin-bottom:2px}.how-strip p {font-size:12px}.how-strip a {margin:4px 0 0}
+ .how-strip {display:grid;grid-template-columns:1fr;gap:10px;padding:0 5px}.how-strip .eyebrow {margin-bottom:2px;font-size:10px}.how-strip p,.how-strip a {font-size:14px}.how-strip b {font-size:12px}.how-strip a {margin:4px 0 0}
  .section-heading a {font-size:10px}.site-note {margin-top:30px;font-size:10px;gap:10px}
  .history-table,.leaderboard-table {font-size:12px}.history-table td,.leaderboard-table td {padding:13px 7px}.history-table th,.leaderboard-table th {padding:11px 7px;font-size:9px;letter-spacing:.4px}
- body[data-page='leaderboard'] .card,body[data-page='history'] .card {padding:14px 10px}
+ body[data-page='leaderboard'] .card,body[data-page='friends'] .card,body[data-page='history'] .card {padding:23px}
  .duel-page-header {margin-bottom:20px}.duel-page-header .page-title {font-size:26px}.btn-status {font-size:12px;min-height:38px;padding:9px 12px}
  .arena-card {padding:18px 15px}.duel-board {gap:10px}.duel-player {padding:12px}.duel-player-name {font-size:16px}.duel-player-meta {font-size:10px}.duel-player-clock {font-size:24px}
  .duel-center {padding:20px 0 6px}.duel-current-player,#practice-current-player {font-size:29px}.search-label {margin-top:18px}
@@ -341,7 +341,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 .rating-loss {color:var(--danger)}
 .duel-player-heading {display:flex;align-items:baseline;gap:5px;flex-wrap:wrap}
 .duel-player-heading .duel-player-elo {font-size:12px;color:var(--muted);white-space:nowrap}
-#player-right .duel-player-heading {justify-content:flex-end}
+#player-right .duel-player-heading,#practice-player-right .duel-player-heading {justify-content:flex-end}
 #friends-message:empty {display:none}
 @media(max-width:900px) {
  .nav-link {justify-content:flex-start;text-align:left}
