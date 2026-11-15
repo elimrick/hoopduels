@@ -25,8 +25,8 @@ jobs:
                 });
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const state = await response.json();
-                const age = Date.now() - Date.parse(state.updatedAt);
-                if (state.teams === 30 && age >= 0 && age < 26 * 60 * 60 * 1000 && !state.lastError) {
+                const today = new Date().toISOString().slice(0, 10);
+                if (state.teams === 30 && String(state.updatedAt).slice(0, 10) === today && !state.running && !state.lastError) {
                   console.log(`Verified all 30 NBA rosters. Last updated ${state.updatedAt}`);
                   return;
                 }
