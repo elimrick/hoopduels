@@ -20,7 +20,7 @@ function fail(messages) {
 
 function inferMinPlayersFromStartYear() {
   const raw = process.env.BUILD_START_SEASON_END_YEAR;
-  const startYear = Number.isFinite(Number(raw)) ? Number(raw) : 1977;
+  const startYear = Number.isFinite(Number(raw)) ? Number(raw) : 2001;
   if (startYear <= 1977) return 4000;
   if (startYear <= 1990) return 3300;
   if (startYear <= 2000) return 2600;

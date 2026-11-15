@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-11-15T16:29:52.464Z",
+  "players": 3044,
+  "fullHistoricalAuditComplete": false,
+  "currentRoster": {
+    "teams": 30,
+    "players": 525,
+    "source": "https://cdn-uat.nba.com/players"
+  },
+  "transactions": {
+    "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+    "availableFrom": "2015-07-01",
+    "datePrecision": "day"
+  },
+  "correctedNonOverlappingPairs": [
+    [
+      "Anthony Davis",
+      "Luka Doncic"
+    ],
+    [
+      "Kawhi Leonard",
+      "DeMar DeRozan"
+    ],
+    [
+      "Tyrese Haliburton",
+      "Domantas Sabonis"
+    ]
+  ],
+  "identityCorrections": [
+    "Merged Jimmy Butler / Jimmy Butler III and punctuation aliases",
+    "Kept father/son identities distinct during name resolution"
+  ],
+  "remaining": [
+    "Legacy historical connections have not all been verified against roster dates.",
+    "Transaction coverage before July 2015 is unavailable in this feed.",
+    "Same-day roster stints without a shared snapshot cannot establish overlap from dates alone.",
+    "Legacy player-pool eligibility since 2000-01 still needs a full historical audit."
+  ]
+}

@@ -5,7 +5,7 @@ const { Server } = require('socket.io');
 const { PlayerStore } = require('./lib/player-store');
 const { AccountStore, normalizeUsername } = require('./lib/account-store');
 const { AccountStorePg } = require('./lib/account-store-pg');
-const { runSeasonSyncIfDue } = require('./lib/season-sync');
+const { RosterSync } = require('./lib/roster-sync');
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
@@ -282,17 +282,12 @@ app.get('/api/admin/health', async (req, res) => {
   });
 });
 
-const seasonSyncStatePath = path.join(__dirname, 'data', 'season-sync-state.json');
-runSeasonSyncIfDue({
-  statePath: seasonSyncStatePath,
-  seasonStartMonth: 10,
-  seasonStartDay: 1,
-  syncFn: () => {
-    playerStore.reloadFromJson();
-    const counts = playerStore.getCounts();
-    console.log(`[season-sync] Player DB refreshed: ${counts.players} players, ${counts.allStars} all-stars`);
-  }
+const rosterSync = new RosterSync({
+  playerStore,
+  pool: usePostgres ? accountStore.pool : null,
+  statePath: path.join(__dirname, 'data', 'roster-sync-state.json')
 });
+app.get('/api/players/data-status', (_req, res) => res.json(rosterSync.status()));
 
 const waitingQueue = [];
 const games = new Map();
@@ -977,6 +972,12 @@ io.on('connection', async (socket) => {
 async function boot() {
   await accountStore.init();
   await friendStore.init();
+  await rosterSync.init();
+  if (usePostgres || process.env.NBA_ROSTER_SYNC === '1') {
+    const refreshRosters = () => rosterSync.refresh().catch(() => {});
+    refreshRosters();
+    setInterval(refreshRosters, 60 * 60 * 1000).unref();
+  }
   server.listen(PORT, HOST, () => {
     const counts = playerStore.getCounts();
     console.log(`Players loaded from DB: ${counts.players} total, ${counts.allStars} all-stars`);

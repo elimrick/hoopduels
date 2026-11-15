@@ -28,27 +28,20 @@ npm run tunnel
 
 This opens an internet URL via `localhost.run` that forwards to your local `http://localhost:3000`.
 
-Build full 2000-present player graph (NBA stats API):
+Update the saved player graph from verified current NBA rosters and dated transactions.
 
 ```bash
-npm run data:build
+npm run data:build:strict
 npm run db:seed
 ```
 
-Or one command:
+The updater preserves historical connections and adds connections supported by simultaneous roster membership. It no longer builds teammate connections from season-wide team lists. Dated signings, waivers, trades, and 10-day expirations also supply overlap evidence, including players who never appeared in a game. Draft-rights trades alone do not establish roster membership.
 
-```bash
-npm run data:refresh-full
-```
+Production refreshes automatically every 24 hours, retries failures hourly, and keeps its last successful additions in PostgreSQL. The daily GitHub Actions workflow wakes the Render service and checks `/api/players/data-status`, including while the free service is sleeping. Scheduled Actions can run late. A failed check is visible in GitHub Actions.
 
-If the build is interrupted, rerun `npm run data:build` and it will resume from the last completed season.
+Local previews use the bundled graph. Set `NBA_ROSTER_SYNC=1` to enable fetching locally. Local additions persist in ignored `data/roster-sync-state.json`.
 
-Season sync commands:
-
-```bash
-npm run season:sync
-npm run season:sync:force
-```
+The historical audit is still incomplete. The NBA transaction feed starts in July 2015, and its dates have day-level precision. Existing legacy connections have not all been reconstructed from roster intervals. Current snapshots establish additional overlap, and known corrections are recorded in `data/player-data-audit.json`.
 
 Open `http://localhost:3000/game.html` in two browser tabs/windows to test a live duel locally.
 
@@ -57,4 +50,4 @@ Open `http://localhost:3000/game.html` in two browser tabs/windows to test a liv
 - UI is styled from the provided homepage concept, and the same visual system is applied to all pages.
 - Home/profile/leaderboard/history pages are wired to local persisted profile state.
 - Player data is stored in SQLite at `data/players.db` and seeded from `data/players-2000-present.json`.
-- Season refresh is checked on server startup and can run at most once per season (default boundary: October 1), tracked in `data/season-sync-state.json`.
+- Roster updates replace the local player tables atomically and refresh in-memory connections without restarting live games.

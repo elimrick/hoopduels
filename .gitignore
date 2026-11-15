@@ -9,3 +9,5 @@ data/*.db-shm
 data/*.db-wal
 !data/players-2000-present.json
 !data/season-sync-state.json
+
+data/roster-sync-state.json*
