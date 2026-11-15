@@ -131,7 +131,7 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .duel-timer {order:2;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .duel-timer::after {content:' seconds remaining';font-size:11px}
 .duel-current.is-end .duel-current-label {font-size:25px;letter-spacing:-.5px;color:var(--text)}
-.duel-current.is-end .duel-current-player {font-size:16px;font-weight:500;color:var(--muted)}
+.duel-current.is-end .duel-current-player {font-size:10px;font-weight:750;letter-spacing:1.65px;line-height:1.5;text-transform:uppercase;color:var(--accent-blue)}
 .search-label {display:block;font-size:12px;font-weight:650;margin-top:24px;margin-bottom:7px}
 .turn-row {display:grid;grid-template-columns:1fr;gap:12px;margin:0 0 30px}
 .player-autocomplete {position:relative;width:100%;min-width:0}
@@ -234,7 +234,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 @media(max-width:600px) {
  .main {padding:28px 18px 20px}.page-title {font-size:32px;letter-spacing:-1px}.page-description {font-size:14px}
  .home-intro {text-align:left;padding-bottom:18px}.home-intro .page-title {font-size:35px;max-width:330px;line-height:1.12}
- .home-intro .page-description {max-width:300px}.eyebrow {font-size:9px}
+ .home-intro .page-description {max-width:300px}.eyebrow,.duel-current.is-end .duel-current-player {font-size:9px}
  .home-top-row,.two-col {grid-template-columns:1fr;gap:18px}.left-grid {gap:22px}
  .card,.duel-card,.practice-card {padding:23px}.mode-topline {margin-bottom:20px}#home-duel-card h2 {font-size:30px}
  .example-chain {gap:12px;padding:14px 12px}.example-chain span {font-size:13px}.example-chain small {font-size:7px}
