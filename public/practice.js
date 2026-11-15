@@ -22,7 +22,8 @@ const state = {
   yourFouls: 0,
   turnDeadline: 0,
   timer: null,
-  active: true,
+  active: false,
+  roundId: 0,
   phase: 'player',
   timeoutHandled: false,
   pending: false
@@ -212,7 +213,7 @@ function endPractice(reason, detailMessage = '') {
   refreshAutocomplete();
 }
 
-function applyFoul(reason) {
+function applyFoul(reason, preserveTurn = false) {
   state.yourFouls += 1;
   window.HoopFeedback.setFouls(yourFoulsEl, state.yourFouls);
   flashPracticeFoul();
@@ -221,7 +222,7 @@ function applyFoul(reason) {
     return;
   }
   showInputError(reason);
-  state.phase = 'player';
+  if (!preserveTurn) state.phase = 'player';
   setTurnUi();
   inputEl.focus();
   resizeInput();
@@ -274,7 +275,15 @@ function queueComputerTurn(nextCurrentPlayer) {
   currentEl.textContent = nextCurrentPlayer || state.currentPlayer;
 }
 
+window.HoopFeedback.watchVisibility((hidden) => {
+  if (hidden && state.active) applyFoul('Left the game tab.', true);
+});
+
 async function startPractice() {
+  state.roundId += 1;
+  state.active = false;
+  state.pending = false;
+  stopTimer();
   timerEl.parentElement.classList.remove('is-end');
   currentEl.parentElement.classList.remove('practice-ended');
   document.querySelector('.duel-current-label').textContent = 'CURRENT PLAYER';
@@ -312,7 +321,8 @@ async function startPractice() {
 }
 
 async function submitGuess() {
-  if (!state.active || state.phase !== 'player') return;
+  if (!state.active || state.phase !== 'player' || state.pending) return;
+  const roundId = state.roundId;
   const guess = getInputValue().trim();
   if (!guess) return;
   clearInputError();
@@ -332,6 +342,7 @@ async function submitGuess() {
       })
     });
     const payload = await res.json();
+    if (!state.active || state.roundId !== roundId) return;
     if (!res.ok || !payload) {
       throw new Error(payload && payload.error ? payload.error : 'Could not process guess.');
     }
@@ -359,7 +370,7 @@ async function submitGuess() {
 
     queueComputerTurn(payload.userGuess || state.currentPlayer);
     await new Promise((resolve) => setTimeout(resolve, CPU_DELAY_MS));
-    if (!state.active) return;
+    if (!state.active || state.roundId !== roundId) return;
 
     state.usedPlayers.push(payload.computerGuess);
     state.currentPlayer = payload.nextCurrentPlayer || payload.computerGuess;
@@ -370,8 +381,9 @@ async function submitGuess() {
     inputEl.focus();
     resizeInput();
   } catch (error) {
-    setMessage(error.message || 'Practice error.', 'error');
+    if (state.active && state.roundId === roundId) setMessage(error.message || 'Practice error.', 'error');
   } finally {
+    if (state.roundId !== roundId) return;
     state.pending = false;
     if (state.active) {
       setTurnUi();

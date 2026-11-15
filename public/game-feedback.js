@@ -1,4 +1,12 @@
 window.HoopFeedback = {
+  watchVisibility(callback) {
+    let hidden = document.hidden;
+    document.addEventListener('visibilitychange', () => {
+      if (hidden === document.hidden) return;
+      hidden = document.hidden;
+      callback(hidden);
+    });
+  },
   animateError(element) {
     element.classList.remove('message-appearing');
     void element.offsetWidth;

@@ -641,10 +641,14 @@ function applyStrike(game, playerId, reason, guessText = '') {
     strikes: game.strikes[playerId]
   });
 
+  const tabMessage = reason === 'left the game tab'
+    ? `${game.playerNames[playerId]} got a strike (left the game tab).`
+    : null;
+
   if (game.strikes[playerId] >= MAX_STRIKES) {
     emitGameState(game, {
       includeMessage: true,
-      message: `${game.playerNames[playerId]} guessed "${guessText || 'blank guess'}" and got strike 3/3 (${reason}).`
+      message: tabMessage || `${game.playerNames[playerId]} guessed "${guessText || 'blank guess'}" and got strike 3/3 (${reason}).`
     });
     void endGame(game, playerId, '3 strikes');
     return;
@@ -652,7 +656,7 @@ function applyStrike(game, playerId, reason, guessText = '') {
 
   emitGameState(game, {
     includeMessage: true,
-    message: `${game.playerNames[playerId]} guessed "${guessText || 'blank guess'}" and got a strike (${reason}).`
+    message: tabMessage || `${game.playerNames[playerId]} guessed "${guessText || 'blank guess'}" and got a strike (${reason}).`
   });
 
   scheduleTurnTimeout(game);
@@ -672,6 +676,7 @@ function createGame(playerAId, playerBId, mode = 'ranked') {
     playerUserIds: {[playerAId]: socketA.data.userId, [playerBId]: socketB.data.userId},
     playerTokens: {[playerAId]: socketA.data.token, [playerBId]: socketB.data.token},
     players: [playerAId, playerBId],
+    hiddenTabs: { [playerAId]: false, [playerBId]: false },
     playerNames: {
       [playerAId]: socketA.data.username || makeDefaultName(playerAId),
       [playerBId]: socketB.data.username || makeDefaultName(playerBId)
@@ -881,6 +886,15 @@ io.on('connection', async (socket) => {
       waitingQueue.splice(idx, 1);
       socket.emit('matchmaking:left');
     }
+  });
+
+  socket.on('game:visibility', (visibility) => {
+    const game = getGameByPlayerId(playerId);
+    if (!game || game.status !== 'active' || !visibility ||
+        visibility.gameId !== game.id || typeof visibility.hidden !== 'boolean') return;
+    if (Boolean(game.hiddenTabs[playerId]) === visibility.hidden) return;
+    game.hiddenTabs[playerId] = visibility.hidden;
+    if (visibility.hidden) applyStrike(game, playerId, 'left the game tab');
   });
 
   socket.on('game:guess', (rawGuess) => {

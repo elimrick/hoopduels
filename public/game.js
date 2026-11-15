@@ -313,6 +313,8 @@ function extractGuessedName(message) {
 
 function parseStrikeMessage(message) {
   if (typeof message !== 'string') return null;
+  const tabMatch = message.match(/^(.+) got a strike \(left the game tab\)\.$/);
+  if (tabMatch) return { guesser: tabMatch[1], guess: '', reason: 'left the game tab' };
   const match = message.match(/^(.+?) guessed "([^"]+)" and got(?: a)? strike(?: 3\/3)? \((.+)\)\.$/i);
   if (!match) return null;
   return {
@@ -616,14 +618,15 @@ function renderGameState(state) {
   renderHistory(state.usedPlayers, state.history, state.players);
   if (strikeInfo) {
     clearInputError();
-    if (state.activePlayerId === playerId) {
+    if (getLastStrikeEntry(state.history)?.playerId === playerId) {
       clearTransientGuessPlaceholder();
       setGuessValue('');
       setMessage(capitalizeFirstChar(strikeInfo.reason) + '.', 'error');
       syncGuessPlaceholder(canGuess);
     } else {
       const guessedName = strikeInfo.guess || extractGuessedName(state.message) || 'player';
-      setOpponentGuessPlaceholder(guessedName);
+      if (strikeInfo.reason === 'left the game tab') clearTransientGuessPlaceholder();
+      else setOpponentGuessPlaceholder(guessedName);
       syncGuessPlaceholder(canGuess);
     }
   } else {
@@ -864,12 +867,20 @@ socket.on('game:error', (msg) => {
   setMessage(msg, 'error');
 });
 
+function reportVisibility() {
+  if (!currentState || currentState.status !== 'active' || gameFinished) return;
+  socket.emit('game:visibility', { gameId: currentState.gameId, hidden: document.hidden });
+}
+
+window.HoopFeedback.watchVisibility(reportVisibility);
+
 socket.on('game:state', (state) => {
   const heading=document.querySelector('h1');
   if(heading)heading.textContent=state.mode==='friend'?'Friendly Duel':'Live Duel';
   if (gameFinished && !isRequeueing && state.gameId === currentGameId) return;
   closeMatchmakingOverlay();
   renderGameState(state);
+  reportVisibility();
 });
 
 socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason, eloUpdate, gameState }) => {
@@ -918,7 +929,7 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
     } else {
       setMessage('');
       const guessedName = finalStrikeInfo.guess || finalHistoryGuess || extractGuessedName(gameState.message) || 'player';
-      finalInputText = `Opponent guessed ${guessedName}`;
+      finalInputText = finalStrikeInfo.reason === 'left the game tab' ? '' : `Opponent guessed ${guessedName}`;
     }
   } else if (normalizedReason === '3 strikes' && finalHistoryGuess) {
     finalInputText = `Opponent guessed ${finalHistoryGuess}`;
