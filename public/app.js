@@ -45,11 +45,11 @@
   renderAuthNav(Boolean(localStorage.getItem('hoopduels_auth_token_v1')));
   applyActiveNav();
 
-  if (window.HoopState && typeof window.HoopState.init === 'function') {
-    try {
-      await window.HoopState.init();
-    } catch (_) {
-    }
+  const initialization = window.HoopState
+    ? window.HoopState.init().catch(() => {})
+    : Promise.resolve();
+  if (!window.HoopState || !window.HoopState.getProfile().signedIn) {
+    await initialization;
   }
 
   const profile = window.HoopState ? window.HoopState.getProfile() : null;
@@ -344,7 +344,7 @@
     }
 
     const onlineEl = document.getElementById('online-count');
-    if (onlineEl) {
+    if (onlineEl && !onlinePollTimer) {
       const updateOnline = () => {
         fetch('/api/online')
           .then((res) => (res.ok ? res.json() : null))
@@ -575,7 +575,7 @@
         [...tbody.rows].forEach((row,index)=>{row.hidden=!activeProfile.games[index].opponent.toLowerCase().includes(key);if(!row.hidden)count++;});
         table.hidden=count===0;document.getElementById('history-search-empty').hidden=count!==0;
       };
-      search.addEventListener('input',filter);filter();
+      search.oninput=filter;filter();
     }
   }
 
@@ -969,14 +969,21 @@
     });
   }
 
-  if (page === 'play') renderHome();
-  if (page === 'leaderboard') renderLeaderboard();
-  if (page === 'history' || page === 'profile') renderHistory();
-  if (page === 'profile') renderProfile();
+  function renderPage() {
+    if (page === 'play') renderHome();
+    if (page === 'leaderboard') renderLeaderboard();
+    if (page === 'history' || page === 'profile') renderHistory();
+    if (page === 'profile') renderProfile();
+  }
+  renderPage();
+  document.documentElement.classList.add('app-ready');
   if (page === 'signin' || page === 'createaccount') wireSignIn();
   if (page === 'play') wireHomeFindGame();
   if (page === 'play') wirePracticeEntry();
   if (page === 'play' && !document.getElementById('find-game-home-btn')) {
   }
   wireSignOut();
+  await initialization;
+  renderAuthNav(Boolean(window.HoopState && window.HoopState.getProfile().signedIn));
+  renderPage();
 })();

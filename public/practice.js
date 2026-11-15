@@ -187,7 +187,8 @@ function endPractice(reason, detailMessage = '') {
   state.active = false;
   state.phase = 'ended';
   stopTimer();
-  timerEl.textContent = 'Game over';
+  timerEl.textContent = '';
+  currentEl.parentElement.classList.add('practice-ended');
   timerEl.parentElement.classList.add('is-end');
   document.querySelector('.duel-current-label').textContent = 'FINAL CHAIN';
   const chainLength = Math.max(0, state.usedPlayers.length - 1);
@@ -275,6 +276,7 @@ function queueComputerTurn(nextCurrentPlayer) {
 
 async function startPractice() {
   timerEl.parentElement.classList.remove('is-end');
+  currentEl.parentElement.classList.remove('practice-ended');
   document.querySelector('.duel-current-label').textContent = 'CURRENT PLAYER';
   const res = await fetch('/api/practice/start');
   const payload = await res.json();

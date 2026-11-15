@@ -67,6 +67,11 @@
     })()
   };
 
+  const cachedProfile = readJson(PROFILE_CACHE_KEY, null);
+  if (runtime.token && cachedProfile && cachedProfile.username) {
+    applyProfile(cachedProfile, true);
+  }
+
   function clearAuthState() {
     runtime.token = null;
     localStorage.removeItem(TOKEN_KEY);

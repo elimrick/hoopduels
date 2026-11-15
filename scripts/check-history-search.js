@@ -3,7 +3,7 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 const source=fs.readFileSync(require('node:path').join(__dirname,'../public/app.js'),'utf8');
 const start=source.indexOf('const filter=()=>');
-const end=source.indexOf("search.addEventListener('input',filter)",start);
+const end=source.indexOf("search.oninput=filter",start);
 const empty={hidden:true};
 const context={search:{value:' EWING '},tbody:{rows:[{},{},{}]},table:{hidden:false},activeProfile:{games:[{opponent:'ewing'},{opponent:'Guest'},{opponent:'Ewing'}]},document:{getElementById:()=>empty}};
 vm.createContext(context);vm.runInContext(source.slice(start,end)+'globalThis.runFilter=filter;',context);
