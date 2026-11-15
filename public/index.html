@@ -23,7 +23,7 @@
 
 
     <meta name="apple-mobile-web-app-title" content="HoopDuels" />
-    <title>HoopDuels · The NBA Chain Game</title>
+    <title>HoopDuels</title>
     <script>document.documentElement.classList.add(localStorage.getItem("hoopduels_auth_token_v1") ? "auth-signed-in" : "auth-signed-out");</script>
     <style>#auth-nav-link,#auth-nav-create,#auth-nav-profile{display:none}html.auth-signed-out #auth-nav-link,html.auth-signed-out #auth-nav-create{display:flex}html.auth-signed-in #auth-nav-profile{display:flex}</style>
 
@@ -67,7 +67,7 @@
     <button class="btn btn-secondary" id="enter-practice-btn" type="button">Start practicing <span aria-hidden="true">→</span></button>
    </section>
   </div>
-  <section class="card friend-play"><div><h2>Play a friend.</h2><p>Challenge someone to an unranked duel.</p></div><a class="btn btn-secondary" href="/friends">Add friends</a></section>
+  <section class="card friend-play"><div><h2>Play a friend.</h2><p>Challenge someone to an unranked duel.</p></div><a class="btn btn-secondary" href="/friends">Add friends <span aria-hidden="true">→</span></a></section>
   <section class="how-strip" aria-label="How it works"><span class="eyebrow">HOW IT WORKS</span><p><b>01</b> Start with an All-Star</p><p><b>02</b> Name their teammate</p><p><b>03</b> Keep the chain going</p><a href="/how-to-play">All the rules ↗</a></section>
   <div class="two-col" id="home-secondary-grid">
    <section class="card" id="home-leaderboard-card"><div class="section-heading"><h3>Leaderboard</h3><a href="/leaderboard">All players ↗</a></div><div id="leaderboard-preview" class="list-empty">No players yet.</div></section>

@@ -195,7 +195,10 @@
     const homeTitle = document.getElementById('home-title');
     if (homeTitle) {
       if (activeProfile.signedIn) {
-        homeTitle.textContent = `Welcome back, ${activeProfile.username}!`;
+        const username = document.createElement('span');
+        username.className = 'home-greeting-username';
+        username.textContent = activeProfile.username;
+        homeTitle.replaceChildren('Welcome back, ', username, '!');
       } else {
         homeTitle.innerHTML = 'Welcome to HoopDuels!<span class="eyebrow home-title-accent">The NBA Chain Game.</span>';
       }
@@ -702,7 +705,6 @@
     passwordToggle?.addEventListener('click', () => {
       const show = passwordInput.type === 'password';
       passwordInput.type = show ? 'text' : 'password';
-      passwordToggle.textContent = show ? 'Hide' : 'Show';
       passwordToggle.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
       passwordToggle.setAttribute('aria-pressed', String(show));
     });

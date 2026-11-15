@@ -77,7 +77,7 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .practice-symbol .brand-mark {width:36px;height:36px}
 .practice-card h2 {font-size:27px}
 .practice-stat {display:flex;align-items:center;gap:10px;margin:0 0 20px}
-.practice-stat .stat-label {margin:0}
+.practice-stat .stat-label {margin:0;font-size:14px}
 .practice-card .btn {margin-top:auto;width:100%}
 .how-strip {display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 2px}
 .how-strip .eyebrow {margin:0}
@@ -86,7 +86,7 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .two-col {display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .section-heading {display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
 .section-heading h3 {margin:0}
-.section-heading a {font-size:14px;white-space:nowrap}
+.section-heading a {font-size:13px;white-space:nowrap}
 .list-empty {color:var(--muted);font-size:14px;line-height:1.7;margin:10px 0}
 #history-preview.list-empty,#leaderboard-preview.list-empty {margin:0;padding:0}
 .site-note {margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:18px;color:var(--muted);font-size:11px}
@@ -242,7 +242,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
  .practice-card {position:relative}.practice-card .eyebrow {margin-bottom:16px}.practice-symbol {position:absolute;right:22px;top:18px;width:40px;height:40px;margin:0}.practice-symbol .brand-mark {width:26px;height:26px}
  .practice-card h2 {font-size:25px}.practice-card>p {font-size:13px}.practice-card .btn {margin-top:8px}
  .how-strip {display:grid;grid-template-columns:1fr;gap:10px;padding:0 5px}.how-strip .eyebrow {margin-bottom:2px}.how-strip p,.how-strip a {font-size:14px}.how-strip b {font-size:12px}.how-strip a {margin:4px 0 0}
- .section-heading a {font-size:14px}.site-note {margin-top:30px;font-size:10px;gap:10px}
+ .section-heading a {font-size:13px}.site-note {margin-top:30px;font-size:10px;gap:10px}
  .history-table,.leaderboard-table {font-size:12px}.history-table td,.leaderboard-table td {padding:13px 7px}.history-table th,.leaderboard-table th {padding:11px 7px;font-size:9px;letter-spacing:.4px}
  body[data-page='leaderboard'] .card,body[data-page='friends'] .card,body[data-page='history'] .card {padding:23px}
  .duel-page-header {margin-bottom:20px}.duel-page-header .page-title {font-size:26px}.btn-status {font-size:12px;min-height:38px;padding:9px 12px}
@@ -352,5 +352,12 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 
 html.auth-signed-out .home-history-link {display:none}
 .password-field {position:relative}
-.password-field .auth-field-input {padding-right:68px}
+.password-field .auth-field-input {padding-right:52px}
 .password-toggle {position:absolute;right:8px;top:50%;transform:translateY(-50%);min-height:36px;padding:6px 8px;border:0;background:transparent;color:var(--accent-blue);font:inherit;font-size:12px;font-weight:600}
+
+.home-greeting-username {color:var(--accent-blue)}
+.how-strip a {font-size:13px}
+.password-toggle {width:40px;display:grid;place-items:center;color:var(--muted)}
+.password-toggle svg {width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.password-toggle .password-eye-closed,.password-toggle[aria-pressed="true"] .password-eye {display:none}
+.password-toggle[aria-pressed="true"] .password-eye-closed {display:block}
