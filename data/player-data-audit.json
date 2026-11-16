@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-15T16:29:52.464Z",
-  "players": 3044,
+  "checkedAt": "2026-11-16T03:58:16.898Z",
+  "players": 3034,
   "fullHistoricalAuditComplete": false,
   "currentRoster": {
     "teams": 30,
@@ -31,9 +31,18 @@
     "Kept father/son identities distinct during name resolution"
   ],
   "remaining": [
-    "Legacy historical connections have not all been verified against roster dates.",
-    "Transaction coverage before July 2015 is unavailable in this feed.",
-    "Same-day roster stints without a shared snapshot cannot establish overlap from dates alone.",
-    "Legacy player-pool eligibility since 2000-01 still needs a full historical audit."
-  ]
+    "Historical review is incomplete. See the findings report for unresolved roster overlap, player identities and eligibility.",
+    "Some transaction archive records are missing or incomplete; absence of an entry cannot prove non-overlap.",
+    "Same-day moves and short contracts require more detailed roster evidence."
+  ],
+  "historicalReview": {
+    "revision": "historical-audit-2026-11-15-1",
+    "cutoff": "2000-10-31",
+    "seasonsReviewed": 27,
+    "confirmedPositiveConnections": 49143,
+    "addedConnections": 3680,
+    "reviewedPairRemovals": 18,
+    "removedIneligiblePlayers": 4,
+    "report": "data/historical-audit-findings.json"
+  }
 }

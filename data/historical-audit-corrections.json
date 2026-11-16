@@ -1,0 +1,195 @@
+{
+  "revision": "historical-audit-2026-11-15-1",
+  "asOf": "2026-11-16T03:58:16.898Z",
+  "minimumSeason": "2000-01",
+  "removedPlayers": [
+    {
+      "name": "Charles Barkley",
+      "source": "https://basketball.realgm.com/player/Charles-Barkley/Summary/1259",
+      "reason": "Retired April 20, 2000."
+    },
+    {
+      "name": "Dennis Rodman",
+      "source": "https://basketball.realgm.com/player/Dennis-Rodman/Summary/1391",
+      "reason": "Final NBA roster stint ended in March 2000."
+    },
+    {
+      "name": "Clyde Drexler",
+      "source": "https://www.nba.com/news/history-nba-legend-clyde-drexler",
+      "reason": "Retired after the 1997-98 season."
+    },
+    {
+      "name": "Robert Parish",
+      "source": "https://www.nba.com/news/history-nba-legend-robert-parish",
+      "reason": "Retired after the 1996-97 season."
+    }
+  ],
+  "removedPairs": [
+    {
+      "players": [
+        "Aaron Gordon",
+        "Gary Harris"
+      ],
+      "reason": "Opposite sides of a trade, with no other overlapping roster stint found since 2000-01.",
+      "source": "https://www.basketball-reference.com/leagues/NBA_2021_transactions.html"
+    },
+    {
+      "players": [
+        "Aaron Gordon",
+        "R.J. Hampton"
+      ],
+      "reason": "Opposite sides of a trade, with no other overlapping roster stint found since 2000-01.",
+      "source": "https://www.basketball-reference.com/leagues/NBA_2021_transactions.html"
+    },
+    {
+      "players": [
+        "Kevin Durant",
+        "Mikal Bridges"
+      ],
+      "reason": "Opposite sides of a trade, with no other overlapping roster stint found since 2000-01.",
+      "source": "https://www.basketball-reference.com/leagues/NBA_2023_transactions.html"
+    },
+    {
+      "players": [
+        "Cameron Johnson",
+        "Kevin Durant"
+      ],
+      "reason": "Opposite sides of a trade, with no other overlapping roster stint found since 2000-01.",
+      "source": "https://www.basketball-reference.com/leagues/NBA_2023_transactions.html"
+    },
+    {
+      "players": [
+        "John Wall",
+        "Russell Westbrook"
+      ],
+      "reason": "Opposite sides of a trade, with no other overlapping roster stint found since 2000-01.",
+      "source": "https://www.basketball-reference.com/leagues/NBA_2021_transactions.html"
+    },
+    {
+      "players": [
+        "Paul George",
+        "Victor Oladipo"
+      ],
+      "reason": "Opposite sides of a trade, with no other overlapping roster stint found since 2000-01.",
+      "source": "https://www.basketball-reference.com/leagues/NBA_2018_transactions.html"
+    },
+    {
+      "players": [
+        "Domantas Sabonis",
+        "Paul George"
+      ],
+      "reason": "Opposite sides of a trade, with no other overlapping roster stint found since 2000-01.",
+      "source": "https://www.basketball-reference.com/leagues/NBA_2018_transactions.html"
+    },
+    {
+      "players": [
+        "Andrew Bogut",
+        "Monta Ellis"
+      ],
+      "reason": "Opposite sides of a trade, with no other overlapping roster stint found since 2000-01.",
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_transactions.html"
+    },
+    {
+      "players": [
+        "Andrew Bogut",
+        "Ekpe Udoh"
+      ],
+      "reason": "Opposite sides of a trade, with no other overlapping roster stint found since 2000-01.",
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_transactions.html"
+    },
+    {
+      "players": [
+        "Andre Drummond",
+        "James Harden"
+      ],
+      "reason": "Opposite sides of a trade, with no other overlapping roster stint found since 2000-01.",
+      "source": "https://www.basketball-reference.com/leagues/NBA_2022_transactions.html"
+    },
+    {
+      "players": [
+        "Michael Jordan",
+        "Scottie Pippen"
+      ],
+      "reason": "Their shared NBA roster tenure ended before the 2000-01 season.",
+      "sources": [
+        "https://www.basketball-reference.com/players/j/jordami01.html",
+        "https://www.basketball-reference.com/players/p/pippesc01.html"
+      ]
+    },
+    {
+      "players": [
+        "Michael Jordan",
+        "Steve Kerr"
+      ],
+      "reason": "Their shared NBA roster tenure ended before the 2000-01 season.",
+      "sources": [
+        "https://www.basketball-reference.com/players/j/jordami01.html",
+        "https://www.basketball-reference.com/players/k/kerrst01.html"
+      ]
+    },
+    {
+      "players": [
+        "Michael Jordan",
+        "Toni Kukoc"
+      ],
+      "reason": "Their shared NBA roster tenure ended before the 2000-01 season.",
+      "sources": [
+        "https://www.basketball-reference.com/players/j/jordami01.html",
+        "https://www.basketball-reference.com/players/k/kukocto01.html"
+      ]
+    },
+    {
+      "players": [
+        "Michael Jordan",
+        "Ron Harper"
+      ],
+      "reason": "Their shared NBA roster tenure ended before the 2000-01 season.",
+      "sources": [
+        "https://www.basketball-reference.com/players/j/jordami01.html",
+        "https://www.basketball-reference.com/players/h/harpero01.html"
+      ]
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Kobe Bryant"
+      ],
+      "reason": "Their shared NBA roster tenure ended before the 2000-01 season.",
+      "sources": [
+        "https://www.basketball-reference.com/players/g/greenac01.html",
+        "https://www.basketball-reference.com/players/b/bryanko01.html"
+      ]
+    },
+    {
+      "players": [
+        "Eddie Jones",
+        "Kobe Bryant"
+      ],
+      "reason": "Their shared NBA roster tenure ended before the 2000-01 season.",
+      "sources": [
+        "https://www.basketball-reference.com/players/j/jonesed02.html",
+        "https://www.basketball-reference.com/players/b/bryanko01.html"
+      ]
+    },
+    {
+      "players": [
+        "Kobe Bryant",
+        "Nick Van Exel"
+      ],
+      "reason": "Their shared NBA roster tenure ended before the 2000-01 season.",
+      "sources": [
+        "https://www.basketball-reference.com/players/b/bryanko01.html",
+        "https://www.basketball-reference.com/players/v/vanexni01.html"
+      ]
+    },
+    {
+      "players": [
+        "Glen Rice",
+        "Kobe Bryant"
+      ],
+      "reason": "Shared Lakers roster tenure ended in September 2000, before the opening-night cutoff.",
+      "source": "https://www.basketball-reference.com/leagues/NBA_2001_transactions.html"
+    }
+  ],
+  "cutoff": "2000-10-31"
+}
