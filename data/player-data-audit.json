@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T03:58:16.898Z",
+  "checkedAt": "2026-11-16T14:18:46.996Z",
   "players": 3034,
   "fullHistoricalAuditComplete": false,
   "currentRoster": {
@@ -39,8 +39,8 @@
     "revision": "historical-audit-2026-11-15-1",
     "cutoff": "2000-10-31",
     "seasonsReviewed": 27,
-    "confirmedPositiveConnections": 49143,
-    "addedConnections": 3680,
+    "confirmedPositiveConnections": 49219,
+    "addedConnections": 3756,
     "reviewedPairRemovals": 18,
     "removedIneligiblePlayers": 4,
     "report": "data/historical-audit-findings.json"

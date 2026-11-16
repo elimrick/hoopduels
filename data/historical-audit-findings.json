@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T03:58:16.898Z",
+  "checkedAt": "2026-11-16T14:18:46.996Z",
   "fullHistoricalAuditComplete": false,
   "scope": {
     "minimumSeason": "2000-01",
@@ -10,9 +10,9 @@
     "baselineConnections": 105976,
     "cutoff": "2000-10-31"
   },
-  "verificationMethod": "For two players on the same team in the same regular season, combined appearances above 82 prove at least one shared game. This verifies positive connections only. Transaction-only non-overlap remains a review candidate until corroborated.",
-  "confirmedExistingOrMissingConnections": 49143,
-  "confirmedMissingConnections": 3680,
+  "verificationMethod": "Combined regular-season appearances above the team season game limit prove at least one shared game. The default upper bound is 82, with NBA-confirmed limits of 66 in 2011–12 and 72 in 2020–21. This verifies positive connections. Transaction-only non-overlap remains a review candidate until corroborated.",
+  "confirmedExistingOrMissingConnections": 49219,
+  "confirmedMissingConnections": 3756,
   "addedConnections": [
     {
       "players": [
@@ -69933,6 +69933,1602 @@
         }
       ],
       "source": "https://www.basketball-reference.com/leagues/NBA_2026_per_game.html"
+    },
+    {
+      "players": [
+        "Dirk Nowitzki",
+        "Sean Williams"
+      ],
+      "season": 2012,
+      "team": "DAL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "nowitdi01",
+          "games": 62
+        },
+        {
+          "id": "willise01",
+          "games": 8
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Blake Griffin",
+        "Solomon Jones"
+      ],
+      "season": 2012,
+      "team": "LAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "griffbl01",
+          "games": 66
+        },
+        {
+          "id": "jonesso01",
+          "games": 10
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Jeremy Tyler",
+        "Monta Ellis"
+      ],
+      "season": 2012,
+      "team": "GSW",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "ellismo01",
+          "games": 37
+        },
+        {
+          "id": "tylerje01",
+          "games": 42
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Antawn Jamison",
+        "Ben Uzoh"
+      ],
+      "season": 2012,
+      "team": "CLE",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "jamisan01",
+          "games": 65
+        },
+        {
+          "id": "uzohbe01",
+          "games": 2
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Jason Terry",
+        "Sean Williams"
+      ],
+      "season": 2012,
+      "team": "DAL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "terryja01",
+          "games": 63
+        },
+        {
+          "id": "willise01",
+          "games": 8
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Jordan Crawford",
+        "Ronny Turiaf"
+      ],
+      "season": 2012,
+      "team": "WAS",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "crawfjo02",
+          "games": 64
+        },
+        {
+          "id": "turiaro01",
+          "games": 4
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Drew Gooden",
+        "Stephen Jackson"
+      ],
+      "season": 2012,
+      "team": "MIL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "goodedr01",
+          "games": 56
+        },
+        {
+          "id": "jacksst02",
+          "games": 26
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Mike Dunleavy",
+        "Stephen Jackson"
+      ],
+      "season": 2012,
+      "team": "MIL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "dunlemi02",
+          "games": 55
+        },
+        {
+          "id": "jacksst02",
+          "games": 26
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Caron Butler",
+        "Courtney Fortson"
+      ],
+      "season": 2012,
+      "team": "LAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "butleca01",
+          "games": 63
+        },
+        {
+          "id": "fortsco01",
+          "games": 4
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Caron Butler",
+        "Solomon Jones"
+      ],
+      "season": 2012,
+      "team": "LAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "butleca01",
+          "games": 63
+        },
+        {
+          "id": "jonesso01",
+          "games": 10
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Donald Sloan",
+        "Marco Belinelli"
+      ],
+      "season": 2012,
+      "team": "NOP",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "belinma01",
+          "games": 66
+        },
+        {
+          "id": "sloando01",
+          "games": 3
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Goran Dragic",
+        "Jonny Flynn"
+      ],
+      "season": 2012,
+      "team": "HOU",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "dragigo01",
+          "games": 66
+        },
+        {
+          "id": "flynnjo01",
+          "games": 11
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Leandro Barbosa",
+        "Rasual Butler"
+      ],
+      "season": 2012,
+      "team": "TOR",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "barbole01",
+          "games": 42
+        },
+        {
+          "id": "butlera01",
+          "games": 34
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Jamaal Magloire",
+        "Leandro Barbosa"
+      ],
+      "season": 2012,
+      "team": "TOR",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "barbole01",
+          "games": 42
+        },
+        {
+          "id": "magloja01",
+          "games": 34
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Randy Foye",
+        "Solomon Jones"
+      ],
+      "season": 2012,
+      "team": "LAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "foyera01",
+          "games": 65
+        },
+        {
+          "id": "jonesso01",
+          "games": 10
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Antawn Jamison",
+        "Lester Hudson"
+      ],
+      "season": 2012,
+      "team": "CLE",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "hudsole01",
+          "games": 13
+        },
+        {
+          "id": "jamisan01",
+          "games": 65
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Lester Hudson",
+        "Tristan Thompson"
+      ],
+      "season": 2012,
+      "team": "CLE",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "hudsole01",
+          "games": 13
+        },
+        {
+          "id": "thomptr01",
+          "games": 60
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Lester Hudson",
+        "Samardo Samuels"
+      ],
+      "season": 2012,
+      "team": "CLE",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "hudsole01",
+          "games": 13
+        },
+        {
+          "id": "samuesa01",
+          "games": 54
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Alonzo Gee",
+        "Lester Hudson"
+      ],
+      "season": 2012,
+      "team": "CLE",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "geeal01",
+          "games": 63
+        },
+        {
+          "id": "hudsole01",
+          "games": 13
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Sean Williams",
+        "Shawn Marion"
+      ],
+      "season": 2012,
+      "team": "DAL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "mariosh01",
+          "games": 63
+        },
+        {
+          "id": "willise01",
+          "games": 8
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Luc Mbah a Moute",
+        "Stephen Jackson"
+      ],
+      "season": 2012,
+      "team": "MIL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "jacksst02",
+          "games": 26
+        },
+        {
+          "id": "mbahalu01",
+          "games": 43
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Jon Leuer",
+        "Stephen Jackson"
+      ],
+      "season": 2012,
+      "team": "MIL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "jacksst02",
+          "games": 26
+        },
+        {
+          "id": "leuerjo01",
+          "games": 46
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Larry Sanders",
+        "Stephen Jackson"
+      ],
+      "season": 2012,
+      "team": "MIL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "jacksst02",
+          "games": 26
+        },
+        {
+          "id": "sandela01",
+          "games": 52
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Mario Chalmers",
+        "Mickell Gladness"
+      ],
+      "season": 2012,
+      "team": "MIA",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "chalmma01",
+          "games": 64
+        },
+        {
+          "id": "gladnmi01",
+          "games": 8
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Brandon Rush",
+        "Ish Smith"
+      ],
+      "season": 2012,
+      "team": "GSW",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "rushbr01",
+          "games": 65
+        },
+        {
+          "id": "smithis01",
+          "games": 6
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Chase Budinger",
+        "Jonny Flynn"
+      ],
+      "season": 2012,
+      "team": "HOU",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "budinch01",
+          "games": 58
+        },
+        {
+          "id": "flynnjo01",
+          "games": 11
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Chandler Parsons",
+        "Terrence Williams"
+      ],
+      "season": 2012,
+      "team": "HOU",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "parsoch01",
+          "games": 63
+        },
+        {
+          "id": "willite01",
+          "games": 12
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Chandler Parsons",
+        "Hasheem Thabeet"
+      ],
+      "season": 2012,
+      "team": "HOU",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "parsoch01",
+          "games": 63
+        },
+        {
+          "id": "thabeha01",
+          "games": 5
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Cory Joseph",
+        "Richard Jefferson"
+      ],
+      "season": 2012,
+      "team": "SAS",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "jefferi01",
+          "games": 41
+        },
+        {
+          "id": "josepco01",
+          "games": 29
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Carlos Delfino",
+        "Stephen Jackson"
+      ],
+      "season": 2012,
+      "team": "MIL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "delfica01",
+          "games": 54
+        },
+        {
+          "id": "jacksst02",
+          "games": 26
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Marreese Speights",
+        "Sam Young"
+      ],
+      "season": 2012,
+      "team": "MEM",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "speigma01",
+          "games": 60
+        },
+        {
+          "id": "youngsa01",
+          "games": 21
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "JJ Hickson",
+        "John Salmons"
+      ],
+      "season": 2012,
+      "team": "SAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "hicksjj01",
+          "games": 35
+        },
+        {
+          "id": "salmojo01",
+          "games": 46
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "JJ Hickson",
+        "Travis Outlaw"
+      ],
+      "season": 2012,
+      "team": "SAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "hicksjj01",
+          "games": 35
+        },
+        {
+          "id": "outlatr01",
+          "games": 39
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Samuel Dalembert",
+        "Terrence Williams"
+      ],
+      "season": 2012,
+      "team": "HOU",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "dalemsa01",
+          "games": 65
+        },
+        {
+          "id": "willite01",
+          "games": 12
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Jonny Flynn",
+        "Samuel Dalembert"
+      ],
+      "season": 2012,
+      "team": "HOU",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "dalemsa01",
+          "games": 65
+        },
+        {
+          "id": "flynnjo01",
+          "games": 11
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Hasheem Thabeet",
+        "Samuel Dalembert"
+      ],
+      "season": 2012,
+      "team": "HOU",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "dalemsa01",
+          "games": 65
+        },
+        {
+          "id": "thabeha01",
+          "games": 5
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Lester Hudson",
+        "Omri Casspi"
+      ],
+      "season": 2012,
+      "team": "CLE",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "casspom01",
+          "games": 65
+        },
+        {
+          "id": "hudsole01",
+          "games": 13
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Ben Uzoh",
+        "Omri Casspi"
+      ],
+      "season": 2012,
+      "team": "CLE",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "casspom01",
+          "games": 65
+        },
+        {
+          "id": "uzohbe01",
+          "games": 2
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Christian Eyenga",
+        "Omri Casspi"
+      ],
+      "season": 2012,
+      "team": "CLE",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "casspom01",
+          "games": 65
+        },
+        {
+          "id": "eyengch01",
+          "games": 6
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Mickell Gladness",
+        "Norris Cole"
+      ],
+      "season": 2012,
+      "team": "MIA",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "coleno01",
+          "games": 65
+        },
+        {
+          "id": "gladnmi01",
+          "games": 8
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Justin Dentmon",
+        "Matt Bonner"
+      ],
+      "season": 2012,
+      "team": "SAS",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "bonnema01",
+          "games": 65
+        },
+        {
+          "id": "dentmju01",
+          "games": 2
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Boris Diaw",
+        "Corey Maggette"
+      ],
+      "season": 2012,
+      "team": "CHA",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "diawbo01",
+          "games": 37
+        },
+        {
+          "id": "maggeco01",
+          "games": 32
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Boris Diaw",
+        "Cory Higgins"
+      ],
+      "season": 2012,
+      "team": "CHA",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "diawbo01",
+          "games": 37
+        },
+        {
+          "id": "higgico01",
+          "games": 38
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Ian Mahinmi",
+        "Sean Williams"
+      ],
+      "season": 2012,
+      "team": "DAL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "mahinia01",
+          "games": 61
+        },
+        {
+          "id": "willise01",
+          "games": 8
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Derek Fisher",
+        "Jason Kapono"
+      ],
+      "season": 2012,
+      "team": "LAL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "fishede01",
+          "games": 43
+        },
+        {
+          "id": "kaponja01",
+          "games": 27
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Donald Sloan",
+        "Josh Smith"
+      ],
+      "season": 2012,
+      "team": "ATL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "sloando01",
+          "games": 5
+        },
+        {
+          "id": "smithjo03",
+          "games": 66
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Donald Sloan",
+        "Jeff Teague"
+      ],
+      "season": 2012,
+      "team": "ATL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "sloando01",
+          "games": 5
+        },
+        {
+          "id": "teaguje01",
+          "games": 66
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Stephen Jackson",
+        "Tobias Harris"
+      ],
+      "season": 2012,
+      "team": "MIL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "harrito02",
+          "games": 42
+        },
+        {
+          "id": "jacksst02",
+          "games": 26
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Ekpe Udoh",
+        "Jeremy Tyler"
+      ],
+      "season": 2012,
+      "team": "GSW",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "tylerje01",
+          "games": 42
+        },
+        {
+          "id": "udohek01",
+          "games": 38
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Mickell Gladness",
+        "Shane Battier"
+      ],
+      "season": 2012,
+      "team": "MIA",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "battish01",
+          "games": 65
+        },
+        {
+          "id": "gladnmi01",
+          "games": 8
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Chris Singleton",
+        "Ronny Turiaf"
+      ],
+      "season": 2012,
+      "team": "WAS",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "singlch01",
+          "games": 66
+        },
+        {
+          "id": "turiaro01",
+          "games": 4
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Jonny Flynn",
+        "Luis Scola"
+      ],
+      "season": 2012,
+      "team": "HOU",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "flynnjo01",
+          "games": 11
+        },
+        {
+          "id": "scolalu01",
+          "games": 66
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Courtney Lee",
+        "Jonny Flynn"
+      ],
+      "season": 2012,
+      "team": "HOU",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "flynnjo01",
+          "games": 11
+        },
+        {
+          "id": "leeco01",
+          "games": 58
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Chandler Parsons",
+        "Jonny Flynn"
+      ],
+      "season": 2012,
+      "team": "HOU",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "flynnjo01",
+          "games": 11
+        },
+        {
+          "id": "parsoch01",
+          "games": 63
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Jonny Flynn",
+        "Patrick Patterson"
+      ],
+      "season": 2012,
+      "team": "HOU",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "flynnjo01",
+          "games": 11
+        },
+        {
+          "id": "pattepa01",
+          "games": 64
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Al Harrington",
+        "DeMarre Carroll"
+      ],
+      "season": 2012,
+      "team": "DEN",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "carrode01",
+          "games": 4
+        },
+        {
+          "id": "harrial01",
+          "games": 64
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Andre Miller",
+        "DeMarre Carroll"
+      ],
+      "season": 2012,
+      "team": "DEN",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "carrode01",
+          "games": 4
+        },
+        {
+          "id": "millean02",
+          "games": 66
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Danny Green",
+        "Justin Dentmon"
+      ],
+      "season": 2012,
+      "team": "SAS",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "dentmju01",
+          "games": 2
+        },
+        {
+          "id": "greenda02",
+          "games": 66
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Ronny Turiaf",
+        "Shelvin Mack"
+      ],
+      "season": 2012,
+      "team": "WAS",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "macksh01",
+          "games": 64
+        },
+        {
+          "id": "turiaro01",
+          "games": 4
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Blake Griffin",
+        "Courtney Fortson"
+      ],
+      "season": 2012,
+      "team": "LAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "fortsco01",
+          "games": 4
+        },
+        {
+          "id": "griffbl01",
+          "games": 66
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Courtney Fortson",
+        "Randy Foye"
+      ],
+      "season": 2012,
+      "team": "LAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "fortsco01",
+          "games": 4
+        },
+        {
+          "id": "foyera01",
+          "games": 65
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Courtney Fortson",
+        "DeAndre Jordan"
+      ],
+      "season": 2012,
+      "team": "LAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "fortsco01",
+          "games": 4
+        },
+        {
+          "id": "jordade01",
+          "games": 66
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Dominic McGuire",
+        "Ish Smith"
+      ],
+      "season": 2012,
+      "team": "GSW",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "mcguido01",
+          "games": 64
+        },
+        {
+          "id": "smithis01",
+          "games": 6
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Kyrie Irving",
+        "Ryan Hollins"
+      ],
+      "season": 2012,
+      "team": "CLE",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "holliry01",
+          "games": 24
+        },
+        {
+          "id": "irvinky01",
+          "games": 51
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Joel Anthony",
+        "Mickell Gladness"
+      ],
+      "season": 2012,
+      "team": "MIA",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "anthojo01",
+          "games": 64
+        },
+        {
+          "id": "gladnmi01",
+          "games": 8
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Chris Paul",
+        "Solomon Jones"
+      ],
+      "season": 2012,
+      "team": "LAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "jonesso01",
+          "games": 10
+        },
+        {
+          "id": "paulch01",
+          "games": 60
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "DeAndre Jordan",
+        "Solomon Jones"
+      ],
+      "season": 2012,
+      "team": "LAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "jonesso01",
+          "games": 10
+        },
+        {
+          "id": "jordade01",
+          "games": 66
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Luke Walton",
+        "Troy Murphy"
+      ],
+      "season": 2012,
+      "team": "LAL",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "murphtr01",
+          "games": 59
+        },
+        {
+          "id": "waltolu01",
+          "games": 9
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "John Wall",
+        "Ronny Turiaf"
+      ],
+      "season": 2012,
+      "team": "WAS",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "turiaro01",
+          "games": 4
+        },
+        {
+          "id": "walljo01",
+          "games": 66
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Ish Smith",
+        "Klay Thompson"
+      ],
+      "season": 2012,
+      "team": "GSW",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "smithis01",
+          "games": 6
+        },
+        {
+          "id": "thompkl01",
+          "games": 66
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Dorell Wright",
+        "Ish Smith"
+      ],
+      "season": 2012,
+      "team": "GSW",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "smithis01",
+          "games": 6
+        },
+        {
+          "id": "wrighdo01",
+          "games": 61
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Brian Cook",
+        "Chris Paul"
+      ],
+      "season": 2012,
+      "team": "LAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "cookbr01",
+          "games": 16
+        },
+        {
+          "id": "paulch01",
+          "games": 60
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Brian Cook",
+        "Reggie Evans"
+      ],
+      "season": 2012,
+      "team": "LAC",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "cookbr01",
+          "games": 16
+        },
+        {
+          "id": "evansre01",
+          "games": 56
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "LeBron James",
+        "Mickell Gladness"
+      ],
+      "season": 2012,
+      "team": "MIA",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "gladnmi01",
+          "games": 8
+        },
+        {
+          "id": "jamesle01",
+          "games": 62
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Mickell Gladness",
+        "Udonis Haslem"
+      ],
+      "season": 2012,
+      "team": "MIA",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "gladnmi01",
+          "games": 8
+        },
+        {
+          "id": "hasleud01",
+          "games": 64
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
+    },
+    {
+      "players": [
+        "Gerald Wallace",
+        "Joel Przybilla"
+      ],
+      "season": 2012,
+      "team": "POR",
+      "teamGameLimit": 66,
+      "scheduleSource": "https://pr.nba.com/nba-2011-12-game-broadcast-schedules/",
+      "appearances": [
+        {
+          "id": "przybjo01",
+          "games": 27
+        },
+        {
+          "id": "wallage01",
+          "games": 42
+        }
+      ],
+      "source": "https://www.basketball-reference.com/leagues/NBA_2012_per_game.html"
     }
   ],
   "removedConnections": [
@@ -101543,6 +103139,13 @@
         "first": 2000,
         "last": 2000,
         "birth": "19761222"
+      },
+      {
+        "id": "alstode01",
+        "name": "Derrick Alston",
+        "first": 1995,
+        "last": 1997,
+        "birth": "19720820"
       },
       {
         "id": "grayde01",

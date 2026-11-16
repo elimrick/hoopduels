@@ -15,7 +15,10 @@ const graph = require('../data/players-2000-present.json');
   for (const evidence of findings.addedConnections) {
     const [a, b] = evidence.players.map(canonicalizeSourceName);
     assert(graph[a].teammates.includes(b) && graph[b].teammates.includes(a), a + ' / ' + b);
-    assert(evidence.appearances.reduce((sum, row) => sum + row.games, 0) > 82);
+    const gameLimit = evidence.teamGameLimit ?? 82;
+    assert.equal(gameLimit, evidence.teamGameLimit ? ({2012:66, 2021:72}[evidence.season]) : 82);
+    assert(evidence.appearances.every(row => row.games <= gameLimit));
+    assert(evidence.appearances.reduce((sum, row) => sum + row.games, 0) > gameLimit);
   }
 
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'hoopduels-history-audit-'));

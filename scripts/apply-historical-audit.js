@@ -17,7 +17,10 @@ for (const evidence of findings.addedConnections) {
   assert.equal(evidence.appearances.length, 2);
   assert.notEqual(evidence.appearances[0].id, evidence.appearances[1].id);
   assert(evidence.appearances.every(row => Number.isInteger(row.games) && row.games > 0 && row.games <= 82));
-  assert(evidence.appearances[0].games + evidence.appearances[1].games > 82);
+  const gameLimit = evidence.teamGameLimit ?? 82;
+  assert.equal(gameLimit, evidence.teamGameLimit ? ({2012:66, 2021:72}[evidence.season]) : 82);
+  assert(evidence.appearances.every(row => row.games <= gameLimit));
+  assert(evidence.appearances[0].games + evidence.appearances[1].games > gameLimit);
   assert(evidence.players.every(name => baseline[canonicalizeSourceName(name)]));
 }
 addSnapshot(additions, findings.addedConnections.map(evidence => ({players:evidence.players})), baseline);
