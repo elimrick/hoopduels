@@ -1,6 +1,6 @@
 {
-  "revision": "historical-audit-2026-11-15-1",
-  "asOf": "2026-11-16T03:58:16.898Z",
+  "revision": "historical-audit-2026-11-16-2",
+  "asOf": "2026-11-16T19:25:24.467Z",
   "minimumSeason": "2000-01",
   "removedPlayers": [
     {
@@ -22,6 +22,41 @@
       "name": "Robert Parish",
       "source": "https://www.nba.com/news/history-nba-legend-robert-parish",
       "reason": "Retired after the 1996-97 season."
+    },
+    {
+      "name": "Earl Cureton",
+      "source": "https://www.basketball-reference.com/players/c/curetea01.html",
+      "reason": "February 13, 1997: Retired from the Toronto Raptors."
+    },
+    {
+      "name": "Joe Dumars",
+      "source": "https://www.basketball-reference.com/players/d/dumarjo01.html",
+      "reason": "April 28, 1999: Retired from the Detroit Pistons."
+    },
+    {
+      "name": "Jeff Hornacek",
+      "source": "https://www.basketball-reference.com/players/h/hornaje01.html",
+      "reason": "May 16, 2000: Retired from the Utah Jazz."
+    },
+    {
+      "name": "John Long",
+      "source": "https://www.basketball-reference.com/players/l/longjo01.html",
+      "reason": "November 12, 1997: Retired from the Toronto Raptors."
+    },
+    {
+      "name": "Buck Williams",
+      "source": "https://www.basketball-reference.com/players/w/willibu01.html",
+      "reason": "January 27, 1999: Retired from the New York Knicks."
+    },
+    {
+      "name": "Bobby Phills",
+      "source": "https://www.nba.com/hornets/nearly-two-decades-later-hornets-remember-bobby-phills",
+      "reason": "Died January 12, 2000, before the eligibility cutoff."
+    },
+    {
+      "name": "Malik Sealy",
+      "source": "https://www.nba.com/timberwolves/history/retired-numbers",
+      "reason": "Died May 20, 2000, before the eligibility cutoff."
     }
   ],
   "removedPairs": [

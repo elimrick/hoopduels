@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-16T14:18:46.996Z",
-  "players": 3034,
+  "checkedAt": "2026-11-16T19:25:24.467Z",
+  "players": 3025,
   "fullHistoricalAuditComplete": false,
   "currentRoster": {
     "teams": 30,
@@ -36,13 +36,16 @@
     "Same-day moves and short contracts require more detailed roster evidence."
   ],
   "historicalReview": {
-    "revision": "historical-audit-2026-11-15-1",
+    "revision": "historical-audit-2026-11-16-2",
     "cutoff": "2000-10-31",
     "seasonsReviewed": 27,
     "confirmedPositiveConnections": 49219,
-    "addedConnections": 3756,
+    "addedConnections": 8460,
     "reviewedPairRemovals": 18,
-    "removedIneligiblePlayers": 4,
-    "report": "data/historical-audit-findings.json"
+    "removedIneligiblePlayers": 11,
+    "report": "data/historical-audit-findings.json",
+    "confirmedGameConnections": 84423,
+    "gameRecordsReviewed": 33597,
+    "confirmedRosterOnlyPlayers": 14
   }
 }

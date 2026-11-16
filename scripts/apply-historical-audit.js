@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
-const {applyHistoricalCorrections} = require('../lib/historical-corrections');
+const {applyHistoricalCorrections, validateGameEvidence} = require('../lib/historical-corrections');
 const {addSnapshot, mergeAdditions} = require('../lib/roster-sync');
 const {canonicalizeSourceName} = require('../lib/player-store');
 const corrections = require('../data/historical-audit-corrections.json');
@@ -23,7 +23,12 @@ for (const evidence of findings.addedConnections) {
   assert(evidence.appearances[0].games + evidence.appearances[1].games > gameLimit);
   assert(evidence.players.every(name => baseline[canonicalizeSourceName(name)]));
 }
-addSnapshot(additions, findings.addedConnections.map(evidence => ({players:evidence.players})), baseline);
+for (const evidence of findings.addedGameConnections || []) {
+  validateGameEvidence(evidence);
+  assert(evidence.players.every(name => baseline[canonicalizeSourceName(name)]));
+}
+const confirmed = [...findings.addedConnections, ...(findings.addedGameConnections || [])];
+addSnapshot(additions, confirmed.map(evidence => ({players:evidence.players})), baseline);
 const updated = mergeAdditions(baseline, additions);
 for (const removal of corrections.removedPairs) {
   const [a, b] = removal.players.map(canonicalizeSourceName);

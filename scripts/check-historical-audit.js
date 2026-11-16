@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const {applyHistoricalCorrections} = require('../lib/historical-corrections');
+const {applyHistoricalCorrections, validateGameEvidence} = require('../lib/historical-corrections');
 const {PlayerStore, canonicalizeSourceName} = require('../lib/player-store');
 const {RosterSync, addSnapshot, mergeAdditions} = require('../lib/roster-sync');
 const {addTransactionOverlaps} = require('../lib/roster-transactions');
@@ -21,6 +21,21 @@ const graph = require('../data/players-2000-present.json');
     assert(evidence.appearances.reduce((sum, row) => sum + row.games, 0) > gameLimit);
   }
 
+  for (const evidence of findings.addedGameConnections || []) {
+    validateGameEvidence(evidence);
+    const [a, b] = evidence.players.map(canonicalizeSourceName);
+    assert(graph[a].teammates.includes(b) && graph[b].teammates.includes(a));
+  }
+  const sample = structuredClone(findings.addedGameConnections[0]);
+  sample.appearances[0].minutes = '43:60';
+  validateGameEvidence(sample);
+  sample.appearances[0].minutes = '0:00';
+  assert.throws(() => validateGameEvidence(sample));
+  sample.appearances[0].minutes = '1:00';
+  sample.appearances[1].nbaId = sample.appearances[0].nbaId;
+  assert.throws(() => validateGameEvidence(sample));
+  assert.throws(() => validateGameEvidence({...findings.addedGameConnections[0], gameId:'0029900001', season:2000}));
+
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'hoopduels-history-audit-'));
   try {
     const seed = path.join(directory, 'players.json');
@@ -31,6 +46,9 @@ const graph = require('../data/players-2000-present.json');
     try {
       for (const {players:[a,b]} of corrections.removedPairs) assert(!store.areTeammates(a,b), a + ' / ' + b);
       for (const {name} of corrections.removedPlayers) assert(!store.hasPlayer(name));
+      for (const {name} of findings.confirmedRosterOnlyEligibility) assert(store.hasPlayer(name), name);
+      assert.equal(store.resolveKey('Christopher Cenac Jr.'), store.resolveKey('Chris Cenac Jr.'));
+      assert.equal(store.resolveKey('Nikola Đurisic'), store.resolveKey('Nikola Djurisic'));
       assert(store.areTeammates('Allen Iverson', 'Antonio McDyess'), 'a return signing can make trade counterparts valid');
       assert(store.areTeammates('Michael Jordan', 'Kwame Brown'), 'eligible Washington connection must remain');
       assert(store.areTeammates('Allen Iverson', 'Vernon Maxwell'));
