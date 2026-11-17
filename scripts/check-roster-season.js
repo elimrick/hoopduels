@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
-const {fetchSeasonWindows, mergeSeasonWindows, inSeason, nbaDay} = require('../lib/roster-season');
-const {addTransactionOverlaps} = require('../lib/roster-transactions');
+const {fetchTenDayEnds, fetchSeasonWindows, mergeSeasonWindows, inSeason, nbaDay} = require('../lib/roster-season');
+const {transactionIntervals, addTransactionOverlaps} = require('../lib/roster-transactions');
 const {addSnapshot} = require('../lib/roster-sync');
 const day = value => Date.parse(`${value}T00:00:00Z`);
 const rosters = [{teamId:1,abbreviation:'ATL'}, {teamId:2,abbreviation:'NYK'}];
@@ -49,5 +49,18 @@ async function fetcher(url) {
   addTransactionOverlaps(additions,intervals,{},addSnapshot,0,windows);
   assert.deepEqual(additions.A,['Injured'],'only overlapping eligible roster membership counts');
   await assert.rejects(fetchSeasonWindows(async()=>({ok:false,status:503}),rosters,day('2026-01-01')));
+  const move = {PLAYER_ID:90001,TEAM_ID:1,Transaction_Type:'Signing',TRANSACTION_DATE:'2026-01-01',TRANSACTION_DESCRIPTION:'Team signed guard Alpha to a 10-Day Contract.'};
+  const payload = {NBA_Player_Movement:{rows:[move,...Array.from({length:1000},()=>({PLAYER_ID:0,Transaction_Type:'Trade'}))]}};
+  const contractFetcher = async () => ({ok:true,json:async()=>({status:'success',team:{abbreviation:'ATL'},requestedSeason:{year:2026,type:2},events:[1,8,14].map(date=>({id:String(date),date:`2026-01-${String(date).padStart(2,'0')}T18:00:00Z`,season:{year:2026},seasonType:{type:2},competitions:[{status:{type:{completed:true}}}]}))})});
+  let ends = await fetchTenDayEnds(contractFetcher,payload,rosters,windows,day('2026-01-01'),Date.parse('2026-01-13T18:00:00Z'));
+  assert.equal(ends.get(`90001:1:${day('2026-01-01')}`),day('2026-01-14'),'contract remains active awaiting third game');
+  ends = await fetchTenDayEnds(contractFetcher,payload,rosters,windows,day('2026-01-01'),day('2026-01-16'));
+  assert.equal(ends.get(`90001:1:${day('2026-01-01')}`),day('2026-01-15'),'third game extends contract beyond ten days');
+  const contractIntervals = transactionIntervals(payload,day('2026-01-16'),[],ends);
+  assert.equal(contractIntervals[0].end,day('2026-01-15'));
+  const waived = structuredClone(payload);
+  waived.NBA_Player_Movement.rows.push({PLAYER_ID:90001,TEAM_ID:1,Transaction_Type:'Waive',TRANSACTION_DATE:'2026-01-12',TRANSACTION_DESCRIPTION:'Team waived guard Alpha.'});
+  assert.equal(transactionIntervals(waived,day('2026-01-16'),[],ends)[0].end,day('2026-01-12'),'waiver still ends roster membership');
+  await assert.rejects(fetchTenDayEnds(async()=>({ok:true,json:async()=>({})}),payload,rosters,windows,day('2026-01-01'),day('2026-01-16')));
   console.log('PASS regular season, postseason, elimination, offseason, timezone, stale windows and non-playing roster overlap');
 })().catch(error=>{console.error(error);process.exitCode=1});

@@ -62,7 +62,12 @@ const {transactionIntervals, addTransactionOverlaps} = require('../lib/roster-tr
       const year = new Date().getUTCFullYear();
       return {ok:true,json:async()=>({year,type,startDate:`${year}-01-01`,endDate:`${year + 1}-01-01`})};
     }
-    if (url.includes('/schedule')) return {ok:true,json:async()=>({status:'success',team:{abbreviation:'ATL'},events:[]})};
+    if (url.includes('/schedule')) {
+      const type = Number(new URL(url).searchParams.get('seasontype'));
+      const year = new Date().getUTCFullYear();
+      const events = type === 2 ? [1,5,8].map(day=>({id:String(day),date:`${year}-01-${String(day).padStart(2,'0')}T18:00:00Z`,season:{year},seasonType:{type},competitions:[{status:{type:{completed:true}}}]})) : [];
+      return {ok:true,json:async()=>({status:'success',team:{abbreviation:'ATL'},requestedSeason:{year,type},events})};
+    }
     calls++;
     return {ok:true,text:async()=>html(rows.map(row=>({...row,TO_YEAR:new Date().getUTCFullYear()}))),json:async()=>movement};
   }});
