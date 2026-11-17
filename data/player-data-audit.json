@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-16T19:25:24.467Z",
-  "players": 3025,
+  "checkedAt": "2026-11-16T19:37:15.597Z",
+  "players": 3023,
   "fullHistoricalAuditComplete": false,
   "currentRoster": {
     "teams": 30,
@@ -33,7 +33,8 @@
   "remaining": [
     "Historical review is incomplete. See the findings report for unresolved roster overlap, player identities and eligibility.",
     "Some transaction archive records are missing or incomplete; absence of an entry cannot prove non-overlap.",
-    "Same-day moves and short contracts require more detailed roster evidence."
+    "Same-day moves and short contracts require more detailed roster evidence.",
+    "Apply the regular-season/playoff-only rule to historical offseason overlap and the daily updater."
   ],
   "historicalReview": {
     "revision": "historical-audit-2026-11-16-2",
@@ -41,11 +42,11 @@
     "seasonsReviewed": 27,
     "confirmedPositiveConnections": 49219,
     "addedConnections": 8460,
-    "reviewedPairRemovals": 18,
-    "removedIneligiblePlayers": 11,
+    "reviewedPairRemovals": 95,
+    "removedIneligiblePlayers": 13,
     "report": "data/historical-audit-findings.json",
     "confirmedGameConnections": 84423,
     "gameRecordsReviewed": 33597,
-    "confirmedRosterOnlyPlayers": 14
+    "confirmedRosterOnlyPlayers": 1
   }
 }

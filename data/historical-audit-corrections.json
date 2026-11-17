@@ -1,6 +1,6 @@
 {
   "revision": "historical-audit-2026-11-16-2",
-  "asOf": "2026-11-16T19:25:24.467Z",
+  "asOf": "2026-11-16T19:37:15.597Z",
   "minimumSeason": "2000-01",
   "removedPlayers": [
     {
@@ -57,6 +57,16 @@
       "name": "Malik Sealy",
       "source": "https://www.nba.com/timberwolves/history/retired-numbers",
       "reason": "Died May 20, 2000, before the eligibility cutoff."
+    },
+    {
+      "name": "Tom Chambers",
+      "source": "https://www.basketball-reference.com/players/c/chambto01.html",
+      "reason": "December 11, 1997: Retired from the Philadelphia 76ers."
+    },
+    {
+      "name": "Sharone Wright",
+      "source": "https://www.basketball-reference.com/players/w/wrighsh01.html",
+      "reason": "January 25, 1999: Retired from the Toronto Raptors."
     }
   ],
   "removedPairs": [
@@ -224,6 +234,1161 @@
       ],
       "reason": "Shared Lakers roster tenure ended in September 2000, before the opening-night cutoff.",
       "source": "https://www.basketball-reference.com/leagues/NBA_2001_transactions.html"
+    },
+    {
+      "players": [
+        "Aaron Holiday",
+        "Chandler Hutchison"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628988,
+        1628990
+      ],
+      "tradeDates": [
+        "2021-08-06"
+      ]
+    },
+    {
+      "players": [
+        "AJ Johnson",
+        "Jaden Hardy"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1642358,
+        1630702
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "AJ Johnson",
+        "Jericho Sims"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1642358,
+        1630579
+      ],
+      "tradeDates": [
+        "2025-02-06"
+      ]
+    },
+    {
+      "players": [
+        "AJ Johnson",
+        "Kyle Kuzma"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1642358,
+        1628398
+      ],
+      "tradeDates": [
+        "2025-02-06"
+      ]
+    },
+    {
+      "players": [
+        "Ayo Dosunmu",
+        "Leonard Miller"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1630245,
+        1631159
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "Ayo Dosunmu",
+        "Rob Dillingham"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1630245,
+        1642265
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "Bennedict Mathurin",
+        "Ivica Zubac"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1631097,
+        1627826
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "Bennedict Mathurin",
+        "Kobe Brown"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1631097,
+        1641738
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "Bogdan Bogdanovic",
+        "Bones Hyland"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        203992,
+        1630538
+      ],
+      "tradeDates": [
+        "2025-02-06"
+      ]
+    },
+    {
+      "players": [
+        "Bogdan Bogdanovic",
+        "Terance Mann"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        203992,
+        1629611
+      ],
+      "tradeDates": [
+        "2025-02-06"
+      ]
+    },
+    {
+      "players": [
+        "Bruno Fernando",
+        "Daniel Theis"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628981,
+        1628464
+      ],
+      "tradeDates": [
+        "2022-02-10"
+      ]
+    },
+    {
+      "players": [
+        "Bryn Forbes",
+        "Juancho Hernangomez"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1627854,
+        1627823
+      ],
+      "tradeDates": [
+        "2022-01-19"
+      ]
+    },
+    {
+      "players": [
+        "Buddy Hield",
+        "Domantas Sabonis"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1627741,
+        1627734
+      ],
+      "tradeDates": [
+        "2022-02-08"
+      ]
+    },
+    {
+      "players": [
+        "Buddy Hield",
+        "Kristaps Porzingis"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1627741,
+        204001
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "Chandler Hutchison",
+        "Daniel Theis"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628990,
+        1628464
+      ],
+      "tradeDates": [
+        "2021-03-25"
+      ]
+    },
+    {
+      "players": [
+        "Chandler Hutchison",
+        "Moritz Wagner"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628990,
+        1629021
+      ],
+      "tradeDates": [
+        "2021-03-25"
+      ]
+    },
+    {
+      "players": [
+        "Chandler Hutchison",
+        "Troy Brown Jr."
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628990,
+        1628972
+      ],
+      "tradeDates": [
+        "2021-03-25"
+      ]
+    },
+    {
+      "players": [
+        "Chimezie Metu",
+        "Royce O'Neale"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629002,
+        1626220
+      ],
+      "tradeDates": [
+        "2024-02-08"
+      ]
+    },
+    {
+      "players": [
+        "Coby White",
+        "Collin Sexton"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629632,
+        1629012
+      ],
+      "tradeDates": [
+        "2026-02-04"
+      ]
+    },
+    {
+      "players": [
+        "Colby Jones",
+        "Jake LaRavia"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1641732,
+        1631222
+      ],
+      "tradeDates": [
+        "2025-02-06"
+      ]
+    },
+    {
+      "players": [
+        "Cole Anthony",
+        "Nigel Hayes-Davis"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1630175,
+        1628502
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "Cole Anthony",
+        "Ousmane Dieng"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1630175,
+        1631172
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "Corey Kispert",
+        "Trae Young"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1630557,
+        1629027
+      ],
+      "tradeDates": [
+        "2026-01-09"
+      ]
+    },
+    {
+      "players": [
+        "Damian Jones",
+        "Jarred Vanderbilt"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1627745,
+        1629020
+      ],
+      "tradeDates": [
+        "2023-02-09"
+      ]
+    },
+    {
+      "players": [
+        "Damian Jones",
+        "Malik Beasley"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1627745,
+        1627736
+      ],
+      "tradeDates": [
+        "2023-02-09"
+      ]
+    },
+    {
+      "players": [
+        "Damian Jones",
+        "Nickeil Alexander-Walker"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1627745,
+        1629638
+      ],
+      "tradeDates": [
+        "2023-02-09"
+      ]
+    },
+    {
+      "players": [
+        "Daniel Gafford",
+        "Daniel Theis"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629655,
+        1628464
+      ],
+      "tradeDates": [
+        "2021-03-25"
+      ]
+    },
+    {
+      "players": [
+        "Daniel Gafford",
+        "Moritz Wagner"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629655,
+        1629021
+      ],
+      "tradeDates": [
+        "2021-03-25"
+      ]
+    },
+    {
+      "players": [
+        "Daniel Gafford",
+        "Richaun Holmes"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629655,
+        1626158
+      ],
+      "tradeDates": [
+        "2024-02-08"
+      ]
+    },
+    {
+      "players": [
+        "Daniel Gafford",
+        "Troy Brown Jr."
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629655,
+        1628972
+      ],
+      "tradeDates": [
+        "2021-03-25"
+      ]
+    },
+    {
+      "players": [
+        "Daniel Theis",
+        "Moritz Wagner"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628464,
+        1629021
+      ],
+      "tradeDates": [
+        "2021-03-25"
+      ]
+    },
+    {
+      "players": [
+        "Dario Saric",
+        "Darius Bazley"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        203967,
+        1629647
+      ],
+      "tradeDates": [
+        "2023-02-09"
+      ]
+    },
+    {
+      "players": [
+        "Dario Saric",
+        "De'Andre Hunter"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        203967,
+        1629631
+      ],
+      "tradeDates": [
+        "2026-02-01"
+      ]
+    },
+    {
+      "players": [
+        "Davion Mitchell",
+        "Josh Richardson"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1630558,
+        1626196
+      ],
+      "tradeDates": [
+        "2025-02-06"
+      ]
+    },
+    {
+      "players": [
+        "Davis Bertans",
+        "Kristaps Porzingis"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        202722,
+        204001
+      ],
+      "tradeDates": [
+        "2022-02-10"
+      ]
+    },
+    {
+      "players": [
+        "De'Aaron Fox",
+        "Sidy Cissoko"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628368,
+        1631321
+      ],
+      "tradeDates": [
+        "2025-02-03"
+      ]
+    },
+    {
+      "players": [
+        "De'Aaron Fox",
+        "Tre Jones"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628368,
+        1630200
+      ],
+      "tradeDates": [
+        "2025-02-03"
+      ]
+    },
+    {
+      "players": [
+        "De'Aaron Fox",
+        "Zach Collins"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628368,
+        1628380
+      ],
+      "tradeDates": [
+        "2025-02-03"
+      ]
+    },
+    {
+      "players": [
+        "De'Andre Hunter",
+        "Keon Ellis"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629631,
+        1631165
+      ],
+      "tradeDates": [
+        "2026-02-01"
+      ]
+    },
+    {
+      "players": [
+        "Derrick White",
+        "Josh Richardson"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628401,
+        1626196
+      ],
+      "tradeDates": [
+        "2022-02-10"
+      ]
+    },
+    {
+      "players": [
+        "Didi Louzada",
+        "Larry Nance Jr."
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629712,
+        1626204
+      ],
+      "tradeDates": [
+        "2022-02-08"
+      ]
+    },
+    {
+      "players": [
+        "Dorian Finney-Smith",
+        "Maxwell Lewis"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1627827,
+        1641721
+      ],
+      "tradeDates": [
+        "2024-12-29"
+      ]
+    },
+    {
+      "players": [
+        "Gabe Vincent",
+        "Luke Kennard"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629216,
+        1628379
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "Gary Trent Jr.",
+        "Norman Powell"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629018,
+        1626181
+      ],
+      "tradeDates": [
+        "2021-03-25"
+      ]
+    },
+    {
+      "players": [
+        "Grant Williams",
+        "P.J. Washington"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629684,
+        1629023
+      ],
+      "tradeDates": [
+        "2024-02-08"
+      ]
+    },
+    {
+      "players": [
+        "Ignas Brazdeikis",
+        "Terrance Ferguson"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629649,
+        1628390
+      ],
+      "tradeDates": [
+        "2021-03-25"
+      ]
+    },
+    {
+      "players": [
+        "Ignas Brazdeikis",
+        "Vincent Poirier"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629649,
+        1629738
+      ],
+      "tradeDates": [
+        "2021-03-25"
+      ]
+    },
+    {
+      "players": [
+        "Immanuel Quickley",
+        "OG Anunoby"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1630193,
+        1628384
+      ],
+      "tradeDates": [
+        "2023-12-30"
+      ]
+    },
+    {
+      "players": [
+        "Isaiah Jackson",
+        "Ivica Zubac"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1630543,
+        1627826
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "Isaiah Jackson",
+        "Kobe Brown"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1630543,
+        1641738
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "Jaden Hardy",
+        "Tyus Jones"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1630702,
+        1626145
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "Jaden Ivey",
+        "Kevin Huerter"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1631093,
+        1628989
+      ],
+      "tradeDates": [
+        "2026-02-03"
+      ]
+    },
+    {
+      "players": [
+        "Jalen Hood-Schifino",
+        "Luka Doncic"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1641720,
+        1629029
+      ],
+      "tradeDates": [
+        "2025-02-02"
+      ]
+    },
+    {
+      "players": [
+        "Jaren Jackson Jr.",
+        "Taylor Hendricks"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628991,
+        1641707
+      ],
+      "tradeDates": [
+        "2026-02-03"
+      ]
+    },
+    {
+      "players": [
+        "Jaren Jackson Jr.",
+        "Walter Clayton Jr."
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628991,
+        1642383
+      ],
+      "tradeDates": [
+        "2026-02-03"
+      ]
+    },
+    {
+      "players": [
+        "Jarred Vanderbilt",
+        "Juan Toscano-Anderson"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629020,
+        1629308
+      ],
+      "tradeDates": [
+        "2023-02-09"
+      ]
+    },
+    {
+      "players": [
+        "Jock Landale",
+        "Taylor Hendricks"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629111,
+        1641707
+      ],
+      "tradeDates": [
+        "2026-02-03"
+      ]
+    },
+    {
+      "players": [
+        "Jock Landale",
+        "Walter Clayton Jr."
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629111,
+        1642383
+      ],
+      "tradeDates": [
+        "2026-02-03"
+      ]
+    },
+    {
+      "players": [
+        "Jonathan Kuminga",
+        "Kristaps Porzingis"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1630228,
+        204001
+      ],
+      "tradeDates": [
+        "2026-02-05"
+      ]
+    },
+    {
+      "players": [
+        "Jordan McLaughlin",
+        "Sidy Cissoko"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629162,
+        1631321
+      ],
+      "tradeDates": [
+        "2025-02-03"
+      ]
+    },
+    {
+      "players": [
+        "Jordan McLaughlin",
+        "Tre Jones"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629162,
+        1630200
+      ],
+      "tradeDates": [
+        "2025-02-03"
+      ]
+    },
+    {
+      "players": [
+        "Jordan McLaughlin",
+        "Zach Collins"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629162,
+        1628380
+      ],
+      "tradeDates": [
+        "2025-02-03"
+      ]
+    },
+    {
+      "players": [
+        "Jordan Nwora",
+        "Pascal Siakam"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629670,
+        1627783
+      ],
+      "tradeDates": [
+        "2024-01-17"
+      ]
+    },
+    {
+      "players": [
+        "Josh Hart",
+        "Matisse Thybulle"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628404,
+        1629680
+      ],
+      "tradeDates": [
+        "2023-02-09"
+      ]
+    },
+    {
+      "players": [
+        "Josh Okogie",
+        "Nick Richards"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629006,
+        1630208
+      ],
+      "tradeDates": [
+        "2025-01-15"
+      ]
+    },
+    {
+      "players": [
+        "Juan Toscano-Anderson",
+        "Malik Beasley"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629308,
+        1627736
+      ],
+      "tradeDates": [
+        "2023-02-09"
+      ]
+    },
+    {
+      "players": [
+        "Juan Toscano-Anderson",
+        "Nickeil Alexander-Walker"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629308,
+        1629638
+      ],
+      "tradeDates": [
+        "2023-02-09"
+      ]
+    },
+    {
+      "players": [
+        "Juancho Hernangomez",
+        "Tomas Satoransky"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1627823,
+        203107
+      ],
+      "tradeDates": [
+        "2022-02-09"
+      ]
+    },
+    {
+      "players": [
+        "Keita Bates-Diop",
+        "Royce O'Neale"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628966,
+        1626220
+      ],
+      "tradeDates": [
+        "2024-02-08"
+      ]
+    },
+    {
+      "players": [
+        "Kendrick Nunn",
+        "Rui Hachimura"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629134,
+        1629060
+      ],
+      "tradeDates": [
+        "2023-01-23"
+      ]
+    },
+    {
+      "players": [
+        "Larry Nance Jr.",
+        "Tomas Satoransky"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1626204,
+        203107
+      ],
+      "tradeDates": [
+        "2022-02-08"
+      ]
+    },
+    {
+      "players": [
+        "Luka Doncic",
+        "Max Christie"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1629029,
+        1631108
+      ],
+      "tradeDates": [
+        "2025-02-02"
+      ]
+    },
+    {
+      "players": [
+        "Max Christie",
+        "Maxi Kleber"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1631108,
+        1628467
+      ],
+      "tradeDates": [
+        "2025-02-02"
+      ]
+    },
+    {
+      "players": [
+        "Monte Morris",
+        "Troy Brown Jr."
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628420,
+        1628972
+      ],
+      "tradeDates": [
+        "2024-02-08"
+      ]
+    },
+    {
+      "players": [
+        "OG Anunoby",
+        "RJ Barrett"
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1628384,
+        1629628
+      ],
+      "tradeDates": [
+        "2023-12-30"
+      ]
+    },
+    {
+      "players": [
+        "Taylor Hendricks",
+        "Vince Williams Jr."
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1641707,
+        1631246
+      ],
+      "tradeDates": [
+        "2026-02-03"
+      ]
+    },
+    {
+      "players": [
+        "Vince Williams Jr.",
+        "Walter Clayton Jr."
+      ],
+      "source": "https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json",
+      "reason": "Opposite sides of a recorded NBA trade. Reconstructed movement histories show no overlap and cover every dated NBA appearance; independent ESPN roster events and the current NBA roster snapshot were also checked.",
+      "nbaIds": [
+        1631246,
+        1642383
+      ],
+      "tradeDates": [
+        "2026-02-03"
+      ]
     }
   ],
   "cutoff": "2000-10-31"

@@ -26,6 +26,7 @@ const graph = require('../data/players-2000-present.json');
     const [a, b] = evidence.players.map(canonicalizeSourceName);
     assert(graph[a].teammates.includes(b) && graph[b].teammates.includes(a));
   }
+  assert.throws(() => validateGameEvidence({...findings.addedGameConnections[0], date:'2000-10-30'}));
   const sample = structuredClone(findings.addedGameConnections[0]);
   sample.appearances[0].minutes = '43:60';
   validateGameEvidence(sample);
@@ -50,6 +51,9 @@ const graph = require('../data/players-2000-present.json');
       assert.equal(store.resolveKey('Christopher Cenac Jr.'), store.resolveKey('Chris Cenac Jr.'));
       assert.equal(store.resolveKey('Nikola Đurisic'), store.resolveKey('Nikola Djurisic'));
       assert(store.areTeammates('Allen Iverson', 'Antonio McDyess'), 'a return signing can make trade counterparts valid');
+      assert(!store.areTeammates('Luka Doncic', 'Max Christie'));
+      assert(!store.areTeammates('Jaylen Brown', 'Paul George'));
+      assert(store.areTeammates('Chris Childs', 'Erick Strickland'));
       assert(store.areTeammates('Michael Jordan', 'Kwame Brown'), 'eligible Washington connection must remain');
       assert(store.areTeammates('Allen Iverson', 'Vernon Maxwell'));
       assert.equal(store.resolveKey('Hansen Yang'), store.resolveKey('Yang Hansen'));
@@ -60,6 +64,7 @@ const graph = require('../data/players-2000-present.json');
       const legacy = {
         updatedAt:new Date().toISOString(),
         additions:{
+          'Luka Doncic':['Max Christie'], 'Max Christie':['Luka Doncic'],
           'Aaron Gordon':['Gary Harris'], 'Gary Harris':['Aaron Gordon'],
           'Hansen Yang':['Jerami Grant'], 'Jerami Grant':['Hansen Yang'],
           'Charles Barkley':['Scottie Pippen'], 'Scottie Pippen':['Charles Barkley']
@@ -73,6 +78,7 @@ const graph = require('../data/players-2000-present.json');
       assert.equal(sync.state.updatedAt, null, 'migration must schedule a fresh update');
       assert(!store.areTeammates('Aaron Gordon','Gary Harris'));
       assert(!store.hasPlayer('Charles Barkley'));
+      assert(!store.areTeammates('Luka Doncic','Max Christie'));
       assert(store.areTeammates('Yang Hansen','Jerami Grant'));
 
       const future = structuredClone(sync.state);
