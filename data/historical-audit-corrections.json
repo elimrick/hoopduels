@@ -1,5 +1,5 @@
 {
-  "revision": "historical-audit-2026-11-16-2",
+  "revision": "historical-audit-2026-11-16-3",
   "asOf": "2026-11-16T19:37:15.597Z",
   "minimumSeason": "2000-01",
   "removedPlayers": [
@@ -67,6 +67,26 @@
       "name": "Sharone Wright",
       "source": "https://www.basketball-reference.com/players/w/wrighsh01.html",
       "reason": "January 25, 1999: Retired from the Toronto Raptors."
+    },
+    {
+      "name": "Rik Smits",
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Retired September 27, 2000, before the October 31 eligibility cutoff."
+    },
+    {
+      "name": "Kevin Johnson",
+      "source": "https://www.nba.com/suns/news/00382503.html",
+      "reason": "Announced his final retirement August 8, 2000, before the eligibility cutoff."
+    },
+    {
+      "name": "Mark Price",
+      "source": "https://www.si.com/nba/cavaliers/nba/cavaliers/nba-amico/former-guard-price-cherishing-cavs-title",
+      "reason": "Retired from the NBA in 1998, corroborated by the NBRPA career record ending in 1998."
+    },
+    {
+      "name": "Bobby Hurley",
+      "source": "https://www.upi.com/Archives/2000/10/20/Sports-Update/6151972014400/",
+      "reason": "Retirement confirmed October 19, 2000, before the eligibility cutoff."
     }
   ],
   "removedPairs": [

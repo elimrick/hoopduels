@@ -1,6 +1,6 @@
 {
   "checkedAt": "2026-11-16T19:37:15.597Z",
-  "players": 3023,
+  "players": 3019,
   "fullHistoricalAuditComplete": false,
   "currentRoster": {
     "teams": 30,
@@ -37,16 +37,16 @@
     "Review historical offseason-only overlap against the regular-season/playoff-only rule."
   ],
   "historicalReview": {
-    "revision": "historical-audit-2026-11-16-2",
+    "revision": "historical-audit-2026-11-16-3",
     "cutoff": "2000-10-31",
     "seasonsReviewed": 27,
     "confirmedPositiveConnections": 49219,
     "addedConnections": 8460,
     "reviewedPairRemovals": 95,
-    "removedIneligiblePlayers": 13,
+    "removedIneligiblePlayers": 17,
     "report": "data/historical-audit-findings.json",
     "confirmedGameConnections": 84423,
     "gameRecordsReviewed": 33597,
-    "confirmedRosterOnlyPlayers": 1
+    "confirmedRosterOnlyPlayers": 2
   }
 }
