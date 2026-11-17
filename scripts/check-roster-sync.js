@@ -19,7 +19,7 @@ const {transactionIntervals, addTransactionOverlaps} = require('../lib/roster-tr
   assert(mergeAdditions(baseline, additions).A.teammates.includes('B'), 'a later shared roster must count');
 
   const rows = Array.from({length:30}, (_,team) => Array.from({length:15}, (_,player) => ({
-    PERSON_ID:team*15+player+1, TEAM_ID:team+1, ROSTER_STATUS:1, TO_YEAR:2026,
+    PERSON_ID:team*15+player+1, TEAM_ID:team+1, TEAM_ABBREVIATION:'ATL', ROSTER_STATUS:1, TO_YEAR:2026,
     PLAYER_FIRST_NAME:`Player${team}`, PLAYER_LAST_NAME:String(player)
   }))).flat();
   const html = data => `<script id="__NEXT_DATA__" type="application/json">${JSON.stringify({props:{pageProps:{players:data}}})}</script>`;
@@ -55,7 +55,14 @@ const {transactionIntervals, addTransactionOverlaps} = require('../lib/roster-tr
   assert.deepEqual(store.getCounts(),before);
 
   let calls = 0;
-  const sync = new RosterSync({playerStore:store,statePath:path.join(temp,'sync.json'),fetcher:async()=>{
+  const sync = new RosterSync({playerStore:store,statePath:path.join(temp,'sync.json'),fetcher:async(url)=>{
+    if (url.includes('/scoreboard')) return {ok:true,json:async()=>({leagues:[{slug:'nba',season:{year:new Date().getUTCFullYear()}}]})};
+    if (url.includes('/types/')) {
+      const type = Number(url.split('/').at(-1));
+      const year = new Date().getUTCFullYear();
+      return {ok:true,json:async()=>({year,type,startDate:`${year}-01-01`,endDate:`${year + 1}-01-01`})};
+    }
+    if (url.includes('/schedule')) return {ok:true,json:async()=>({status:'success',team:{abbreviation:'ATL'},events:[]})};
     calls++;
     return {ok:true,text:async()=>html(rows.map(row=>({...row,TO_YEAR:new Date().getUTCFullYear()}))),json:async()=>movement};
   }});
@@ -76,6 +83,10 @@ const {transactionIntervals, addTransactionOverlaps} = require('../lib/roster-tr
   assert.equal(restarted.status().updatedAt,sync.status().updatedAt);
   const lastGood = store.getCounts();
   restarted.state.updatedAt = '2000-01-01';
+  restarted.fetcher = async(url)=>({ok:true,text:async()=>html(rows.map(row=>({...row,TO_YEAR:new Date().getUTCFullYear()}))),json:async()=>({})});
+  await assert.rejects(restarted.refresh(), /season identification/);
+  assert.deepEqual(store.getCounts(),lastGood,'invalid calendar retains last good graph');
+  restarted.lastAttempt = 0;
   restarted.fetcher = async()=>{throw new Error('Test source outage');};
   await assert.rejects(restarted.refresh());
   assert.deepEqual(store.getCounts(),lastGood);
