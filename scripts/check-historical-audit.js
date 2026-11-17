@@ -26,6 +26,10 @@ const graph = require('../data/players-2000-present.json');
     const [a, b] = evidence.players.map(canonicalizeSourceName);
     assert(graph[a].teammates.includes(b) && graph[b].teammates.includes(a));
   }
+  for (const evidence of findings.addedRosterConnections || []) {
+    const [a,b] = evidence.players.map(canonicalizeSourceName);
+    assert(graph[a].teammates.includes(b) && graph[b].teammates.includes(a));
+  }
   assert.throws(() => validateGameEvidence({...findings.addedGameConnections[0], date:'2000-10-30'}));
   const sample = structuredClone(findings.addedGameConnections[0]);
   sample.appearances[0].minutes = '43:60';

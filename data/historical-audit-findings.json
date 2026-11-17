@@ -13,7 +13,7 @@
   },
   "verificationMethod": "Combined regular-season appearances above the team season game limit prove at least one shared game. The default upper bound is 82, with NBA-confirmed limits of 66 in 2011–12 and 72 in 2020–21. This verifies positive connections. Transaction-only non-overlap remains a review candidate until corroborated.",
   "confirmedExistingOrMissingConnections": 49219,
-  "confirmedMissingConnections": 8460,
+  "confirmedMissingConnections": 8461,
   "addedConnections": [
     {
       "players": [
@@ -74084,6 +74084,1518 @@
       ],
       "source": "https://basketball.realgm.com/player/Chris-Mullin/Summary/1217",
       "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Aaron Williams"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Antonio Harvey"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "B.J. Armstrong"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Billy Owens"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Chris Anstey"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Chris Carr"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Corey Benjamin"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Craig Ehlo"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Dale Ellis"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "David Wingate"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Dedric Willoughby"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Detlef Schrempf"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Dickey Simpkins"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Don MacLean"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Drew Barry"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Elmore Spencer"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Elton Brand"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Eric Snow"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Fred Hoiberg"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Gary Payton"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "George Zidek"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Greg Anthony"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Greg Graham"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "James Cotton"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Jelani McCoy"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Jerome Kersey"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Jim McIlvaine"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "John Crotty"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "John Starks"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Khalid Reeves"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Kornel David"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Lari Ketner"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Larry Stewart"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Matt Maloney"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Metta World Peace"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Michael Ruffin"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Moochie Norris"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Nate McMillan"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Olden Polynice"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Randy Brown"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Rashard Lewis"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Rusty LaRue"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Sam Perkins"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Shawn Kemp"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Stephen Howard"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Steve Scheffler"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Terry Cummings"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Toni Kukoc"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Vin Baker"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Vladimir Stepania"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Hersey Hawkins",
+        "Will Perdue"
+      ],
+      "source": "https://www.olympedia.org/athletes/6263",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Aaron McKie"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Alonzo Mourning"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Anthony Carter"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Anthony Johnson"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Anthony Peeler"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Antonio Daniels"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Ben Wallace"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Billy Owens"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Blue Edwards"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Bruce Bowen"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Bryant Reeves"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Calbert Cheaney"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Chris Robinson"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Chris Whitney"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Clar. Weatherspoon"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Corliss Williamson"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Dan Majerle"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Derek Grimm"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Don Reid"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Duane Causwell"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Etdrick Bohannon"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "George Lynch"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Grant Hill"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Grant Long"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Harold Jamison"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Ivano Newbill"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Jahidi White"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Jeff McInnis"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Jerome Williams"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "John Coker"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Juwan Howard"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Kenny Smith"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Kevin Salvadori"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Larry Robinson"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Lawrence Funderburke"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Lee Mayberry"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Lindsey Hunter"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Litterial Green"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Mahmoud Abdul-Rauf"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Mark Hendrickson"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Mark Strickland"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Michael Curry"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Michael Smith"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Michael Stewart"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Mitch Richmond"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Olden Polynice"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Pete Chilcutt"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Randall Jackson"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Randell Jackson"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Randolph Childress"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Rex Walters"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Rick Mahorn"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Rod Strickland"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Rodney Buford"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Sam Mack"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Shareef Abdur-Rahim"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Stacey Augmon"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Tariq Abdul-Wahad"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Terry Davis"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Terry Dehere"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Terry Mills"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Theo Ratliff"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Tim Hardaway"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Tim Legler"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Tony Massenburg"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Tracy Murray"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Otis Thorpe",
+        "Voshon Lenard"
+      ],
+      "source": "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Aaron Williams"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Antonio Davis"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Antonio Harvey"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Craig Ehlo"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Dale Davis"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Dale Ellis"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "David Wingate"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Detlef Schrempf"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Elmore Spencer"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Eric Snow"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Fred Hoiberg"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Gary Payton"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "George Zidek"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Greg Anthony"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Greg Graham"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "James Cotton"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Jerome Kersey"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Jim McIlvaine"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Larry Stewart"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Mark Jackson"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Mark Pope"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Nate McMillan"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Shawn Kemp"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Stephen Howard"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Steve Scheffler"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Terry Cummings"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Sam Perkins",
+        "Vin Baker"
+      ],
+      "source": "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Aaron McKie"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Alonzo Mourning"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Antonio Lang"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Blue Edwards"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Brent Barry"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Charles Smith"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Christian Laettner"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Clar. Weatherspoon"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Dan Majerle"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Don Reid"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Duane Causwell"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Eric Montross"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Eric Murdock"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Grant Hill"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Grant Long"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Ike Austin"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Jamal Mashburn"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Jamie Watson"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Jermaine Jackson"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Jerome Williams"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Jerry Stackhouse"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "John Crotty"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Jud Buechler"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Keith Askins"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Kenny Smith"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Lindsey Hunter"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Litterial Green"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Loy Vaught"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Marcus Brown"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Mark Davis"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Mark Strickland"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Marty Conlon"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Michael Curry"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Mikki Moore"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "P.J. Brown"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Randolph Childress"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Rex Walters"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Rick Mahorn"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Stacey Augmon"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Terry Porter"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Theo Ratliff"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Tim Hardaway"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Todd Day"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
+    },
+    {
+      "players": [
+        "Terry Mills",
+        "Voshon Lenard"
+      ],
+      "source": "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+      "reason": "Only eligible NBA season was 2000-01. Reviewed final-team roster, non-playing roster transactions and career end; this link predates the cutoff."
     }
   ],
   "removedPlayers": [
@@ -74388,10 +75900,6 @@
       ],
       [
         "Aaron McKie",
-        "Otis Thorpe"
-      ],
-      [
-        "Aaron McKie",
         "Rasheed Wallace"
       ],
       [
@@ -74413,10 +75921,6 @@
       [
         "Aaron McKie",
         "Terry Cummings"
-      ],
-      [
-        "Aaron McKie",
-        "Terry Mills"
       ],
       [
         "Aaron McKie",
@@ -74520,10 +76024,6 @@
       ],
       [
         "Aaron Williams",
-        "Hersey Hawkins"
-      ],
-      [
-        "Aaron Williams",
         "Ike Austin"
       ],
       [
@@ -74585,10 +76085,6 @@
       [
         "Aaron Williams",
         "Rod Strickland"
-      ],
-      [
-        "Aaron Williams",
-        "Sam Perkins"
       ],
       [
         "Aaron Williams",
@@ -75521,10 +77017,6 @@
       [
         "Alonzo Mourning",
         "Steven Smith"
-      ],
-      [
-        "Alonzo Mourning",
-        "Terry Mills"
       ],
       [
         "Alonzo Mourning",
@@ -76696,10 +78188,6 @@
       ],
       [
         "Anthony Johnson",
-        "Otis Thorpe"
-      ],
-      [
-        "Anthony Johnson",
         "Shammond Williams"
       ],
       [
@@ -77092,10 +78580,6 @@
       ],
       [
         "Anthony Peeler",
-        "Otis Thorpe"
-      ],
-      [
-        "Anthony Peeler",
         "Paul Grant"
       ],
       [
@@ -77320,10 +78804,6 @@
       ],
       [
         "Antonio Daniels",
-        "Otis Thorpe"
-      ],
-      [
-        "Antonio Daniels",
         "Sam Mack"
       ],
       [
@@ -77396,10 +78876,6 @@
       ],
       [
         "Antonio Davis",
-        "Sam Perkins"
-      ],
-      [
-        "Antonio Davis",
         "Sean Marks"
       ],
       [
@@ -77424,10 +78900,6 @@
       ],
       [
         "Antonio Harvey",
-        "Hersey Hawkins"
-      ],
-      [
-        "Antonio Harvey",
         "Jermaine Jackson"
       ],
       [
@@ -77449,10 +78921,6 @@
       [
         "Antonio Harvey",
         "Randy Livingston"
-      ],
-      [
-        "Antonio Harvey",
-        "Sam Perkins"
       ],
       [
         "Antonio Harvey",
@@ -78388,10 +79856,6 @@
       ],
       [
         "Ben Wallace",
-        "Otis Thorpe"
-      ],
-      [
-        "Ben Wallace",
         "Rod Strickland"
       ],
       [
@@ -78640,10 +80104,6 @@
       ],
       [
         "Billy Owens",
-        "Hersey Hawkins"
-      ],
-      [
-        "Billy Owens",
         "Ira Bowman"
       ],
       [
@@ -78717,10 +80177,6 @@
       [
         "Billy Owens",
         "Olden Polynice"
-      ],
-      [
-        "Billy Owens",
-        "Otis Thorpe"
       ],
       [
         "Billy Owens",
@@ -79972,10 +81428,6 @@
       ],
       [
         "Brent Barry",
-        "Terry Mills"
-      ],
-      [
-        "Brent Barry",
         "Tim Hardaway"
       ],
       [
@@ -80736,10 +82188,6 @@
       ],
       [
         "Bryant Reeves",
-        "Otis Thorpe"
-      ],
-      [
-        "Bryant Reeves",
         "Rodrick Rhodes"
       ],
       [
@@ -81053,10 +82501,6 @@
       [
         "Calbert Cheaney",
         "Mitch Richmond"
-      ],
-      [
-        "Calbert Cheaney",
-        "Otis Thorpe"
       ],
       [
         "Calbert Cheaney",
@@ -81924,10 +83368,6 @@
       ],
       [
         "Charles Smith",
-        "Terry Mills"
-      ],
-      [
-        "Charles Smith",
         "Tim Hardaway"
       ],
       [
@@ -82509,10 +83949,6 @@
       [
         "Chris Carr",
         "Fred Hoiberg"
-      ],
-      [
-        "Chris Carr",
-        "Hersey Hawkins"
       ],
       [
         "Chris Carr",
@@ -83380,10 +84816,6 @@
       ],
       [
         "Chris Robinson",
-        "Otis Thorpe"
-      ],
-      [
-        "Chris Robinson",
         "Sam Mack"
       ],
       [
@@ -83517,10 +84949,6 @@
       [
         "Chris Whitney",
         "John Coker"
-      ],
-      [
-        "Chris Whitney",
-        "Otis Thorpe"
       ],
       [
         "Chris Whitney",
@@ -84072,10 +85500,6 @@
       ],
       [
         "Clar. Weatherspoon",
-        "Terry Mills"
-      ],
-      [
-        "Clar. Weatherspoon",
         "Terry Porter"
       ],
       [
@@ -84581,10 +86005,6 @@
       [
         "Corliss Williamson",
         "Oliver Miller"
-      ],
-      [
-        "Corliss Williamson",
-        "Otis Thorpe"
       ],
       [
         "Corliss Williamson",
@@ -85304,10 +86724,6 @@
       ],
       [
         "Dale Ellis",
-        "Hersey Hawkins"
-      ],
-      [
-        "Dale Ellis",
         "J.R. Reid"
       ],
       [
@@ -85369,10 +86785,6 @@
       [
         "Dale Ellis",
         "Sam Cassell"
-      ],
-      [
-        "Dale Ellis",
-        "Sam Perkins"
       ],
       [
         "Dale Ellis",
@@ -85821,10 +87233,6 @@
       [
         "Dan Majerle",
         "Rex Walters"
-      ],
-      [
-        "Dan Majerle",
-        "Terry Mills"
       ],
       [
         "Dan Majerle",
@@ -86980,10 +88388,6 @@
       ],
       [
         "David Wingate",
-        "Hersey Hawkins"
-      ],
-      [
-        "David Wingate",
         "Jerome Kersey"
       ],
       [
@@ -87013,10 +88417,6 @@
       [
         "David Wingate",
         "Rick Brunson"
-      ],
-      [
-        "David Wingate",
-        "Sam Perkins"
       ],
       [
         "David Wingate",
@@ -88344,10 +89744,6 @@
       ],
       [
         "Detlef Schrempf",
-        "Hersey Hawkins"
-      ],
-      [
-        "Detlef Schrempf",
         "Jelani McCoy"
       ],
       [
@@ -88373,10 +89769,6 @@
       [
         "Detlef Schrempf",
         "Rashard Lewis"
-      ],
-      [
-        "Detlef Schrempf",
-        "Sam Perkins"
       ],
       [
         "Detlef Schrempf",
@@ -88501,10 +89893,6 @@
       [
         "Dickey Simpkins",
         "Fred Hoiberg"
-      ],
-      [
-        "Dickey Simpkins",
-        "Hersey Hawkins"
       ],
       [
         "Dickey Simpkins",
@@ -88820,10 +90208,6 @@
       ],
       [
         "Don MacLean",
-        "Hersey Hawkins"
-      ],
-      [
-        "Don MacLean",
         "Jason Kidd"
       ],
       [
@@ -88976,10 +90360,6 @@
       ],
       [
         "Don Reid",
-        "Otis Thorpe"
-      ],
-      [
-        "Don Reid",
         "Rod Strickland"
       ],
       [
@@ -88989,10 +90369,6 @@
       [
         "Don Reid",
         "Stacey Augmon"
-      ],
-      [
-        "Don Reid",
-        "Terry Mills"
       ],
       [
         "Don Reid",
@@ -89621,10 +90997,6 @@
       [
         "Duane Causwell",
         "Steven Smith"
-      ],
-      [
-        "Duane Causwell",
-        "Terry Mills"
       ],
       [
         "Duane Causwell",
@@ -90760,10 +92132,6 @@
       ],
       [
         "Eric Murdock",
-        "Terry Mills"
-      ],
-      [
-        "Eric Murdock",
         "Tim Hardaway"
       ],
       [
@@ -90836,10 +92204,6 @@
       ],
       [
         "Eric Snow",
-        "Hersey Hawkins"
-      ],
-      [
-        "Eric Snow",
         "Jerome Kersey"
       ],
       [
@@ -90857,10 +92221,6 @@
       [
         "Eric Snow",
         "Rex Walters"
-      ],
-      [
-        "Eric Snow",
-        "Sam Perkins"
       ],
       [
         "Eric Snow",
@@ -91276,10 +92636,6 @@
       ],
       [
         "Etdrick Bohannon",
-        "Otis Thorpe"
-      ],
-      [
-        "Etdrick Bohannon",
         "Patrick Ewing"
       ],
       [
@@ -91608,10 +92964,6 @@
       ],
       [
         "Fred Hoiberg",
-        "Sam Perkins"
-      ],
-      [
-        "Fred Hoiberg",
         "Toni Kukoc"
       ],
       [
@@ -91912,10 +93264,6 @@
       ],
       [
         "Gary Payton",
-        "Hersey Hawkins"
-      ],
-      [
-        "Gary Payton",
         "Jerome Kersey"
       ],
       [
@@ -91933,10 +93281,6 @@
       [
         "Gary Payton",
         "Olden Polynice"
-      ],
-      [
-        "Gary Payton",
-        "Sam Perkins"
       ],
       [
         "Gary Payton",
@@ -92109,10 +93453,6 @@
       [
         "George Lynch",
         "Moochie Norris"
-      ],
-      [
-        "George Lynch",
-        "Otis Thorpe"
       ],
       [
         "George Lynch",
@@ -92668,10 +94008,6 @@
       ],
       [
         "Grant Hill",
-        "Otis Thorpe"
-      ],
-      [
-        "Grant Hill",
         "Scot Pollard"
       ],
       [
@@ -92712,10 +94048,6 @@
       ],
       [
         "Grant Long",
-        "Otis Thorpe"
-      ],
-      [
-        "Grant Long",
         "Roshown McLeod"
       ],
       [
@@ -92732,10 +94064,6 @@
       ],
       [
         "Grant Long",
-        "Terry Mills"
-      ],
-      [
-        "Grant Long",
         "Theo Ratliff"
       ],
       [
@@ -92745,10 +94073,6 @@
       [
         "Grant Williams",
         "Theo Maledon"
-      ],
-      [
-        "Greg Anthony",
-        "Hersey Hawkins"
       ],
       [
         "Greg Anthony",
@@ -92777,10 +94101,6 @@
       [
         "Greg Anthony",
         "Moochie Norris"
-      ],
-      [
-        "Greg Anthony",
-        "Sam Perkins"
       ],
       [
         "Greg Anthony",
@@ -93056,10 +94376,6 @@
       ],
       [
         "Harold Jamison",
-        "Otis Thorpe"
-      ],
-      [
-        "Harold Jamison",
         "P.J. Brown"
       ],
       [
@@ -93225,86 +94541,6 @@
       [
         "Herbert Hill",
         "Reggie Evans"
-      ],
-      [
-        "Hersey Hawkins",
-        "Jelani McCoy"
-      ],
-      [
-        "Hersey Hawkins",
-        "Jerome Kersey"
-      ],
-      [
-        "Hersey Hawkins",
-        "Jim McIlvaine"
-      ],
-      [
-        "Hersey Hawkins",
-        "John Crotty"
-      ],
-      [
-        "Hersey Hawkins",
-        "John Starks"
-      ],
-      [
-        "Hersey Hawkins",
-        "Kornel David"
-      ],
-      [
-        "Hersey Hawkins",
-        "Lari Ketner"
-      ],
-      [
-        "Hersey Hawkins",
-        "Matt Maloney"
-      ],
-      [
-        "Hersey Hawkins",
-        "Moochie Norris"
-      ],
-      [
-        "Hersey Hawkins",
-        "Olden Polynice"
-      ],
-      [
-        "Hersey Hawkins",
-        "Randy Brown"
-      ],
-      [
-        "Hersey Hawkins",
-        "Rashard Lewis"
-      ],
-      [
-        "Hersey Hawkins",
-        "Rusty LaRue"
-      ],
-      [
-        "Hersey Hawkins",
-        "Sam Perkins"
-      ],
-      [
-        "Hersey Hawkins",
-        "Shawn Kemp"
-      ],
-      [
-        "Hersey Hawkins",
-        "Terry Cummings"
-      ],
-      [
-        "Hersey Hawkins",
-        "Toni Kukoc"
-      ],
-      [
-        "Hersey Hawkins",
-        "Vin Baker"
-      ],
-      [
-        "Hersey Hawkins",
-        "Vladimir Stepania"
-      ],
-      [
-        "Hersey Hawkins",
-        "Will Perdue"
       ],
       [
         "Hilton Armstrong",
@@ -93557,10 +94793,6 @@
       [
         "Ike Austin",
         "Rodney Rogers"
-      ],
-      [
-        "Ike Austin",
-        "Terry Mills"
       ],
       [
         "Ike Austin",
@@ -93908,10 +95140,6 @@
       ],
       [
         "Ivano Newbill",
-        "Otis Thorpe"
-      ],
-      [
-        "Ivano Newbill",
         "Priest Lauderdale"
       ],
       [
@@ -94256,10 +95484,6 @@
       ],
       [
         "Jahidi White",
-        "Otis Thorpe"
-      ],
-      [
-        "Jahidi White",
         "Terry Davis"
       ],
       [
@@ -94597,10 +95821,6 @@
       [
         "Jamal Mashburn",
         "Steven Smith"
-      ],
-      [
-        "Jamal Mashburn",
-        "Terry Mills"
       ],
       [
         "Jamal Mashburn",
@@ -95097,10 +96317,6 @@
       [
         "Jamie Watson",
         "Shawn Bradley"
-      ],
-      [
-        "Jamie Watson",
-        "Terry Mills"
       ],
       [
         "Jamie Watson",
@@ -95876,10 +97092,6 @@
       ],
       [
         "Jeff McInnis",
-        "Otis Thorpe"
-      ],
-      [
-        "Jeff McInnis",
         "Rod Strickland"
       ],
       [
@@ -96059,10 +97271,6 @@
         "Michael Curry"
       ],
       [
-        "Jermaine Jackson",
-        "Terry Mills"
-      ],
-      [
         "Jermaine O'Neal",
         "Jim Jackson"
       ],
@@ -96160,10 +97368,6 @@
       ],
       [
         "Jerome Kersey",
-        "Sam Perkins"
-      ],
-      [
-        "Jerome Kersey",
         "Samaki Walker"
       ],
       [
@@ -96205,10 +97409,6 @@
       [
         "Jerome Williams",
         "John Crotty"
-      ],
-      [
-        "Jerome Williams",
-        "Otis Thorpe"
       ],
       [
         "Jerome Williams",
@@ -96445,10 +97645,6 @@
       [
         "Jim McIlvaine",
         "Sam Cassell"
-      ],
-      [
-        "Jim McIlvaine",
-        "Sam Perkins"
       ],
       [
         "Jim McIlvaine",
@@ -96780,10 +97976,6 @@
       ],
       [
         "John Coker",
-        "Otis Thorpe"
-      ],
-      [
-        "John Coker",
         "Randy Livingston"
       ],
       [
@@ -96861,10 +98053,6 @@
       [
         "John Crotty",
         "Stacey Augmon"
-      ],
-      [
-        "John Crotty",
-        "Terry Mills"
       ],
       [
         "John Crotty",
@@ -98068,10 +99256,6 @@
       ],
       [
         "Juwan Howard",
-        "Otis Thorpe"
-      ],
-      [
-        "Juwan Howard",
         "Shawnelle Scott"
       ],
       [
@@ -98772,10 +99956,6 @@
       ],
       [
         "Kevin Salvadori",
-        "Otis Thorpe"
-      ],
-      [
-        "Kevin Salvadori",
         "Tariq Abdul-Wahad"
       ],
       [
@@ -99456,10 +100636,6 @@
       ],
       [
         "Larry Robinson",
-        "Otis Thorpe"
-      ],
-      [
-        "Larry Robinson",
         "Sam Mack"
       ],
       [
@@ -99513,10 +100689,6 @@
       [
         "Lawrence Funderburke",
         "Oliver Miller"
-      ],
-      [
-        "Lawrence Funderburke",
-        "Otis Thorpe"
       ],
       [
         "Lawrence Funderburke",
@@ -99605,10 +100777,6 @@
       [
         "Lindell Wigginton",
         "Ryan Rollins"
-      ],
-      [
-        "Lindsey Hunter",
-        "Otis Thorpe"
       ],
       [
         "Lindsey Hunter",
@@ -100004,10 +101172,6 @@
       ],
       [
         "Mahmoud Abdul-Rauf",
-        "Otis Thorpe"
-      ],
-      [
-        "Mahmoud Abdul-Rauf",
         "Tariq Abdul-Wahad"
       ],
       [
@@ -100388,10 +101552,6 @@
       ],
       [
         "Mark Jackson",
-        "Sam Perkins"
-      ],
-      [
-        "Mark Jackson",
         "Tom Hammonds"
       ],
       [
@@ -100408,10 +101568,6 @@
       ],
       [
         "Mark Pope",
-        "Sam Perkins"
-      ],
-      [
-        "Mark Pope",
         "Tim James"
       ],
       [
@@ -100424,10 +101580,6 @@
       ],
       [
         "Mark Strickland",
-        "Otis Thorpe"
-      ],
-      [
-        "Mark Strickland",
         "P.J. Brown"
       ],
       [
@@ -100437,10 +101589,6 @@
       [
         "Mark Strickland",
         "Rodney Buford"
-      ],
-      [
-        "Mark Strickland",
-        "Terry Mills"
       ],
       [
         "Mark Strickland",
@@ -100936,10 +102084,6 @@
       ],
       [
         "Michael Curry",
-        "Otis Thorpe"
-      ],
-      [
-        "Michael Curry",
         "Paul Grant"
       ],
       [
@@ -101160,10 +102304,6 @@
       ],
       [
         "Michael Smith",
-        "Otis Thorpe"
-      ],
-      [
-        "Michael Smith",
         "Rodrick Rhodes"
       ],
       [
@@ -101193,10 +102333,6 @@
       [
         "Michael Stewart",
         "Olden Polynice"
-      ],
-      [
-        "Michael Stewart",
-        "Otis Thorpe"
       ],
       [
         "Michael Stewart",
@@ -101337,10 +102473,6 @@
       [
         "Mitch Richmond",
         "Olden Polynice"
-      ],
-      [
-        "Mitch Richmond",
-        "Otis Thorpe"
       ],
       [
         "Mitch Richmond",
@@ -101748,10 +102880,6 @@
       ],
       [
         "Olden Polynice",
-        "Otis Thorpe"
-      ],
-      [
-        "Olden Polynice",
         "Randy Livingston"
       ],
       [
@@ -101927,54 +103055,6 @@
         "Tim James"
       ],
       [
-        "Otis Thorpe",
-        "Rex Walters"
-      ],
-      [
-        "Otis Thorpe",
-        "Rod Strickland"
-      ],
-      [
-        "Otis Thorpe",
-        "Sam Mack"
-      ],
-      [
-        "Otis Thorpe",
-        "Shareef Abdur-Rahim"
-      ],
-      [
-        "Otis Thorpe",
-        "Stacey Augmon"
-      ],
-      [
-        "Otis Thorpe",
-        "Tariq Abdul-Wahad"
-      ],
-      [
-        "Otis Thorpe",
-        "Terry Davis"
-      ],
-      [
-        "Otis Thorpe",
-        "Terry Mills"
-      ],
-      [
-        "Otis Thorpe",
-        "Theo Ratliff"
-      ],
-      [
-        "Otis Thorpe",
-        "Tony Massenburg"
-      ],
-      [
-        "Otis Thorpe",
-        "Tracy Murray"
-      ],
-      [
-        "Otis Thorpe",
-        "Voshon Lenard"
-      ],
-      [
         "Otto Porter Jr.",
         "Tyler Ulis"
       ],
@@ -101985,10 +103065,6 @@
       [
         "P.J. Brown",
         "Steven Smith"
-      ],
-      [
-        "P.J. Brown",
-        "Terry Mills"
       ],
       [
         "P.J. Brown",
@@ -103111,18 +104187,6 @@
         "Tom Gugliotta"
       ],
       [
-        "Sam Perkins",
-        "Shawn Kemp"
-      ],
-      [
-        "Sam Perkins",
-        "Terry Cummings"
-      ],
-      [
-        "Sam Perkins",
-        "Vin Baker"
-      ],
-      [
         "Samaki Walker",
         "Shawn Bradley"
       ],
@@ -103512,10 +104576,6 @@
       ],
       [
         "Stacey Augmon",
-        "Terry Mills"
-      ],
-      [
-        "Stacey Augmon",
         "Theo Ratliff"
       ],
       [
@@ -103753,26 +104813,6 @@
       [
         "Terry Cummings",
         "William Cunningham"
-      ],
-      [
-        "Terry Mills",
-        "Terry Porter"
-      ],
-      [
-        "Terry Mills",
-        "Theo Ratliff"
-      ],
-      [
-        "Terry Mills",
-        "Tim Hardaway"
-      ],
-      [
-        "Terry Mills",
-        "Todd Day"
-      ],
-      [
-        "Terry Mills",
-        "Voshon Lenard"
       ],
       [
         "Terry Porter",
@@ -243554,6 +244594,331 @@
         "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions?dates=2001&limit=1000&page=1"
       ],
       "method": "Compared final-season roster with dated transaction records. Retained non-playing roster members and source-name variants."
+    },
+    {
+      "name": "Hersey Hawkins",
+      "eligibleTeam": "CHA",
+      "season": 2001,
+      "retainedTeammates": [
+        "Baron Davis",
+        "David Wesley",
+        "Derrick Coleman",
+        "Doug Overton",
+        "Eddie Robinson",
+        "Elden Campbell",
+        "Eldridge Recasner",
+        "Jamaal Magloire",
+        "Jamal Mashburn",
+        "Lee Nailon",
+        "Otis Thorpe",
+        "P.J. Brown",
+        "Scott Burrell",
+        "Terrance Roberson",
+        "Tim James"
+      ],
+      "removedTeammates": [
+        "Aaron Williams",
+        "Antonio Harvey",
+        "B.J. Armstrong",
+        "Billy Owens",
+        "Chris Anstey",
+        "Chris Carr",
+        "Corey Benjamin",
+        "Craig Ehlo",
+        "Dale Ellis",
+        "David Wingate",
+        "Dedric Willoughby",
+        "Detlef Schrempf",
+        "Dickey Simpkins",
+        "Don MacLean",
+        "Drew Barry",
+        "Elmore Spencer",
+        "Elton Brand",
+        "Eric Snow",
+        "Fred Hoiberg",
+        "Gary Payton",
+        "George Zidek",
+        "Greg Anthony",
+        "Greg Graham",
+        "James Cotton",
+        "Jelani McCoy",
+        "Jerome Kersey",
+        "Jim McIlvaine",
+        "John Crotty",
+        "John Starks",
+        "Khalid Reeves",
+        "Kornel David",
+        "Lari Ketner",
+        "Larry Stewart",
+        "Matt Maloney",
+        "Metta World Peace",
+        "Michael Ruffin",
+        "Moochie Norris",
+        "Nate McMillan",
+        "Olden Polynice",
+        "Randy Brown",
+        "Rashard Lewis",
+        "Rusty LaRue",
+        "Sam Perkins",
+        "Shawn Kemp",
+        "Stephen Howard",
+        "Steve Scheffler",
+        "Terry Cummings",
+        "Toni Kukoc",
+        "Vin Baker",
+        "Vladimir Stepania",
+        "Will Perdue"
+      ],
+      "sources": [
+        "https://www.olympedia.org/athletes/6263",
+        "https://www.basketball-reference.com/teams/CHA/2001.html",
+        "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions?dates=2001&limit=1000&page=1"
+      ],
+      "method": "Compared final-season roster with dated transaction records. Retained non-playing roster members and source-name variants."
+    },
+    {
+      "name": "Otis Thorpe",
+      "eligibleTeam": "CHA",
+      "season": 2001,
+      "retainedTeammates": [
+        "Baron Davis",
+        "David Wesley",
+        "Derrick Coleman",
+        "Doug Overton",
+        "Eddie Robinson",
+        "Elden Campbell",
+        "Eldridge Recasner",
+        "Hersey Hawkins",
+        "Jamaal Magloire",
+        "Jamal Mashburn",
+        "Lee Nailon",
+        "P.J. Brown",
+        "Scott Burrell",
+        "Terrance Roberson",
+        "Tim James"
+      ],
+      "removedTeammates": [
+        "Aaron McKie",
+        "Alonzo Mourning",
+        "Anthony Carter",
+        "Anthony Johnson",
+        "Anthony Peeler",
+        "Antonio Daniels",
+        "Ben Wallace",
+        "Billy Owens",
+        "Blue Edwards",
+        "Bruce Bowen",
+        "Bryant Reeves",
+        "Calbert Cheaney",
+        "Chris Robinson",
+        "Chris Whitney",
+        "Clar. Weatherspoon",
+        "Corliss Williamson",
+        "Dan Majerle",
+        "Derek Grimm",
+        "Don Reid",
+        "Duane Causwell",
+        "Etdrick Bohannon",
+        "George Lynch",
+        "Grant Hill",
+        "Grant Long",
+        "Harold Jamison",
+        "Ivano Newbill",
+        "Jahidi White",
+        "Jeff McInnis",
+        "Jerome Williams",
+        "John Coker",
+        "Juwan Howard",
+        "Kenny Smith",
+        "Kevin Salvadori",
+        "Larry Robinson",
+        "Lawrence Funderburke",
+        "Lee Mayberry",
+        "Lindsey Hunter",
+        "Litterial Green",
+        "Mahmoud Abdul-Rauf",
+        "Mark Hendrickson",
+        "Mark Strickland",
+        "Michael Curry",
+        "Michael Smith",
+        "Michael Stewart",
+        "Mitch Richmond",
+        "Olden Polynice",
+        "Pete Chilcutt",
+        "Randall Jackson",
+        "Randell Jackson",
+        "Randolph Childress",
+        "Rex Walters",
+        "Rick Mahorn",
+        "Rod Strickland",
+        "Rodney Buford",
+        "Sam Mack",
+        "Shareef Abdur-Rahim",
+        "Stacey Augmon",
+        "Tariq Abdul-Wahad",
+        "Terry Davis",
+        "Terry Dehere",
+        "Terry Mills",
+        "Theo Ratliff",
+        "Tim Hardaway",
+        "Tim Legler",
+        "Tony Massenburg",
+        "Tracy Murray",
+        "Voshon Lenard"
+      ],
+      "sources": [
+        "https://www.legendsofbasketball.com/alumni/otis-thorpe/",
+        "https://www.basketball-reference.com/teams/CHA/2001.html",
+        "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions?dates=2001&limit=1000&page=1"
+      ],
+      "method": "Compared final-season roster with dated transaction records. Retained non-playing roster members and source-name variants."
+    },
+    {
+      "name": "Sam Perkins",
+      "eligibleTeam": "IND",
+      "season": 2001,
+      "retainedTeammates": [
+        "Al Harrington",
+        "Austin Croshere",
+        "Bruno Sundov",
+        "Derrick McKey",
+        "Jalen Rose",
+        "Jeff Foster",
+        "Jermaine O'Neal",
+        "Jonathan Bender",
+        "Lari Ketner",
+        "Reggie Miller",
+        "Terry Mills",
+        "Travis Best",
+        "Tyus Edney",
+        "Zan Tabak"
+      ],
+      "removedTeammates": [
+        "Aaron Williams",
+        "Antonio Davis",
+        "Antonio Harvey",
+        "Craig Ehlo",
+        "Dale Davis",
+        "Dale Ellis",
+        "David Wingate",
+        "Detlef Schrempf",
+        "Elmore Spencer",
+        "Eric Snow",
+        "Fred Hoiberg",
+        "Gary Payton",
+        "George Zidek",
+        "Greg Anthony",
+        "Greg Graham",
+        "Hersey Hawkins",
+        "James Cotton",
+        "Jerome Kersey",
+        "Jim McIlvaine",
+        "Larry Stewart",
+        "Mark Jackson",
+        "Mark Pope",
+        "Nate McMillan",
+        "Shawn Kemp",
+        "Stephen Howard",
+        "Steve Scheffler",
+        "Terry Cummings",
+        "Vin Baker"
+      ],
+      "sources": [
+        "https://ak-static-int.nba.com/wp-content/uploads/sites/3/2016/10/2016-17-Media-Guide-Pacers.pdf",
+        "https://www.basketball-reference.com/teams/IND/2001.html",
+        "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions?dates=2001&limit=1000&page=1"
+      ],
+      "method": "Compared final-season roster with dated transaction records. Retained non-playing roster members and source-name variants."
+    },
+    {
+      "name": "Terry Mills",
+      "eligibleTeam": "IND",
+      "season": 2001,
+      "retainedTeammates": [
+        "Al Harrington",
+        "Austin Croshere",
+        "Bruno Sundov",
+        "Derrick McKey",
+        "Jalen Rose",
+        "Jeff Foster",
+        "Jermaine O'Neal",
+        "Jonathan Bender",
+        "Lari Ketner",
+        "Reggie Miller",
+        "Sam Perkins",
+        "Travis Best",
+        "Tyus Edney",
+        "Zan Tabak"
+      ],
+      "removedTeammates": [
+        "Aaron McKie",
+        "Alonzo Mourning",
+        "Antonio Lang",
+        "Blue Edwards",
+        "Brent Barry",
+        "Charles Smith",
+        "Christian Laettner",
+        "Clar. Weatherspoon",
+        "Dan Majerle",
+        "Don Reid",
+        "Duane Causwell",
+        "Eric Montross",
+        "Eric Murdock",
+        "Grant Hill",
+        "Grant Long",
+        "Ike Austin",
+        "Jamal Mashburn",
+        "Jamie Watson",
+        "Jermaine Jackson",
+        "Jerome Williams",
+        "Jerry Stackhouse",
+        "John Crotty",
+        "Jud Buechler",
+        "Keith Askins",
+        "Kenny Smith",
+        "Lindsey Hunter",
+        "Litterial Green",
+        "Loy Vaught",
+        "Marcus Brown",
+        "Mark Davis",
+        "Mark Strickland",
+        "Marty Conlon",
+        "Michael Curry",
+        "Mikki Moore",
+        "Otis Thorpe",
+        "P.J. Brown",
+        "Randolph Childress",
+        "Rex Walters",
+        "Rick Mahorn",
+        "Stacey Augmon",
+        "Terry Porter",
+        "Theo Ratliff",
+        "Tim Hardaway",
+        "Todd Day",
+        "Voshon Lenard"
+      ],
+      "sources": [
+        "https://basketball.realgm.com/player/Terry-Mills/Summary/959",
+        "https://www.basketball-reference.com/teams/IND/2001.html",
+        "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions?dates=2001&limit=1000&page=1"
+      ],
+      "method": "Compared final-season roster with dated transaction records. Retained non-playing roster members and source-name variants."
+    }
+  ],
+  "addedRosterConnections": [
+    {
+      "players": [
+        "Mario Elie",
+        "Rex Chapman"
+      ],
+      "team": "PHX",
+      "overlapStart": "2000-10-31",
+      "overlapEnd": "2000-11-20",
+      "sources": [
+        "https://www.basketball-reference.com/teams/PHO/2001_transactions.html",
+        "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions?dates=2000&limit=1000&page=1"
+      ],
+      "reason": "Elie signed in September 2000. Chapman remained on the Suns roster into the regular season and announced retirement November 20."
     }
   ]
 }

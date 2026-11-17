@@ -37,12 +37,12 @@
     "Review historical offseason-only overlap against the regular-season/playoff-only rule."
   ],
   "historicalReview": {
-    "revision": "historical-audit-2026-11-17-2",
+    "revision": "historical-audit-2026-11-17-3",
     "cutoff": "2000-10-31",
     "seasonsReviewed": 27,
     "confirmedPositiveConnections": 49219,
-    "addedConnections": 8460,
-    "reviewedPairRemovals": 249,
+    "addedConnections": 8461,
+    "reviewedPairRemovals": 438,
     "removedIneligiblePlayers": 17,
     "report": "data/historical-audit-findings.json",
     "confirmedGameConnections": 84423,

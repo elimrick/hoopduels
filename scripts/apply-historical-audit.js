@@ -27,7 +27,14 @@ for (const evidence of findings.addedGameConnections || []) {
   validateGameEvidence(evidence);
   assert(evidence.players.every(name => baseline[canonicalizeSourceName(name)]));
 }
-const confirmed = [...findings.addedConnections, ...(findings.addedGameConnections || [])];
+for (const evidence of findings.addedRosterConnections || []) {
+  assert.equal(new Set(evidence.players).size, 2);
+  assert(evidence.players.every(name => baseline[canonicalizeSourceName(name)]));
+  assert(Date.parse(evidence.overlapStart) >= Date.parse('2000-10-31'));
+  assert(Date.parse(evidence.overlapEnd) > Date.parse(evidence.overlapStart));
+  assert(evidence.sources.length >= 2);
+}
+const confirmed = [...findings.addedConnections, ...(findings.addedGameConnections || []), ...(findings.addedRosterConnections || [])];
 addSnapshot(additions, confirmed.map(evidence => ({players:evidence.players})), baseline);
 const updated = mergeAdditions(baseline, additions);
 for (const removal of corrections.removedPairs) {
