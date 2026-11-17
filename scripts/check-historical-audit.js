@@ -48,6 +48,10 @@ const graph = require('../data/players-2000-present.json');
       for (const {players:[a,b]} of corrections.removedPairs) assert(!store.areTeammates(a,b), a + ' / ' + b);
       for (const {name} of corrections.removedPlayers) assert(!store.hasPlayer(name));
       for (const {name} of findings.confirmedRosterOnlyEligibility) assert(store.hasPlayer(name), name);
+      for (const review of findings.cutoffCareerReviews || []) {
+        for (const teammate of review.retainedTeammates) assert(store.areTeammates(review.name, teammate));
+        for (const teammate of review.removedTeammates) assert(!store.areTeammates(review.name, teammate));
+      }
       assert.equal(store.resolveKey('Christopher Cenac Jr.'), store.resolveKey('Chris Cenac Jr.'));
       assert.equal(store.resolveKey('Nikola Đurisic'), store.resolveKey('Nikola Djurisic'));
       assert(store.areTeammates('Allen Iverson', 'Antonio McDyess'), 'a return signing can make trade counterparts valid');

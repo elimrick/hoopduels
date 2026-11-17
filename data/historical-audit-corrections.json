@@ -1,5 +1,5 @@
 {
-  "revision": "historical-audit-2026-11-16-3",
+  "revision": "historical-audit-2026-11-17-1",
   "asOf": "2026-11-16T19:37:15.597Z",
   "minimumSeason": "2000-01",
   "removedPlayers": [
@@ -1409,6 +1409,526 @@
       "tradeDates": [
         "2026-02-03"
       ]
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Adrian Caldwell"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Ben Davis"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Brian Shaw"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Bruno Sundov"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Bubba Wells"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Chris Anstey"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Chris Gatling"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Chucky Brown"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Danny Manning"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Dennis Scott"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Derek Fisher"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Derek Harper"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Devean George"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Dexter Boney"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Dirk Nowitzki"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Ed O'Bannon"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Eric Montross"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Eric Riley"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Erick Strickland"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Fred Roberts"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Gary Trent"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "George McCloud"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Glen Rice"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Greg Dreiling"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Horacio Llamas"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Hot Rod Williams"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Hubert Davis"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Jamal Mashburn"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Jamie Watson"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Jason Kidd"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Jason Sasser"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Jim Jackson"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Joe Kleine"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "John Celestand"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "John Salley"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Kevin Ollie"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Khalid Reeves"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Kurt Thomas"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Loren Meyer"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Mark Bryant"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Martin Muursepp"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Michael Finley"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Mike Brown"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Oliver Miller"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Rex Chapman"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Rick Fox"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Robert Horry"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Robert Pack"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Ron Harper"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Rumeal Robinson"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Sam Cassell"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Sam Jacobson"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Samaki Walker"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Sasha Danilovic"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Shaquille O'Neal"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Shawn Bradley"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Shawn Respert"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Stacey King"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Steve Nash"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Stevin Smith"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Tony Dumas"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Travis Knight"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Tyronn Lue"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Wayman Tisdale"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
+    },
+    {
+      "players": [
+        "A.C. Green",
+        "Wesley Person"
+      ],
+      "source": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "reason": "Only eligible roster was Miami in 2000-01. This connection belongs to a team before the October 31, 2000 cutoff."
     }
   ],
   "cutoff": "2000-10-31"
