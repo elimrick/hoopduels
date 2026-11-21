@@ -65,8 +65,12 @@
 
     const topbar = document.createElement('div');
     topbar.className = 'mobile-topbar';
-    topbar.innerHTML = '<div class="mobile-brand" role="link" tabindex="0" aria-label="Go to home"><img class="brand-mark" src="/logo.svg?v=20261115" alt="" width="32" height="32"><span>HoopDuels</span></div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
+    topbar.innerHTML = '<div class="mobile-brand" role="link" tabindex="0" aria-label="Go to home"><img class="brand-mark" src="/logo-cyan.svg?v=1" alt="" width="32" height="32"><span>HoopDuels</span></div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
     document.body.insertBefore(topbar, layout);
+    const gridLight = document.createElement('div');
+    gridLight.className = 'grid-light';
+    gridLight.setAttribute('aria-hidden', 'true');
+    document.body.prepend(gridLight);
 
     const toggleBtn = topbar.querySelector('.mobile-menu-btn');
     const mobileBrand = topbar.querySelector('.mobile-brand');
@@ -437,7 +441,7 @@
     const gridLines = ticks.map((value) => {
       const y = yFor(value);
       return `
-        <line x1="${padX}" y1="${y}" x2="${width - padX}" y2="${y}" stroke="rgba(29,43,57,0.12)" stroke-width="1"></line>
+        <line x1="${padX}" y1="${y}" x2="${width - padX}" y2="${y}" stroke="var(--line)" stroke-width="1"></line>
       `;
     }).join('');
 
@@ -458,7 +462,7 @@
         </div>
         <svg viewBox="0 0 ${width} ${height}" class="profile-elo-svg" role="img" aria-label="Rating progression chart">
           ${gridLines}
-          <polyline points="${points}" fill="none" stroke="rgba(58, 123, 255, 0.95)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+          <polyline points="${points}" fill="none" stroke="var(--accent-blue)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
         </svg>
       </div>
     `;
