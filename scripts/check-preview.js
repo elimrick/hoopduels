@@ -14,7 +14,7 @@ async function client(playerId,token){return new Promise((resolve,reject)=>{
 });}
 (async()=>{
  for(const [route,file] of Object.entries({'/':'index.html','/practice':'practice.html','/game':'game.html','/leaderboard':'leaderboard.html','/game-history':'game-history.html','/profile':'profile.html','/signin':'signin.html','/create-account':'create-account.html','/how-to-play':'how-to-play.html','/friends':'friends.html','/settings':'settings.html'})){
-  const res=await fetch(base+route);assert.equal(res.status,200);const html=await res.text();const $=load(html);assert.equal($('h1').length,1);assert.equal($('main').length,1);assert.equal($('link[href="styles.css?v=redesign-1"]').length,1);assert(!html.includes('pagead2'));const ids=$('[id]').map((_,el)=>$(el).attr('id')).get();assert.equal(new Set(ids).size,ids.length,route+' duplicate IDs');
+  const res=await fetch(base+route);assert.equal(res.status,200);const html=await res.text();const $=load(html);assert.equal($('h1').length,1);assert.equal($('main').length,1);assert.equal($('link[href="styles.css?v=cyan-20261121"]').length,1);assert(!html.includes('pagead2'));const ids=$('[id]').map((_,el)=>$(el).attr('id')).get();assert.equal(new Set(ids).size,ids.length,route+' duplicate IDs');
   const previous=load(execFileSync('git',['show','17642b3:public/'+file],{cwd:root,encoding:'utf8'}));for(const id of previous('[id]').map((_,el)=>previous(el).attr('id')).get())assert(ids.includes(id),route+' missing behavior hook '+id);
  }
  const historyRedirect=await fetch(base+'/game-history',{redirect:'manual'});assert.equal(historyRedirect.status,302);assert.equal(historyRedirect.headers.get('location'),'/profile#game-history');
