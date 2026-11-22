@@ -18,7 +18,6 @@ const staleLiveBadge = document.getElementById('live-badge');
 if (staleLiveBadge) {
   staleLiveBadge.remove();
 }
-const duelCurrentEl = document.querySelector('.duel-current');
 const currentPlayerEl = document.getElementById('current-player');
 const currentLabelEl = document.getElementById('current-label');
 const playerLeftClockEl = document.getElementById('player-left-clock');
@@ -573,7 +572,6 @@ function renderGameState(state) {
 
   if (leaveGameBtn) leaveGameBtn.textContent = 'Leave Game';
 
-  if (duelCurrentEl) duelCurrentEl.classList.remove('is-end');
   if (currentLabelEl) currentLabelEl.textContent = 'CURRENT PLAYER';
   if (currentLabelEl) currentLabelEl.style.display = '';
   currentPlayerEl.textContent = state.currentPlayer;
@@ -889,10 +887,9 @@ socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason
   closeLeaveGameOverlay();
   closeMatchmakingOverlay();
   const endDisplay = getEndDisplay(reason, winnerPlayerId, loserPlayerId);
-  if (duelCurrentEl) duelCurrentEl.classList.add('is-end');
-  if (currentLabelEl) currentLabelEl.textContent = endDisplay.title;
+  if (currentLabelEl) currentLabelEl.textContent = endDisplay.detail;
   if (currentLabelEl) currentLabelEl.style.display = '';
-  currentPlayerEl.textContent = endDisplay.detail;
+  currentPlayerEl.textContent = endDisplay.title;
   if (leaveGameBtn) leaveGameBtn.textContent = currentState && currentState.mode === 'friend' ? 'Rematch' : 'New Game';
   finalWinnerPlayerId = winnerPlayerId;
   finalLoserPlayerId = loserPlayerId;

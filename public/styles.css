@@ -127,11 +127,7 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .duel-center {grid-column:1/-1;grid-row:2;text-align:center;padding:24px 0 10px;display:flex;flex-direction:column;gap:12px}
 .duel-current {display:flex;flex-direction:column;align-items:center;gap:8px}
 .duel-current-label {font-size:10px;font-weight:750;letter-spacing:1.65px;line-height:1.5;text-transform:uppercase;color:var(--muted)}
-.duel-current-player,#practice-current-player,.duel-current.is-end .duel-current-label {font-size:32px;font-weight:700;letter-spacing:-.8px;line-height:1.2;overflow-wrap:anywhere}
-.duel-timer {order:2;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-.duel-timer::after {content:' seconds remaining';font-size:11px}
-.duel-current.is-end .duel-current-label {color:var(--text);text-transform:none}
-.duel-current.is-end .duel-current-player {font-size:10px;font-weight:750;letter-spacing:1.65px;line-height:1.5;text-transform:uppercase;color:var(--accent-blue)}
+.duel-current-player {font-size:32px;font-weight:700;letter-spacing:-.8px;line-height:1.2;overflow-wrap:anywhere}
 .search-label {display:block;font-size:12px;font-weight:650;margin-top:24px;margin-bottom:7px}
 .turn-row {display:grid;grid-template-columns:1fr;gap:12px;margin:0 0 30px}
 .player-autocomplete {position:relative;width:100%;min-width:0}
@@ -247,7 +243,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
  body[data-page='leaderboard'] .card,body[data-page='friends'] .card,body[data-page='history'] .card {padding:23px}
  .duel-page-header {margin-bottom:20px}.duel-page-header .page-title {font-size:26px}.btn-status {font-size:12px;min-height:38px;padding:9px 12px}
  .arena-card {padding:18px 15px}.duel-board {gap:10px}.duel-player {padding:12px}.duel-player-name {font-size:16px}.duel-player-meta {font-size:10px}.duel-player-clock {font-size:24px}
- .duel-center {padding:20px 0 6px}.duel-current-player,#practice-current-player,.duel-current.is-end .duel-current-label {font-size:29px}.search-label {margin-top:18px}
+ .duel-center {padding:20px 0 6px}.duel-current-player {font-size:29px}.search-label {margin-top:18px}
  .chain-heading {margin-top:4px}.history-item {font-size:13px}.player-suggestions {max-height:240px}
  .rules-inline-notes {grid-template-columns:1fr;gap:22px}.rules-chain {grid-template-columns:1fr}.rules-note-card p {font-size:13px}
  .profile-page-header {gap:16px;margin-bottom:18px}.profile-joined-text {margin:0;font-size:13px}
@@ -257,8 +253,6 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 }
 @media(prefers-reduced-motion:reduce) {* {animation:none!important;transition:none!important}}
 
-.duel-timer.is-end {display:none}
-.duel-timer.is-end::after {content:none}
 
 /* Review refinements */
 #auth-nav-create {transition:background .15s,border-color .15s,color .15s}
@@ -300,7 +294,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 
 .friend-play p,#friends-content {--muted:#a4adb2}
 
-.my-rank {color:var(--muted);font-size:13px;padding:12px 0;white-space:nowrap}
+.my-rank {color:var(--accent-blue);font-size:13px;padding:12px 0;white-space:nowrap}
 .profile-history {margin-top:22px;scroll-margin-top:90px}.profile-history h2 {margin:0;font-size:20px}
 .friend-add {justify-content:flex-start}.friend-add .btn {min-height:44px;padding:10px 16px;font-size:13px}
 .friends-section {margin-top:24px}.friends-section .section-heading {margin-bottom:12px}.friends-section h2 {margin:0}
@@ -366,7 +360,6 @@ html.auth-signed-out .home-history-link {display:none}
 .message-appearing {animation:message-appear .4s ease-out}
 @keyframes message-appear {from {opacity:.45} to {opacity:1}}
 
-.duel-current.practice-ended .duel-current-label {color:var(--accent-blue)}
 html.auth-signed-in:not(.app-ready) .main {visibility:hidden}
 
 
@@ -384,14 +377,14 @@ body::after {
  mask-size:48px 48px;
 }
 .grid-light::before {
- content:'';position:absolute;top:0;left:0;width:min(86vw,960px);height:min(78vh,720px);
+ content:'';position:absolute;top:0;left:0;width:min(80vw,900px);height:min(73vh,675px);
  background:radial-gradient(ellipse at center,#102024 0%,#0b1519 34%,transparent 72%);
- animation:grid-light 25s ease-in-out infinite;
+ animation:grid-light 24s ease-in-out infinite;
 }
 @keyframes grid-light {
  0%,100% {transform:translate3d(-12vw,-8vh,0)}
- 33% {transform:translate3d(calc(100vw - min(86vw,960px) + 8vw),4vh,0)}
- 67% {transform:translate3d(13vw,calc(100vh - min(78vh,720px)),0)}
+ 33% {transform:translate3d(calc(100vw - min(80vw,900px) + 8vw),4vh,0)}
+ 67% {transform:translate3d(13vw,calc(100vh - min(73vh,675px)),0)}
 }
 @media(prefers-reduced-motion:reduce){.grid-light {display:none}}
 .brand,.mobile-brand {color:#fff}

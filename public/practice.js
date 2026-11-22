@@ -189,8 +189,6 @@ function endPractice(reason, detailMessage = '') {
   state.phase = 'ended';
   stopTimer();
   timerEl.textContent = '';
-  currentEl.parentElement.classList.add('practice-ended');
-  timerEl.parentElement.classList.add('is-end');
   document.querySelector('.duel-current-label').textContent = 'FINAL CHAIN';
   const chainLength = Math.max(0, state.usedPlayers.length - 1);
   currentEl.textContent = String(chainLength);
@@ -235,7 +233,7 @@ function startPlayerTurnTimer() {
   setTurnUi();
   stopTimer();
   state.turnDeadline = Date.now() + TURN_MS;
-  timerEl.textContent = '60';
+  timerEl.textContent = '1:00';
 
   const tick = () => {
     if (!state.active || state.phase !== 'player') return;
@@ -246,7 +244,8 @@ function startPlayerTurnTimer() {
       endPractice('Poor Clock Management');
       return;
     }
-    timerEl.textContent = String(Math.max(1, Math.ceil(ms / 1000)));
+    const seconds = Math.max(1, Math.ceil(ms / 1000));
+    timerEl.textContent = Math.floor(seconds / 60) + ':' + String(seconds % 60).padStart(2, '0');
   };
 
   tick();
@@ -271,7 +270,7 @@ function queueComputerTurn(nextCurrentPlayer) {
   state.phase = 'cpu';
   setTurnUi();
   stopTimer();
-  timerEl.textContent = '60';
+  timerEl.textContent = '1:00';
   currentEl.textContent = nextCurrentPlayer || state.currentPlayer;
 }
 
@@ -284,8 +283,6 @@ async function startPractice() {
   state.active = false;
   state.pending = false;
   stopTimer();
-  timerEl.parentElement.classList.remove('is-end');
-  currentEl.parentElement.classList.remove('practice-ended');
   document.querySelector('.duel-current-label').textContent = 'CURRENT PLAYER';
   const res = await fetch('/api/practice/start');
   const payload = await res.json();

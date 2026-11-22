@@ -140,6 +140,7 @@
         dropdown.hidden = false;
         input.setAttribute('aria-expanded', 'true');
         input.removeAttribute('aria-activedescendant');
+        if (!options.search) updateActive(0);
       }
 
       function updateActive(nextIndex) {
@@ -204,6 +205,7 @@
         refresh();
       });
       input.addEventListener('keydown', (event) => {
+        if (event.isComposing || event.repeat && event.key === 'Enter') return;
         if (event.key === 'Escape') { close(); return; }
         if (dropdown.hidden || !items.length) return;
 
