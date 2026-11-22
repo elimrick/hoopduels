@@ -61,10 +61,10 @@ html.auth-signed-in #auth-nav-link,html.auth-signed-in #auth-nav-create,html.aut
 .example-chain span {font-size:14px;font-weight:650;flex:1;min-width:0}
 .example-chain small {display:block;font-size:8px;font-weight:650;letter-spacing:1px;color:var(--muted);margin-bottom:5px}
 .example-chain>b {color:var(--accent-blue);font-weight:400;font-size:20px}
-.btn {display:inline-flex;justify-content:center;align-items:center;gap:24px;border:1px solid var(--accent-blue);border-radius:5px;background:#072127;color:var(--accent-blue);font-size:14px;font-weight:650;padding:12px 20px;min-height:44px;line-height:1.25;transition:background .15s,border-color .15s;text-decoration:none}
-.btn:hover {background:#0b343c;border-color:#0b343c;text-decoration:none}
+.btn {display:inline-flex;justify-content:center;align-items:center;gap:24px;border:1px solid #23616a;border-radius:5px;background:#072127;color:var(--accent-blue);font-size:14px;font-weight:650;padding:12px 20px;min-height:44px;line-height:1.25;transition:background .15s,border-color .15s;text-decoration:none}
+.btn:hover:not(:disabled) {background:#0b343c;border-color:#39808a;text-decoration:none}
 .btn-secondary,.btn-status,.btn-overlay-secondary,.profile-signout-btn {background:var(--panel);color:var(--text);border-color:#627086}
-.btn-secondary:hover,.btn-status:hover,.btn-overlay-secondary:hover,.profile-signout-btn:hover {background:var(--panel-soft);border-color:#8d9bae}
+.btn-secondary:hover:not(:disabled),.btn-status:hover:not(:disabled),.btn-overlay-secondary:hover:not(:disabled),.profile-signout-btn:hover:not(:disabled) {background:var(--panel-soft);border-color:#8d9bae}
 .btn-compact {padding:7px 12px;min-height:34px;font-size:12px}
 .mode-footnote {margin:10px 0 0;font-size:11px;color:var(--muted)}
 .stats {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 16px;font-variant-numeric:tabular-nums}
@@ -402,5 +402,3 @@ h1,h2,h3 {color:var(--text);text-shadow:none}
 .practice-card {background:var(--panel)}
 .practice-symbol {border-radius:2px}
 .example-chain {background:var(--panel)}
-#find-game-home-btn {border-color:#23616a}
-#find-game-home-btn:hover {background:#0b343c}
