@@ -2,7 +2,7 @@
 :root {
   color-scheme: dark;
   --bg:#000002; --panel:#000; --panel-soft:#0b171b; --text:#c5c8cb;
-  --muted:#a4adb2; --line:#193137; --accent-blue:#00c8d3; --accent-red:#b94343;
+  --muted:#a4adb2; --line:#193137; --accent-blue:#00c8d3; --cyan-fill:#072127; --accent-red:#b94343;
   --success:#8bd4a6; --danger:#ffa1a8; --mobile-topbar-height:66px;
   --mobile-topbar-total:calc(66px + env(safe-area-inset-top));
   --mobile-topbar-offset:var(--mobile-topbar-total);
@@ -61,7 +61,7 @@ html.auth-signed-in #auth-nav-link,html.auth-signed-in #auth-nav-create,html.aut
 .example-chain span {font-size:14px;font-weight:650;flex:1;min-width:0}
 .example-chain small {display:block;font-size:8px;font-weight:650;letter-spacing:1px;color:var(--muted);margin-bottom:5px}
 .example-chain>b {color:var(--accent-blue);font-weight:400;font-size:20px}
-.btn {display:inline-flex;justify-content:center;align-items:center;gap:24px;border:1px solid #23616a;border-radius:5px;background:#072127;color:var(--accent-blue);font-size:14px;font-weight:650;padding:12px 20px;min-height:44px;line-height:1.25;transition:background .15s,border-color .15s;text-decoration:none}
+.btn {display:inline-flex;justify-content:center;align-items:center;gap:24px;border:1px solid #23616a;border-radius:5px;background:var(--cyan-fill);color:var(--accent-blue);font-size:14px;font-weight:650;padding:12px 20px;min-height:44px;line-height:1.25;transition:background .15s,border-color .15s;text-decoration:none}
 .btn:hover:not(:disabled) {background:#0b343c;border-color:#39808a;text-decoration:none}
 .btn-secondary,.btn-status,.btn-overlay-secondary,.profile-signout-btn {background:var(--panel);color:var(--text);border-color:#627086}
 .btn-secondary:hover:not(:disabled),.btn-status:hover:not(:disabled),.btn-overlay-secondary:hover:not(:disabled),.profile-signout-btn:hover:not(:disabled) {background:var(--panel-soft);border-color:#8d9bae}
@@ -101,7 +101,7 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .leaderboard-table th:first-child,.leaderboard-table td:first-child {width:12%;color:var(--muted)}
 .leaderboard-table th:nth-child(2),.leaderboard-table td:nth-child(2) {width:44%;font-weight:600}
 .leaderboard-table th:nth-child(3),.leaderboard-table td:nth-child(3) {width:22%}
-.leaderboard-row-you {background:#26344a}
+.leaderboard-row-you {background:var(--cyan-fill)}
 .history-wl {font-weight:700}
 .history-table td.history-wl.win,.history-win {color:var(--success)}
 .history-table td.history-wl.loss,.history-loss {color:var(--danger)}
