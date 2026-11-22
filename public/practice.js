@@ -204,7 +204,7 @@ function endPractice(reason, detailMessage = '') {
   if (leaveBtn) {
     leaveBtn.textContent = 'Play Again';
   }
-  if (reason === 'You Fouled Out' || reason === 'Poor Clock Management') {
+  if (reason === 'You Fouled Out' || reason === 'Time expired') {
     setPracticeEndState('loss');
   }
   savePracticeProgress();
@@ -242,7 +242,7 @@ function startPlayerTurnTimer() {
       state.timeoutHandled = true;
       stopTimer();
       timerEl.textContent = '0:00';
-      endPractice('Poor Clock Management');
+      endPractice('Time expired');
       return;
     }
     const seconds = Math.max(1, Math.ceil(ms / 1000));
