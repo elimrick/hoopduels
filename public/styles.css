@@ -127,8 +127,9 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .duel-center {grid-column:1/-1;grid-row:2;text-align:center;padding:24px 0 10px;display:flex;flex-direction:column;gap:12px}
 .duel-current {display:flex;flex-direction:column;align-items:center;gap:8px}
 .duel-current-label {font-size:10px;font-weight:750;letter-spacing:1.65px;line-height:1.5;text-transform:uppercase;color:var(--muted)}
-.practice-final-count {transform:scale(1.06)}
-.duel-current-player {font-size:32px;font-weight:700;letter-spacing:-.8px;line-height:1.2;overflow-wrap:anywhere}
+.duel-current {--player-display-size:32px}
+.duel-current-player.practice-final-count {font-size:calc(var(--player-display-size) * 1.16);line-height:calc(var(--player-display-size) * 1.2)}
+.duel-current-player {font-size:var(--player-display-size);font-weight:700;letter-spacing:-.8px;line-height:1.2;overflow-wrap:anywhere}
 .search-label {display:block;font-size:12px;font-weight:650;margin-top:24px;margin-bottom:7px}
 .turn-row {display:grid;grid-template-columns:1fr;gap:12px;margin:0 0 30px}
 .player-autocomplete {position:relative;width:100%;min-width:0}
@@ -244,7 +245,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
  body[data-page='leaderboard'] .card,body[data-page='friends'] .card,body[data-page='history'] .card {padding:23px}
  .duel-page-header {margin-bottom:20px}.duel-page-header .page-title {font-size:26px}.btn-status {font-size:12px;min-height:38px;padding:9px 12px}
  .arena-card {padding:18px 15px}.duel-board {gap:10px}.duel-player {padding:12px}.duel-player-name {font-size:16px}.duel-player-meta {font-size:10px}.duel-player-clock {font-size:24px}
- .duel-center {padding:20px 0 6px}.duel-current-player {font-size:29px}.search-label {margin-top:18px}
+ .duel-center {padding:20px 0 6px}.duel-current {--player-display-size:29px}.search-label {margin-top:18px}
  .chain-heading {margin-top:4px}.history-item {font-size:13px}.player-suggestions {max-height:240px}
  .rules-inline-notes {grid-template-columns:1fr;gap:22px}.rules-chain {grid-template-columns:1fr}.rules-note-card p {font-size:13px}
  .profile-page-header {gap:16px;margin-bottom:18px}.profile-joined-text {margin:0;font-size:13px}
