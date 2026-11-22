@@ -371,7 +371,7 @@ html.auth-signed-in:not(.app-ready) .main {visibility:hidden}
 
 body::after {
  content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
- background-image:linear-gradient(#14242a26 1px,transparent 1px),linear-gradient(90deg,#14242a26 1px,transparent 1px);
+ background-image:linear-gradient(#080d11 1px,transparent 1px),linear-gradient(90deg,#080d11 1px,transparent 1px);
  background-size:48px 48px;
 }
 /* A fixed grid clips the moving light without animating the mask itself. */
