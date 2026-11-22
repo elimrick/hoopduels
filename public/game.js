@@ -360,7 +360,7 @@ function getEndDisplay(reason, winnerPlayerId, loserPlayerId) {
     return { title, detail: lost ? 'Left Game' : 'Opponent Left Game' };
   }
   if (normalized === 'time expired') {
-    return { title, detail: lost ? 'Time expired' : "Opponent's time expired" };
+    return { title, detail: lost ? 'Your time expired' : "Opponent's time expired" };
   }
   if (normalized === '3 strikes') {
     return { title, detail: lost ? 'You Fouled Out' : 'Opponent Fouled Out' };

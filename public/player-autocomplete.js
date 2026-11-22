@@ -135,6 +135,9 @@
           item.id = dropdown.id + '-' + index;
           item.setAttribute('role', 'option');
           item.setAttribute('aria-selected', 'false');
+          item.addEventListener('pointerenter', (event) => {
+            if (event.pointerType !== 'touch') updateActive(index, false);
+          });
           dropdown.appendChild(item);
         });
         dropdown.hidden = false;
@@ -143,16 +146,16 @@
         if (!options.search) updateActive(0);
       }
 
-      function updateActive(nextIndex) {
+      function updateActive(nextIndex, scroll = true) {
         if (!items.length) return;
-        const startIndex = activeIndex < 0 ? (nextIndex > activeIndex ? 0 : items.length - 1) : nextIndex;
+        const startIndex = activeIndex < 0 && nextIndex < 0 ? items.length - 1 : nextIndex;
         activeIndex = (startIndex + items.length) % items.length;
         [...dropdown.children].forEach((child, index) => {
           child.classList.toggle('active', index === activeIndex);
           child.setAttribute('aria-selected', index === activeIndex ? 'true' : 'false');
           if (index === activeIndex) {
             input.setAttribute('aria-activedescendant', child.id);
-            child.scrollIntoView({ block: 'nearest' });
+            if (scroll) child.scrollIntoView({ block: 'nearest' });
           }
         });
       }
