@@ -67,10 +67,6 @@
     topbar.className = 'mobile-topbar';
     topbar.innerHTML = '<div class="mobile-brand" role="link" tabindex="0" aria-label="Go to home"><img class="brand-mark" src="/hoopduels-cyan-20261121.png" alt="" width="32" height="32"><span>HoopDuels</span></div><button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>';
     document.body.insertBefore(topbar, layout);
-    const gridLight = document.createElement('div');
-    gridLight.className = 'grid-light';
-    gridLight.setAttribute('aria-hidden', 'true');
-    document.body.prepend(gridLight);
 
     const toggleBtn = topbar.querySelector('.mobile-menu-btn');
     const mobileBrand = topbar.querySelector('.mobile-brand');
