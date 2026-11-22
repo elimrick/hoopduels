@@ -3,12 +3,12 @@
   <defs>
     <style>
       .cls-1 {
-        stroke: #fff;
+        stroke: lab(76.0141% -49.8866 -20.4183);
         stroke-miterlimit: 10;
       }
 
       .cls-1, .cls-2 {
-        fill: #bc3a33;
+        fill: lab(76.0141% -49.8866 -20.4183);
       }
     </style>
   </defs>
