@@ -378,14 +378,14 @@ body::after {
  mask-size:48px 48px;
 }
 .grid-light::before {
- content:'';position:absolute;top:0;left:0;width:min(80vw,900px);height:min(73vh,675px);
+ content:'';position:absolute;top:0;left:0;width:80vw;height:73vh;
  background:radial-gradient(ellipse at center,#102024 0%,#0b1519 34%,transparent 72%);
  animation:grid-light 24s ease-in-out infinite;
 }
 @keyframes grid-light {
  0%,100% {transform:translate3d(-12vw,-8vh,0)}
- 33% {transform:translate3d(calc(100vw - min(80vw,900px) + 8vw),4vh,0)}
- 67% {transform:translate3d(13vw,calc(100vh - min(73vh,675px)),0)}
+ 33% {transform:translate3d(calc(100vw - 80vw + 8vw),4vh,0)}
+ 67% {transform:translate3d(13vw,calc(100vh - 73vh),0)}
 }
 @media(prefers-reduced-motion:reduce){.grid-light {display:none}}
 .brand,.mobile-brand {color:#fff}
