@@ -382,8 +382,8 @@ body::after {
 }
 .grid-light::before {
  content:'';position:absolute;top:0;left:0;width:min(86vw,960px);height:min(78vh,720px);
- background:radial-gradient(ellipse at center,#091216 0%,#060b0d 34%,transparent 72%);
- animation:grid-light 36s ease-in-out infinite;
+ background:radial-gradient(ellipse at center,#0d1a1e 0%,#081015 34%,transparent 72%);
+ animation:grid-light 30s ease-in-out infinite;
 }
 @keyframes grid-light {
  0%,100% {transform:translate3d(-12vw,-8vh,0)}
