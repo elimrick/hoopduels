@@ -292,6 +292,12 @@
     return getProfile();
   }
 
+  async function deleteAccount() {
+    await api('/api/account', { method: 'DELETE' });
+    clearAuthState();
+    emitUpdated();
+  }
+
   function applyStreak(profile, won) {
     if (won) {
       profile.streak = profile.streak >= 0 ? profile.streak + 1 : 1;
@@ -453,6 +459,7 @@
     signUp,
     signIn,
     signOut,
+    deleteAccount,
     recordGame,
     savePracticeChain,
     refreshProfile,

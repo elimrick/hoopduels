@@ -9,9 +9,9 @@
   font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   font-synthesis:none;
 }
-html {scrollbar-gutter:stable both-edges;background:var(--bg);overscroll-behavior-y:none}
+html {scrollbar-gutter:stable both-edges;background:var(--bg);overscroll-behavior-y:contain}
 * {box-sizing:border-box}
-body {margin:0;min-height:100dvh;color:var(--text);font-size:15px;line-height:1.5;overscroll-behavior-y:none}
+body {margin:0;min-height:100dvh;color:var(--text);font-size:15px;line-height:1.5;overscroll-behavior-y:contain}
 button,input,textarea,select {font:inherit}
 a {color:var(--accent-blue);text-decoration:none}
 a:hover {text-decoration:underline;text-underline-offset:4px}
@@ -179,7 +179,8 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 .profile-elo-card {margin-bottom:20px}
 .profile-stats-box .duel-header {margin-bottom:15px}
 .profile-stats-box .stats {grid-template-columns:repeat(6,minmax(0,1fr))}
-.profile-signout-btn {flex-shrink:0}
+.profile-account-actions {display:flex;flex-wrap:wrap;gap:8px}
+.profile-delete-btn {color:var(--danger)}
 .profile-elo-chart-meta {display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap}
 .profile-elo-chart-meta strong {font-size:17px;letter-spacing:-.3px}
 .profile-elo-range-tabs {display:flex;gap:4px;padding:3px;background:var(--bg);border-radius:5px}
@@ -319,7 +320,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 
 .friends-requests {margin-top:24px;border-top:1px solid var(--line);padding-top:18px}
 .friends-section h2,.friends-requests summary {font-size:16px;font-weight:700;letter-spacing:-.035em;line-height:1.18;color:var(--text)}
-.friends-requests summary {cursor:pointer}
+.friends-requests summary {cursor:pointer;-webkit-user-select:none;user-select:none}
 .friends-requests summary {list-style:none}
 .friends-requests summary::-webkit-details-marker {display:none}
 .friends-requests summary::before {content:"";display:inline-block;width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid currentColor;margin-right:8px;vertical-align:2px}
@@ -377,12 +378,14 @@ body::after {
 /* A fixed grid clips the moving light without animating the mask itself. */
 .grid-light {
  position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;
+ -webkit-mask-image:linear-gradient(black 1px,transparent 1px),linear-gradient(90deg,black 1px,transparent 1px);
  mask-image:linear-gradient(black 1px,transparent 1px),linear-gradient(90deg,black 1px,transparent 1px);
+ -webkit-mask-size:48px 48px;
  mask-size:48px 48px;
 }
 .grid-light::before {
  content:'';position:absolute;top:0;left:0;width:min(86vw,960px);height:min(78vh,720px);
- background:radial-gradient(ellipse at center,#0c191d 0%,#081014 34%,transparent 72%);
+ background:radial-gradient(ellipse at center,#102024 0%,#0b1519 34%,transparent 72%);
  animation:grid-light 25s ease-in-out infinite;
 }
 @keyframes grid-light {

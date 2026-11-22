@@ -588,6 +588,8 @@
     if (!activeProfile) return;
     setText('profile-page-title', activeProfile.signedIn ? activeProfile.username : 'Guest');
     setText('profile-joined', formatJoinedDate(activeProfile.joinedAt));
+    const actions = document.getElementById('profile-account-actions');
+    if (actions) actions.hidden = !activeProfile.signedIn;
     if (!activeProfile.signedIn) {
       setText('profile-rank', '-');
       setText('profile-peak-rank', '-');
@@ -853,6 +855,22 @@
     });
   }
 
+  function wireDeleteAccount() {
+    const button = document.getElementById('delete-account-btn');
+    if (!button || !window.HoopState) return;
+    button.addEventListener('click', async () => {
+      if (!window.confirm('Permanently delete your account, game history, and friends list? This cannot be undone.')) return;
+      button.disabled = true;
+      try {
+        await window.HoopState.deleteAccount();
+        window.location.replace('/');
+      } catch (error) {
+        button.disabled = false;
+        window.alert(error.message);
+      }
+    });
+  }
+
   function wireHomeFindGame() {
     const findBtn = document.getElementById('find-game-home-btn');
     const overlay = document.getElementById('matchmaking-overlay');
@@ -987,6 +1005,7 @@
   if (page === 'play' && !document.getElementById('find-game-home-btn')) {
   }
   wireSignOut();
+  wireDeleteAccount();
   await initialization;
   renderAuthNav(Boolean(window.HoopState && window.HoopState.getProfile().signedIn));
   renderPage();

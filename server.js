@@ -130,6 +130,23 @@ app.post('/api/auth/signout', async (req, res) => {
   res.status(204).end();
 });
 
+app.delete('/api/account', async (req, res) => {
+  try {
+    const user = await accountStore.getUserByToken(getBearerToken(req));
+    if (!user) return res.status(401).json({ error: 'Sign in to delete your account.' });
+    const id = Number(user.id);
+    await friendStore.deleteAccount(id);
+    accountPresence.delete(id);
+    for (const socket of io.sockets.sockets.values()) {
+      if (Number(socket.data.userId) === id) socket.disconnect(true);
+    }
+    res.status(204).end();
+  } catch (error) {
+    console.error('Account deletion failed:', error.message);
+    res.status(500).json({ error: 'Could not delete the account. Please try again.' });
+  }
+});
+
 app.get('/api/account/profile', async (req, res) => {
   const auth = await readAuthUser(req);
   if (!auth) {
