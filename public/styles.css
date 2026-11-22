@@ -296,7 +296,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 
 .friend-play p,#friends-content {--muted:#a4adb2}
 
-.my-rank {color:var(--accent-blue);font-size:13px;padding:12px 0;white-space:nowrap}
+.my-rank {color:var(--text);font-size:13px;padding:12px 0;white-space:nowrap}
 .profile-history {margin-top:22px;scroll-margin-top:90px}.profile-history h2 {margin:0;font-size:20px}
 .friend-add {justify-content:flex-start}.friend-add .btn {min-height:44px;padding:10px 16px;font-size:13px}
 .friends-section {margin-top:24px}.friends-section .section-heading {margin-bottom:12px}.friends-section h2 {margin:0}
