@@ -319,16 +319,6 @@ function makeDefaultName(playerId) {
   return `Player-${String(playerId).slice(0, 4)}`;
 }
 
-async function getSignedInProfileFromToken(token) {
-  if (!token) return null;
-  try {
-    const profile = await accountStore.getProfileByToken(token);
-    return profile && profile.signedIn ? profile : null;
-  } catch (_) {
-    return null;
-  }
-}
-
 function getSocketByPlayerId(playerId) {
   const socketId = playerToSocketId.get(playerId);
   if (!socketId) return null;
@@ -834,13 +824,16 @@ io.on('connection', async (socket) => {
   socket.data.token = null;
   socket.data.gameId = null;
 
-  const signedProfile = await getSignedInProfileFromToken(token);
-  if (signedProfile) {
+  if (authUser) {
+    let stats = authUser.profile_json;
+    if (typeof stats === 'string') {
+      try { stats = JSON.parse(stats); } catch { stats = null; }
+    }
     socket.data.signedIn = true;
-    socket.data.username = signedProfile.username;
-    socket.data.elo = Number(signedProfile.elo) || 1200;
-    socket.data.wins = Number(signedProfile.wins) || 0;
-    socket.data.losses = Number(signedProfile.losses) || 0;
+    socket.data.username = authUser.username;
+    socket.data.elo = Number(stats?.elo) || 1200;
+    socket.data.wins = Number(stats?.wins) || 0;
+    socket.data.losses = Number(stats?.losses) || 0;
     socket.data.token = token;
   } else if (token) {
     socket.emit('auth:invalid');

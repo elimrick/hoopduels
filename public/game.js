@@ -791,9 +791,6 @@ if (cancelMatchmakingBtn) {
 
 socket.on('connect', () => {
   hasRecordedCurrentGame = false;
-  if (window.HoopState && typeof window.HoopState.refreshLeaderboard === 'function') {
-    window.HoopState.refreshLeaderboard().catch(() => {});
-  }
   const fallbackName = getLocalProfileName();
   if (fallbackName) {
     socket.emit('user:set-name', fallbackName);
