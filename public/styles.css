@@ -162,7 +162,7 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .chain-list .strike-item::before {content:'×';color:var(--danger)}
 .chain-list .history-item strong {font-weight:650}
 .auth-form-stack {display:flex;flex-direction:column;gap:7px}
-body[data-page='signin'] .main,body[data-page='createaccount'] .main {padding-top:24px}
+body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:510px}
 .auth-page-panel {padding:28px}
 .auth-form-stack label {font-size:12px;font-weight:650}
 .auth-field-input {width:100%;border:1px solid #68788d;border-radius:5px;padding:12px 13px;min-height:46px;background:var(--panel);color:var(--text);font-size:16px}
@@ -251,7 +251,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {padding-to
  .rules-inline-notes {grid-template-columns:1fr;gap:22px}.rules-chain {grid-template-columns:1fr}.rules-note-card p {font-size:13px}
  .profile-page-header {gap:16px;margin-bottom:18px}.profile-joined-text {margin:0;font-size:13px}
  .profile-elo-chart-meta {gap:14px}.profile-elo-range-tabs {width:100%}.profile-elo-range-tabs .btn {flex:1}.profile-stats-box .stats {gap:22px 10px}.stat-value {font-size:25px}.stat-label {font-size:10px}
- body[data-page='signin'] .main,body[data-page='createaccount'] .main {padding-top:20px}.auth-page-panel {padding:24px}
+ .auth-page-panel {padding:24px}
  .empty-panel {padding:28px 22px}.matchmaking-card {padding:30px 22px}
 }
 @media(prefers-reduced-motion:reduce) {* {animation:none!important;transition:none!important}}
