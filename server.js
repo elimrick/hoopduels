@@ -729,7 +729,8 @@ function createGame(playerAId, playerBId, mode = 'ranked') {
     turnIndex: Math.random() < 0.5 ? 0 : 1,
     turnStartedAt: Date.now(),
     timer: null,
-    status: 'active',
+    status: mode === 'friend' ? 'loading' : 'active',
+    readyPlayers: new Set(),
     history: [
       {
         type: 'start',
@@ -746,12 +747,33 @@ function createGame(playerAId, playerBId, mode = 'ranked') {
   attachSocketToGame(playerAId, game);
   attachSocketToGame(playerBId, game);
 
-  emitGameState(game, {
-    includeMessage: true,
-    message: `Game started. Starting player: ${playerStore.getName(startingKey)}`
-  });
-  scheduleTurnTimeout(game);
+  if (game.status === 'loading') {
+    game.timer = setTimeout(() => cancelLoadingGame(game), 30_000);
+    emitGameState(game, { includeMessage: true, message: 'Waiting for both players to load…' });
+  } else {
+    emitGameState(game, {
+      includeMessage: true,
+      message: `Game started. Starting player: ${playerStore.getName(startingKey)}`
+    });
+    scheduleTurnTimeout(game);
+  }
   return game;
+}
+
+function cancelLoadingGame(game) {
+  if (game.status !== 'loading') return;
+  game.status = 'cancelled';
+  clearTimeout(game.timer);
+  io.to(game.id).emit('game:cancelled');
+  for (const id of game.players) {
+    playerToGameId.delete(id);
+    const socket = getSocketByPlayerId(id);
+    if (socket) {
+      socket.leave(game.id);
+      socket.data.gameId = null;
+    }
+  }
+  games.delete(game.id);
 }
 
 function pruneQueue() {
@@ -825,7 +847,7 @@ io.on('connection', async (socket) => {
   }
 
   const existingGame = getGameByPlayerId(playerId);
-  if (existingGame && existingGame.status === 'active') {
+  if (existingGame && ['active', 'loading'].includes(existingGame.status)) {
     socket.data.gameId = existingGame.id;
     if (existingGame.playerNames[playerId]) {
       socket.data.username = existingGame.playerNames[playerId];
@@ -833,7 +855,7 @@ io.on('connection', async (socket) => {
     socket.join(existingGame.id);
     emitGameState(existingGame, {
       includeMessage: true,
-      message: `${existingGame.playerNames[playerId]} reconnected.`
+      message: existingGame.status === 'loading' ? 'Waiting for both players to load…' : `${existingGame.playerNames[playerId]} reconnected.`
     });
   }
 
@@ -893,6 +915,7 @@ io.on('connection', async (socket) => {
 
   socket.on('matchmaking:leave', () => {
     const game = getGameByPlayerId(playerId);
+    if (game?.status === 'loading') return cancelLoadingGame(game);
     if (game && game.status === 'active') {
       void endGame(game, playerId, 'left game');
       return;
@@ -902,6 +925,19 @@ io.on('connection', async (socket) => {
     if (idx !== -1) {
       waitingQueue.splice(idx, 1);
       socket.emit('matchmaking:left');
+    }
+  });
+
+  socket.on('game:ready', (gameId) => {
+    const game = getGameByPlayerId(playerId);
+    if (!game || game.id !== gameId || game.status !== 'loading' ||
+        getSocketByPlayerId(playerId) !== socket) return;
+    game.readyPlayers.add(playerId);
+    if (game.players.every(id => game.readyPlayers.has(id) && getSocketByPlayerId(id))) {
+      game.status = 'active';
+      game.turnStartedAt = Date.now();
+      scheduleTurnTimeout(game);
+      emitGameState(game);
     }
   });
 
@@ -983,6 +1019,7 @@ io.on('connection', async (socket) => {
     }
 
     const game = getGameByPlayerId(playerId);
+    if (game?.status === 'loading') game.readyPlayers.delete(playerId);
     if (game && game.status === 'active') {
       clearDisconnectTimer(playerId);
       const timer = setTimeout(() => {

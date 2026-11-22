@@ -878,7 +878,13 @@ socket.on('game:state', (state) => {
   if (gameFinished && !isRequeueing && state.gameId === currentGameId) return;
   closeMatchmakingOverlay();
   renderGameState(state);
+  if (state.status === 'loading') socket.emit('game:ready', state.gameId);
   reportVisibility();
+});
+
+socket.on('game:cancelled', () => {
+  stopTimer();
+  window.location.replace('/friends');
 });
 
 socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason, eloUpdate, gameState }) => {

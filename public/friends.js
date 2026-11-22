@@ -32,9 +32,24 @@
       small.prepend(status, ' · ');
     }
     if(rating!==null){const badge=document.createElement('span');badge.className='friend-rating';badge.textContent='('+rating+')';badge.setAttribute('aria-label','Rating '+rating);copy.append(badge);}
-    copy.append(small);el.append(copy);
+    if (detail || online !== null) copy.append(small);
+    el.append(copy);
     const actions=document.createElement('td');actions.className='friend-actions';
-    for(const [label,fn,disabled] of buttons){const b=document.createElement('button');b.type='button';b.className='btn btn-secondary';b.textContent=label;if(label==='Remove')b.classList.add('friend-remove');b.disabled=!!disabled;if(disabled && label==='Challenge')b.title='Both players need Friends open and must not already be in a game.';b.addEventListener('click',fn);actions.append(b);}
+    for (const [label, fn, disabled] of buttons) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = label.startsWith('Accept') ? 'btn' : 'btn btn-secondary';
+      button.textContent = label;
+      if (label === 'Remove') {
+        button.classList.add('friend-remove');
+        button.textContent = '×';
+        button.setAttribute('aria-label', 'Remove ' + name);
+      }
+      button.disabled = Boolean(disabled);
+      if (disabled && label === 'Challenge') button.title = 'Both players need Friends open and must not already be in a game.';
+      button.addEventListener('click', fn);
+      actions.append(button);
+    }
     el.append(actions);table.querySelector('tbody').append(el);
   }
   async function refresh() {
@@ -47,20 +62,19 @@
         const act=actionName=>action('/action',{userId:Number(f.id),action:actionName});
         if (Number(f.accepted)) {
           const challenge=data.challenges.find(c=>c.username===f.username);
-          const challengeButton=challenge
-            ? [challenge.incoming?'Accept challenge':'Challenge sent',
-                ()=>action('/respond',{id:challenge.id,action:'accept'}),!challenge.incoming]
-            : ['Challenge',()=>action('/challenge',{userId:Number(f.id)}),!f.available];
-          const buttons=[challengeButton];
-          if (challenge) buttons.push([challenge.incoming?'Decline':'Cancel challenge',
-            ()=>action('/respond',{id:challenge.id,action:challenge.incoming?'decline':'cancel'})]);
+          const buttons = challenge
+            ? (challenge.incoming
+                ? [['Accept challenge', () => action('/respond', {id:challenge.id, action:'accept'})],
+                   ['Decline', () => action('/respond', {id:challenge.id, action:'decline'})]]
+                : [['Cancel challenge', () => action('/respond', {id:challenge.id, action:'cancel'})]])
+            : [['Challenge', () => action('/challenge', {userId:Number(f.id)}), !f.available]];
           buttons.push(['Remove',()=>{
             if(window.confirm(`Remove ${f.username} from your friends?`))act('remove');
           }]);
           row(list,f.username,'Your record: '+f.record.wins+'–'+f.record.losses,buttons,f.rating,f.online);
         } else {
-          row(requests,f.username,f.incoming?'Wants to add you as a friend':'Request sent',
-            f.incoming?[['Accept',()=>act('accept')],['Decline',()=>act('remove')]]:[['Cancel request',()=>act('remove')]]);
+          row(requests,f.username,f.incoming?'':'Request sent',
+            f.incoming?[['Accept',()=>act('accept')],['Decline',()=>act('remove')]]:[['Cancel request',()=>act('remove')]], f.rating);
         }
       }
       if(!list.children.length)list.textContent='No friends yet. Add someone by username above.';

@@ -325,8 +325,8 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 .friends-requests[open] summary {margin-bottom:14px}
 .friend-rating {margin-left:5px;color:var(--muted);font-size:12px;font-weight:400;font-variant-numeric:tabular-nums}
 .friend-actions button:last-child:not(:first-child) {border-color:transparent;color:var(--muted);background:transparent}
-.friend-actions button.friend-remove:hover {color:var(--danger);background:transparent;border-color:transparent}
-#friend-list .friend-actions button:first-child {color:var(--text);opacity:1}
+.friend-actions button.friend-remove,.friend-actions button.friend-remove:hover {color:var(--danger);background:transparent;border-color:transparent;font-size:20px;min-width:36px}
+#friend-list .friend-actions .btn-secondary:first-child:not(.friend-remove) {color:var(--text);opacity:1}
 #friends-auth {margin:0}
 #friends-panel .friends-section[hidden] {display:none}
 .friends-section .section-heading {flex-wrap:wrap}
