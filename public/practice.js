@@ -188,7 +188,7 @@ function endPractice(reason, detailMessage = '') {
   state.active = false;
   state.phase = 'ended';
   stopTimer();
-  timerEl.textContent = '';
+  currentEl.classList.add('practice-final-count');
   document.querySelector('.duel-current-label').textContent = 'FINAL CHAIN';
   const chainLength = Math.max(0, state.usedPlayers.length - 1);
   currentEl.textContent = String(chainLength);
@@ -241,6 +241,7 @@ function startPlayerTurnTimer() {
     if (ms <= 0 && !state.timeoutHandled) {
       state.timeoutHandled = true;
       stopTimer();
+      timerEl.textContent = '0:00';
       endPractice('Poor Clock Management');
       return;
     }
@@ -283,6 +284,7 @@ async function startPractice() {
   state.active = false;
   state.pending = false;
   stopTimer();
+  currentEl.classList.remove('practice-final-count');
   document.querySelector('.duel-current-label').textContent = 'CURRENT PLAYER';
   const res = await fetch('/api/practice/start');
   const payload = await res.json();
