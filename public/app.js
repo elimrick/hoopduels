@@ -942,17 +942,11 @@
       });
 
       matchmakingSocket.on('game:state', () => {
+        if (matched) return;
         matched = true;
         clearDisconnectNotice();
         status.textContent = 'Opponent found. Entering duel...';
-        setTimeout(() => {
-          if (matchmakingSocket) {
-            ignoreNextDisconnect = true;
-            matchmakingSocket.disconnect();
-            matchmakingSocket = null;
-          }
-          window.location.href = '/game';
-        }, 300);
+        window.location.href = '/game';
       });
 
       matchmakingSocket.on('matchmaking:error', (msg) => {

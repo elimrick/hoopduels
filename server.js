@@ -719,7 +719,7 @@ function createGame(playerAId, playerBId, mode = 'ranked') {
     turnIndex: Math.random() < 0.5 ? 0 : 1,
     turnStartedAt: Date.now(),
     timer: null,
-    status: mode === 'friend' ? 'loading' : 'active',
+    status: 'loading',
     readyPlayers: new Set(),
     history: [
       {
@@ -737,16 +737,8 @@ function createGame(playerAId, playerBId, mode = 'ranked') {
   attachSocketToGame(playerAId, game);
   attachSocketToGame(playerBId, game);
 
-  if (game.status === 'loading') {
-    game.timer = setTimeout(() => cancelLoadingGame(game), 30_000);
-    emitGameState(game, { includeMessage: true, message: 'Waiting for both players to load…' });
-  } else {
-    emitGameState(game, {
-      includeMessage: true,
-      message: `Game started. Starting player: ${playerStore.getName(startingKey)}`
-    });
-    scheduleTurnTimeout(game);
-  }
+  game.timer = setTimeout(() => cancelLoadingGame(game), 30_000);
+  emitGameState(game, { includeMessage: true, message: 'Waiting for both players to load…' });
   return game;
 }
 

@@ -875,13 +875,21 @@ socket.on('game:state', (state) => {
   if (gameFinished && !isRequeueing && state.gameId === currentGameId) return;
   closeMatchmakingOverlay();
   renderGameState(state);
-  if (state.status === 'loading') socket.emit('game:ready', state.gameId);
+  if (state.status === 'loading') {
+    const connection = socket.id;
+    autocompleteReady.then(() => {
+      if (socket.connected && socket.id === connection &&
+          currentState?.gameId === state.gameId && currentState.status === 'loading') {
+        socket.emit('game:ready', state.gameId);
+      }
+    });
+  }
   reportVisibility();
 });
 
 socket.on('game:cancelled', () => {
   stopTimer();
-  window.location.replace('/friends');
+  window.location.replace(currentState?.mode === 'friend' ? '/friends' : '/');
 });
 
 socket.on('game:ended', ({ winnerPlayerId, winnerUsername, loserPlayerId, reason, eloUpdate, gameState }) => {
@@ -1020,4 +1028,4 @@ socket.on('disconnect', () => {
   setMessage('Connection lost.', 'error');
 });
 
-wireGuessAutocomplete().catch(() => {});
+const autocompleteReady = wireGuessAutocomplete().catch(() => {});
