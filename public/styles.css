@@ -383,7 +383,7 @@ body::after {
 .grid-light::before {
  content:'';position:absolute;top:0;left:0;width:min(86vw,960px);height:min(78vh,720px);
  background:radial-gradient(ellipse at center,#0c191d 0%,#081014 34%,transparent 72%);
- animation:grid-light 28s ease-in-out infinite;
+ animation:grid-light 25s ease-in-out infinite;
 }
 @keyframes grid-light {
  0%,100% {transform:translate3d(-12vw,-8vh,0)}
