@@ -391,7 +391,7 @@ body::after {
 @media(min-width:1200px) {
  .grid-light::before {
   animation-duration:21s;
-  background:radial-gradient(ellipse at center,#162c32 0%,#102129 34%,transparent 72%);
+  background:radial-gradient(ellipse at center,#162c32 0%,#102129 24%,transparent 53%);
  }
 }
 @media(min-width:1600px){.grid-light::before {animation-duration:18s}}
