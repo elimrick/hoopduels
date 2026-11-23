@@ -33,6 +33,8 @@ const PAGE_ROUTES = {
   '/practice': 'practice.html',
   '/game': 'game.html',
   '/friends': 'friends.html',
+  '/privacy': 'privacy.html',
+  '/terms': 'terms.html',
   '/settings': 'settings.html'
 };
 

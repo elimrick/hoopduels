@@ -91,6 +91,8 @@ html.auth-signed-out #home-duel-card .stats,html.auth-signed-out .practice-stat 
 .list-empty {color:var(--muted);font-size:14px;line-height:1.7;margin:10px 0}
 #history-preview.list-empty,#leaderboard-preview.list-empty {margin:0;padding:0}
 .site-note {margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:18px;color:var(--muted);font-size:11px}
+.site-note-links {display:flex;flex-wrap:wrap;gap:6px 16px}
+.site-note-links a {color:inherit;text-decoration:underline;text-underline-offset:2px}
 .site-note span {color:var(--text);font-weight:700}
 .page-panel {width:100%}
 .home-table-wrap,.page-table-wrap {width:100%;overflow-x:auto}
@@ -191,7 +193,7 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 .rules-basics {padding-bottom:24px;border-bottom:1px solid var(--line)}
 .rules-lead {color:var(--muted);line-height:1.8;font-size:15px;margin:0}
 .rules-inline-notes {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
-.rules-note-card h3 {font-size:15px;margin-bottom:10px}
+.rules-note-card h2,.rules-note-card h3 {font-size:15px;margin-bottom:10px}
 .rules-note-card p {color:var(--muted);font-size:14px;line-height:1.7;margin:0}
 .rules-example {border-top:1px solid var(--line);padding-top:24px}
 .rules-chain {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
