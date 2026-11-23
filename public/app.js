@@ -778,8 +778,7 @@
         setLoading(true);
         setMessage(mode === 'signup' ? 'Creating account...' : 'Signing in...');
         if (mode === 'signup') {
-          const widget = document.getElementById('signup-verification');
-          const verification = widget?.querySelector('[name="cf-turnstile-response"]')?.value;
+          const verification = window.HoopSignupVerification.getToken();
           await window.HoopState.signUp(username, password, verification);
         } else {
           await window.HoopState.signIn(username, password);
@@ -788,8 +787,7 @@
       } catch (error) {
         const raw = error && error.message ? error.message : '';
         if (mode === 'signup') {
-          const widget = document.getElementById('signup-verification');
-          if (widget?.querySelector('[name="cf-turnstile-response"]')?.value) window.turnstile?.reset(widget);
+          window.HoopSignupVerification?.reset();
           if (/already taken/i.test(raw)) {
             setUsernameError('Username is already taken.');
             setMessage('');
