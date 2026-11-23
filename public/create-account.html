@@ -52,7 +52,8 @@
             <label for="signin-password">Password</label>
             <div class="password-field"><input id="signin-password" type="password" maxlength="72" placeholder="Create password" class="auth-field-input" /><button class="password-toggle" id="password-toggle" type="button" aria-controls="signin-password" aria-label="Show password" aria-pressed="false"><svg class="password-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><svg class="password-eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18M10.6 5.1A11 11 0 0 1 12 5c6.5 0 10 7 10 7a19 19 0 0 1-3 4M6 6a22 22 0 0 0-4 6s3.5 7 10 7a12 12 0 0 0 5-1M10 10a3 3 0 0 0 4 4"/></svg></button></div>
             <p id="signin-password-error" class="field-error"></p>
-            <div class="auth-actions">
+            <div id="signup-verification"></div>
+          <div class="auth-actions">
               <button class="btn" id="signup-btn" type="button">Create Account</button>
             </div>
             <p id="signin-message" class="list-empty auth-message"></p>
@@ -62,7 +63,8 @@
       <footer class="site-note"><span>HoopDuels</span> The NBA Chain Game</footer>
       </main>
     </div>
-    <script src="state.js?v=account-20261122"></script>
-    <script src="app.js?v=all-duels-ready-20261122"></script>
+    <script src="state.js?v=session-security-20261122"></script>
+    <script src="app.js?v=session-security-20261122"></script>
+      <script src="/signup-verification.js"></script>
   </body>
 </html>

@@ -778,7 +778,9 @@
         setLoading(true);
         setMessage(mode === 'signup' ? 'Creating account...' : 'Signing in...');
         if (mode === 'signup') {
-          await window.HoopState.signUp(username, password);
+          const widget = document.getElementById('signup-verification');
+          const verification = widget?.querySelector('[name="cf-turnstile-response"]')?.value;
+          await window.HoopState.signUp(username, password, verification);
         } else {
           await window.HoopState.signIn(username, password);
         }
@@ -786,6 +788,8 @@
       } catch (error) {
         const raw = error && error.message ? error.message : '';
         if (mode === 'signup') {
+          const widget = document.getElementById('signup-verification');
+          if (widget?.querySelector('[name="cf-turnstile-response"]')?.value) window.turnstile?.reset(widget);
           if (/already taken/i.test(raw)) {
             setUsernameError('Username is already taken.');
             setMessage('');
@@ -846,8 +850,12 @@
     if (!signOutButton) return;
     signOutButton.addEventListener('click', async () => {
       if (!window.confirm('Are you sure you want to sign out?')) return;
-      await window.HoopState.signOut();
-      window.location.href = '/signin';
+      try {
+        await window.HoopState.signOut();
+        window.location.href = '/signin';
+      } catch (error) {
+        window.alert(error.message);
+      }
     });
   }
 

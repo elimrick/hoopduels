@@ -258,12 +258,12 @@
     return getProfile();
   }
 
-  async function signUp(username, password) {
+  async function signUp(username, password, verification) {
     const cleanName = normalizeName(username);
     const payload = await api('/api/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: { username: cleanName, password: String(password || '') }
+      body: { username: cleanName, password: String(password || ''), verification }
     });
     return applyAuthResult(payload);
   }
@@ -279,11 +279,8 @@
   }
 
   async function signOut() {
-    try {
-      if (runtime.token) {
-        await api('/api/auth/signout', { method: 'POST' });
-      }
-    } catch (_) {
+    if (runtime.token) {
+      await api('/api/auth/signout', { method: 'POST' });
     }
 
     clearAuthState();

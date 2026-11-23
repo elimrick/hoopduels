@@ -123,7 +123,39 @@ async function readAuthUser(req) {
   return { token, profile };
 }
 
+const turnstileSiteKey = process.env.TURNSTILE_SITE_KEY;
+const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+if (Boolean(turnstileSiteKey) !== Boolean(turnstileSecret)) {
+  throw new Error('Configure both Turnstile keys or neither.');
+}
+
+app.get('/api/auth/signup-config', (_req, res) => {
+  res.set('Cache-Control', 'no-store').json({ siteKey: turnstileSiteKey || null });
+});
+
 app.post('/api/auth/signup', async (req, res) => {
+  if (turnstileSecret) {
+    const token = req.body?.verification;
+    if (typeof token !== 'string' || !token || token.length > 2048) {
+      return res.status(400).json({ error: 'Complete the sign-up verification and try again.' });
+    }
+    try {
+      const result = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        body: new URLSearchParams({ secret: turnstileSecret, response: token }),
+        signal: AbortSignal.timeout(5000)
+      });
+      if (!result.ok) throw new Error('Verification service unavailable');
+      const verification = await result.json();
+      if (!verification.success || verification.action !== 'signup' ||
+          (process.env.RENDER === 'true' && !['hoopduels.com', 'www.hoopduels.com'].includes(verification.hostname))) {
+        return res.status(400).json({ error: 'Sign-up verification failed. Please try again.' });
+      }
+    } catch {
+      return res.status(503).json({ error: 'Sign-up verification is temporarily unavailable. Please try again.' });
+    }
+  }
+
   const username = normalizeUsername(req.body && req.body.username);
   const password = req.body && req.body.password;
   try {
@@ -161,11 +193,19 @@ app.post('/api/auth/signin', async (req, res) => {
 });
 
 app.post('/api/auth/signout', async (req, res) => {
-  const token = getBearerToken(req);
-  if (token) {
-    await accountStore.clearSession(token);
+  try {
+    const token = getBearerToken(req);
+    if (token) {
+      await accountStore.clearSession(token);
+      for (const socket of io.sockets.sockets.values()) {
+        if (socket.data.token === token) socket.disconnect(true);
+      }
+    }
+    res.status(204).end();
+  } catch (error) {
+    console.error('Session revocation failed:', error.message);
+    res.status(503).json({ error: 'Could not sign out. Please try again.' });
   }
-  res.status(204).end();
 });
 
 app.delete('/api/account', async (req, res) => {
