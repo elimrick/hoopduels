@@ -15,6 +15,7 @@ const DISCONNECT_GRACE_MS = 15_000;
 const ADMIN_HEALTH_KEY = process.env.ADMIN_HEALTH_KEY || '';
 
 const app = express();
+if (process.env.RENDER === 'true') app.set('trust proxy', 1);
 const server = http.createServer(app);
 const io = new Server(server);
 const ONLINE_TTL_MS = 15_000;
@@ -34,6 +35,43 @@ const PAGE_ROUTES = {
   '/friends': 'friends.html',
   '/settings': 'settings.html'
 };
+
+function authThrottle(limit, windowMs, keyFor) {
+  const counts = new Map();
+  const sweep = setInterval(() => {
+    const now = Date.now();
+    for (const [key, entry] of counts) {
+      if (entry.expires <= now) counts.delete(key);
+    }
+  }, windowMs);
+  sweep.unref();
+
+  return (req, res, next) => {
+    const now = Date.now();
+    const key = keyFor(req);
+    let entry = counts.get(key);
+    if (!entry || entry.expires <= now) {
+      entry = { count: 0, expires: now + windowMs };
+      counts.set(key, entry);
+    }
+    if (entry.count >= limit) {
+      res.set('Retry-After', String(Math.ceil((entry.expires - now) / 1000)));
+      return res.status(429).json({ error: 'Too many attempts. Please try again later.' });
+    }
+    entry.count += 1;
+    next();
+  };
+}
+
+const authBody = express.json({ limit: '4kb' });
+app.post('/api/auth/signup',
+  authThrottle(5, 600_000, req => req.ip),
+  authThrottle(40, 600_000, () => 'signup'),
+  authBody);
+app.post('/api/auth/signin',
+  authThrottle(15, 60_000, req => req.ip),
+  authThrottle(300, 60_000, () => 'signin'),
+  authBody);
 
 app.use(express.json({ limit: '1mb' }));
 for (const [routePath, fileName] of Object.entries(PAGE_ROUTES)) {
