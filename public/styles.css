@@ -12,6 +12,13 @@
 html {scrollbar-gutter:stable both-edges;background:var(--bg);overscroll-behavior-y:contain}
 * {box-sizing:border-box}
 body {margin:0;min-height:100dvh;color:var(--text);font-size:15px;line-height:1.5;overscroll-behavior-y:contain}
+/* Mobile Safari can refresh on viewport overscroll even with contain.
+   Scroll inside the page so its native bounce stays local. */
+@media (hover:none) and (pointer:coarse) {
+  html {overflow:hidden;overscroll-behavior-y:none}
+  body {height:100dvh;overflow-y:auto;scroll-padding-top:var(--mobile-topbar-offset)}
+}
+
 button,input,textarea,select {font:inherit}
 a {color:var(--accent-blue);text-decoration:none}
 a:hover {text-decoration:underline;text-underline-offset:4px}
