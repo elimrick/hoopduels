@@ -1,3 +1,55 @@
+(function blockTouchRefresh() {
+  const content = document.querySelector('.main');
+  if (!content) return;
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let gesture;
+  let offset = 0;
+  let settle;
+
+  function release() {
+    gesture = null;
+    if (!offset) return;
+    settle = content.animate(
+      [{translate: `0 ${offset}px`}, {translate: '0 0'}],
+      {duration: 200, easing: 'ease-out'}
+    );
+    content.style.removeProperty('translate');
+    offset = 0;
+  }
+
+  document.addEventListener('touchstart', (event) => {
+    release();
+    if (event.touches.length !== 1) return;
+    const touch = event.touches[0];
+    gesture = {x: touch.clientX, y: touch.clientY};
+  }, {passive: true});
+
+  document.addEventListener('touchmove', (event) => {
+    if (!gesture || event.touches.length !== 1 || !event.cancelable) return;
+    const touch = event.touches[0];
+    const pull = touch.clientY - gesture.y;
+    if (!gesture.captured) {
+      if (pull <= Math.abs(touch.clientX - gesture.x)) return;
+      if (window.scrollY > 0 || document.body.scrollTop > 0) return;
+      for (let element = event.target; element instanceof HTMLElement && element !== document.body;
+        element = element.parentElement) {
+        if (element.scrollTop > 0 && /^(auto|scroll)$/.test(getComputedStyle(element).overflowY)) return;
+      }
+      gesture.captured = true;
+    }
+
+    event.preventDefault();
+    if (reducedMotion.matches) return;
+    settle?.cancel();
+    offset = Math.min(32, Math.max(0, pull) * 0.24);
+    content.style.translate = `0 ${offset}px`;
+  }, {capture: true, passive: false});
+
+  document.addEventListener('touchend', release, {passive: true});
+  document.addEventListener('touchcancel', release, {passive: true});
+})();
+
 (async function markActiveNav() {
   const page = document.body.dataset.page;
   const MOBILE_MENU_BREAKPOINT = 900;
