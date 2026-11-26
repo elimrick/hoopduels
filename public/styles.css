@@ -18,6 +18,10 @@ html {overflow:hidden;overscroll-behavior-y:none}
 body {position:fixed;inset:0;overflow:hidden}
 .layout {height:100%;overflow-y:auto;overscroll-behavior-y:contain}
 
+@media (any-pointer:coarse) {
+  * {touch-action:manipulation}
+}
+
 button,input,textarea,select {font:inherit}
 a {color:var(--accent-blue);text-decoration:none}
 a:hover {text-decoration:underline;text-underline-offset:4px}
