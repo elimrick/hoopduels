@@ -17,10 +17,10 @@
   }
 
   function mount(container, rows) {
-    let query = '', page = 1, rankedRows = rows;
-    container.innerHTML = '<div class="leaderboard-toolbar"><label>Find a player<input type="search" placeholder="Search..." autocomplete="off" /></label><label class="leaderboard-sort">Sort by<select><option value="rating">Rating</option><option value="record">Record</option><option value="solo">Solo</option></select></label><span class="my-rank">My rank</span></div><p class="leaderboard-summary" aria-live="polite"></p><div class="page-table-wrap"><table class="leaderboard-table leaderboard-table-full"><caption class="sr-only">Players ranked by rating</caption><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Rating</th><th scope="col">Record</th><th scope="col" title="Longest Solo Challenge chain">Solo</th></tr></thead><tbody></tbody></table></div><p class="leaderboard-empty" hidden>No matching players. Try another username.</p><nav class="leaderboard-pagination" aria-label="Leaderboard pages"><button type="button" data-step="first" aria-label="First page">«</button><button type="button" data-step="previous">Previous</button><span aria-live="polite"></span><button type="button" data-step="next">Next</button><button type="button" data-step="last" aria-label="Last page">»</button></nav>';
+    let query = '', page = 1, activeSort = 'rating', rankedRows = rows;
+    container.innerHTML = '<div class="leaderboard-toolbar"><label>Find a player<input type="search" placeholder="Search..." autocomplete="off" /></label><span class="my-rank">My rank</span></div><p class="leaderboard-summary" aria-live="polite"></p><div class="page-table-wrap"><table class="leaderboard-table leaderboard-table-full"><caption class="sr-only">Players ranked by rating</caption><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col"><button type="button" data-sort="rating">Rating<span aria-hidden="true" hidden>↓</span></button></th><th scope="col"><button type="button" data-sort="record">Record<span aria-hidden="true" hidden>↓</span></button></th><th scope="col" title="Longest Solo Challenge chain"><button type="button" data-sort="solo">Solo<span aria-hidden="true" hidden>↓</span></button></th></tr></thead><tbody></tbody></table></div><p class="leaderboard-empty" hidden>No matching players. Try another username.</p><nav class="leaderboard-pagination" aria-label="Leaderboard pages"><button type="button" data-step="first" aria-label="First page">«</button><button type="button" data-step="previous">Previous</button><span aria-live="polite"></span><button type="button" data-step="next">Next</button><button type="button" data-step="last" aria-label="Last page">»</button></nav>';
     const input = container.querySelector('input');
-    const sort = container.querySelector('select');
+    const sortButtons = container.querySelectorAll('[data-sort]');
     const myButton = container.querySelector('.my-rank');
     const pagination = container.querySelector('.leaderboard-pagination');
     function paint() {
@@ -28,7 +28,7 @@
       const ownRank = rankedRows.find(row => row.isYou)?.rank;
       myButton.hidden = ownRank == null;
       if (ownRank != null) myButton.textContent = `My rank · #${ownRank.toLocaleString()}`;
-      container.querySelector('caption').textContent = `Players ranked by ${sort.selectedOptions[0].textContent.toLowerCase()}`;
+      container.querySelector('caption').textContent = `Players ranked by ${activeSort}`;
       const tbody = container.querySelector('tbody'); tbody.replaceChildren();
       result.rows.forEach(row => {
         const tr = document.createElement('tr');
@@ -44,13 +44,24 @@
       pagination.querySelectorAll('button').forEach(button => {button.disabled = ['first','previous'].includes(button.dataset.step) ? page === 1 : page === result.pages;});
     }
     input.addEventListener('input', () => { query = input.value; page = 1; paint(); });
-    sort.addEventListener('change', () => {
-      rankedRows = rankRows(rows, sort.value);
+    function selectSort(sort) {
+      activeSort = sort;
+      rankedRows = rankRows(rows, sort);
       page = 1;
+      sortButtons.forEach(button => {
+        const selected = button.dataset.sort === sort;
+        const heading = button.closest('th');
+        if (selected) heading.setAttribute('aria-sort', 'descending');
+        else heading.removeAttribute('aria-sort');
+        button.querySelector('span').hidden = !selected;
+      });
       paint();
+    }
+    sortButtons.forEach(button => {
+      button.addEventListener('click', () => selectSort(button.dataset.sort));
     });
     pagination.addEventListener('click', event => {const step=event.target.dataset.step;if(!step)return;const total=paginate(rankedRows,query,page).pages;page=step==='first'?1:step==='last'?total:page+(step==='next'?1:-1);paint();});
-    paint();
+    selectSort(activeSort);
   }
   if(typeof module !== 'undefined' && module.exports) module.exports = {paginate, rankRows};
   else root.HoopLeaderboard = {paginate, mount};

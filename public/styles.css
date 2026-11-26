@@ -281,11 +281,17 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 .leaderboard-toolbar {display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px}
 .leaderboard-toolbar label {display:grid;gap:7px;font-size:12px;font-weight:600;width:min(340px,100%)}
 .leaderboard-toolbar input {font:inherit;font-size:16px;font-weight:400;width:100%;min-height:44px;padding:10px 12px;border:1px solid #68788d;border-radius:5px;background:var(--panel);color:var(--text)}
-.leaderboard-toolbar .leaderboard-sort {width:auto}
-.leaderboard-sort select {min-height:44px;padding:8px 12px;border:1px solid #68788d;border-radius:5px;background:var(--panel);color:var(--text);font-size:16px}
-.leaderboard-table-full th:nth-child(2),.leaderboard-table-full td:nth-child(2) {width:34%}
-.leaderboard-table-full th:nth-child(3),.leaderboard-table-full td:nth-child(3) {width:19%}
-.leaderboard-table-full th:nth-child(4),.leaderboard-table-full td:nth-child(4) {width:19%}
+.leaderboard-table-full [data-sort] {display:inline-flex;gap:3px;align-items:center;padding:0;border:0;background:none;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit}
+.leaderboard-table-full [data-sort]:hover,.leaderboard-table-full [aria-sort] [data-sort] {color:var(--accent-blue)}
+.leaderboard-table-full th:nth-child(2),.leaderboard-table-full td:nth-child(2),
+.home-leaderboard-table th:nth-child(2),.home-leaderboard-table td:nth-child(2) {width:30%}
+.leaderboard-table-full th:nth-child(3),.leaderboard-table-full td:nth-child(3),
+.leaderboard-table-full th:nth-child(4),.leaderboard-table-full td:nth-child(4),
+.home-leaderboard-table th:nth-child(3),.home-leaderboard-table td:nth-child(3),
+.home-leaderboard-table th:nth-child(4),.home-leaderboard-table td:nth-child(4) {width:21%}
+@media(max-width:600px) {
+  .leaderboard-table-full th,.leaderboard-table-full td,.home-leaderboard-table th,.home-leaderboard-table td {padding-inline:4px}
+}
 .leaderboard-summary,.leaderboard-empty {font-size:12px;color:var(--muted);margin:0 0 18px}
 .leaderboard-pagination {display:flex;justify-content:center;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:18px;margin-top:18px}
 .leaderboard-pagination button {border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--accent-blue);padding:8px 12px;min-height:40px;font-size:12px}
