@@ -62,5 +62,5 @@
     selectSort(activeSort);
   }
   if(typeof module !== 'undefined' && module.exports) module.exports = {paginate, rankRows};
-  else root.HoopLeaderboard = {paginate, mount};
+  else root.HoopLeaderboard = {paginate, mount, rankRows};
 })(typeof window !== 'undefined' ? window : globalThis);
