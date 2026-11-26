@@ -7,22 +7,33 @@
     const start = (current - 1) * pageSize;
     return { rows: filtered.slice(start, start + pageSize), total: filtered.length, pages, page: current, start };
   }
+  function rankRows(rows, sort) {
+    if (sort === 'rating') return rows;
+    const compare = sort === 'record'
+      ? (a, b) => b.wins - a.wins || a.losses - b.losses
+      : (a, b) => (b.practiceLongestChain || 0) - (a.practiceLongestChain || 0);
+    return [...rows].sort((a, b) => compare(a, b) || a.rank - b.rank)
+      .map((row, index) => ({...row, rank: index + 1}));
+  }
+
   function mount(container, rows) {
-    let query = '', page = 1;
-    container.innerHTML = '<div class="leaderboard-toolbar"><label>Find a player<input type="search" placeholder="Search..." autocomplete="off" /></label><span class="my-rank">My rank</span></div><p class="leaderboard-summary" aria-live="polite"></p><div class="page-table-wrap"><table class="leaderboard-table"><caption class="sr-only">Players ranked by rating</caption><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Rating</th><th scope="col">Record</th></tr></thead><tbody></tbody></table></div><p class="leaderboard-empty" hidden>No matching players. Try another username.</p><nav class="leaderboard-pagination" aria-label="Leaderboard pages"><button type="button" data-step="first" aria-label="First page">«</button><button type="button" data-step="previous">Previous</button><span aria-live="polite"></span><button type="button" data-step="next">Next</button><button type="button" data-step="last" aria-label="Last page">»</button></nav>';
+    let query = '', page = 1, rankedRows = rows;
+    container.innerHTML = '<div class="leaderboard-toolbar"><label>Find a player<input type="search" placeholder="Search..." autocomplete="off" /></label><label class="leaderboard-sort">Sort by<select><option value="rating">Rating</option><option value="record">Record</option><option value="solo">Solo</option></select></label><span class="my-rank">My rank</span></div><p class="leaderboard-summary" aria-live="polite"></p><div class="page-table-wrap"><table class="leaderboard-table leaderboard-table-full"><caption class="sr-only">Players ranked by rating</caption><thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col">Rating</th><th scope="col">Record</th><th scope="col" title="Longest Solo Challenge chain">Solo</th></tr></thead><tbody></tbody></table></div><p class="leaderboard-empty" hidden>No matching players. Try another username.</p><nav class="leaderboard-pagination" aria-label="Leaderboard pages"><button type="button" data-step="first" aria-label="First page">«</button><button type="button" data-step="previous">Previous</button><span aria-live="polite"></span><button type="button" data-step="next">Next</button><button type="button" data-step="last" aria-label="Last page">»</button></nav>';
     const input = container.querySelector('input');
-    const mine = rows.findIndex(row => row.isYou);
+    const sort = container.querySelector('select');
     const myButton = container.querySelector('.my-rank');
-    myButton.hidden = mine < 0;
-    if (mine >= 0) myButton.textContent = `My rank · #${rows[mine].rank.toLocaleString()}`;
     const pagination = container.querySelector('.leaderboard-pagination');
     function paint() {
-      const result = paginate(rows, query, page); page = result.page;
+      const result = paginate(rankedRows, query, page); page = result.page;
+      const ownRank = rankedRows.find(row => row.isYou)?.rank;
+      myButton.hidden = ownRank == null;
+      if (ownRank != null) myButton.textContent = `My rank · #${ownRank.toLocaleString()}`;
+      container.querySelector('caption').textContent = `Players ranked by ${sort.selectedOptions[0].textContent.toLowerCase()}`;
       const tbody = container.querySelector('tbody'); tbody.replaceChildren();
       result.rows.forEach(row => {
         const tr = document.createElement('tr');
         if(row.isYou) tr.className = 'leaderboard-row-you';
-        [row.rank.toLocaleString(), row.username, Math.round(row.elo).toLocaleString(), `${row.wins}-${row.losses}`].forEach(value => { const td = document.createElement('td'); td.textContent = value; td.title = String(value); tr.appendChild(td); });
+        [row.rank.toLocaleString(), row.username, Math.round(row.elo).toLocaleString(), `${row.wins}-${row.losses}`, (row.practiceLongestChain || 0).toLocaleString()].forEach(value => { const td = document.createElement('td'); td.textContent = value; td.title = String(value); tr.appendChild(td); });
         tbody.appendChild(tr);
       });
       container.querySelector('.leaderboard-summary').textContent = result.total ? `${(result.start + 1).toLocaleString()}–${(result.start + result.rows.length).toLocaleString()} of ${result.total.toLocaleString()} ${query ? 'matching players' : 'players'}${query ? ' · Overall ranks shown' : ''}` : (rows.length ? '' : 'No players yet. Your first duel starts the story.');
@@ -33,9 +44,14 @@
       pagination.querySelectorAll('button').forEach(button => {button.disabled = ['first','previous'].includes(button.dataset.step) ? page === 1 : page === result.pages;});
     }
     input.addEventListener('input', () => { query = input.value; page = 1; paint(); });
-    pagination.addEventListener('click', event => {const step=event.target.dataset.step;if(!step)return;const total=paginate(rows,query,page).pages;page=step==='first'?1:step==='last'?total:page+(step==='next'?1:-1);paint();});
+    sort.addEventListener('change', () => {
+      rankedRows = rankRows(rows, sort.value);
+      page = 1;
+      paint();
+    });
+    pagination.addEventListener('click', event => {const step=event.target.dataset.step;if(!step)return;const total=paginate(rankedRows,query,page).pages;page=step==='first'?1:step==='last'?total:page+(step==='next'?1:-1);paint();});
     paint();
   }
-  if(typeof module !== 'undefined' && module.exports) module.exports = {paginate};
+  if(typeof module !== 'undefined' && module.exports) module.exports = {paginate, rankRows};
   else root.HoopLeaderboard = {paginate, mount};
 })(typeof window !== 'undefined' ? window : globalThis);

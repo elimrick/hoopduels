@@ -289,7 +289,7 @@ async function startPractice() {
   const res = await fetch('/api/practice/start');
   const payload = await res.json();
   if (!res.ok || !payload || !payload.startPlayer) {
-    throw new Error(payload && payload.error ? payload.error : 'Practice unavailable.');
+    throw new Error(payload && payload.error ? payload.error : 'Solo Challenge is unavailable.');
   }
   state.currentPlayer = payload.startPlayer;
   state.usedPlayers = [payload.startPlayer];
@@ -380,7 +380,7 @@ async function submitGuess() {
     inputEl.focus();
     resizeInput();
   } catch (error) {
-    if (state.active && state.roundId === roundId) setMessage(error.message || 'Practice error.', 'error');
+    if (state.active && state.roundId === roundId) setMessage(error.message || 'Could not complete your turn.', 'error');
   } finally {
     if (state.roundId !== roundId) return;
     state.pending = false;
@@ -408,7 +408,7 @@ inputEl.addEventListener('input', () => {
 leaveBtn.addEventListener('click', () => {
   if (!state.active) {
     startPractice().catch((error) => {
-      setMessage(error.message || 'Practice unavailable.', 'error');
+      setMessage(error.message || 'Solo Challenge is unavailable.', 'error');
       endPractice('Unavailable');
     });
     return;
@@ -420,7 +420,7 @@ leaveBtn.addEventListener('click', () => {
 window.addEventListener('hoopstate:updated', refreshPlayerName);
 
 startPractice().catch((error) => {
-  setMessage(error.message || 'Practice unavailable.', 'error');
+  setMessage(error.message || 'Solo Challenge is unavailable.', 'error');
   endPractice('Unavailable');
 });
 
