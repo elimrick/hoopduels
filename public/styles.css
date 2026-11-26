@@ -282,8 +282,8 @@ body[data-page='signin'] .main,body[data-page='createaccount'] .main {max-width:
 .leaderboard-toolbar {display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px}
 .leaderboard-toolbar label {display:grid;gap:7px;font-size:12px;font-weight:600;width:min(340px,100%)}
 .leaderboard-toolbar input {font:inherit;font-size:16px;font-weight:400;width:100%;min-height:44px;padding:10px 12px;border:1px solid #68788d;border-radius:5px;background:var(--panel);color:var(--text)}
-.leaderboard-table-full [data-sort] {display:inline-flex;gap:3px;align-items:center;padding:0;border:0;background:none;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit}
-.leaderboard-table-full [data-sort]:hover,.leaderboard-table-full [aria-sort] [data-sort] {color:var(--accent-blue)}
+.leaderboard-table [data-sort] {display:inline-flex;gap:3px;align-items:center;padding:0;border:0;background:none;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit}
+.leaderboard-table [data-sort]:hover,.leaderboard-table [aria-sort] [data-sort] {color:var(--accent-blue)}
 @media(max-width:600px) {
   .leaderboard-table-full th,.leaderboard-table-full td,.home-leaderboard-table th,.home-leaderboard-table td {padding-inline:4px}
 }

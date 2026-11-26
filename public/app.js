@@ -43,6 +43,7 @@
   const MOBILE_MENU_BREAKPOINT = 900;
   let onlinePollTimer = null;
   let presenceTimer = null;
+  let homeLeaderboardSort = 'rating';
   let profileChartRange = 'all';
   let lastProfileForChart = null;
   let profileChartCompactLayout = false;
@@ -329,8 +330,8 @@
     const leaderboardPreview = document.getElementById('leaderboard-preview');
     if (leaderboardPreview && window.HoopState) {
       leaderboardPreview.innerHTML = '';
-      const top = window.HoopState.getLeaderboardRows().slice(0, 10);
-      if (!top.length) {
+      const rows = window.HoopState.getLeaderboardRows();
+      if (!rows.length) {
         leaderboardPreview.textContent = 'No players yet.';
         leaderboardPreview.className = 'list-empty';
       } else {
@@ -341,43 +342,56 @@
         const table = document.createElement('table');
         table.className = 'leaderboard-table home-leaderboard-table';
 
-        const thead = document.createElement('thead');
-        const headRow = document.createElement('tr');
-        ['Rank', 'Name', 'Rating', 'Solo'].forEach((label) => {
-          const th = document.createElement('th');
-          th.textContent = label;
-          headRow.appendChild(th);
-        });
-        thead.appendChild(headRow);
-        table.appendChild(thead);
+        const headRow = table.createTHead().insertRow();
+        const tbody = table.createTBody();
 
-        const tbody = document.createElement('tbody');
-        top.forEach((row) => {
-          const tr = document.createElement('tr');
-          if (row.isYou) {
-            tr.classList.add('leaderboard-row-you');
+        for (const label of ['Rank', 'Name', 'Rating', 'Solo']) {
+          const heading = document.createElement('th');
+          heading.scope = 'col';
+          headRow.appendChild(heading);
+          if (label === 'Rank' || label === 'Name') {
+            heading.textContent = label;
+            continue;
           }
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.dataset.sort = label.toLowerCase();
+          button.textContent = label;
+          const arrow = document.createElement('span');
+          arrow.setAttribute('aria-hidden', 'true');
+          arrow.textContent = '↓';
+          button.appendChild(arrow);
+          button.addEventListener('click', () => {
+            homeLeaderboardSort = button.dataset.sort;
+            paintPreview();
+          });
+          heading.appendChild(button);
+        }
 
-          const rank = document.createElement('td');
-          rank.textContent = String(row.rank);
+        function paintPreview() {
+          headRow.querySelectorAll('[data-sort]').forEach(button => {
+            const selected = button.dataset.sort === homeLeaderboardSort;
+            const heading = button.closest('th');
+            if (selected) heading.setAttribute('aria-sort', 'descending');
+            else heading.removeAttribute('aria-sort');
+            button.querySelector('span').hidden = !selected;
+          });
 
-          const name = document.createElement('td');
-          name.textContent = row.username;
-          name.className = `leaderboard-name ${row.isYou ? 'leaderboard-name-you' : ''}`.trim();
+          const top = window.HoopLeaderboard.rankRows(rows, homeLeaderboardSort).slice(0, 10);
+          tbody.replaceChildren();
+          for (const row of top) {
+            const tr = tbody.insertRow();
+            if (row.isYou) tr.classList.add('leaderboard-row-you');
+            tr.insertCell().textContent = String(row.rank);
+            const name = tr.insertCell();
+            name.textContent = row.username;
+            name.className = row.isYou ? 'leaderboard-name leaderboard-name-you' : 'leaderboard-name';
+            tr.insertCell().textContent = formatElo(row.elo);
+            tr.insertCell().textContent = (row.practiceLongestChain || 0).toLocaleString();
+          }
+        }
 
-          const rating = document.createElement('td');
-          rating.textContent = formatElo(row.elo);
-
-          const solo = document.createElement('td');
-          solo.textContent = (row.practiceLongestChain || 0).toLocaleString();
-
-          tr.appendChild(rank);
-          tr.appendChild(name);
-          tr.appendChild(rating);
-          tr.appendChild(solo);
-          tbody.appendChild(tr);
-        });
-        table.appendChild(tbody);
+        paintPreview();
         wrap.appendChild(table);
         leaderboardPreview.appendChild(wrap);
       }
