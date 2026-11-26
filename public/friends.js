@@ -85,9 +85,13 @@
   const input=document.getElementById('friend-username');
   await window.HoopAutocomplete.attach(input, {
     label:'Usernames',emptyText:'No matching accounts. Try another username.',
-    search:async query=>(await api('/search?q='+encodeURIComponent(query))).users.map(user=>user.username)
+    search: async query => (await api('/search?q=' + encodeURIComponent(query))).users.map(user => user.username),
+    onSelect(username) {
+      if (busy) return;
+      input.value = '';
+      action('/request', {username}, 'Friend request sent.');
+    }
   });
-  document.getElementById('friend-add-form').addEventListener('submit',async e=>{e.preventDefault();await action('/request',{username:document.getElementById('friend-username').value.trim()},'Friend request sent.');});
   socket.on('session:ready',()=>{socket.emit('friends:ready');message.textContent='';refresh();});
   socket.on('game:state',()=>{navigating=true;window.location.href='/game';});
   socket.on('auth:invalid',()=>{message.textContent='Your session expired. Sign in again.';socket.disconnect();});

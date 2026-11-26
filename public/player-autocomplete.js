@@ -143,7 +143,7 @@
         dropdown.hidden = false;
         input.setAttribute('aria-expanded', 'true');
         input.removeAttribute('aria-activedescendant');
-        if (!options.search) updateActive(0);
+        updateActive(0, false);
       }
 
       function updateActive(nextIndex, scroll = true) {
