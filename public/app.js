@@ -343,7 +343,7 @@
 
         const thead = document.createElement('thead');
         const headRow = document.createElement('tr');
-        ['Rank', 'Name', 'Rating', 'Record', 'Solo'].forEach((label) => {
+        ['Rank', 'Name', 'Rating', 'Solo'].forEach((label) => {
           const th = document.createElement('th');
           th.textContent = label;
           headRow.appendChild(th);
@@ -368,16 +368,12 @@
           const rating = document.createElement('td');
           rating.textContent = formatElo(row.elo);
 
-          const record = document.createElement('td');
-          record.textContent = `${row.wins}-${row.losses}`;
-
           const solo = document.createElement('td');
           solo.textContent = (row.practiceLongestChain || 0).toLocaleString();
 
           tr.appendChild(rank);
           tr.appendChild(name);
           tr.appendChild(rating);
-          tr.appendChild(record);
           tr.appendChild(solo);
           tbody.appendChild(tr);
         });
