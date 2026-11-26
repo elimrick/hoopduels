@@ -1,6 +1,7 @@
 (function blockTouchRefresh() {
   const content = document.querySelector('.main');
-  if (!content) return;
+  const layout = document.querySelector('.layout');
+  if (!content || !layout) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let gesture;
@@ -30,8 +31,8 @@
     const touch = event.touches[0];
     const pull = touch.clientY - gesture.y;
     if (!gesture.captured) {
-      if (pull <= Math.abs(touch.clientX - gesture.x)) return;
-      if (window.scrollY > 0 || document.body.scrollTop > 0) return;
+      if (pull < 8 || pull <= Math.abs(touch.clientX - gesture.x)) return;
+      if (window.scrollY > 0 || layout.scrollTop > 0) return;
       for (let element = event.target; element instanceof HTMLElement && element !== document.body;
         element = element.parentElement) {
         if (element.scrollTop > 0 && /^(auto|scroll)$/.test(getComputedStyle(element).overflowY)) return;
