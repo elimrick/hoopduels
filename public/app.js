@@ -1,3 +1,43 @@
+// Older iOS Safari versions can double-tap zoom despite touch-action.
+(function preventDoubleTapZoom() {
+  const tapInterval = 350;
+  const tapRadius = 24;
+  let start;
+  let previousTap;
+
+  function distance(a, b) {
+    return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+  }
+
+  document.addEventListener('touchstart', (event) => {
+    start = event.touches.length === 1 ? event.touches[0] : null;
+    if (!start) previousTap = null;
+  }, {passive: true});
+
+  document.addEventListener('touchcancel', () => {
+    start = previousTap = null;
+  }, {passive: true});
+
+  document.addEventListener('touchend', (event) => {
+    const end = event.changedTouches[0];
+    const isTap = start && event.touches.length === 0 && end &&
+      end.identifier === start.identifier && distance(start, end) < 8;
+    start = null;
+    if (!isTap) {
+      previousTap = null;
+      return;
+    }
+
+    if (previousTap && event.timeStamp - previousTap.time < tapInterval &&
+        distance(previousTap.touch, end) < tapRadius && event.cancelable) {
+      event.preventDefault();
+      previousTap = null;
+      return;
+    }
+    previousTap = {touch: end, time: event.timeStamp};
+  }, {capture: true, passive: false});
+})();
+
 (async function markActiveNav() {
   const page = document.body.dataset.page;
   const MOBILE_MENU_BREAKPOINT = 900;
